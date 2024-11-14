@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "944975109458",
+    "project_id": "salestoolkitanalytics",
+    "storage_bucket": "salestoolkitanalytics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944975109458:android:1b4dbd7f11800bf8702e8b",
+        "android_client_info": {
+          "package_name": "com.creditdirect.sales_toolkit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944975109458-i53gqgptm595tjvnnurm6gf86r2n5cj6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.creditdirect.sales_toolkit",
+            "certificate_hash": "9916fa018d70f9adefdda2672e7d4fc630c5fcbe"
+          }
+        },
+        {
+          "client_id": "944975109458-080thisl15ni48hmmvq9k490kbfc4lmq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKW1ejt_Fj2xcCr_e9gcJ2gFVNnp3opaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944975109458-080thisl15ni48hmmvq9k490kbfc4lmq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

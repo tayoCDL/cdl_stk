@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18.537" height="20" viewBox="0 0 18.537 20">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1ba3f3"/>
+      <stop offset="1" stop-color="#178cfc"/>
+    </radialGradient>
+  </defs>
+  <g id="noun-mail-4448707" transform="translate(-125.441 -37.635)">
+    <path id="Path_42196" data-name="Path 42196" d="M143.8,45.958l-3.367-1.976v-6a.349.349,0,0,0-.347-.351H129.328a.347.347,0,0,0-.344.351v6l-3.37,1.976a.353.353,0,0,0-.173.3V57.289a.345.345,0,0,0,.349.347h17.839a.345.345,0,0,0,.349-.347V46.257a.348.348,0,0,0-.173-.3Zm-1.042.194-2.325,1.44v-2.8Zm-3.021-7.817v9.7l-5.032,3.12-5.03-3.12v-9.7Zm-3.3,12.576,5.494,6.035H127.488l5.494-6.035s0,0,0-.009l1.539.957a.326.326,0,0,0,.182.055.356.356,0,0,0,.183-.053l1.535-.957c.007,0,.007.007.011.007Zm-7.454-3.319-2.33-1.44,2.33-1.364Zm-2.845-.948a.022.022,0,0,0,.007.009l6.248,3.878-5.848,6.414h-.407Zm16.731,10.3-5.843-6.414,6.248-3.878s0,0,0-.009v10.3Z" transform="translate(0)" fill="url(#radial-gradient)"/>
+    <path id="Path_42197" data-name="Path 42197" d="M280.128,181.518h5.1a.349.349,0,0,0,0-.7h-5.1a.349.349,0,0,0,0,.7Z" transform="translate(-147.971 -137.275)" fill="url(#radial-gradient)"/>
+    <path id="Path_42198" data-name="Path 42198" d="M280.128,133.073h5.1a.347.347,0,0,0,0-.693h-5.1a.347.347,0,0,0,0,.693Z" transform="translate(-147.971 -90.834)" fill="url(#radial-gradient)"/>
+  </g>
+</svg>

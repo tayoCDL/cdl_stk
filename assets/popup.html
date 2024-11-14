@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://bnplv2.creditdirect.ng/bvn-kyc-v1.js"></script>
+    <title>CDL Connect</title>
+    <script type="text/javascript">
+        window.onload = setUpCdlNibss;
+        function setUpCdlNibss() {
+            const bvnVerificationInline = BVNVerificationInline({
+      bvn: "22222222281",
+      onSuccess: (data) => {
+        console.log("Success", data);
+      },
+      onError: (data) => {
+        console.log("Error", data);
+      },
+      onClose: () => {
+        console.log("Closed");
+      },
+    });
+    bvnVerificationInline.openIframe();
+  }
+
+    </script>
+</head>
+
+<body onload="setUpCdlNibss()" style="background-color:#fff;height:100vh;overflow: scroll;">
+
+<!-- <iframe id="myIframe" src="https://40.113.169.208:8000/?bvn=22222222280"></iframe>
+<a href="#" target="_blank" id="button">Click here</a> -->
+</body>
+
+</html>

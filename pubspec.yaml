@@ -1,0 +1,154 @@
+name: sales_toolkit
+description: Credit Direct Sales toolkit
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.2+4
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  provider: ^4.0.1
+  shared_preferences: ^0.5.12+4
+  flutter_icons: ^1.1.0
+  #cached_network_image: ^2.5.1
+  uuid: ^2.2.0
+  #  epub_viewer: ^0.1.8
+  path_provider: ^1.4.0
+  flutter_feather_icons: ^2.0.0
+  dio:
+  permission_handler:
+  google_fonts: ^1.1.0
+  injectable:
+  http_interceptor:
+  flutter_svg: ^0.19.3
+  font_awesome_flutter: ^8.10.0
+  #  flutter_verification_code: ^1.1.0
+  local_auth: ^1.1.8
+  dropdown_search: ^3.0.0
+  quick_actions:
+  http:
+  another_flushbar: 1.10.29
+  percent_indicator: ^2.1.7
+  flutter_typeahead: ^1.9.3
+  file_picker:
+  shimmer:
+  loading_overlay:
+  lottie:
+  intl:
+  jiffy:
+  image_picker:
+  localstorage:
+  image_utils_class:
+  email_validator:
+  basic_utils:
+  flutter_slidable:
+  path:
+  alert_dialog:
+  sn_progress_dialog:
+  simple_image_cropper:
+  textfield_search:
+  pdf:
+  get_it:
+  pretty_dio_logger:
+  #  share_plus: 1.1.1
+  downloads_path_provider_28:
+  #  open_file:
+#  onesignal_flutter:
+  open_file_safe:
+  #flutter_local_notifications:
+  tab_indicator_styler:
+#  showcaseview:
+#  flutter_share:
+  flutter_image_compress: ^1.1.0
+  flutter_native_image: 0.0.6+1
+  #in_app_update: ^1.1.15
+  avatar_glow:
+  flutter_clean_calendar:
+  google_maps_flutter:
+  syncfusion_flutter_sliders:
+  geolocator: ^6.2.1
+  flutter_custom_tabs:
+  flutter_document_picker:
+  flutter_datetime_picker:
+  flutter_share:
+  # detect if has internet
+#  app_version_checker: ^1.0.2
+  connectivity:
+#  webview_flutter:
+#  app_version_update: ^2.0.3
+#  in_app_update: ^4.0.1
+  overlay_support:
+  flutter_dotenv:
+  flutter_jailbreak_detection:
+  hive:
+  hive_flutter:
+#  device_info:
+  encrypt:
+#  firebase_crashlytics:
+#  firebase_analytics:
+#  firebase_core:
+#  flutter_webview_plugin:
+#  flutter_inappwebview:
+  webview_flutter:
+#  mixpanel_flutter:
+  one_context:
+  timelines:
+#  app_version_update:
+#  sentry_flutter: ^4.0.2
+#  flutter_js:
+#  flutter_js:
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  change_app_package_name: ^0.1.3
+  build_runner:
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  uses-material-design: true
+
+  assets:
+#    - .env
+#    - .env.development
+#    - .env.production
+    - assets/images/
+#    - assets/popup.html
+
+  fonts:
+    - family: Nunito SansRegular
+      fonts:
+        - asset: assets/fonts/NunitoSans-Regular.ttf
+
+    - family: Nunito SemiBold
+      fonts:
+        - asset: assets/fonts/NunitoSans-SemiBold.ttf
+
+    - family: Nunito ExtraBold
+      fonts:
+        - asset: assets/fonts/NunitoSans-ExtraBold.ttf
+
+    - family: Nunito Black
+      fonts:
+        - asset: assets/fonts/NunitoSans-Black.ttf
+
+    - family: Nunito Bold
+      fonts:
+        - asset: assets/fonts/NunitoSans-Bold.ttf
