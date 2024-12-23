@@ -1854,8 +1854,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  sectorId == 17
-                                      ? Padding(
+                                  // sectorId == 17
+                                  //     ?
+                                  Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 10),
                                           child: EntryField(
@@ -1883,7 +1884,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             }
                                           }),
                                         )
-                                      : SizedBox(),
+                                      // : SizedBox()
+                                  ,
                                   SizedBox(
                                     height: 10,
                                   ),
@@ -2336,7 +2338,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       bool isSuffix = false,
       String extension,
       bool needsValidation = true,
-      Function changeValidator}) {
+      Function changeValidator}
+      ) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
       child: Padding(

@@ -77,7 +77,7 @@ dependencies:
   #in_app_update: ^1.1.15
   avatar_glow:
   flutter_clean_calendar:
-  google_maps_flutter:
+#  google_maps_flutter:
   syncfusion_flutter_sliders:
   geolocator: ^6.2.1
   flutter_custom_tabs:

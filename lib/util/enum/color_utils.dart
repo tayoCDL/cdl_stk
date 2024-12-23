@@ -4,6 +4,11 @@ class ColorUtils {
   static const Color PRIMARY_COLOR = Color(0xff147AD6);
   static const Color APP_BAR_COLOR = Color(0xff147AD6);
   static const Color BACKGROUND_COLOR = Color(0xffEDF2F6);
+  static const Color INFO_BG_COLOR = Color(0xff6B7280);
+  static const Color EARNING_BG = Color(0xffCCECFD);
+  static const Color EARNING_V2 = Color(0xffA3AED0);
+  static const Color APP_BG_EARNING = Color(0xff112A46);
+  static const Color SALES_COLOR = Color(0xffF9FAFB);
   static const Color DARK_BACKGROUND_COLOR = Color(0xff04476B);
   static const Color TEXT_COLOR = Color(0xff1E1E2E);
   static const Color LOGOUT_TEXT_COLOR = Color(0xff4C4C4C);
@@ -32,6 +37,7 @@ class ColorUtils {
 
   static const Color FAILED = Color(0xffFFC107);
   static const Color ACTIVE = Color(0xff8BC34A);
+  static const Color APP_TEXT_BORDER_UTIL = Color(0xffF3F4F6);
   static const Color COLOR_TEXT = Color(0xff9CA3AF);
   static const Color TRANSFER_IN_PROGRESS = Color(0xffCDDC39);
   static const Color TRANSFER_ON_HOLD = Color(0xff795548);

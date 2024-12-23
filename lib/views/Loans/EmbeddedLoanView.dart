@@ -445,10 +445,23 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
               channelId: 2,
             ),
           );
-        } else if (responseData['statusCode'] == 400) {
+        }
+        else if (responseData['statusCode'] == 400) {
+
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
+            backgroundColor: Colors.red,
+            title: 'Error',
+            message: responseData['message'],
+            duration: Duration(seconds: 3),
+          ).show(context);
+        }
+        else if (responseData['statusCode'] == 401) {
+
+          Flushbar(
+            flushbarPosition: FlushbarPosition.TOP,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Error',
             message: responseData['message'],

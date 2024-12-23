@@ -894,7 +894,7 @@ class RetCodes {
      //  }
       if (responsevv.statusCode == 200) {
 
-        final Map<String,dynamic> responseData = json.decode(responsevv.body);
+        final List<dynamic> responseData = json.decode(responsevv.body);
         print('from auth provider');
         //  print(responseData);
 
@@ -1254,7 +1254,7 @@ class RetCodes {
     try {
       Response responsevv = await get(
      //   AppUrl.getSingleClient + '${clientID}' + '/accounts',
-        AppUrl.loanLists + '${clientID}'+ '&sortOrder=asc&orderBy=loan_status_id',
+        AppUrl.loanLists + '${clientID}'+ '&sortOrder=desc&orderBy=loan_status_id',
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -3710,6 +3710,50 @@ class RetCodes {
   }
 
 
+  Future<Map<String, dynamic>> getLoanOfferForClient(int clientId) async {
+    var result;
+
+    //2645
+    AppUrl appUrl = AppUrl();
+    String request_url = appUrl.getLoanOfferForClient(clientId);
+    try {
+      Response responsevv = await get(
+        request_url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${USSD_BEARER}',
+        },
+      );
+
+       print(responsevv.body);
+
+      if (responsevv.statusCode == 200) {
+        final Map<String,dynamic> responseData = json.decode(responsevv.body);
+        //       print('from auth provider');
+        var fetchDoe = responseData;
+        print('offers lists>> ${responseData}');
+        result = {'status': true, 'message': 'Successful', 'data': fetchDoe};
+      } else {
+        result = {'status': false, 'message': json.decode(responsevv.body)};
+      }
+    } catch (e) {
+      if (e.toString().contains('SocketException') ||
+          e.toString().contains('HandshakeException')) {
+        return result = {
+          'status': false,
+          'message': 'Network error',
+          'data': 'No Internet connection'
+        };
+      } else {
+        result = {'status': false, 'message': 'Internal server error',};
+
+      }
+    }
+
+    return result;
+  }
+
+
   Future<Map<String, dynamic>> getRcoveryLists() async {
     var result;
 
@@ -4600,7 +4644,7 @@ class RetCodes {
         {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
       );
 
-      print('>> response body 111 ${response.body}');
+    //  print('>> response body 111 ${response.body}');
       return _handle_successfulResponse(response);
     } catch (e) {
       return _handleError(e);
@@ -4633,6 +4677,7 @@ class RetCodes {
         json.encode(encData),
         {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
       );
+
 
       return _handle_successfulResponse(response);
     } catch (e) {
@@ -4745,12 +4790,16 @@ class RetCodes {
 
 
   Map<String, dynamic> _handle_successfulResponse(Response response) {
-    print('response type >> ${response.body}');
+    print('response type >> ${response.statusCode}');
+    if (response.statusCode == 401 ) {
+      return {'status': false, 'message': "Auth service not available, contact support",'statusCode': 401};
+    }
     if (response == null) {
       // _loggedInStatus = Status.NotLoggedIn;
       // notifyListeners();
       return {'status': false, 'message': 'Connection timed out'};
     }
+
 
     if (response.statusCode == 200) {
       return _handleSuccessfulResponse(response);

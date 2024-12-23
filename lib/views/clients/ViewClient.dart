@@ -32,6 +32,7 @@ import 'package:sales_toolkit/models/message_model.dart';
 import '../trops/log_trops_issues.dart';
 import '../trops/trops_users_issues_lists.dart';
 import 'account_information.dart';
+import 'offer_lists.dart';
 
 class ViewClient extends StatefulWidget {
   final int clientID;
@@ -327,6 +328,9 @@ class _ViewClientState extends State<ViewClient> {
           //  TropIssuesLists(clientID: clientID,);
         }
 
+
+
+
       }
       else if (value == 'new_interaction') {
         MyRouter.pushPage(context, AddInteraction(
@@ -342,6 +346,15 @@ class _ViewClientState extends State<ViewClient> {
           ClientEmail: clientProfile['emailAddress'],
         ));
       }
+
+
+      else if(value == 'offers'){
+        //  MyRouter.pushPage(context,NewLoan(clientID: clientID,employerId: employerID,sectorID:sectorId,parentClientType:parentClient ,));
+
+        MyRouter.pushPage(context, OfferScreenSubMenu(clientID: clientID,));
+        //  TropIssuesLists(clientID: clientID,);
+      }
+
 
       else {
         comingSoon();
@@ -461,6 +474,10 @@ class _ViewClientState extends State<ViewClient> {
                       PopupMenuItem(
                         value: 'embedded_loans',
                         child: Text('Embedded Loans'),
+                      ),
+                      PopupMenuItem(
+                        value: 'offers',
+                        child: Text('Offers'),
                       ),
 
 

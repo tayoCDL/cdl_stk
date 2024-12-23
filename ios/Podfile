@@ -40,10 +40,3 @@ post_install do |installer|
   end
 end
 
-target 'OneSignalNotificationServiceExtension' do
-  # only copy below line
-  use_frameworks!
-  pod 'OneSignalXCFramework', '>= 3.0.0', '< 4.0'
-  # Your other pods here
-end
-

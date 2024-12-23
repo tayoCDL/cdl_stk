@@ -16,10 +16,12 @@ import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_toolkit/domain/user.dart';
+import 'package:sales_toolkit/shared/shared_app_card.dart';
 import 'package:sales_toolkit/util/ColorReturn.dart';
 import 'package:sales_toolkit/util/app_tracker.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/enum/color_utils.dart';
+import 'package:sales_toolkit/util/helper_class.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:sales_toolkit/view_models/user_provider.dart';
@@ -682,10 +684,29 @@ class _HomeContentState extends State<HomeContent> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 20),
+          //   child: AppStats(),
+          // ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: AppStats(),
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: SizedBox(
+              height: AppHelper().pageHeight(context) * 0.188, // Adjust height as needed
+              child: PageView(
+                controller: PageController(viewportFraction: 0.9),
+                children: [
+                  AppStats(
+                    backgroundColor: const Color(0xff077DBB), // First background color
+                  ),
+                  SecondAppStats(
+                    backgroundColor: Colors.white, // Second background color
+                    textColor: Colors.black, // Change text color for white background
+                  ),
+                ],
+              ),
+            ),
           ),
+
           SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -739,7 +760,7 @@ class _HomeContentState extends State<HomeContent> {
               children: [
                 appCards('Group 239746.svg','Loans',totalLoanCount,totalLoanAmount,loancounts: 'Loan Count',amount: "Total Amount"),
                 SizedBox(width: 15,),
-                appCards('Group 14 (2).svg','Undisbursed Loans',totalUnDisbursedLoanCount,totalUnDisbursedLoanAmount),
+                appCards('Group 14 (2).svg','Digital Loans',totalUnDisbursedLoanCount,totalUnDisbursedLoanAmount,amount: "Total Disbursed"),
               ],
             ),
 
@@ -747,20 +768,44 @@ class _HomeContentState extends State<HomeContent> {
 
           SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                appCards('Group 14.svg','Failed \nDisbursements',totalFailedDisbursedLoanCount,totalFailedDisbursedLoanAmount),
-                SizedBox(width: 15,),
-                appCards('Group 14 (1).svg','Disbursed Loans',totalDisbursedLoanCount,totalDisbursedLoanAmount),
-              ],
-            ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 20),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: [
+          //       appCards('Group 14.svg','Failed \nDisbursements',totalFailedDisbursedLoanCount,totalFailedDisbursedLoanAmount),
+          //       SizedBox(width: 15,),
+          //       appCards('Group 14 (1).svg','Disbursed Loans',totalDisbursedLoanCount,totalDisbursedLoanAmount),
+          //     ],
+          //   ),
+          //
+          // ),
 
-          ),
 
-          SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
+        AppSummaryCard(
+          sections: [
+            {
+              "title": "Disbursed",
+              "count": totalDisbursedLoanCount,
+              "amount": totalDisbursedLoanAmount,
+              "iconColor": Colors.green,
+            },
+            {
+              "title": "Undisbursed",
+              "count": totalUnDisbursedLoanCount,
+              "amount": totalUnDisbursedLoanAmount,
+              "iconColor": Colors.orange,
+            },
+            {
+              "title": "Failed",
+              "count": totalFailedDisbursedLoanCount,
+              "amount": totalFailedDisbursedLoanAmount,
+              "iconColor": Colors.red,
+            },
+          ],
+        ),
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
 
 
 
@@ -878,92 +923,199 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  Widget AppStats(){
+  Widget AppStats({
+     Color backgroundColor,
+    Color textColor = Colors.white,
+  }) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      margin: EdgeInsets.only(right: 5),
+
       decoration: BoxDecoration(
-        color: Color(0xff077DBB),
+        color: backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.info_outlined,color: Colors.white,size: 18,),
-              SizedBox(width: 4,),
-              Text('All earnings are subject to Statutory Deduction',style: TextStyle(color: Colors.white,fontSize: 11),),
-            ],
-          ),
-          SizedBox(height: 11,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+          SizedBox(height: 11),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
-                alignment: Alignment.topLeft,
-                child: Text("Sales Target",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight:FontWeight.w600),),
+                alignment: Alignment.center,
+                child: Text(
+                  "Sales Target",
+                  style: TextStyle(
+                    color: ColorUtils.SALES_COLOR,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-              Text('₦${formatCurrency.format(salesTarget)}',style: TextStyle(color: Colors.white,fontSize: 16),),
-
+              Text(
+                '₦${formatCurrency.format(salesTarget)}',
+                style: TextStyle(color: ColorUtils.SALES_COLOR, fontSize: 24,fontFamily: 'Nunito SemiBold'),
+              ),
             ],
           ),
-
-          SizedBox(height: 10,),
+          SizedBox(height: AppHelper().pageHeight(context) * 0.027),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
             children: [
-              appText('Target Achieved','₦${formatCurrency.format(targetArchieved)}',),
+              appSingleText('Target Achieved', '₦${formatCurrency.format(targetArchieved)}',),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 0),
                 width: 30,
                 child: CircularPercentIndicator(
                   radius: 44.0,
                   lineWidth: 3.0,
-                  percent: int.parse(percentageOfSales.replaceAll("%", ""))  >= 100 ? 1 : int.parse(percentageOfSales.replaceAll("%", ""))/100,
-             //   percent: 183/100,
+                  percent: int.parse(percentageOfSales.replaceAll("%", "")) >= 100
+                      ? 1
+                      : int.parse(percentageOfSales.replaceAll("%", "")) / 100,
                   startAngle: 310,
-                  center: new Text("${percentageOfSales}",style: TextStyle(color: Colors.white,fontSize: 8),),
+                  center: Text(
+                    "${percentageOfSales}%",
+                    style: TextStyle(color: textColor, fontSize: 16),
+                  ),
                   progressColor: Colors.orangeAccent,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10),
+
+        ],
+      ),
+    );
+  }
+
+
+  Widget SecondAppStats({
+     Color backgroundColor,
+    Color textColor = Colors.white,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // First Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-               appText('Commission (${commissionPercent}%)','₦${formatCurrency.format(commissionEarned)}'),
-              //
-              // SizedBox(width: MediaQuery.of(context).size.width * 0.49,),
-              reverseappText('Grade','${grade}',fontSize: 11.5),
-            //  SizedBox(width: MediaQuery.of(context).size.width * 0.12,),
-
+              Expanded(
+                child: appText(
+                  'Commission (${commissionPercent}%)',
+                  '₦${formatCurrency.format(commissionEarned)}',
+                  textColor: ColorUtils.EARNING_V2,
+                  subtitleColor: ColorUtils.APP_BG_EARNING,
+                ),
+              ),
+              // SizedBox(width: 10),
+              reverseappText(
+                'Grade',
+                '${grade}',
+                fontSize: 16,
+                textColor: ColorUtils.EARNING_V2,
+                subtitleColor: ColorUtils.APP_BG_EARNING,
+              ),
             ],
           ),
-          SizedBox(height: 10,),
+          // SizedBox(height: 10),
+
+          // Second Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              appText('Performance Pay Earned','₦${formatCurrency.format(performancePayEarn)}'),
-              // SizedBox(width: MediaQuery.of(context).size.width * 0.27
-              //   ,),
-              // appText('Commission Earned','N0'),
-              // SizedBox(width: MediaQuery.of(context).size.width * 0.13,),
-              reverseappText('Total Gross earnings','₦${formatCurrency.format(totalEarned)}'),
-          //    SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
-
+              Expanded(
+                child: appText(
+                  'Performance Pay Earned',
+                  '₦${formatCurrency.format(performancePayEarn)}',
+                  textColor: ColorUtils.EARNING_V2,
+                  subtitleColor: ColorUtils.APP_BG_EARNING,
+                ),
+              ),
+              // SizedBox(width: 10),
+              reverseappText(
+                'Total Gross earnings',
+                '₦${formatCurrency.format(totalEarned)}',
+                fontSize: 16,
+                textColor: ColorUtils.EARNING_V2,
+                subtitleColor: ColorUtils.APP_BG_EARNING,
+              ),
             ],
+          ),
+          // SizedBox(height: 15),
+
+          // Info Row
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: ColorUtils.EARNING_BG,
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.info_outlined,
+                  color: ColorUtils.INFO_BG_COLOR,
+                  size: 18,
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'All earnings are subject to Statutory Deduction',
+                    style: TextStyle(
+                      color: ColorUtils.APP_BG_EARNING,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Nunito SemiBold',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget appText(String title,String subtitle,{String extension}){
+
+  Widget appText(String title,String subtitle,{String extension,Color textColor,Color subtitleColor}){
+    return    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,style: TextStyle(color: textColor ?? Color(0xffE1E2E7),fontSize: 12,fontFamily: 'Nunito SemiBold'),),
+        Text(extension ?? 'N/A',style: TextStyle(color: subtitleColor ?? Colors.orange,fontSize: 16,fontFamily: 'Nunito SemiBold'),),
+        Text(subtitle,style: TextStyle(color: Colors.white,fontSize: 16,fontFamily: 'Nunito SemiBold'),),
+      ],
+    );
+  }
+
+
+  Widget reverseappText(String title,String subtitle,{double fontSize,Color textColor,Color subtitleColor}){
+    return    Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Text(title,style: TextStyle(color: textColor ?? Color(0xffE1E2E7),fontSize: 12,fontFamily: 'Nunito SemiBold'),),
+        Text(subtitle,style: TextStyle(color: subtitleColor ?? Colors.white,fontSize: fontSize ?? 16,fontFamily: 'Nunito SemiBold'),),
+      ],
+    );
+  }
+
+
+
+  Widget appSingleText(String title,String subtitle,{String extension}){
     return    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -980,23 +1132,13 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  Widget reverseappText(String title,String subtitle,{double fontSize}){
-    return    Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Text(title,style: TextStyle(color: Color(0xffE1E2E7),fontSize: 10),),
-        Text(subtitle,style: TextStyle(color: Colors.white,fontSize: fontSize ?? 16),),
-
-      ],
-    );
-  }
 
 
   Widget appCards(String appIcon,String appName,var loanCount,var totalD,
       {String loancounts = "Count",String amount ="Amount"}){
     return Container(
       width: MediaQuery.of(context).size.width * 0.42,
-      height: MediaQuery.of(context).size.height * 0.231,
+      height: MediaQuery.of(context).size.height * 0.181,
       padding: EdgeInsets.symmetric(horizontal: 14,vertical: 17),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),
