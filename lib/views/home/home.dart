@@ -167,6 +167,8 @@ class _HomeContentState extends State<HomeContent> {
   dynamic totalFailedDisbursedLoanAmount = 0.0;
   dynamic totalDisbursedLoanCount = 0;
   dynamic totalDisbursedLoanAmount = 0.0;
+  dynamic totalDigitalLoanCount = 0;
+  dynamic totalDigitalLoanDisbursedAmount = 0.0;
 
   int savedCycleId;
   // var totalPay = 0.0;
@@ -574,6 +576,10 @@ class _HomeContentState extends State<HomeContent> {
                   totalDisbursedLoanAmount = singleMetricsData['totalDisbursedLoanAmount'];
 
 
+                  totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'];
+                  totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'];
+
+
 
                   // referalCount = response['referralCount'];
                   // supervisor = response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
@@ -691,9 +697,9 @@ class _HomeContentState extends State<HomeContent> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: SizedBox(
-              height: AppHelper().pageHeight(context) * 0.188, // Adjust height as needed
+              height: AppHelper().pageHeight(context) * 0.21, // Adjust height as needed
               child: PageView(
-                controller: PageController(viewportFraction: 0.9),
+                controller: PageController(viewportFraction: 0.94),
                 children: [
                   AppStats(
                     backgroundColor: const Color(0xff077DBB), // First background color
@@ -760,7 +766,7 @@ class _HomeContentState extends State<HomeContent> {
               children: [
                 appCards('Group 239746.svg','Loans',totalLoanCount,totalLoanAmount,loancounts: 'Loan Count',amount: "Total Amount"),
                 SizedBox(width: 15,),
-                appCards('Group 14 (2).svg','Digital Loans',totalUnDisbursedLoanCount,totalUnDisbursedLoanAmount,amount: "Total Disbursed"),
+                appCards('digitalLoanSvg.svg','Digital Loans',totalDigitalLoanCount,totalDigitalLoanDisbursedAmount,amount: "Total Disbursed"),
               ],
             ),
 
@@ -960,7 +966,7 @@ class _HomeContentState extends State<HomeContent> {
               ),
             ],
           ),
-          SizedBox(height: AppHelper().pageHeight(context) * 0.027),
+          SizedBox(height: AppHelper().pageHeight(context) * 0.031),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -1012,9 +1018,12 @@ class _HomeContentState extends State<HomeContent> {
               Expanded(
                 child: appText(
                   'Commission (${commissionPercent}%)',
-                  '₦${formatCurrency.format(commissionEarned)}',
+                //  '₦${formatCurrency.format(commissionEarned)}',
+                  '',
                   textColor: ColorUtils.EARNING_V2,
                   subtitleColor: ColorUtils.APP_BG_EARNING,
+                  extension: '₦${formatCurrency.format(commissionEarned)}',
+
                 ),
               ),
               // SizedBox(width: 10),
@@ -1037,9 +1046,12 @@ class _HomeContentState extends State<HomeContent> {
               Expanded(
                 child: appText(
                   'Performance Pay Earned',
-                  '₦${formatCurrency.format(performancePayEarn)}',
+                    '',
+             //  '₦${formatCurrency.format(performancePayEarn)}',
                   textColor: ColorUtils.EARNING_V2,
                   subtitleColor: ColorUtils.APP_BG_EARNING,
+                  extension:  '₦${formatCurrency.format(performancePayEarn)}',
+
                 ),
               ),
               // SizedBox(width: 10),
@@ -1091,7 +1103,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
 
-  Widget appText(String title,String subtitle,{String extension,Color textColor,Color subtitleColor}){
+  Widget  appText(String title,String subtitle,{String extension,Color textColor,Color subtitleColor}){
     return    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1138,7 +1150,7 @@ class _HomeContentState extends State<HomeContent> {
       {String loancounts = "Count",String amount ="Amount"}){
     return Container(
       width: MediaQuery.of(context).size.width * 0.42,
-      height: MediaQuery.of(context).size.height * 0.181,
+      height: MediaQuery.of(context).size.height * 0.185,
       padding: EdgeInsets.symmetric(horizontal: 14,vertical: 17),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),

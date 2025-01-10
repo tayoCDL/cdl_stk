@@ -6,10 +6,11 @@ class AppUrl {
 
 static const String baseUrl = 'https://nx360dev.creditdirect.ng:8443/fineract-provider/api/v1/';
 static const String LoanbaseUrl = 'nx360dev.creditdirect.ng:8443/fineract-provider/api/v1/';
- static const String paymentLinkUrl = 'https://nx360dev.creditdirect.ng/_/credit-direct-pay/';
- static const String productInfoUrl = 'https://40.113.169.208:9001/api/v1/';
- static const String sequestbaseUrl = 'https://testsequestapi.creditdirect.ng/api/';
- static const String referralLinkUrl = 'https://api360.creditdirect.ng:8443/';
+static const String paymentLinkUrl = 'https://nx360dev.creditdirect.ng/_/credit-direct-pay/';
+//static const String productInfoUrl = 'https://40.113.169.208:9001/api/v1/';
+static const String productInfoUrl = 'https://3.252.162.214:9001/api/v1/';
+static const String sequestbaseUrl = 'https://testsequestapi.creditdirect.ng/api/';
+static const String referralLinkUrl = 'https://api360.creditdirect.ng:8443/';
 static const String validationBaseUrl = 'https://devwrapper.creditdirect.ng/api/v1/';
 static const String NxWrapperBaseUrl = 'https://devwrapper.creditdirect.ng/api/';
 
@@ -224,5 +225,11 @@ static const String USSD_BASE_URL = 'https://ussdstaging.creditdirect.ng/api/v1/
   String getLoanOfferForClient(int clientId){
     return USSD_BASE_URL + 'Ussd/getoffers?clientId=${clientId}';
   }
+
+  String getOrPostEmailValidationStatus(int clientId,bool isGeneric){
+    return baseUrl + 'datatables/m_client_kyc_validation_status/${clientId}?genericResultSet=${isGeneric}';
+  }
+
+
 
 }

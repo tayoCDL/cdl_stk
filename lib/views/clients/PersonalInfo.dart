@@ -11,6 +11,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sales_toolkit/util/app_tracker.dart';
 import 'package:sales_toolkit/util/app_url.dart';
+import 'package:sales_toolkit/util/helper_class.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:sales_toolkit/view_models/addClient.dart';
@@ -115,12 +116,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
   List<String> collectEducation = [];
   List<dynamic> allEducation = [];
   bool _isLoading = false;
-  bool _isWorEmailVerified = false;
+  bool isNewVerified = false;
   String bvnGender = '';
   String realMonth ='';
   String _title = '';
   String educationLevel = '';
   var personalInfo = {};
+  String isPersonalEmailVerified = '';
+  Map<String,dynamic> emailGetter;
   int localInt,newLocalClient;
 
   // new
@@ -128,6 +131,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   //end new
   void initState() {
     // TODO: implement initState
+    print('>> client int << ${ClientInt}');
     if(ClientInt != null){
       getPersonalInformation();
     }
@@ -135,6 +139,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     getGenderList();
     getMaritalList();
     getEducationLevelList();
+    getEmailValStatus();
     //   print('ClientInt ${ClientInt} passedAccountnumber ${PassedAccountNumber} passedAccountName ${PassedAccountName}');
     firstname.text = bvnFirstName;
     lastname.text = bvnLastName;
@@ -676,53 +681,129 @@ class _PersonalInfoState extends State<PersonalInfo> {
   File uploadimage;
 
 
+  getEmailValStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int tempClientID =
+    prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
+
+    setState(() {
+      _isLoading = true;
+    });
+    final Future<Map<String, dynamic>> respose =
+    RetCodes().getEmailValidationStatus(tempClientID,);
+
+    setState(() {
+      _isLoading = false;
+    });
+    respose.then((response) {
+      print('otp status >>');
+      print(response);
+      if (response['status'] == true) {
+        setState(() {
+          isPersonalEmailVerified = response['data']['is_email_validated'];
+          emailGetter = response['data'];
+        });
+        // Flushbar(
+        //   flushbarPosition: FlushbarPosition.TOP,
+        //   flushbarStyle: FlushbarStyle.GROUNDED,
+        //   backgroundColor: Colors.green,
+        //   title: 'Success',
+        //   message: response['data']['defaultUserMessage'],
+        //   duration: Duration(seconds: 3),
+        // ).show(context);
+      } else {
+        // setState(() {
+        //   _isOTPSent = false;
+        // });
+        // Flushbar(
+        //   flushbarPosition: FlushbarPosition.TOP,
+        //   flushbarStyle: FlushbarStyle.GROUNDED,
+        //   backgroundColor: Colors.red,
+        //   title: 'Error',
+        //   message: 'Unable to get ',
+        //   duration: Duration(seconds: 3),
+        // ).show(context);
+      }
+    });
+  }
+
+  postEmailValStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int tempClientID =
+    prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
+
+    // setState(() {
+    //   _isLoading = true;
+    // });
+    Map<String,dynamic> emailValRequest = {
+      "is_email_validated":  "true",
+      "locale": "en",
+      "dateFormat": "dd MMMM yyyy"
+    };
+
+
+    final Future<Map<String, dynamic>> respose =
+    emailGetter == null || emailGetter.isEmpty ?
+    RetCodes().postEmailValidationStatus(tempClientID,emailValRequest):
+    RetCodes().putEmailValidationStatus(tempClientID,emailValRequest);
+
+    setState(() {
+      _isLoading = false;
+    });
+    respose.then((response) {
+      print('otp status >>');
+      print(response);
+      if (response['status'] == true) {
+
+        getEmailValStatus();
+
+      } else {
+        // setState(() {
+        //   _isOTPSent = false;
+        // });
+        Flushbar(
+          flushbarPosition: FlushbarPosition.TOP,
+          flushbarStyle: FlushbarStyle.GROUNDED,
+          backgroundColor: Colors.red,
+          title: 'Error',
+          message: 'Unable to verify OTP ',
+          duration: Duration(seconds: 3),
+        ).show(context);
+      }
+    });
+  }
+
+
   sendOTPForEmployer() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
-    //print('this is tempLoan ID ${tempClientID}');
-
-    // if(work_email.text.isEmpty || work_email.text.length < 6){
-    //       Flushbar(
-    //              flushbarPosition: FlushbarPosition.TOP,
-    //              flushbarStyle: FlushbarStyle.GROUNDED,
-    //     backgroundColor: Colors.red,
-    //     title: 'Error',
-    //     message: 'work email too short',
-    //     duration: Duration(seconds: 3),
-    //   ).show(context);
-    // }
     if (emailaddress.text.isEmpty || emailaddress.text.length < 5) {
       return Flushbar(
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.GROUNDED,
         backgroundColor: Colors.red,
         title: 'Error',
-        message: 'Work email too short',
+        message: 'email too short',
         duration: Duration(seconds: 3),
       ).show(context);
     }
-    // if (work_email.text.contains('@gmail') ||
-    //     work_email.text.contains('@yahoo') ||
-    //     work_email.text.contains('@ymail') ||
-    //     work_email.text.contains('@outlook') ||
-    //     work_email.text.contains('@qa.team')) {
-    //   return Flushbar(
-    //     flushbarPosition: FlushbarPosition.TOP,
-    //     flushbarStyle: FlushbarStyle.GROUNDED,
-    //     backgroundColor: Colors.red,
-    //     title: 'Error',
-    //     message: 'Kindly enter a valid work email',
-    //     duration: Duration(seconds: 3),
-    //   ).show(context);
-    // }
-    //print('work email');
-    //print(work_email.text.split('@').first);
-    // String real_workEmail = work_email.text.split('@').first;
-    String real_workEmail = emailaddress.text;
 
-    // final Future<Map<String,dynamic>> respose =   RetCodes().requestemployerValidation(tempClientID, real_workEmail + employerDomain);
+    if (!AppHelper().isValidAppEmail(emailaddress.text)) {
+      return Flushbar(
+        flushbarPosition: FlushbarPosition.TOP,
+        flushbarStyle: FlushbarStyle.GROUNDED,
+        backgroundColor: Colors.red,
+        title: 'Error',
+        message: 'Invalid email address',
+        duration: Duration(seconds: 3),
+      ).show(context);
+    }
+
+    String real_workEmail = emailaddress.text;
     setState(() {
       _isLoading = true;
     });
@@ -778,6 +859,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
     // setState(() {
     //   _isOTPSent = false;
     // });
+
+
     int tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     // //print('this is tempLoan ID ${tempClientID}');
@@ -797,18 +880,34 @@ class _PersonalInfoState extends State<PersonalInfo> {
       if (response['status'] == true) {
         otpController.text = '';
         setState(() {
-          _isWorEmailVerified = true;
           _isOTPSent = false;
+          isNewVerified = true;
+
         });
-        return Flushbar(
-          flushbarPosition: FlushbarPosition.TOP,
-          flushbarStyle: FlushbarStyle.GROUNDED,
-          backgroundColor: Colors.green,
-          title: 'Success',
-          message: 'OTP Verified',
-          duration: Duration(seconds: 3),
-        ).show(context);
-        MyRouter.popPage(context);
+        Flushbar(
+            flushbarPosition: FlushbarPosition.TOP,
+            flushbarStyle: FlushbarStyle.GROUNDED,
+            backgroundColor: Colors.green,
+            title: 'Success',
+            message: 'OTP Verified',
+            duration: Duration(seconds: 3),
+          ).show(context);
+        if(isPersonalEmailVerified != 'true' || isPersonalEmailVerified  == '') {
+
+          postEmailValStatus();
+        }
+
+        // return Flushbar(
+        //   flushbarPosition: FlushbarPosition.TOP,
+        //   flushbarStyle: FlushbarStyle.GROUNDED,
+        //   backgroundColor: Colors.green,
+        //   title: 'Success',
+        //   message: 'OTP Verified',
+        //   duration: Duration(seconds: 3),
+        // ).show(context);
+
+
+      //  MyRouter.popPage(context);
       } else {
         return Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
@@ -857,6 +956,34 @@ class _PersonalInfoState extends State<PersonalInfo> {
       if (!isValid) {
         return;
       }
+
+// added this
+
+        // if((ClientInt != null && (emailaddress.text != bvnEmail)) && isPersonalEmailVerified == 'true' ){
+        //   return
+        //     Flushbar(
+        //       flushbarPosition: FlushbarPosition.TOP,
+        //       flushbarStyle: FlushbarStyle.GROUNDED,
+        //       backgroundColor: Colors.red,
+        //       title: 'Verify Email',
+        //       message: 'Verify your updated email to proceed.',
+        //       duration: Duration(seconds: 3),
+        //     ).show(context);
+        // }
+
+      if (ClientInt != null && (isNewVerified == false && emailaddress.text != bvnEmail ) && isPersonalEmailVerified == 'true') {
+      return  Flushbar(
+          flushbarPosition: FlushbarPosition.TOP,
+          flushbarStyle: FlushbarStyle.GROUNDED,
+          backgroundColor: Colors.red,
+          title: 'Verify Email',
+          message: 'Verify your updated email to proceed.',
+          duration: Duration(seconds: 3),
+        ).show(context);
+      }
+
+// end this
+
 
       setState(() {
         _isLoading = true;
@@ -1254,34 +1381,42 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               //     padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               //     child: EntryField(context, emailaddress, 'Email Address*','Enter email address',TextInputType.emailAddress,needsValidation: false)
                               // ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: EntryField(
-                                    context,
-                                    emailaddress,
-                                    ' Email Address *',
-                                    'Enter email address',
-                                    TextInputType.text,
-                                    isValidateEmployer: false,
-                                    isSuffix: true,
-                                 //   extension: employerDomain,
-                                    needsValidation: false,
-                                    isSendOTP: true,
-                                    onBtnPressed: () {
-                                      sendOTPForEmployer();
-                                    }, changeValidator: (value) {
-                                  //print('real Value ${value}');
-                                  if (!(EmailValidator.validate(
-                                      emailaddress.text))) {
-                                    //   print('work email >> ${work_email.text}');
-                                    return 'Invalid email address';
-                                    // setState(() {
-                                    // return   errorText = 'Invalid email address';
-                                    // });
-                                  }
-                                }),
-                              ),
+
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: EntryField(
+                                      context,
+                                      emailaddress,
+                                      ' Email Address *',
+                                      'Enter email address',
+                                      TextInputType.text,
+                                      isValidateEmployer: false,
+                                      isSuffix: true,
+                                   //   extension: employerDomain,
+                                      needsValidation: false,
+                                      isSendOTP: true,
+                                      onBtnPressed: () {
+                                        sendOTPForEmployer();
+                                      }, changeValidator: (value) {
+                                    //print('real Value ${value}');
+
+
+
+                                    if (!(EmailValidator.validate(
+                                        emailaddress.text))) {
+                                      //   print('work email >> ${work_email.text}');
+                                      return 'Invalid email address';
+                                      // setState(() {
+                                      // return   errorText = 'Invalid email address';
+                                      // });
+                                    }
+
+
+
+                                  }),
+                                ),
+
                               SizedBox(
                                 height: 10,
                               ),
@@ -1295,7 +1430,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                       otpController,
                                       'OTP Verification',
                                       'Enter OTP',
-                                      TextInputType.name,
+                                      TextInputType.number,
                                       isValidateEmployer: true,
                                       isSendOTP: false,
                                       onBtnPressed: () {
@@ -1383,7 +1518,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
     var maxLenghtAllow,
     bool isRead = false,
     bool needsValidation = true,
-
     // new
     bool isValidateEmployer = false,
     bool isSendOTP = false,
@@ -1448,7 +1582,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
               decoration: InputDecoration(
                   prefixIcon: isSendOTP == true
-                      ? TextButton(
+                      ?
+                    ClientInt == null
+                      //  ||  isPersonalEmailVerified == 'true'
+                  ? null
+                      :
+                  TextButton(
                     // disabledColor: Colors.blueGrey,
                     onPressed: onBtnPressed,
                     child: Container(
@@ -1463,12 +1602,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           TextStyle(fontSize: 10, color: Colors.white),
                         )),
                   )
+
                       : null,
-                  suffixIcon: isValidateEmployer == true
+
+                  suffixIcon:
+                   ClientInt == null ?
+                       null
+                   :
+                  isValidateEmployer == true
                       ? TextButton(
                     // disabledColor: Colors.blueGrey,
                     onPressed: onBtnPressed,
-                    child: Container(
+                    child:
+                    Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
                           color: Color(0xff077DBB),
@@ -1483,7 +1629,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       : Padding(
                     padding: const EdgeInsets.only(top: 10, right: 5),
                     child: isSuffix
-                        ? Text(extension == null ? '' : extension)
+                        ?
+                   // Text(extension == null ? '' : extension)
+                        verificationStatus()
                         : Text(''),
                   ),
                   focusedBorder:OutlineInputBorder(
@@ -1505,12 +1653,39 @@ class _PersonalInfoState extends State<PersonalInfo> {
           ),
         ),
       );
-
-
-
-
   }
 
+
+  Widget verificationStatus() {
+    final bool isVerified = isPersonalEmailVerified.isNotEmpty && isPersonalEmailVerified == 'true';
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: isVerified ? Color(0xffECFDF3) : Color(0xffe5a9b5),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isVerified ? Icons.check_circle : Icons.cancel,
+            size: 16,
+            color: isVerified ? Color(0xff079455) : Color(0xffd93b59),
+          ),
+          SizedBox(width: 8),
+          Text(
+            isVerified ? 'Verified' : 'Not Verified',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: isVerified ? Color(0xff079455) : Color(0xffd93b59),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
 
   // _selectDate(BuildContext context) async {

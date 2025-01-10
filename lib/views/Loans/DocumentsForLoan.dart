@@ -2548,7 +2548,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                     ? TextButton(
                         // disabledColor: Colors.blueGrey,
                         onPressed: onBtnPressed,
-                        child: Container(
+                        child:
+                        Container(
                             padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
                               color: isSmsLafAccepted == true

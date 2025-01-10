@@ -215,7 +215,9 @@ var bottomItemB =   <BottomNavigationBarItem>[
 
 
 var routeWidgetsA = <Widget>[
+
   HomeContent(passLoanOfficer: passedLoanOfficerId,),
+
   ClientList(),
  // LeadList(),
   TropIssuesLists(),

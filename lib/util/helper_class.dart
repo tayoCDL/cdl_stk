@@ -57,6 +57,30 @@ class AppHelper{
     return formattedResult;
   }
 
+   bool isValidAppEmail(String email){
+      if (email.isEmpty || !email.contains('@')) return false;
+
+      final parts = email.split('@');
+      if (parts.length != 2) return false;
+
+      final localPart = parts[0];
+      final domainPart = parts[1];
+
+      if (localPart.isEmpty || domainPart.isEmpty) return false;
+      if (!domainPart.contains('.') || domainPart.startsWith('.') || domainPart.endsWith('.')) {
+        return false;
+      }
+
+      try {
+        final uri = Uri.parse('mailto:$email');
+        return uri.scheme == 'mailto' && uri.path == email;
+      } catch (e) {
+        return false;
+      }
+      }
+
+
+
 
   dynamic checkAndMapClientData(
       Map<String, dynamic> data,{String passedMobileNumber,String firstName,String lastName,String emailAddress}) {

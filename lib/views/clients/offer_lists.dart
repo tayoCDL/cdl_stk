@@ -189,8 +189,7 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
 
 Good news! You're eligible for a loan offer with Credit Direct! Follow the prompts below to redeem your offer:
 1. Dial *5120*${staffId}#
-2. Chat with 09070309430 on WhatsApp, or 3. Visit https://ussdcp.creditdirect.ng
-Use my referral code: referral code.
+2. Chat with 09070309430 on WhatsApp, or 3. Visit https://ussd.creditdirect.ng
 
 Please feel free to reach out to me for any further clarifications.
   """;
@@ -224,7 +223,7 @@ Please feel free to reach out to me for any further clarifications.
         ),
         SizedBox(height: 6),
         Text(
-          "3. Visit our webpage on https://ussdcp.creditdirect.ng/",
+          "3. Visit our webpage on https://ussd.creditdirect.ng/",
           style: TextStyle(fontSize: 14, color: Colors.blue),
         ),
       ],
