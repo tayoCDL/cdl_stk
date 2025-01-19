@@ -121,9 +121,9 @@ class AuthProvider extends ChangeNotifier {
     //     //
     //   },);
 
-   // String url = username.contains('salestoolkit@qa.team') || isAgent == true ? AppUrl.login : AppUrl.login_ldap;
+    String url = username.contains('salestoolkit@qa.team') || isAgent == true ? AppUrl.login : AppUrl.login_ldap;
      //   print('login_url ${url}');
-   String url = AppUrl.login;
+//   String url = AppUrl.login;
     try {
       Response response = await post(
         url,

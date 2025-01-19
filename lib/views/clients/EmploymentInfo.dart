@@ -325,6 +325,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
       final Future<Map<String, dynamic>> result_response =
           RetCodes().employers(clientTypeInt, query);
+
+
       //
       result_response.then((response) async {
         List<dynamic> newEmp = response['data']['pageItems'];
@@ -1191,6 +1193,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     }
 
     if (!AppHelper().isValidAppEmail(passthisemail)) {
+
       return Flushbar(
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1199,6 +1202,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         message: 'Invalid email address',
         duration: Duration(seconds: 3),
       ).show(context);
+
     }
 
     if(isPersonalEmail == false)
@@ -2070,14 +2074,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                           sendOTPForEmployer(isPersonalEmail: true);
                                         }, changeValidator: (value) {
                                       //print('real Value ${value}');
-                                      if (!(EmailValidator.validate(
-                                          emailaddress.text))) {
-                                        //   print('work email >> ${work_email.text}');
-                                        return 'Invalid email address';
-                                        // setState(() {
-                                        // return   errorText = 'Invalid email address';
-                                        // });
-                                      }
+                                      // if (!(EmailValidator.validate(
+                                      //     emailaddress.text))) {
+                                      //   //   print('work email >> ${work_email.text}');
+                                      //   return 'Invalid email address';
+                                      //   // setState(() {
+                                      //   // return   errorText = 'Invalid email address';
+                                      //   // });
+                                      // }
                                     }),
                                   ),
                                   SizedBox(
@@ -2147,8 +2151,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             sendOTPForEmployer(isPersonalEmail: false);
                                           }, changeValidator: (value) {
                                             //print('real Value ${value}');
-                                            if (!(EmailValidator.validate(
-                                                work_email.text))) {
+
+                                            if (
+                                            !(EmailValidator.validate(
+                                                work_email.text)
+                                            )
+                                              &&
+                                            sectorId == 17
+                                            ) {
                                               //   print('work email >> ${work_email.text}');
                                               return 'Invalid email address';
                                               // setState(() {

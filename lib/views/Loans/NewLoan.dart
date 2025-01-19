@@ -240,19 +240,19 @@ class _NewLoanState extends State<NewLoan> {
 
 
 // real_sandbox
-      var filtered = newEmp
-          .where((element) =>
-      element['id'] == 40 || element['id'] == 43 || element['id'] == 36 || element['id'] == 28 || element['id'] == 30 || element['id'] == 52 || element['id'] == 94 || element['id'] == 95 || element['id'] == 96 || element['id'] == 49)
-          .toList();
+//       var filtered = newEmp
+//           .where((element) =>
+//       element['id'] == 40 || element['id'] == 43 || element['id'] == 36 || element['id'] == 28 || element['id'] == 30 || element['id'] == 52 || element['id'] == 94 || element['id'] == 95 || element['id'] == 96 || element['id'] == 49)
+//           .toList();
 
       
       // NEW PRODUCTION
       //  || element['id'] == 42
 
-         // var filtered = newEmp
-         //    .where((element) =>
-         //   element['id'] == 63 || element['id'] == 40 || element['id'] == 55 || element['id'] == 64 || element['id'] == 49 || element['id'] == 52 || element['id'] == 71 || element['id'] == 72 || element['id'] == 94 || element['id'] == 95 || element['id'] == 96 || element['id'] == 97 || element['id'] == 42 || element['id'] == 100 || element['id'] == 101)
-         //    .toList();
+         var filtered = newEmp
+            .where((element) =>
+           element['id'] == 63 || element['id'] == 40 || element['id'] == 55 || element['id'] == 64 || element['id'] == 49 || element['id'] == 52 || element['id'] == 71 || element['id'] == 72 || element['id'] == 94 || element['id'] == 95 || element['id'] == 96 || element['id'] == 97 || element['id'] == 42 || element['id'] == 100 || element['id'] == 101)
+            .toList();
 
 
 // SANDBOX

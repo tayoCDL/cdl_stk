@@ -4,20 +4,20 @@ class AppUrl {
   static const String attendanceBaseUrl = 'http://192.168.88.64:9182/api/v1/';
 
 
-static const String baseUrl = 'https://nx360dev.creditdirect.ng:8443/fineract-provider/api/v1/';
-static const String LoanbaseUrl = 'nx360dev.creditdirect.ng:8443/fineract-provider/api/v1/';
-static const String paymentLinkUrl = 'https://nx360dev.creditdirect.ng/_/credit-direct-pay/';
-//static const String productInfoUrl = 'https://40.113.169.208:9001/api/v1/';
-static const String productInfoUrl = 'https://3.252.162.214:9001/api/v1/';
-static const String sequestbaseUrl = 'https://testsequestapi.creditdirect.ng/api/';
-static const String referralLinkUrl = 'https://api360.creditdirect.ng:8443/';
-static const String validationBaseUrl = 'https://devwrapper.creditdirect.ng/api/v1/';
-static const String NxWrapperBaseUrl = 'https://devwrapper.creditdirect.ng/api/';
-
-static const String APP_CLOAK_URL = 'https://3.252.162.214:9010/';
-static const String BASE_APP_ENC = 'https://3.252.162.214:9010/fineract-provider/api/v1/';
-static const String NEW_BASE_APP_ENC = 'https://3.252.162.214:9010/api/v1/';
-static const String USSD_BASE_URL = 'https://ussdstaging.creditdirect.ng/api/v1/';
+// static const String baseUrl = 'https://nx360dev.creditdirect.ng:8443/fineract-provider/api/v1/';
+// static const String LoanbaseUrl = 'nx360dev.creditdirect.ng:8443/fineract-provider/api/v1/';
+// static const String paymentLinkUrl = 'https://nx360dev.creditdirect.ng/_/credit-direct-pay/';
+// //static const String productInfoUrl = 'https://40.113.169.208:9001/api/v1/';
+// static const String productInfoUrl = 'https://3.252.162.214:9001/api/v1/';
+// static const String sequestbaseUrl = 'https://testsequestapi.creditdirect.ng/api/';
+// static const String referralLinkUrl = 'https://api360.creditdirect.ng:8443/';
+// static const String validationBaseUrl = 'https://devwrapper.creditdirect.ng/api/v1/';
+// static const String NxWrapperBaseUrl = 'https://devwrapper.creditdirect.ng/api/';
+//
+// static const String APP_CLOAK_URL = 'https://3.252.162.214:9010/';
+// static const String BASE_APP_ENC = 'https://3.252.162.214:9010/fineract-provider/api/v1/';
+// static const String NEW_BASE_APP_ENC = 'https://3.252.162.214:9010/api/v1/';
+// static const String USSD_BASE_URL = 'https://ussdstaging.creditdirect.ng/api/v1/';
 
  // 'https://ussdstaging.creditdirect.ng/api/v1/Ussd/getoffers?clientId=2178642
   // stkapi360
@@ -26,19 +26,19 @@ static const String USSD_BASE_URL = 'https://ussdstaging.creditdirect.ng/api/v1/
   // https://stkapi360.creditdirect.ng
   // 3.252.162.214
 
-              //  static const String baseUrl = 'https://stkapi360.creditdirect.ng:8443/fineract-provider/api/v1/';
-              //   static const String repaymentBaseUrl = 'https://stkapi360.creditdirect.ng:8443/';
-              //  static const String LoanbaseUrl = 'https://api360.creditdirect.ng:8443/fineract-provider/api/v1/';
-              //  static const String paymentLinkUrl = 'https://app-staging.creditdirect.ng/_/credit-direct-pay/';
-              //   static const String referralLinkUrl = 'https://app-staging.creditdirect.ng/';
-              //  static const String sequestbaseUrl = 'https://sequest.creditdirect.ng/api/';
-              //   static const String validationBaseUrl = 'https://nxwrapper.creditdirect.ng/api/v1/';
-              //  static const String NxWrapperBaseUrl = 'https://nxwrapper.creditdirect.ng/api/';
-              //  static const String productInfoUrl = 'https://api360.creditdirect.ng:9002/api/v1/';
-              // static const String APP_CLOAK_URL = 'https://ndwrapper.creditdirect.ng:9010/';
-              // static const String BASE_APP_ENC = 'https://ndwrapper.creditdirect.ng:9010/fineract-provider/api/v1/';
-              // static const String NEW_BASE_APP_ENC = 'https://ndwrapper.creditdirect.ng:9010/api/v1/';
-              //    static const String USSD_BASE_URL = 'https://ussdservices.creditdirect.ng/api/v1/';
+               static const String baseUrl = 'https://stkapi360.creditdirect.ng:8443/fineract-provider/api/v1/';
+                static const String repaymentBaseUrl = 'https://stkapi360.creditdirect.ng:8443/';
+               static const String LoanbaseUrl = 'https://api360.creditdirect.ng:8443/fineract-provider/api/v1/';
+               static const String paymentLinkUrl = 'https://app-staging.creditdirect.ng/_/credit-direct-pay/';
+                static const String referralLinkUrl = 'https://app-staging.creditdirect.ng/';
+               static const String sequestbaseUrl = 'https://sequest.creditdirect.ng/api/';
+                static const String validationBaseUrl = 'https://nxwrapper.creditdirect.ng/api/v1/';
+               static const String NxWrapperBaseUrl = 'https://nxwrapper.creditdirect.ng/api/';
+               static const String productInfoUrl = 'https://api360.creditdirect.ng:9002/api/v1/';
+              static const String APP_CLOAK_URL = 'https://ndwrapper.creditdirect.ng:9010/';
+              static const String BASE_APP_ENC = 'https://ndwrapper.creditdirect.ng:9010/fineract-provider/api/v1/';
+              static const String NEW_BASE_APP_ENC = 'https://ndwrapper.creditdirect.ng:9010/api/v1/';
+                 static const String USSD_BASE_URL = 'https://ussdservices.creditdirect.ng/api/v1/';
 
 
 

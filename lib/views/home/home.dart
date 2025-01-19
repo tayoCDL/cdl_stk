@@ -576,8 +576,11 @@ class _HomeContentState extends State<HomeContent> {
                   totalDisbursedLoanAmount = singleMetricsData['totalDisbursedLoanAmount'];
 
 
-                  totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'];
-                  totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'];
+                  // totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanCount'];
+                  // totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanDisbursedAmount'];
+
+                  totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] ?? 0;
+                  totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] ?? 0.00;
 
 
 
@@ -766,7 +769,7 @@ class _HomeContentState extends State<HomeContent> {
               children: [
                 appCards('Group 239746.svg','Loans',totalLoanCount,totalLoanAmount,loancounts: 'Loan Count',amount: "Total Amount"),
                 SizedBox(width: 15,),
-                appCards('digitalLoanSvg.svg','Digital Loans',totalDigitalLoanCount,totalDigitalLoanDisbursedAmount,amount: "Total Disbursed"),
+                appCards('digitalLoanSvg.svg','Digital Loans',totalDigitalLoanCount ?? 0,totalDigitalLoanDisbursedAmount ?? 0.0,amount: "Total Disbursed"),
               ],
             ),
 

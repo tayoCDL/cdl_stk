@@ -1246,6 +1246,7 @@ class _AddClientState extends State<AddClient> {
                           //print('this is select ID');
                           //print(selectID[0]['id']);
                           empInt = selectID[0]['id'];
+
                           // catInt =null;
                           categorySector = ' ';
                           //print('end this is select ID ${categorySector}');
