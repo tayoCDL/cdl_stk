@@ -135,7 +135,7 @@ class _AddClientState extends State<AddClient> {
       tempFirstName = newClientData['firstname'];
       tempMiddleName = newClientData['middlename'];
       tempLastName = newClientData['lastname'];
-      // nin.text = newClientData['nin'];
+       nin.text = newClientData['nin'];
       tempPhone1 = newClientData['mobileNo'];
       tempEmail = newClientData['emailAddress'];
       catInt = newClientData['clientType']['id'];
@@ -640,7 +640,9 @@ class _AddClientState extends State<AddClient> {
         message: 'OTP length too short ',
         duration: Duration(seconds: 3),
       ).show(context);
-    } else {
+    }
+
+    else {
       MyRouter.popPage(context);
       setState(() {
         isRequestLoading = true;
@@ -661,6 +663,17 @@ class _AddClientState extends State<AddClient> {
 
           if (comingFrom != 'customerPreview') {
             ClearCaches().clearMems();
+          }
+          if (nin.text.isEmpty) {
+        //    return  showValidationError(context, 'NIN Field is mandatory');
+            return  showValidationError(context, 'Kindly fill in NIN first,before verifying BVN');
+
+          }
+          if (nin.text.length > 0 && nin.text.length != 11) {
+            return  showValidationError(context, 'NIN field should not be less than 11digits');
+          }
+          else if (nin.text.isNotEmpty && !RegExp(r'^\d+$').hasMatch(nin.text)) {
+            return showValidationError(context, 'Only numbers are allowed in the NIN field');
           }
 
           MyRouter.pushPage(
@@ -688,6 +701,7 @@ class _AddClientState extends State<AddClient> {
                         ? 'customerPreview'
                         : '',
                 passedBVN: bvn.text.isEmpty ? act_bvn : bvn.text,
+                passedNin:nin.text,
                 passedEmployerSector: empInt,
                 passedEmployerCategory: catInt,
               ));
@@ -817,17 +831,17 @@ class _AddClientState extends State<AddClient> {
                     SizedBox(
                       height: 10,
                     ),
-                    // Center(
-                    //   child: InkWell(
-                    //       onTap: () {
-                    //         MyRouter.popPage(context);
-                    //         dobConfirmation();
-                    //       },
-                    //       child: Text(
-                    //         'Not Receiving OTP? Click Here',
-                    //         style: TextStyle(fontSize: 11),
-                    //       )),
-                    // ),
+                    Center(
+                      child: InkWell(
+                          onTap: () {
+                            MyRouter.popPage(context);
+                            dobConfirmation();
+                          },
+                          child: Text(
+                            'Not Receiving OTP? Click Here',
+                            style: TextStyle(fontSize: 11),
+                          )),
+                    ),
                   ],
                 ))
 
@@ -904,6 +918,15 @@ class _AddClientState extends State<AddClient> {
                                   if (comingFrom != 'customerPreview') {
                                     ClearCaches().clearMems();
                                   }
+                                  if (nin.text.isEmpty) {
+                                    return  showValidationError(context, 'Kindly fill in NIN first,before verifying BVN');
+                                  }
+                                  if (nin.text.length > 0 && nin.text.length != 11) {
+                                    return  showValidationError(context, 'NIN field should not be less than 11digits');
+                                  }
+                                  else if (nin.text.isNotEmpty && !RegExp(r'^\d+$').hasMatch(nin.text)) {
+                                    return showValidationError(context, 'Only numbers are allowed in the NIN field');
+                                  }
                                   MyRouter.pushPage(
                                       context,
                                       PersonalInfo(
@@ -933,6 +956,7 @@ class _AddClientState extends State<AddClient> {
                                         passedBVN: bvn.text.isEmpty
                                             ? act_bvn
                                             : bvn.text,
+                                        passedNin:nin.text,
                                         passedEmployerSector: empInt,
                                         passedEmployerCategory: catInt,
                                       ));
@@ -1000,10 +1024,21 @@ class _AddClientState extends State<AddClient> {
   int empInt;
 
   TextEditingController bvn = TextEditingController();
-  // TextEditingController nin = TextEditingController();
+   TextEditingController nin = TextEditingController();
   TextEditingController dobController = TextEditingController();
   TextEditingController accountNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
+
+   showValidationError(BuildContext context, String message) {
+    Flushbar(
+      flushbarPosition: FlushbarPosition.TOP,
+      flushbarStyle: FlushbarStyle.GROUNDED,
+      backgroundColor: Colors.red,
+      title: "Validation Error",
+      message: message,
+      duration: Duration(seconds: 3),
+    ).show(context);
+  }
 
   Widget build(BuildContext context) {
     var startProcess = () async {
@@ -1022,6 +1057,17 @@ class _AddClientState extends State<AddClient> {
           prefs.remove('clientId');
         }
       }
+
+      if (nin.text.isEmpty) {
+        return  showValidationError(context, 'NIN Field is mandatory');
+      }
+      if (nin.text.length > 0 && nin.text.length != 11) {
+      return  showValidationError(context, 'NIN field should not be less than 11digits');
+      }
+      else if (nin.text.isNotEmpty && !RegExp(r'^\d+$').hasMatch(nin.text)) {
+       return showValidationError(context, 'Only numbers are allowed in the NIN field');
+      }
+
 
       // if bvn is on and bvn lenght is not 11
       if (_lights && bvn.text.length != 11) {
@@ -1066,7 +1112,7 @@ class _AddClientState extends State<AddClient> {
               bvnMiddleName: tempMiddleName,
               bvnPhone1: tempPhone1,
               bvnPhone2: tempPhone2,
-              // passedNin:nin.text,
+               passedNin:nin.text,
               dateOfBirth: TempdateOfBirth,
               Passedgender: Tempgender,
               PassedAccountName: accountName,
@@ -1200,6 +1246,7 @@ class _AddClientState extends State<AddClient> {
                           //print('this is select ID');
                           //print(selectID[0]['id']);
                           empInt = selectID[0]['id'];
+
                           // catInt =null;
                           categorySector = ' ';
                           //print('end this is select ID ${categorySector}');
@@ -1241,7 +1288,18 @@ class _AddClientState extends State<AddClient> {
                       validator: (String item) {}),
 
                   SizedBox(
-                    height: 30,
+                    height: 20,
+                  ),
+                  EntryFieldForNin(context, nin, 'NIN', 'Enter NIN',
+                    maxLenghtAllow: 11,
+                    // isRead: comingFrom == 'customerPreview' ||
+                    //     comingFrom == 'SingleCustomerScreen'
+                    //     ? true
+                    //     : false
+                    isRead: false,
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   _lights == true
                       ? EntryField(context, bvn, 'BVN', 'Enter BVN',
@@ -1256,11 +1314,11 @@ class _AddClientState extends State<AddClient> {
                   SizedBox(height: 15,),
                   // EntryFieldForNin(context, nin, 'NIN', 'Enter NIN',
                   //     maxLenghtAllow: 11,
-                  //     isRead: comingFrom == 'customerPreview' ||
-                  //         comingFrom == 'SingleCustomerScreen'
-                  //         ? true
-                  //         : false
-                  //     // isRead: false,
+                  //     // isRead: comingFrom == 'customerPreview' ||
+                  //     //     comingFrom == 'SingleCustomerScreen'
+                  //     //     ? true
+                  //     //     : false
+                  //      isRead: false,
                   // )
                 ],
               ),
@@ -1444,7 +1502,12 @@ class _AddClientState extends State<AddClient> {
         ),
       ),
     );
+
   }
+
+
+
+
 
   Widget bankAccountValidation() {
     return Container(

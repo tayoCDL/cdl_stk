@@ -594,12 +594,12 @@ class _AddClientState extends State<AddClient> {
   }
 
   Future<void> shareIagree() async {
-    await FlutterShare.share(
-        title: 'Provide consent',
-        text:
-            'To allow us access to your details, kindly enter your BVN and confirm your information.',
-        linkUrl: iAgreeLink,
-        chooserTitle: 'BVN Consent screen');
+    // await FlutterShare.share(
+    //     title: 'Provide consent',
+    //     text:
+    //         'To allow us access to your details, kindly enter your BVN and confirm your information.',
+    //     linkUrl: iAgreeLink,
+    //     chooserTitle: 'BVN Consent screen');
   }
 // To allow us access to your details, kindly enter your BVN and confirm your information.
 //

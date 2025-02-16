@@ -16,7 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:flutter_share/flutter_share.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
@@ -2548,7 +2548,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                     ? TextButton(
                         // disabledColor: Colors.blueGrey,
                         onPressed: onBtnPressed,
-                        child: Container(
+                        child:
+                        Container(
                             padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
                               color: isSmsLafAccepted == true
