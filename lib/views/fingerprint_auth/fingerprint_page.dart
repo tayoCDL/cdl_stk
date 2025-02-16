@@ -293,7 +293,7 @@ getLoanOfficerId() async{
                     //   child: Text('Update is available ',style: TextStyle(color: Colors.white),),
                     // ) : SizedBox(),
                     Center(
-                      child: Text('Current Version: 2.52',style: TextStyle(color: Colors.white),),
+                      child: Text('Current Version: 2.52.2',style: TextStyle(color: Colors.white),),
                     ),
 
                   ],

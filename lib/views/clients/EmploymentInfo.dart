@@ -846,14 +846,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   getEmploymentProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =
-        ClientInt == null ? prefs.getInt('clientId') : ClientInt;
-    //print('localClient ${localclientID}');
+    int localclientID = ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    //print(tfaToken);
-    //print(token);
+
     Response responsevv = await get(
       AppUrl.getSingleClient + localclientID.toString() + '/employers',
       headers: {
@@ -866,85 +863,399 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     print('responsevv.body ${responsevv.body}');
 
     final List<dynamic> responseData2 = json.decode(responsevv.body);
-
     var newClientData = responseData2;
 
     setState(() {
       employmentProfile = newClientData;
       print('responseData2 ${employmentProfile}');
-      prefs.setInt('tempEmployerInt',
-          employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
 
-      branchEmployerInt = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['employer']['id'];
+      prefs.setInt('tempEmployerInt', employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
 
-      //    empSector = employmentProfile.isEmpty ? '' : employmentProfile[0]['employer']['sector']['id'];
-      branchEmployer = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['employer']['name'];
-      salaryInt = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['salaryRange']['id'];
-      employerState = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['state']['name'];
-      employerLga =
-          employmentProfile.isEmpty ? '' : employmentProfile[0]['lga']['name'];
-      employerDomain = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['employer']['emailExtension'];
-      salary_range = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['salaryRange']['name'];
-      parentEmployer = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['employer']['parent']['name'];
-      lgaInt =
-          employmentProfile.isEmpty ? '' : employmentProfile[0]['lga']['id'];
-      stateInt =
-          employmentProfile.isEmpty ? '' : employmentProfile[0]['state']['id'];
-      employerInt = employmentProfile.isEmpty
-          ? ''
-          : employmentProfile[0]['employer']['parent']['id'];
-      _isWorEmailVerified = employmentProfile.isEmpty
-          ? false
-          : employmentProfile[0]['workEmailVerified'];
-      // salaryPayDayController.text =
+      branchEmployerInt = employmentProfile.isNotEmpty &&
+          employmentProfile[0]['employer'] != null &&
+          employmentProfile[0]['employer']['id'] != null
+          ? employmentProfile[0]['employer']['id']
+          : 0;
+
+      branchEmployer = employmentProfile.isNotEmpty &&
+          employmentProfile[0]['employer'] != null &&
+          employmentProfile[0]['employer']['name'] != null
+          ? employmentProfile[0]['employer']['name']
+          : '';
+
+      salaryInt = employmentProfile.isNotEmpty && employmentProfile[0]['salaryRange'] != null
+          ? employmentProfile[0]['salaryRange']['id']
+          : '';
+
+      employerState = employmentProfile.isNotEmpty && employmentProfile[0]['state'] != null &&
+          employmentProfile[0]['state']['name'] != null
+          ? employmentProfile[0]['state']['name']
+          : '';
+
+      employerLga = employmentProfile.isNotEmpty && employmentProfile[0]['lga'] != null &&
+          employmentProfile[0]['lga']['name'] != null
+          ? employmentProfile[0]['lga']['name']
+          : '';
+
+      employerDomain = employmentProfile.isNotEmpty &&
+          employmentProfile[0]['employer'] != null
+          ? employmentProfile[0]['employer']['emailExtension']
+          : '';
+
+      salary_range = employmentProfile.isNotEmpty && employmentProfile[0]['salaryRange'] != null
+          ? employmentProfile[0]['salaryRange']['name']
+          : '';
+
+      parentEmployer = employmentProfile.isNotEmpty &&
+          employmentProfile[0]['employer'] != null &&
+          employmentProfile[0]['employer']['parent'] != null
+          ? employmentProfile[0]['employer']['parent']['name']
+          : '';
+
+      lgaInt = employmentProfile.isNotEmpty && employmentProfile[0]['lga'] != null
+          ? employmentProfile[0]['lga']['id']
+          : '';
+
+      stateInt = employmentProfile.isNotEmpty && employmentProfile[0]['state'] != null
+          ? employmentProfile[0]['state']['id']
+          : '';
+
+      employerInt = employmentProfile.isNotEmpty &&
+          employmentProfile[0]['employer'] != null &&
+          employmentProfile[0]['employer']['parent'] != null &&
+          employmentProfile[0]['employer']['parent']['id'] != null
+          ? employmentProfile[0]['employer']['parent']['id']
+          : 0;
+
+      _isWorEmailVerified = employmentProfile.isNotEmpty && employmentProfile[0]['workEmailVerified'] != null
+          ? employmentProfile[0]['workEmailVerified']
+          : false;
     });
-    //print('employer Info first array ${employmentProfile}');
-    var subEmployer = employmentProfile[0];
 
-    address.text =
-        employmentProfile.isEmpty ? '' : employmentProfile[0]['officeAddress'];
-    nearest_landmark.text = employmentProfile.isEmpty
-        ? ''
-        : employmentProfile[0]['nearestLandMark'];
-    staffId.text =
-        employmentProfile.isEmpty ? '' : employmentProfile[0]['staffId'];
-    work_email.text =
-        employmentProfile.isEmpty ? '' : employmentProfile[0]['emailAddress'];
-    employer_phone_number.text =
-        employmentProfile.isEmpty ? '' : employmentProfile[0]['mobileNo'];
-    job_role.text =
-        employmentProfile.isEmpty ? '' : employmentProfile[0]['jobGrade'];
-    _typeAheadController.text = employmentProfile.isEmpty
-        ? ''
-        : employmentProfile[0]['employer']['parent']['name'];
+    var subEmployer = employmentProfile.isNotEmpty ? employmentProfile[0] : null;
 
-    dateOfEmployment.text = retDOBfromBVN(
-        '${subEmployer['employmentDate'][0]}-${subEmployer['employmentDate'][1]}-${subEmployer['employmentDate'][2]}');
-    salaryPayDayController.text = retDOBfromBVN(
-        '${subEmployer['nextMonthSalaryPaymentDate'][0]}-${subEmployer['nextMonthSalaryPaymentDate'][1]}-${subEmployer['nextMonthSalaryPaymentDate'][2]}');
+    address.text = subEmployer != null ? subEmployer['officeAddress'] ?? '' : '';
+    nearest_landmark.text = subEmployer != null ? subEmployer['nearestLandMark'] ?? '' : '';
+    staffId.text = subEmployer != null ? subEmployer['staffId'] ?? '' : '';
+    work_email.text = subEmployer != null ? subEmployer['emailAddress'] ?? '' : '';
+    employer_phone_number.text = subEmployer != null ? subEmployer['mobileNo'] ?? '' : '';
+    job_role.text = subEmployer != null ? subEmployer['jobGrade'] ?? '' : '';
+
+    _typeAheadController.text = subEmployer != null &&
+        subEmployer['employer'] != null &&
+        subEmployer['employer']['parent'] != null &&
+        subEmployer['employer']['parent']['name'] != null
+        ? subEmployer['employer']['parent']['name']
+        : '';
+
+    dateOfEmployment.text = subEmployer != null
+        ? retDOBfromBVN(
+        '${subEmployer['employmentDate'][0]}-${subEmployer['employmentDate'][1]}-${subEmployer['employmentDate'][2]}')
+        : '';
+
+    salaryPayDayController.text = subEmployer != null
+        ? retDOBfromBVN(
+        '${subEmployer['nextMonthSalaryPaymentDate'][0]}-${subEmployer['nextMonthSalaryPaymentDate'][1]}-${subEmployer['nextMonthSalaryPaymentDate'][2]}')
+        : '';
 
     var newEmpInt = prefs.getInt('tempEmployerInt');
-    payrollDob.text = retDOBfromBVN(
-        '${subEmployer['payrollDob'][0]}-${subEmployer['payrollDob'][1]}-${subEmployer['payrollDob'][2]}');
+    payrollDob.text = subEmployer != null
+        ? retDOBfromBVN(
+        '${subEmployer['payrollDob'][0]}-${subEmployer['payrollDob'][1]}-${subEmployer['payrollDob'][2]}')
+        : '';
 
-    //print('newempInt ${newEmpInt}');
     salary_payday = '';
-    //salary_range = employmentProfile[0]['salaryRange']['id'];
   }
+
+
+
+
+  // getEmploymentProfile() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   int localclientID =
+  //       ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+  //   //print('localClient ${localclientID}');
+  //
+  //   var token = prefs.getString('base64EncodedAuthenticationKey');
+  //   var tfaToken = prefs.getString('tfa-token');
+  //   //print(tfaToken);
+  //   //print(token);
+  //   Response responsevv = await get(
+  //     AppUrl.getSingleClient + localclientID.toString() + '/employers',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+  //       'Authorization': 'Basic ${token}',
+  //       'Fineract-Platform-TFA-Token': '${tfaToken}',
+  //     },
+  //   );
+  //   print('responsevv.body ${responsevv.body}');
+  //
+  //   final List<dynamic> responseData2 = json.decode(responsevv.body);
+  //
+  //   var newClientData = responseData2;
+  //
+  //   setState(() {
+  //     employmentProfile = newClientData;
+  //     print('responseData2 ${employmentProfile}');
+  //     prefs.setInt('tempEmployerInt',
+  //         employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
+  //
+  //     branchEmployerInt = employmentProfile.isEmpty
+  //         ? ''
+  //         :
+  //     employmentProfile[0]['employer'] == null  ||
+  //       employmentProfile[0]['employer']['id'] == null
+  //      ?
+  //      0
+  //         : employmentProfile[0]['employer']['id'];
+  //
+  //     //    empSector = employmentProfile.isEmpty ? '' : employmentProfile[0]['employer']['sector']['id'];
+  //     branchEmployer = employmentProfile.isEmpty
+  //         ? ''
+  //     :
+  //     employmentProfile[0]['employer'] == null ||
+  //         employmentProfile[0]['employer']['name']  == null
+  //         ?
+  //     ''
+  //         : employmentProfile[0]['employer']['name'];
+  //
+  //     salaryInt = employmentProfile.isEmpty
+  //         ||
+  //         employmentProfile[0]['salaryRange'] == null
+  //         ? ''
+  //         : employmentProfile[0]['salaryRange']['id'];
+  //
+  //     employerState = employmentProfile.isEmpty
+  //         ? ''
+  //         :
+  //         employmentProfile[0]['state'] == null ||
+  //                 employmentProfile[0]['state']['name'] == null
+  //             ?
+  //         ''
+  //         : employmentProfile[0]['state']['name'];
+  //     employerLga =
+  //         employmentProfile.isEmpty ? ''
+  //             :
+  //             employmentProfile[0]['lga'] == null ||
+  //                     employmentProfile[0]['lga']['name'] == null
+  //                 ? ''
+  //             : employmentProfile[0]['lga']['name'];
+  //
+  //
+  //     employerDomain = employmentProfile.isEmpty
+  //         ? ''
+  //     :
+  //
+  //     employmentProfile[0]['employer']['emailExtension'];
+  //
+  //     salary_range = employmentProfile.isEmpty
+  //         ? ''
+  //         : employmentProfile[0]['salaryRange']['name'];
+  //     // parentEmployer = employmentProfile.isEmpty
+  //     //     ? ''
+  //     //     : employmentProfile[0]['employer']['parent']['name'];
+  //     parentEmployer = employmentProfile.isEmpty ||
+  //         employmentProfile[0]['employer'] == null ||
+  //         employmentProfile[0]['employer']['parent'] == null
+  //         ? ''
+  //         : employmentProfile[0]['employer']['parent']['name'];
+  //     lgaInt =
+  //         employmentProfile.isEmpty ? ''
+  //
+  //             : employmentProfile[0]['lga']['id'];
+  //     stateInt =
+  //         employmentProfile.isEmpty ? '' : employmentProfile[0]['state']['id'];
+  //
+  //     // employerInt = employmentProfile.isEmpty
+  //     //     ? ''
+  //     //     : employmentProfile[0]['employer']['parent']['id'];
+  //     employerInt = employmentProfile.isEmpty ||
+  //         employmentProfile[0]['employer'] == null ||
+  //         employmentProfile[0]['employer']['parent'] == null ||
+  //         employmentProfile[0]['employer']['parent']['id'] == null
+  //         ? 0
+  //         : employmentProfile[0]['employer']['parent']['id'];
+  //
+  //     _isWorEmailVerified = employmentProfile.isEmpty
+  //         ? false
+  //         : employmentProfile[0]['workEmailVerified'];
+  //     // salaryPayDayController.text =
+  //   });
+  //   //print('employer Info first array ${employmentProfile}');
+  //   var subEmployer = employmentProfile[0];
+  //
+  //   address.text =
+  //       employmentProfile.isEmpty ? '' : employmentProfile[0]['officeAddress'];
+  //   nearest_landmark.text = employmentProfile.isEmpty
+  //       ? ''
+  //       : employmentProfile[0]['nearestLandMark'];
+  //   staffId.text =
+  //       employmentProfile.isEmpty ? '' : employmentProfile[0]['staffId'];
+  //   work_email.text =
+  //       employmentProfile.isEmpty ? '' : employmentProfile[0]['emailAddress'];
+  //   employer_phone_number.text =
+  //       employmentProfile.isEmpty ? '' : employmentProfile[0]['mobileNo'];
+  //   job_role.text =
+  //       employmentProfile.isEmpty ? '' : employmentProfile[0]['jobGrade'];
+  //   // _typeAheadController.text = employmentProfile.isEmpty
+  //   //     ? ''
+  //   //     : employmentProfile[0]['employer']['parent']['name'];
+  //
+  //   _typeAheadController.text = employmentProfile.isEmpty ||
+  //       employmentProfile[0]['employer'] == null ||
+  //       employmentProfile[0]['employer']['parent'] == null ||
+  //       employmentProfile[0]['employer']['parent']['name'] == null
+  //       ? ''
+  //       : employmentProfile[0]['employer']['parent']['name'];
+  //
+  //
+  //   dateOfEmployment.text = retDOBfromBVN(
+  //       '${subEmployer['employmentDate'][0]}-${subEmployer['employmentDate'][1]}-${subEmployer['employmentDate'][2]}');
+  //   salaryPayDayController.text = retDOBfromBVN(
+  //       '${subEmployer['nextMonthSalaryPaymentDate'][0]}-${subEmployer['nextMonthSalaryPaymentDate'][1]}-${subEmployer['nextMonthSalaryPaymentDate'][2]}');
+  //
+  //   var newEmpInt = prefs.getInt('tempEmployerInt');
+  //   payrollDob.text = retDOBfromBVN(
+  //       '${subEmployer['payrollDob'][0]}-${subEmployer['payrollDob'][1]}-${subEmployer['payrollDob'][2]}');
+  //
+  //   //print('newempInt ${newEmpInt}');
+  //   salary_payday = '';
+  //   //salary_range = employmentProfile[0]['salaryRange']['id'];
+  // }
+
+
+
+
+  // getEmploymentProfile() async {
+  //   try {
+  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     int localclientID = ClientInt ?? prefs.getInt('clientId');
+  //
+  //     var token = prefs.getString('base64EncodedAuthenticationKey');
+  //     var tfaToken = prefs.getString('tfa-token');
+  //
+  //     Response responsevv = await get(
+  //       AppUrl.getSingleClient + '$localclientID/employers',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+  //         'Authorization': 'Basic $token',
+  //         'Fineract-Platform-TFA-Token': '$tfaToken',
+  //       },
+  //     );
+  //
+  //     if (responsevv.statusCode != 200) {
+  //       print('Error: ${responsevv.statusCode}');
+  //       return;
+  //     }
+  //
+  //     final List<dynamic> responseData2 = json.decode(responsevv.body);
+  //     if (responseData2.isEmpty) {
+  //       print('Empty response');
+  //       return;
+  //     }
+  //
+  //     var newClientData = responseData2;
+  //     setState(() {
+  //       employmentProfile = newClientData;
+  //       prefs.setInt('tempEmployerInt', employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
+  //
+  //       // Use the helper method to extract nested values with default values
+  //       branchEmployerInt = _getNestedValue<int>(employmentProfile, 0, 'employer', subKey: 'id', defaultValue: 0);
+  //       branchEmployer = _getNestedValue<String>(employmentProfile, 0, 'employer', subKey: 'name', defaultValue: '');
+  //       salaryInt = _getNestedValue<int>(employmentProfile, 0, 'salaryRange',subKey: 'id', defaultValue: 0);
+  //       employerState = _getNestedValue<String>(employmentProfile, 0, 'state',subKey: 'name', defaultValue: '');
+  //       employerLga = _getNestedValue<String>(employmentProfile, 0, 'lga',subKey: 'name', defaultValue: '');
+  //       employerDomain = _getNestedValue<String>(employmentProfile, 0, 'employer',subKey: 'emailExtension', defaultValue: '');
+  //       salary_range = _getNestedValue<String>(employmentProfile, 0, 'salaryRange',subKey: 'name', defaultValue: '');
+  //     //  parentEmployer = _getNestedValue<String>(employmentProfile, 0, 'employer', 'parent', subKey: 'name', defaultValue: '');
+  //       parentEmployer = _getNestedListValue<String>(employmentProfile, 0, 'employer', subKey: 'names').first ?? '';
+  //       lgaInt = _getNestedValue<int>(employmentProfile, 0, 'lga', subKey:'id', defaultValue: 0);
+  //       stateInt = _getNestedValue<int>(employmentProfile, 0, 'state',subKey: 'id', defaultValue: 0);
+  //     //  employerInt = _getNestedListValue<int>(employmentProfile, 0, 'employer', 'parent',subKey: 'id', defaultValue: 0).first ?? 0;
+  //       employerInt = _getNestedListValue<int>(employmentProfile, 0, 'parent', subKey: 'id').first ?? '';
+  //
+  //       _isWorEmailVerified = _getNestedValue<bool>(employmentProfile, 0, 'workEmailVerified', defaultValue: false);
+  //     });
+  //
+  //     var subEmployer = employmentProfile.isEmpty ? null : employmentProfile[0];
+  //
+  //     // Text field assignments with safe null checks
+  //     _updateTextField(address, subEmployer, 'officeAddress');
+  //     _updateTextField(nearest_landmark, subEmployer, 'nearestLandMark');
+  //     _updateTextField(staffId, subEmployer, 'staffId');
+  //     _updateTextField(work_email, subEmployer, 'emailAddress');
+  //     _updateTextField(employer_phone_number, subEmployer, 'mobileNo');
+  //     _updateTextField(job_role, subEmployer, 'jobGrade');
+  //
+  //     _typeAheadController.text = subEmployer == null || subEmployer['employer'] == null ||
+  //         subEmployer['employer']['parent'] == null || subEmployer['employer']['parent']['name'] == null
+  //         ? '' : subEmployer['employer']['parent']['name'] ?? '';
+  //
+  //     // Date formatting helper
+  //     dateOfEmployment.text = _formatDateFromSubEmployer(subEmployer, 'employmentDate');
+  //     salaryPayDayController.text = _formatDateFromSubEmployer(subEmployer, 'nextMonthSalaryPaymentDate');
+  //     payrollDob.text = _formatDateFromSubEmployer(subEmployer, 'payrollDob');
+  //   } catch (e) {
+  //     print('Error fetching employment profile: $e');
+  //   }
+  // }
+
+// Helper function for text field updates
+  void _updateTextField(TextEditingController controller, var subEmployer, String key) {
+    controller.text = subEmployer == null ? '' : subEmployer[key] ?? '';
+  }
+
+
+
+
+  T _getNestedValue<T>(List<dynamic> data, int index, String key, {String subKey, T defaultValue}) {
+    try {
+      // If the data is empty or the expected value doesn't exist, return the default value
+      if (data.isEmpty || data[index] == null) return defaultValue;
+
+      if (subKey != null && data[index][key] != null) {
+        return data[index][key][subKey] ?? defaultValue;
+      }
+
+      return data[index][key] ?? defaultValue;
+    } catch (e) {
+      // Return the default value in case of any error
+      return defaultValue;
+    }
+  }
+
+  List<T> _getNestedListValue<T>(List<dynamic> data, int index, String key, {String subKey, List<T> defaultValue}) {
+    try {
+      // If the data is empty or the expected value doesn't exist, return the default value
+      if (data.isEmpty || data[index] == null) return defaultValue ?? [];
+
+      if (subKey != null && data[index][key] != null) {
+        // Try to extract a list from the subkey
+        return List<T>.from(data[index][key][subKey] ?? defaultValue ?? []);
+      }
+
+      // Return the list if it's directly under the key
+      return List<T>.from(data[index][key] ?? defaultValue ?? []);
+    } catch (e) {
+      // Return the default value in case of any error
+      return defaultValue ?? [];
+    }
+  }
+
+
+
+// Helper method to safely format dates from the subEmployer data
+  String _formatDateFromSubEmployer(var subEmployer, String dateKey) {
+  if (subEmployer == null || subEmployer[dateKey] == null || subEmployer[dateKey].length < 3) {
+  return '';
+  }
+  return retDOBfromBVN('${subEmployer[dateKey][0]}-${subEmployer[dateKey][1]}-${subEmployer[dateKey][2]}');
+  }
+
+
+
 
   getClientType() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1317,7 +1628,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             });
           }
           print('>> pers ${isPersonalEmail} >> personal email ${isPersonalEmailVerified} >> ${isPersonalEmail == true && isPersonalEmailVerified == 'false'}');
-        if(isPersonalEmail == true && (isPersonalEmailVerified == 'false' || isPersonalEmailVerified == '') ){
+        if( isPersonalEmail == true && (isPersonalEmailVerified == 'false' || isPersonalEmailVerified == '') ){
 
      //    if(isPersonalEmail == true){
           debugPrint('fired in');
@@ -1377,12 +1688,17 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.red,
           title: 'Validation Error',
-          message: 'Payday/Employyment date cannot be empty',
+          message: 'Payday/Employment date cannot be empty',
           duration: Duration(seconds: 3),
         ).show(context);
       }
 
-      String fetchWorkMail =  employmentProfile.isEmpty ? '' : employmentProfile[0]['emailAddress'];
+    //  String fetchWorkMail =  employmentProfile.isEmpty || employmentProfile[0]['emailAddress'] == null ? '' : employmentProfile[0]['emailAddress'];
+
+      String fetchWorkMail = (employmentProfile.isNotEmpty && employmentProfile[0]['emailAddress'] is String)
+          ? employmentProfile[0]['emailAddress']
+          : '';
+      print('fetch work mail >> ${fetchWorkMail}');
       print('fetch mail > > ${isNewWorkEmailVerified == false && (work_email.text != fetchWorkMail)}> ${fetchWorkMail != work_email.text}  ${isNewWorkEmailVerified}');
         // true && true
 

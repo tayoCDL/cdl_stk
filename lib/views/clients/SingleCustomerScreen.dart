@@ -382,15 +382,20 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                           flexibleSpace: FlexibleSpaceBar(
                             centerTitle: true,
                             title: Text(
-                                clientProfile.isEmpty
-                                    ? '- -'
-                                    : '${clientProfile['clients']['firstname']} ${clientProfile['clients']['lastname']}',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    fontFamily: 'Nunito SansRegular',
-                                    fontWeight: FontWeight.bold)),
-                            background: CircleAvatar(
+                          clientProfile.isEmpty ||
+                          clientProfile['clients'] == null ||
+                          clientProfile['clients']['firstname'] == null ||
+                          clientProfile['clients']['lastname'] == null
+                          ? '- -'
+                              : '${clientProfile['clients']['firstname']} ${clientProfile['clients']['lastname']}',
+                          style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16.0,
+                          fontFamily: 'Nunito SansRegular',
+                          fontWeight: FontWeight.bold,
+                          ),
+                          ),
+                          background: CircleAvatar(
                               backgroundColor: Colors.white,
                               child: Container(
                                   height: 80,
@@ -433,11 +438,23 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                             color: Colors.grey[500],
                                             fontWeight: FontWeight.bold),
                                       ),
+                                      // Text(
+                                      //   clientProfile.isEmpty ||
+                                      //           clientProfile['clients']
+                                      //                   ['clientType'] ==
+                                      //               null
+                                      //       ? '- -'
+                                      //       : '${clientProfile['clients']['clientType']['name']}',
+                                      //   style: TextStyle(
+                                      //     color: Colors.black,
+                                      //     fontSize: 15,
+                                      //   ),
+                                      // )
                                       Text(
                                         clientProfile.isEmpty ||
-                                                clientProfile['clients']
-                                                        ['clientType'] ==
-                                                    null
+                                            clientProfile['clients'] == null ||
+                                            clientProfile['clients']['clientType'] == null ||
+                                            clientProfile['clients']['clientType']['name'] == null
                                             ? '- -'
                                             : '${clientProfile['clients']['clientType']['name']}',
                                         style: TextStyle(
@@ -445,6 +462,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                           fontSize: 15,
                                         ),
                                       )
+
                                     ],
                                   ),
                                   SizedBox(
@@ -463,9 +481,8 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                       ),
                                       Text(
                                         clientProfile.isEmpty ||
-                                                clientProfile['clients']
-                                                        ['externalId'] ==
-                                                    null
+                                            clientProfile['clients'] == null ||
+                                            clientProfile['clients']['externalId'] == null
                                             ? 'N/A'
                                             : '${clientProfile['clients']['externalId']}',
                                         style: TextStyle(
@@ -473,6 +490,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                           fontSize: 15,
                                         ),
                                       )
+
                                     ],
                                   ),
                                   SizedBox(
@@ -489,8 +507,20 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                             color: Colors.grey[500],
                                             fontWeight: FontWeight.bold),
                                       ),
+                                      // Text(
+                                      //   clientProfile.isEmpty
+                                      //       ? '- -'
+                                      //       : '${clientProfile['clients']['id']}',
+                                      //   style: TextStyle(
+                                      //     color: Colors.black,
+                                      //     fontSize: 15,
+                                      //   ),
+                                      // )
+
                                       Text(
-                                        clientProfile.isEmpty
+                                        clientProfile.isEmpty ||
+                                            clientProfile['clients'] == null ||
+                                            clientProfile['clients']['id'] == null
                                             ? '- -'
                                             : '${clientProfile['clients']['id']}',
                                         style: TextStyle(
@@ -498,6 +528,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                           fontSize: 15,
                                         ),
                                       )
+
                                     ],
                                   ),
                                   SizedBox(
@@ -543,15 +574,18 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        clientProfile['clients']['timeline'] !=
-                                                null
-                                            ? '${retDOBfromBVN('${clientProfile['clients']['timeline']['submittedOnDate'][0]}-${clientProfile['clients']['timeline']['submittedOnDate'][1]}-${clientProfile['clients']['timeline']['submittedOnDate'][2]}')}'
-                                            : "N/A",
+                                        clientProfile.isEmpty ||
+                                            clientProfile['clients'] == null ||
+                                            clientProfile['clients']['timeline'] == null ||
+                                            clientProfile['clients']['timeline']['submittedOnDate'] == null
+                                            ? 'N/A'
+                                            : '${retDOBfromBVN('${clientProfile['clients']['timeline']['submittedOnDate'][0]}-${clientProfile['clients']['timeline']['submittedOnDate'][1]}-${clientProfile['clients']['timeline']['submittedOnDate'][2]}')}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15,
                                         ),
                                       )
+
                                     ],
                                   ),
                                   SizedBox(
@@ -569,16 +603,18 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        clientProfile['clients']
-                                                    ['activationChannel'] !=
-                                                null
-                                            ? '${'${clientProfile['clients']['activationChannel']['name']}'}'
-                                            : "N/A",
+                                        clientProfile.isEmpty ||
+                                            clientProfile['clients'] == null ||
+                                            clientProfile['clients']['activationChannel'] == null ||
+                                            clientProfile['clients']['activationChannel']['name'] == null
+                                            ? 'N/A'
+                                            : '${clientProfile['clients']['activationChannel']['name']}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15,
                                         ),
                                       )
+
                                     ],
                                   ),
                                   SizedBox(
@@ -597,34 +633,38 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                       ),
                                       clientProfile.isEmpty
                                           ? SizedBox()
-                                          : clientProfile['clients']['status']
-                                                      ['value'] ==
-                                                  'InComplete'
-                                              ? clientStatus(
-                                                  Color(0xffFF0808),
-                                                  clientProfile['clients']
-                                                      ['status']['value'])
-                                              : clientProfile['clients']
-                                                          ['status']['value'] ==
-                                                      'Pending'
-                                                  ? clientStatus(
-                                                      Colors.orange,
-                                                      clientProfile['clients']
-                                                          ['status']['value'])
-                                                  : clientProfile['clients']
-                                                                  ['status']
-                                                              ['value'] ==
-                                                          'Active'
-                                                      ? clientStatus(
-                                                          Colors.green,
-                                                          clientProfile['clients']
-                                                                  ['status']
-                                                              ['value'])
-                                                      : clientStatus(
-                                                          Colors.blueAccent,
-                                                          clientProfile['clients']
-                                                              ['status']['value '])
-                                    ],
+                                          :
+                                      // clientProfile['clients']['status']
+                                      //                 ['value'] ==
+                                      //             'InComplete'
+                                      //         ? clientStatus(
+                                      //             Color(0xffFF0808),
+                                      //             clientProfile['clients']
+                                      //                 ['status']['value'])
+                                      //         : clientProfile['clients']
+                                      //                     ['status']['value'] ==
+                                      //                 'Pending'
+                                      //             ? clientStatus(
+                                      //                 Colors.orange,
+                                      //                 clientProfile['clients']
+                                      //                     ['status']['value'])
+                                      //             : clientProfile['clients']
+                                      //                             ['status']
+                                      //                         ['value'] ==
+                                      //                     'Active'
+                                      //                 ? clientStatus(
+                                      //                     Colors.green,
+                                      //                     clientProfile['clients']
+                                      //                             ['status']
+                                      //                         ['value'])
+                                      //                 : clientStatus(
+                                      //                     Colors.blueAccent,
+                                      //                     clientProfile['clients']
+                                      //                         ['status']['value '])
+
+                                      getClientStatusWidget(clientProfile),
+
+                              ],
                                   ),
                                 ],
                               ),
@@ -662,319 +702,297 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
+                                              // Text(
+                                              //   clientProfile.isEmpty
+                                              //       ? '- -'
+                                              //       : '${clientProfile['clients']['title']['name'].toString()}',
+                                              //   style: TextStyle(
+                                              //       color: Colors.black,
+                                              //       fontSize: 15,
+                                              //       fontWeight:
+                                              //           FontWeight.bold),
+                                              // )
+
                                               Text(
-                                                clientProfile.isEmpty
+                                                clientProfile.isEmpty ||
+                                                    !clientProfile.containsKey('clients') ||
+                                                    clientProfile['clients'] == null ||
+                                                    !clientProfile['clients'].containsKey('title') ||
+                                                    clientProfile['clients']['title'] == null ||
+                                                    !clientProfile['clients']['title'].containsKey('name') ||
+                                                    clientProfile['clients']['title']['name'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['title']['name'].toString()}',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    : clientProfile['clients']['title']['name'].toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               )
+
                                             ],
                                           ),
+
+
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'First Name: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                ['firstname'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['firstname'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['firstname'].toString()}',
+                                                    : '${clientProfile['clients']['firstname']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Middle Name: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                [
-                                                                'middlename'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['middlename'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['middlename'].toString()}',
+                                                    : '${clientProfile['clients']['middlename']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Last name: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                ['lastname'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['lastname'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['lastname'].toString()}',
+                                                    : '${clientProfile['clients']['lastname']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Gender: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                    ['gender']
-                                                                ['name'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['gender'] == null ||
+                                                    clientProfile['clients']['gender']['name'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['gender']['name'].toString()}',
+                                                    : '${clientProfile['clients']['gender']['name']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
-                                          // Row(
-                                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          //   children: [
-                                          //     Text('Date Of Birth: ',style: TextStyle(fontSize: 13,color: Colors.grey[500],fontWeight: FontWeight.bold),),
-                                          //     Text(clientProfile.isEmpty ? '- -' : '${clientProfile['clients']['dateOfBirth'][2]} - ${clientProfile['dateOfBirth'][1]} - ${clientProfile['dateOfBirth'][0]}',style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)
-                                          //
-                                          //   ],
-                                          // ),
+// Uncomment and fix the Date of Birth section if required
+// Row(
+//   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//   children: [
+//     Text('Date Of Birth: ',style: TextStyle(fontSize: 13,color: Colors.grey[500],fontWeight: FontWeight.bold),),
+//     Text(clientProfile.isEmpty ? '- -' : '${clientProfile['clients']['dateOfBirth'][2]} - ${clientProfile['clients']['dateOfBirth'][1]} - ${clientProfile['clients']['dateOfBirth'][0]}',style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),)
+//   ],
+// ),
 
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Marital Status: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                    [
-                                                                    'maritalStatus']
-                                                                ['name'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['maritalStatus'] == null ||
+                                                    clientProfile['clients']['maritalStatus']['name'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['maritalStatus']['name'].toString()}',
+                                                    : '${clientProfile['clients']['maritalStatus']['name']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'No. Of Dependents: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                [
-                                                                'numberOfDependent'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['numberOfDependent'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['numberOfDependent'].toString()}',
+                                                    : '${clientProfile['clients']['numberOfDependent']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Phone Number: ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                ['mobileNo'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['mobileNo'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['mobileNo'].toString()}',
+                                                    : '${clientProfile['clients']['mobileNo']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
-
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Email : ',
                                                 style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey[500],
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 13,
+                                                  color: Colors.grey[500],
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               Text(
                                                 clientProfile.isEmpty ||
-                                                        clientProfile['clients']
-                                                                [
-                                                                'emailAddress'] ==
-                                                            null
+                                                    clientProfile['clients'] == null ||
+                                                    clientProfile['clients']['emailAddress'] == null
                                                     ? '- -'
-                                                    : '${clientProfile['clients']['emailAddress'].toString()}',
+                                                    : '${clientProfile['clients']['emailAddress']}',
                                                 style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
                                           ),
-
                                           SizedBox(
                                             height: 30,
                                           ),
-
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.2,
+                                            width: MediaQuery.of(context).size.width * 0.2,
                                             child: RoundedButton(
                                               onbuttonPressed: () {
                                                 MyRouter.pushPage(
-                                                    context,
-                                                    AddClient(
-                                                      ClientInt: clientProfile[
-                                                          'clients']['id'],
-                                                      //   sector: clientProfile['clients']['employmentSector'],
-                                                      comingFrom:
-                                                          'SingleCustomerScreen',
-                                                      Passedbvn: clientProfile[
-                                                          'clients']['bvn'],
-                                                    ));
-
-                                                // MyRouter.pushPage(context, PersonalInfo(
-                                                //     bvnFirstName: clientProfile['clients']['firstname'],
-                                                //     bvnMiddleName: clientProfile['clients']['middlename'],
-                                                //     bvnLastName: clientProfile['clients']['lastname'],
-                                                //     bvnEmail: clientProfile['clients']['emailAddress'],
-                                                //     bvnPhone1: clientProfile['clients']['mobileNo'],
-                                                //     ClientInt: clientProfile['clients']['id'],
-                                                //     comingFrom: 'SingleCustomerScreen',
-                                                //     PassedtitleInt:clientProfile['clients']['title']['id'],
-                                                //     PassedgenderInt: clientProfile['clients']['gender']['id'],
-                                                //     PassednoOfdepsInt: clientProfile['clients']['numberOfDependent'],
-                                                //     PassededucationInt: clientProfile['clients']['educationLevel']['id']
-                                                // ));
+                                                  context,
+                                                  AddClient(
+                                                    ClientInt: clientProfile['clients'] != null ? clientProfile['clients']['id'] : null,
+                                                    comingFrom: 'SingleCustomerScreen',
+                                                    Passedbvn: clientProfile['clients'] != null ? clientProfile['clients']['bvn'] : null,
+                                                  ),
+                                                );
                                               },
                                               buttonText: 'Edit',
                                             ),
                                           ),
-
                                           SizedBox(
                                             height: 20,
                                           ),
+
+
                                         ],
                                       ),
                                     )
@@ -2168,47 +2186,44 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                             ),
                             clientProfile.isEmpty
                                 ? SizedBox()
-                                : clientProfile['clients']['status']['value'] ==
-                                        'InComplete'
-                                    ? Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
-                                        child: RoundedButton(
-                                            buttonText: 'Send For Approval',
-                                            onbuttonPressed: () {
-                                              //       Flushbar(
-                                              //              flushbarPosition: FlushbarPosition.TOP,
-                                              //              flushbarStyle: FlushbarStyle.GROUNDED,
-                                              //   backgroundColor: Colors.green,
-                                              //   title: "Success",
-                                              //   message: 'Client Creation success',
-                                              //   duration: Duration(seconds: 3),
-                                              // ).show(context);
-
-                                              //   MyRouter.pushPage(context, MainScreen());
-                                              finalValidation();
-                                            }),
-                                      )
-                                    : SizedBox(),
+                                : (clientProfile['clients'] != null &&
+                                clientProfile['clients']['status'] != null &&
+                                clientProfile['clients']['status']['value'] != null &&
+                                clientProfile['clients']['status']['value'] == 'InComplete')
+                                ? Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: RoundedButton(
+                                buttonText: 'Send For Approval',
+                                onbuttonPressed: () {
+                                  finalValidation();
+                                },
+                              ),
+                            )
+                                : SizedBox(),
                             SizedBox(
                               height: 10,
                             ),
-                            clientProfile['clients']['status']['value'] ==
-                                    'Active'
+
+                            clientProfile.isEmpty || clientProfile['clients'] == null || clientProfile['clients']['status'] == null || clientProfile['clients']['status']['value'] == null
+                                ? SizedBox()
+                                : clientProfile['clients']['status']['value'] == 'Active'
                                 ? Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.41,
-                                    child: RoundedButton(
-                                        buttonText: 'View Change Log',
-                                        onbuttonPressed: () {
-                                          MyRouter.pushPage(
-                                              context,
-                                              ChangeLog(
-                                                clientID: clientID,
-                                              ));
-                                        }))
+                              width: MediaQuery.of(context).size.width * 0.41,
+                              child: RoundedButton(
+                                buttonText: 'View Change Log',
+                                onbuttonPressed: () {
+                                  MyRouter.pushPage(
+                                    context,
+                                    ChangeLog(
+                                      clientID: clientID,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
                                 : SizedBox(),
+
+
                             SizedBox(
                               height: 10,
                             ),
@@ -2322,6 +2337,35 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
 
     return concatss;
   }
+
+  Widget getClientStatusWidget(Map<String, dynamic> clientProfile) {
+    if (clientProfile.isEmpty ||
+        !clientProfile.containsKey('clients') ||
+        clientProfile['clients'] == null ||
+        !clientProfile['clients'].containsKey('status') ||
+        clientProfile['clients']['status'] == null ||
+        !clientProfile['clients']['status'].containsKey('value') ||
+        clientProfile['clients']['status']['value'] == null) {
+      // Handle missing or null data
+      return clientStatus(Colors.blueAccent, 'Unknown');
+    }
+
+    // Get the status value
+    String status = clientProfile['clients']['status']['value'];
+
+    // Return widget based on status
+    if (status == 'InComplete') {
+      return clientStatus(const Color(0xffFF0808), status);
+    } else if (status == 'Pending') {
+      return clientStatus(Colors.orange, status);
+    } else if (status == 'Active') {
+      return clientStatus(Colors.green, status);
+    } else {
+      return clientStatus(Colors.blueAccent, status);
+    }
+  }
+
+
 
   Widget UnableToLoadUser() {
     return Scaffold(
