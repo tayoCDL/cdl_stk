@@ -4,24 +4,24 @@
 //
 //   saveString() async {
 //     final storage = FlutterSecureStorage();
-//     String key = 'my_key';
-//     String value = 'Mobiluser@123';
+//     String?  key = 'my_key';
+//     String?  value = 'Mobiluser@123';
 //
 //     await storage.write(key: key, value: value);
-//     print('String saved');
+//     print('String?  saved');
 //   }
 //
 //   getString() async {
 //     final storage = FlutterSecureStorage();
-//     String key = 'my_key';
+//     String?  key = 'my_key';
 //
-//     String value = await storage.read(key: key);
+//     String?  value = await storage.read(key: key);
 //
 //     return value;
 //     if (value != null) {
 //       print('Retrieved string: $value');
 //     } else {
-//       print('String not found');
+//       print('String?  not found');
 //     }
 //   }
 //

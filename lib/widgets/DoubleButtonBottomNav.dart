@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class DoubleBottomNavComponent extends StatelessWidget {
   const DoubleBottomNavComponent({
-    Key key,
-    @required this.text1,
-    @required this.text2,
-    @required this.callAction1,
-    @required this.callAction2,
+    Key? key,
+    required this.text1,
+    required this.text2,
+    required this.callAction1,
+    required this.callAction2,
     this.compsender,
   }) : super(key: key);
 
-  final String text1;
-  final String text2;
-  final Function callAction1;
-   final Function callAction2;
+  final String?  text1;
+  final String?  text2;
+  final VoidCallback callAction1;
+   final VoidCallback callAction2;
     final Widget compsender;
   @override
   Widget build(BuildContext context) {
@@ -75,4 +75,3 @@ class DoubleBottomNavComponent extends StatelessWidget {
     );
   }
 }
-

@@ -4,16 +4,16 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ProgressStepper extends StatelessWidget {
   const ProgressStepper ({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.subtitle,
     this.stepper,
 
   }) : super(key: key);
 
-  final String title;
-  final String subtitle;
-  final double stepper;
+  final String?  title;
+  final String?  subtitle;
+  final double? stepper;
 
 
 

@@ -20,15 +20,15 @@ import 'package:sales_toolkit/widgets/dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NewLoan extends StatefulWidget {
-  // const NewLoan({Key key}) : super(key: key);
+  // const NewLoan({Key? key}) : super(key: key);
   //
   // @override
   // _NewLoanState createState() => _NewLoanState();
 
-  final int clientID, productId, loanId, employerId, sectorID, parentClientType;
+  final int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
 
   const NewLoan(
-      {Key key,
+      {Key? key,
       this.clientID,
       this.productId,
       this.loanId,
@@ -48,7 +48,7 @@ class NewLoan extends StatefulWidget {
 }
 
 class _NewLoanState extends State<NewLoan> {
-  int clientID, productId, loanId, employerId, sectorID, parentClientType;
+  int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
 
   _NewLoanState(
       {this.clientID,
@@ -72,17 +72,17 @@ class _NewLoanState extends State<NewLoan> {
   List<dynamic> allEmployer = ["employer"];
   bool _isLoading = false;
 
-  int sectorId;
+  int?  sectorId;
   bool isFedgoLoan = false;
   List<String> fundingArray = [];
   List<String> collectFunding = [];
   List<dynamic> allFunding = [];
-  String productName = '';
-  String PassloanPurpose = '';
-  String username,clientBvn,clientNin;
-  int productInt, purposeInt;
+  String?  productName = '';
+  String?  PassloanPurpose = '';
+  String?  username,clientBvn,clientNin;
+  int?  productInt, purposeInt;
   var employmentProfile = [];
-  int employerID;
+  int?  employerID;
   bool isRiskLoading = false;
   Map<String,dynamic> fedgoData = {};
   void initState() {
@@ -112,7 +112,7 @@ class _NewLoanState extends State<NewLoan> {
         clientNin = responseData['nin'];
 
         //  interestRateForPrivate = responseData['data']['data']['categpries']['interestRate'];
-    //    String nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
+    //    String?  nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
 
       });
 
@@ -150,7 +150,7 @@ class _NewLoanState extends State<NewLoan> {
 
   getSalesUsername() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
+    String?  Vusername = prefs.getString('username');
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     prefs.remove('canBookTopUp');
@@ -208,7 +208,7 @@ class _NewLoanState extends State<NewLoan> {
 
   loadLoanTemplates() async {
     print('this is clientID ${clientID} ${employerId}');
-    int empID = employerID == null ? employerId : employerID;
+    int?  empID = employerID == null ? employerId : employerID;
     print('empID ${empID}');
     setState(() {
       _isLoading = true;
@@ -230,7 +230,7 @@ class _NewLoanState extends State<NewLoan> {
 
       print('all Products ${newEmp}');
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -258,7 +258,7 @@ class _NewLoanState extends State<NewLoan> {
 // SANDBOX
 //      var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int i = 0; i < filtered.length; i++) {
+      for (int?  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -275,7 +275,7 @@ class _NewLoanState extends State<NewLoan> {
     });
   }
 
-  loadPurposeTemplate(int productId) async {
+  loadPurposeTemplate(int?  productId) async {
     setState(() {
       _isLoading = true;
     });
@@ -294,7 +294,7 @@ class _NewLoanState extends State<NewLoan> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -319,7 +319,7 @@ class _NewLoanState extends State<NewLoan> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -362,7 +362,7 @@ class _NewLoanState extends State<NewLoan> {
     });
   }
 
-  int currentStep = 0;
+  int?  currentStep = 0;
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
 
@@ -673,7 +673,7 @@ class _NewLoanState extends State<NewLoan> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: DropDownComponent(
                 items: filteredProduct,
-                onChange: (String item) async {
+                onChange: (String?  item) async {
                   setState(() {
                     List<dynamic> selectID = allProduct
                         .where((element) => element['name'] == item)
@@ -694,7 +694,7 @@ class _NewLoanState extends State<NewLoan> {
                 },
                 label: "Product Name *",
                 selectedItem: productName,
-                validator: (String item) {
+                validator: (String?  item) {
                   if (item.length == 0) {
                     return "Loan product is mandatory";
                   }
@@ -714,7 +714,7 @@ class _NewLoanState extends State<NewLoan> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: DropDownComponent(
                 items: purposeArray,
-                onChange: (String item) async {
+                onChange: (String?  item) async {
                   setState(() {
                     List<dynamic> selectID = allPurpose
                         .where((element) => element['name'] == item)
@@ -728,7 +728,7 @@ class _NewLoanState extends State<NewLoan> {
                 },
                 label: "Loan Purpose   *",
                 selectedItem: PassloanPurpose,
-                validator: (String item) {
+                validator: (String?  item) {
                   if (item.length == 0) {
                     return "Loan purpose is mandatory ";
                   }
@@ -758,28 +758,28 @@ class _NewLoanState extends State<NewLoan> {
         selectedDate = selected;
         print(selected);
         //  date = selected.toString();
-        String vasCoddd = retsNx360dates(selected);
+        String?  vasCoddd = retsNx360dates(selected);
         dateController.text = vasCoddd;
       });
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 
@@ -790,8 +790,8 @@ class _NewLoanState extends State<NewLoan> {
   Widget EntryField(
     BuildContext context,
     var editController,
-    String labelText,
-    String hintText,
+    String?  labelText,
+    String?  hintText,
     var keyBoard, {
     bool isPassword = false,
     isRealOnly: false,
@@ -860,12 +860,12 @@ class _NewLoanState extends State<NewLoan> {
           children: [
             DropDownComponent(
                 items: [],
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {});
                 },
                 label: "Link Savings",
                 selectedItem: "---",
-                validator: (String item) {}),
+                validator: (String?  item) {}),
             SizedBox(
               height: 15,
             ),

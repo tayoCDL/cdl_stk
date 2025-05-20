@@ -104,7 +104,7 @@ class _RecoveryListState extends State<RecoveryList> {
     );
   }
 
-  _LeadingUserTile(Color cols,String nameLogo){
+  _LeadingUserTile(Color cols,String?  nameLogo){
     return Container(
       padding: EdgeInsets.only(top: 1),
       width: 44,
@@ -118,9 +118,9 @@ class _RecoveryListState extends State<RecoveryList> {
     );
   }
 
-  _leadsContactView(Color colm,String title,String date,
-      String nameLogo,String loanType,String loanStatus,
-      var amount,String overDue,Color ColorStatus,Function onTap){
+  _leadsContactView(Color colm,String?  title,String?  date,
+      String?  nameLogo,String?  loanType,String?  loanStatus,
+      var amount,String?  overDue,Color ColorStatus,VoidCallback onTap){
     return InkWell(
       onTap: onTap,
       child: Padding(

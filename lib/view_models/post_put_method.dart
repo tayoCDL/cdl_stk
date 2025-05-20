@@ -7,7 +7,7 @@ import '../util/app_url.dart';
 import '../widgets/constants.dart';
 
 class PostAndPut{
-  isClientActive(int clientID) async{
+  isClientActive(int?  clientID) async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -15,7 +15,7 @@ class PostAndPut{
     var tfaToken = prefs.getString('tfa-token');
 
     Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString(),
+      Uri.parse(AppUrl.getSingleClient + clientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -27,7 +27,7 @@ class PostAndPut{
 
     var newClientData = responseData2;
 
-    String clientStatus =newClientData['status']['value'];
+    String?  clientStatus =newClientData['status']['value'];
 
     return clientStatus;
 

@@ -4,23 +4,23 @@ import 'package:flutter/material.dart';
 
 class DropDownComponent extends StatelessWidget {
   const DropDownComponent({
-    Key key,
-    @required this.items,
-    @required this.label,
-    @required this.selectedItem,
-    @required this.validator,
+    Key? key,
+    required this.items,
+    required this.label,
+    required this.selectedItem,
+    required this.validator,
          this.popUpDisabled,
-    this.onChange
+    required this.onChange
 
 
   }) : super(key: key);
 
   final List<String> items;
-  final String label;
-  final String selectedItem;
-  final Function validator;
-  final Function onChange;
-  final Function popUpDisabled;
+  final String?  label;
+  final String?  selectedItem;
+  final VoidCallback validator;
+  final VoidCallback onChange;
+  final VoidCallback popUpDisabled;
   @override
   Widget build(BuildContext context) {
 

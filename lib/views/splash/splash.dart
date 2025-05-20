@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     print('token is ${prefs}');
-//    String token = await preferences.get("token");
+//    String?  token = await preferences.get("token");
       if(prefs.getString('base64EncodedAuthenticationKey') == null && prefs.getString('tfa-token') == null){
         setState(() {
           page = LoginScreen(login_type: 'Loan Management',);

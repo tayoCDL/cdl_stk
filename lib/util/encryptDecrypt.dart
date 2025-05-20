@@ -5,24 +5,24 @@ import 'package:sales_toolkit/widgets/constants.dart';
 
 
 class EncryptOrDecrypt{
-  final key = encrypt.Key.fromUtf8(enc_key);
-  final iv = encrypt.IV.fromUtf8(enc_iv);
+  final key = encrypt.Key.fromUtf8(enc_key!);
+  final iv = encrypt.IV.fromUtf8(enc_iv!);
   final aesAlgo = 'AES/CBC/PKCS5PADDING';
 
 
 
-  encryptText(String plainText) {
+  encryptText(String?  plainText) {
     final encrypter = encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.cbc));
-    final encrypted = encrypter.encrypt(plainText, iv: iv);
-    String encryptedText = encrypted.base64;
+    final encrypted = encrypter.encrypt(plainText!, iv: iv);
+    String?  encryptedText = encrypted.base64;
     return encryptedText;
   }
 
-  decryptText(String enryptedText) {
+  decryptText(String?  enryptedText) {
     final encrypter = encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.cbc));
-    final encrypted = encrypt.Encrypted.fromBase64(enryptedText);
+    final encrypted = encrypt.Encrypted.fromBase64(enryptedText!);
     final decrypted = encrypter.decrypt(encrypted, iv: iv);
-    String decryptedText = decrypted;
+    String?  decryptedText = decrypted;
     return decryptedText;
   }
 
@@ -40,9 +40,9 @@ class EncryptOrDecrypt{
   }
 
   Map<String, dynamic> buildtwofactorData(
-      {String authCode,
-        String extendedToken,
-        Map<String, dynamic> requesPayload}) {
+      {String?  authCode,
+        String?  extendedToken,
+        required Map<String, dynamic>? requesPayload}) {
     return {
       "authorization": 'Basic $authCode',
       "extendedToken": extendedToken ?? '',
@@ -53,8 +53,8 @@ class EncryptOrDecrypt{
 
 
   Map<String, dynamic> buildEncData(Map<String, dynamic> loginData) {
-    String loginString = jsonEncode(loginData);
-    String newLoginString = EncryptOrDecrypt().encryptText(loginString);
+    String  loginString  = jsonEncode(loginData);
+    String  newLoginString  = EncryptOrDecrypt().encryptText(loginString);
     return {"payload": newLoginString};
   }
 

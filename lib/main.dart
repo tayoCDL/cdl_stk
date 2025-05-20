@@ -40,7 +40,7 @@ import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_analytics/observer.dart';
 
-const String onesignalId = "fbfb56c1-16aa-466a-8f6b-85ce4fa4883e";
+const String?  onesignalId = "fbfb56c1-16aa-466a-8f6b-85ce4fa4883e";
 
 void main() async{
 //  await dotenv.load(fileName: Environment.fileName);
@@ -118,8 +118,8 @@ void main() async{
 
 
   // var status = await OneSignal.shared.getDeviceState();
-  // String playerId = status.userId;
-  // String playerIdEmail = status.emailAddress;
+  // String?  playerId = status.userId;
+  // String?  playerIdEmail = status.emailAddress;
 
   //print('this is player Id ${playerId} ${playerIdEmail}');
   WidgetsFlutterBinding.ensureInitialized();
@@ -319,7 +319,7 @@ class _MyAppState extends State<MyApp> {
 
 
 class JailBroken extends StatelessWidget {
-  const JailBroken({Key key}) : super(key: key);
+  const JailBroken({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -375,7 +375,7 @@ class MyHttpOverrides extends HttpOverrides{
   @override
   HttpClient createHttpClient(SecurityContext context){
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback = (X509Certificate cert, String?  host, int?  port)=> true;
   }
 }
 
@@ -383,7 +383,7 @@ class MyHttpOverrides extends HttpOverrides{
 class MyHomePage extends StatelessWidget {
   void _causeCrash() {
     // Simulate a crash by dividing by zero (which will throw a Dart exception).
-    // int result = 10 ~/ 0;
+    // int?  result = 10 ~/ 0;
     // print('Result: $result'); // This line won't be reached due to the crash.
     throw Error();
 

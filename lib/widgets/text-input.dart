@@ -4,10 +4,10 @@ import '../palatte.dart';
 
 class TextInput extends StatelessWidget {
   const TextInput({
-    Key key,
-    @required this.icon,
-    @required this.isIconAvailable,
-    @required this.hint,
+    Key? key,
+    required this.icon,
+    required this.isIconAvailable,
+    required this.hint,
     this.isObsure,
     this.onSave,
     this.eyeOpen,
@@ -22,12 +22,12 @@ class TextInput extends StatelessWidget {
   final bool isObsure;
   final bool eyeOpen;
   final IconData icon;
-  final String hint;
+  final String?  hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  final Function onSave;
-  final Function onButtonPressed;
-  final Function validate;
+  final VoidCallback onSave;
+  final VoidCallback onButtonPressed;
+  final VoidCallback validate;
   final TextEditingController controls;
   @override
   Widget build(BuildContext context) {

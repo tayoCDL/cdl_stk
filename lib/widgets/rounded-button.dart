@@ -13,7 +13,7 @@ class RoundedButton extends StatelessWidget {
   }) : super(key: key);
 
   final String buttonText;
-  final Function onbuttonPressed;
+  final VoidCallback onbuttonPressed;
   final Color bgColor;
   final Color borderColor;
   final Color textColor;

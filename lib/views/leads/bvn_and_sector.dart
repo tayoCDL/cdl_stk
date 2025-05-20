@@ -13,14 +13,14 @@ import 'package:sales_toolkit/widgets/dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BvnAndSector extends StatefulWidget {
-//  const BvnAndSector({Key key}) : super(key: key);
+//  const BvnAndSector({Key? key}) : super(key: key);
 
   // @override
   // _BvnAndSectorState createState() => _BvnAndSectorState();
 
-  final int leadCategory,leadRating,leadSource;
-  final String projectedInflow,leadType;
-  const BvnAndSector({Key key,this.leadCategory,this.leadRating,this.leadType,this.leadSource,this.projectedInflow}) : super(key: key);
+  final int?  leadCategory,leadRating,leadSource;
+  final String?  projectedInflow,leadType;
+  const BvnAndSector({Key? key,this.leadCategory,this.leadRating,this.leadType,this.leadSource,this.projectedInflow}) : super(key: key);
   @override
   _BvnAndSectorState createState() => _BvnAndSectorState(
     leadCategory: this.leadCategory,
@@ -33,8 +33,8 @@ class BvnAndSector extends StatefulWidget {
 
 class _BvnAndSectorState extends State<BvnAndSector> {
 
-  int leadCategory,leadRating,leadSource;
-  String projectedInflow,leadType;
+  int?  leadCategory,leadRating,leadSource;
+  String?  projectedInflow,leadType;
   _BvnAndSectorState({this.leadCategory,this.leadRating,this.leadType,this.leadSource,this.projectedInflow});
 
 
@@ -45,7 +45,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
   bool isBVNLoading = false;
   bool isRequestLoading = false;
   bool isAllowedToProceed = false;
-  String tempEmail,tempFirstName,tempMiddleName,tempLastName,tempPhone1,tempPhone2;
+  String?  tempEmail,tempFirstName,tempMiddleName,tempLastName,tempPhone1,tempPhone2;
 
   void initState() {
     // TODO: implement initState
@@ -84,7 +84,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
             allEmp = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -127,7 +127,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
           allEmp = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -148,7 +148,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
     );
   }
 
-  fetchBvn(String text) {
+  fetchBvn(String?  text) {
     Map <String,dynamic> subData = {
       "bvn": text,
       "phone": "",
@@ -222,8 +222,8 @@ class _BvnAndSectorState extends State<BvnAndSector> {
 
   @override
   var _lights = true;
-  String employment_type = '';
-  int empInt;
+  String?  employment_type = '';
+  int?  empInt;
 
 
 
@@ -358,7 +358,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
 
                   SizedBox(height: 20,),
                   DropDownComponent(items: empSector,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allEmp.where((element) => element['name'] == item).toList();
@@ -371,7 +371,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
                       },
                       label: "Select Sector",
                       selectedItem: "Select Sector",
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
@@ -411,7 +411,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
   }
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText,{var maxLenghtAllow,} ){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText,{var maxLenghtAllow,} ){
     var MediaSize = MediaQuery.of(context).size;
 
     return   Container(
@@ -433,7 +433,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
             keyboardType: TextInputType.number,
 
             controller: editController,
-            onChanged: (String value){
+            onChanged: (String?  value){
               if(value.isEmpty){
                 setState(() {
                   isBVNLoading = false;
@@ -456,7 +456,7 @@ class _BvnAndSectorState extends State<BvnAndSector> {
                 print('re isloading  ${isBVNLoading}');
               }
             },
-            validator: (String value){
+            validator: (String?  value){
 
             },
             decoration: InputDecoration(

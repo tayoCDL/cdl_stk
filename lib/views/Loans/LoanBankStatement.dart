@@ -20,9 +20,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoanBankStatement extends StatefulWidget {
 
-  final int clientId,loanId;
-  final String passedMoreDocument;
-  const LoanBankStatement({Key key,this.clientId,this.passedMoreDocument,this.loanId}) : super(key: key);
+  final int?  clientId,loanId;
+  final String?  passedMoreDocument;
+  const LoanBankStatement({Key? key,this.clientId,this.passedMoreDocument,this.loanId}) : super(key: key);
 
   @override
   _LoanBankStatementState createState() => _LoanBankStatementState(
@@ -34,8 +34,8 @@ class LoanBankStatement extends StatefulWidget {
 
 class _LoanBankStatementState extends State<LoanBankStatement> {
 
-  int clientId,loanId;
-  String passedMoreDocument;
+  int?  clientId,loanId;
+  String?  passedMoreDocument;
   _LoanBankStatementState({this.clientId,this.passedMoreDocument,this.loanId});
   @override
 
@@ -63,9 +63,9 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
   Map<String,dynamic> loanDetail = {};
 
   var bankResult = [];
-  String bankSortCode = '';
+  String?  bankSortCode = '';
   bool showTicketAndPassword = false;
-  int mbsSortCode = 0;
+  int?  mbsSortCode = 0;
 
   void initState() {
     // TODO: implement initState
@@ -81,7 +81,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int localclientID =  clientId;
+    int?  localclientID =  clientId;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
@@ -116,7 +116,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    int localclientID =  clientId;
+    int?  localclientID =  clientId;
     print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -186,7 +186,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int tempLoanID =  prefs.getInt('loanCreatedId');
+    int?  tempLoanID =  prefs.getInt('loanCreatedId');
     print('MBS SortCode ${mbsSortCode}');
 
 
@@ -267,7 +267,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
 
         //    MyRouter.pushPageReplacement(context, ViewClient(clientID: clientId,));
-        int tempLoanID =  prefs.getInt('loanCreatedId');
+        int?  tempLoanID =  prefs.getInt('loanCreatedId');
         bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
 
         // if(isAutoDisbursed == false){
@@ -318,7 +318,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
       loanDetail = newClientData;
 
       // if(loanDetail['configs'] != null){
-      //   int docConfigData = loanDetail['configs'][0]['id'];
+      //   int?  docConfigData = loanDetail['configs'][0]['id'];
       //   if(docConfigData != null){
       //     geSingleLoanConfig(docConfigData);
       //   }
@@ -348,7 +348,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
   final _form = GlobalKey<FormState>(); //for storing form state.
 
-  int titleInt,relationshipInt,maritalInt,genderInt,professionInt;
+  int?  titleInt,relationshipInt,maritalInt,genderInt,professionInt;
 
   Widget build(BuildContext context) {
 
@@ -366,7 +366,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
         ).show(context);
       }
 
-      int tempLoanID =  prefs.getInt('loanCreatedId');
+      int?  tempLoanID =  prefs.getInt('loanCreatedId');
 
       Map<String, dynamic> noteData = {
         'note': note.text,
@@ -592,9 +592,9 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
                                   children: [
                                     Checkbox(
                                       value: this.value,
-                                      onChanged: (bool value) {
+                                      onChanged: (bool? value) {
                                         setState(() {
-                                          this.value = value;
+                                          this.value = value!;
                                         });
                                       },
                                     ),
@@ -623,7 +623,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
                               // Padding(
                               //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               //   child: DropDownComponent(items: professionArray,
-                              //       onChange: (String item) async{
+                              //       onChange: (String?  item) async{
                               //         setState(() {
                               //
                               //           List<dynamic> selectID =   allProfession.where((element) => element['name'] == item).toList();
@@ -636,7 +636,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
                               //       },
                               //       label: "Profession",
                               //       selectedItem: "--",
-                              //       validator: (String item){
+                              //       validator: (String?  item){
                               //
                               //       }
                               //   ),
@@ -686,7 +686,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

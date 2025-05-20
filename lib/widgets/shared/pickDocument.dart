@@ -4,8 +4,8 @@ import 'package:flutter_document_picker/flutter_document_picker.dart';
 
 class DocumentPick{
    pickDocument() async {
-    String result;
-    String _path = '-';
+    String?  result;
+    String?  _path = '-';
     bool _pickFileInProgress = false;
     bool _iosPublicDataUTI = true;
     bool _checkByCustomExtension = false;

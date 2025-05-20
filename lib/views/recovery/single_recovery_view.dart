@@ -6,9 +6,9 @@ import 'package:sales_toolkit/views/recovery/recovery_overview.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class SingleRecoveryView extends StatefulWidget {
-  final String ticketNumber;
-  final int loanId,collectionID;
-  const SingleRecoveryView({Key key,this.ticketNumber,this.loanId,this.collectionID}) : super(key: key);
+  final String?  ticketNumber;
+  final int?  loanId,collectionID;
+  const SingleRecoveryView({Key? key,this.ticketNumber,this.loanId,this.collectionID}) : super(key: key);
 
   @override
   _SingleRecoveryViewState createState() => _SingleRecoveryViewState(
@@ -20,8 +20,8 @@ class SingleRecoveryView extends StatefulWidget {
 
 class _SingleRecoveryViewState extends State<SingleRecoveryView> {
 
-   String ticketNumber;
-   int loanId,collectionID;
+   String?  ticketNumber;
+   int?  loanId,collectionID;
   _SingleRecoveryViewState({this.ticketNumber,this.loanId,this.collectionID});
   @override
   Widget build(BuildContext context) {

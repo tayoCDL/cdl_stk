@@ -54,11 +54,11 @@ import 'package:path/path.dart' as path;
 import '../../util/enum/color_utils.dart';
 
 class DocumentForLoan extends StatefulWidget {
-  final int clientID;
-  final int passLoanID;
-  final String moreDocument;
+  final int?  clientID;
+  final int?  passLoanID;
+  final String?  moreDocument;
   const DocumentForLoan(
-      {Key key, this.clientID, this.moreDocument, this.passLoanID})
+      {Key? key, this.clientID, this.moreDocument, this.passLoanID})
       : super(key: key);
 
   @override
@@ -69,9 +69,9 @@ class DocumentForLoan extends StatefulWidget {
 }
 
 class _DocumentForLoanState extends State<DocumentForLoan> {
-  int clientID;
-  int passLoanID;
-  String moreDocument;
+  int?  clientID;
+  int?  passLoanID;
+  String?  moreDocument;
   _DocumentForLoanState({this.clientID, this.moreDocument, this.passLoanID});
   TextEditingController nationalID = TextEditingController();
   TextEditingController bankStatement = TextEditingController();
@@ -81,21 +81,21 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   TextEditingController clientPhoneNumber = TextEditingController();
 
   bool isSmsLafAccepted = false;
-  String bankFileName, bankFileSize, bankFiletype, bankFileLocation;
-  String nationalIDFileName,
+  String?  bankFileName, bankFileSize, bankFiletype, bankFileLocation;
+  String?  nationalIDFileName,
       nationalIDFileSize,
       nationalIDFiletype,
       nationalIDFileLocation;
-  String otherIDFileName, otherIDFileSize, otherIDFiletype, otherIDFileLocation;
-  String lafFilePath;
+  String?  otherIDFileName, otherIDFileSize, otherIDFiletype, otherIDFileLocation;
+  String?  lafFilePath;
 
   File uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
-  String _path = '...';
-  String _extension;
-  String signatureBase64;
+  String?  _fileName = '...';
+  String?  _path = '...';
+  String?  _extension;
+  String?  signatureBase64;
   bool _hasValidMime = false;
   FileType _pickingType;
   DateTime selectedDate = DateTime.now();
@@ -117,15 +117,15 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   List<dynamic> allLAF = [];
   bool _isLoading = false;
 
-  int employmentInt, identityInt, residenceInt;
-  String identityName;
+  int?  employmentInt, identityInt, residenceInt;
+  String?  identityName;
   List<dynamic> objectFetched = [];
   bool _showDocUpload = true;
   bool _showOtpText = true;
   bool lafStatus = false;
   bool _isOTPSent = true;
-  String lafArr = '';
-  String documentType = '';
+  String?  lafArr = '';
+  String?  documentType = '';
   Timer _timerForInter;
   AddLoanProvider addLoanProvider = AddLoanProvider();
   Map<String, dynamic> loanDetail = {};
@@ -134,7 +134,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   bool loading = false;
   List pdfList;
 
-  String progress = "0";
+  String?  progress = "0";
   final Dio dio = Dio();
 
   bool _pickFileInProgress = false;
@@ -156,9 +156,9 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
   final interval = const Duration(seconds: 1);
 
-  final int timerMaxSeconds = 120;
+  final int?  timerMaxSeconds = 120;
 
-  int currentSeconds = 0;
+  int?  currentSeconds = 0;
   bool showTimer = false;
 
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -197,10 +197,10 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     super.dispose();
   }
 
-  String get timerText =>
+  String?  get timerText =>
       '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
 
-  startTimeout([int milliseconds]) {
+  startTimeout([int?  milliseconds]) {
     var duration = interval;
     Timer.periodic(duration, (timer) {
       if (mounted) {
@@ -236,7 +236,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //     allEmployment = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectEmployment.add(newEmp[i]['name']);
     //   }
@@ -275,7 +275,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             allLAF = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectLAF.add(mtBool[i]['name']);
           }
@@ -304,7 +304,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           allLAF = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectLAF.add(newEmp[i]['name']);
         }
@@ -318,7 +318,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     });
   }
 
-  getIdentityList(String vals) {
+  getIdentityList(String?  vals) {
     final Future<Map<String, dynamic>> respose = RetCodes().getCodes(vals);
     // respose.then((response) {
     //   print('marital array');
@@ -329,7 +329,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //     allIdentity = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectIdentity.add(newEmp[i]['name']);
     //   }
@@ -368,7 +368,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             allIdentity = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -399,7 +399,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           allIdentity = newEmp;
         });
 
-        for (int i = 0; i < 2; i++) {
+        for (int?  i = 0; i < 2; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }
@@ -426,7 +426,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int loanID = prefs.getInt('loanCreatedId');
+    int?  loanID = prefs.getInt('loanCreatedId');
     print('this is ir ${isLafSigned}');
 
     http.Response responsevv = await get(
@@ -488,7 +488,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             allLAF = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectLAF.add(mtBool[i]['name']);
           }
@@ -528,7 +528,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         });
 
         print('employmemrr ${newEmp}');
-        for (int i = 0; i < 1; i++) {
+        for (int?  i = 0; i < 1; i++) {
           print('employmemrr ${newEmp}');
           print(newEmp[i]['name']);
           collectLAF.add(newEmp[i]['name']);
@@ -559,7 +559,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   void openExplorerForBankStatement() async {
     MyRouter.popPage(context);
 
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';
@@ -647,13 +647,13 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(bytes);
+      String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -720,20 +720,20 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
         base64.encode(imagebytes); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -747,7 +747,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -802,14 +802,14 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     });
   }
 
-  int random(min, max) {
+  int?  random(min, max) {
     return min + Random.secure().nextInt(max - min);
   }
 
   sendOTPLaf() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int tempLoanID = prefs.getInt('loanCreatedId');
+    int?  tempLoanID = prefs.getInt('loanCreatedId');
     // print('this is tempLoan ID ${tempLoanID}');
 
     setState(() {
@@ -917,7 +917,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       ).show(context);
     }
 
-    int tempLoanID = prefs.getInt('loanCreatedId');
+    int?  tempLoanID = prefs.getInt('loanCreatedId');
     print('this is tempLoan ID ${tempLoanID}');
     setState(() {
       _isLoading = true;
@@ -969,7 +969,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
     /// Added to test late loading starts
     await Future.delayed(Duration(milliseconds: 3000));
-    for (int i = 0; i <= 100; i++) {
+    for (int?  i = 0; i <= 100; i++) {
       /// You can indicate here that the download has started.
       pd.update(value: i, msg: 'File Downloading...');
       i++;
@@ -998,7 +998,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       // Completed(completedMsg: "Downloading Done !", completedImage: AssetImage("assets/completed.png"), closedDelay: 2500,),
       progressBgColor: Colors.transparent,
     );
-    for (int i = 0; i <= 100; i++) {
+    for (int?  i = 0; i <= 100; i++) {
       pd.update(value: i);
       i++;
       await Future.delayed(Duration(milliseconds: 100));
@@ -1007,7 +1007,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
   downloadLaf() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int tempLoanID = prefs.getInt('loanCreatedId');
+    int?  tempLoanID = prefs.getInt('loanCreatedId');
     //  _completedProgress(context);
     setState(() {
       _isLoading = true;
@@ -1038,7 +1038,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   }
 
 //
-  Future startDownload(String savePath, String urlPath) async {
+  Future startDownload(String?  savePath, String?  urlPath) async {
     print('url path ${urlPath}');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -1081,7 +1081,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     }
   }
 
-  _onReceiveProgress(int receive, int total) {
+  _onReceiveProgress(int?  receive, int?  total) {
     if (total != -1) {
       setState(() {
         progress = (receive / total * 100).toStringAsFixed(0) + "%";
@@ -1106,7 +1106,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   //       payload: json);
   // }
 
-  Future _onselectedNotification(String json) async {
+  Future _onselectedNotification(String?  json) async {
     final obj = jsonDecode(json);
     if (obj['isSuccess']) {
       OpenFile.open(obj['filePath']);
@@ -1120,7 +1120,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     }
   }
 
-  Future download(String fileUrl, String fileName) async {
+  Future download(String?  fileUrl, String?  fileName) async {
     // await getApplicationDocumentsDirectory()
 
     // DownloadsPathProvider.downloadsDirectory
@@ -1193,12 +1193,12 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           duration: Duration(seconds: 3),
         ).show(context);
       } else {
-        int tempLoanID = prefs.getInt('loanCreatedId');
+        int?  tempLoanID = prefs.getInt('loanCreatedId');
         bool sendForManual = prefs.getBool('sendForManualReview');
 
         //print('passed document  ${isAutoDisbursed}');
 
-        // int tempLoanID =  prefs.getInt('loanCreatedId');
+        // int?  tempLoanID =  prefs.getInt('loanCreatedId');
 
         // if(sendForManual == true && lafStatus == true){
         //   sendForAppro();
@@ -1248,7 +1248,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int passedLoanID = prefs.getInt('loanCreatedId');
+    int?  passedLoanID = prefs.getInt('loanCreatedId');
 
     Map<String, String> bHeader = {
       'Content-Type': 'application/json',
@@ -1271,7 +1271,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           headers: bHeader);
       final Map<String, dynamic> responseData2Personal =
           json.decode(responsevvPersonal.body);
-      String phonenumber = responseData2Personal['mobileNo'];
+      String?  phonenumber = responseData2Personal['mobileNo'];
       setState(() {
         clientPhoneNumber.text = phonenumber;
       });
@@ -1283,7 +1283,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int passedLoanID = prefs.getInt('loanCreatedId');
+    int?  passedLoanID = prefs.getInt('loanCreatedId');
 
     Map<String, String> bHeader = {
       'Content-Type': 'application/json',
@@ -1360,7 +1360,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           .toList();
 
       //print('this is Clientx code ${selectSortCode}');
-      int mbsSortCode = selectSortCode[0]['id'];
+      int?  mbsSortCode = selectSortCode[0]['id'];
 
       // get mobile number
       http.Response responsevvPersonal = await get(
@@ -1368,7 +1368,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           headers: bHeader);
       final Map<String, dynamic> responseData2Personal =
           json.decode(responsevvPersonal.body);
-      String phonenumber = responseData2Personal['mobileNo'];
+      String?  phonenumber = responseData2Personal['mobileNo'];
       var loandData = {
         "amount_requested": newClientData['principal'],
         "productId": newClientData['loanProductId'],
@@ -1398,8 +1398,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         "clientId": newClientData['clientId'],
       };
 
-      int clientId = newClientData['clientId'];
-      int passLoanID = newClientData['id'];
+      int?  clientId = newClientData['clientId'];
+      int?  passLoanID = newClientData['id'];
 
       // run bank analyser
 
@@ -1518,7 +1518,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           } else {
             result = {"status": true, "message": response['data']['reason']};
           }
-          int tempLoanID = prefs.getInt('loanCreatedId');
+          int?  tempLoanID = prefs.getInt('loanCreatedId');
           bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
         }
       });
@@ -1587,7 +1587,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         ).show(context);
       }
 
-      int tempLoanID = prefs.getInt('loanCreatedId');
+      int?  tempLoanID = prefs.getInt('loanCreatedId');
 
       Map<String, dynamic> noteData = {
         'note': note.text,
@@ -1692,7 +1692,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     var sendOTPForLaf = () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      int tempLoanID = prefs.getInt('loanCreatedId');
+      int?  tempLoanID = prefs.getInt('loanCreatedId');
 
       final Future<Map<String, dynamic>> respose =
           RetCodes().requestLafOTP(tempLoanID, 'email');
@@ -1798,7 +1798,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             final SharedPreferences prefs =
                 await SharedPreferences.getInstance();
 
-            int tempLoanID = prefs.getInt('loanCreatedId');
+            int?  tempLoanID = prefs.getInt('loanCreatedId');
             bool sendForManual = prefs.getBool('sendForManualReview');
             bool checkBankStatement = prefs.getBool('isBankStatement');
 
@@ -2072,7 +2072,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: DropDownComponent(
                 items: LAFArray,
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {
                     List<dynamic> selectID = allLAF
                         .where((element) => element['name'] == item)
@@ -2087,12 +2087,12 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                 },
                 label: "Document * ",
                 selectedItem: lafArr,
-                popUpDisabled: (String s) {
+                popUpDisabled: (String?  s) {
                   if (lafStatus) {
                     return s.startsWith('L');
                   } else {}
                 },
-                validator: (String item) {})),
+                validator: (String?  item) {})),
         SizedBox(
           height: 20,
         ),
@@ -2104,7 +2104,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 1),
                     child: DropDownComponent(
                         items: identityArray,
-                        onChange: (String item) {
+                        onChange: (String?  item) {
                           setState(() {
                             List<dynamic> selectID = allIdentity
                                 .where((element) => element['name'] == item)
@@ -2142,7 +2142,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                         },
                         label: "Document Type* ",
                         selectedItem: documentType,
-                        validator: (String item) {})),
+                        validator: (String?  item) {})),
               ),
         SizedBox(
           height: 20,
@@ -2160,9 +2160,9 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                             final SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
 
-                            int tempLoanID = prefs.getInt('loanCreatedId');
+                            int?  tempLoanID = prefs.getInt('loanCreatedId');
                             print('tempLoan ${tempLoanID}');
-                            String appBaseUrl = AppUrl.getLoanDetails +
+                            String?  appBaseUrl = AppUrl.getLoanDetails +
                                 '${tempLoanID}/laf/download/pdf';
                             //http://40.113.169.208:9192/api/v1/laf/
                             //http://192.168.88.64:9192/api/v1/laf/13193/download
@@ -2507,8 +2507,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     );
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText, var keyBoard, Function onBtnPressed,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText, var keyBoard, VoidCallback onBtnPressed,
       {bool isPassword = false,
       var maxLenghtAllow,
       bool isRead = false,
@@ -2590,7 +2590,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     );
   }
 
-  Widget clientStatus(Color statusColor, String status) {
+  Widget clientStatus(Color statusColor, String?  status) {
     return Container(
       width: 80,
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),

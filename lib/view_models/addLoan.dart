@@ -63,8 +63,8 @@ class AddLoanProvider extends ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> addLoan(var passedLoanData,
-      String isDeciderPassed,
-      {String comingFrom,bool buyOverOpt = false}) async {
+      String?  isDeciderPassed,
+      {String?  comingFrom,bool buyOverOpt = false}) async {
     var result;
      // return result;
 

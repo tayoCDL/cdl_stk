@@ -67,9 +67,9 @@ IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
 #endif
 
 #ifdef FLUTTER_BUILD_NAME
-#define VERSION_AS_STRING #FLUTTER_BUILD_NAME
+#define VERSION_AS_String?  #FLUTTER_BUILD_NAME
 #else
-#define VERSION_AS_STRING "1.0.0"
+#define VERSION_AS_String?  "1.0.0"
 #endif
 
 VS_VERSION_INFO VERSIONINFO
@@ -91,12 +91,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "com.creditdirect" "\0"
             VALUE "FileDescription", "sales_toolkit" "\0"
-            VALUE "FileVersion", VERSION_AS_STRING "\0"
+            VALUE "FileVersion", VERSION_AS_String?  "\0"
             VALUE "InternalName", "sales_toolkit" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.creditdirect. All rights reserved." "\0"
             VALUE "OriginalFilename", "sales_toolkit.exe" "\0"
             VALUE "ProductName", "sales_toolkit" "\0"
-            VALUE "ProductVersion", VERSION_AS_STRING "\0"
+            VALUE "ProductVersion", VERSION_AS_String?  "\0"
         END
     END
     BLOCK "VarFileInfo"

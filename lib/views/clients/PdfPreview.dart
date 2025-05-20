@@ -1,16 +1,16 @@
 //import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 // class PdfPreview extends StatefulWidget {
-//   const PdfPreview({Key key}) : super(key: key);
+//   const PdfPreview({Key? key}) : super(key: key);
 //
 //   @override
 //   _PdfPreviewState createState() => _PdfPreviewState();
 // }
 //
 // class _PdfPreviewState extends State<PdfPreview> {
-//   String pathPDF = "";
-//   String landscapePathPdf = "";
-//   String remotePDFpath = "";
+//   String?  pathPDF = "";
+//   String?  landscapePathPdf = "";
+//   String?  remotePDFpath = "";
 //
 //
 //   @override
@@ -72,9 +72,9 @@
 //
 //
 // class PDFScreen extends StatefulWidget {
-//   final String path;
+//   final String?  path;
 //
-//   PDFScreen({Key key, this.path}) : super(key: key);
+//   PDFScreen({Key? key, this.path}) : super(key: key);
 //
 //   _PDFScreenState createState() => _PDFScreenState();
 // }
@@ -82,10 +82,10 @@
 // class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
 //   final Completer<PDFViewController> _controller =
 //   Completer<PDFViewController>();
-//   int pages = 0;
-//   int currentPage = 0;
+//   int?  pages = 0;
+//   int?  currentPage = 0;
 //   bool isReady = false;
-//   String errorMessage = '';
+//   String?  errorMessage = '';
 //
 //   @override
 //   Widget build(BuildContext context) {
@@ -133,10 +133,10 @@
 //             onViewCreated: (PDFViewController pdfViewController) {
 //               _controller.complete(pdfViewController);
 //             },
-//             onLinkHandler: (String uri) {
+//             onLinkHandler: (String?  uri) {
 //               print('goto uri: $uri');
 //             },
-//             onPageChanged: (int page, int total) {
+//             onPageChanged: (int?  page, int?  total) {
 //               print('page change: $page/$total');
 //               setState(() {
 //                 currentPage = page;

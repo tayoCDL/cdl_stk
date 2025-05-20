@@ -20,8 +20,8 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  final String login_type;
-  const LoginScreen({Key key,this.login_type}):super(key: key);
+  final String  login_type;
+  const LoginScreen({Key? key,required this.login_type}):super(key: key);
   @override
   State<LoginScreen> createState() => _LoginScreenState(
     login_type: this.login_type
@@ -32,9 +32,9 @@ bool isObscured = false;
 bool  isAgent =  false;
 
 class _LoginScreenState extends State<LoginScreen> {
-  AuthProvider authProvider;
-    String login_type;
-    _LoginScreenState({this.login_type});
+  AuthProvider? authProvider;
+    String  login_type;
+    _LoginScreenState({required this.login_type});
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
     TextEditingController username = TextEditingController();
     TextEditingController password = TextEditingController();
-   // String username,password;
+   // String?  username,password;
 
   static const snackBarDuration = Duration(seconds: 3);
 
@@ -328,9 +328,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Checkbox(
                                           value: isAgent,
                                           fillColor: MaterialStateProperty.all(Colors.white),
-                                          onChanged: (bool value) {
+                                          onChanged: (bool? value) {
                                             setState(() {
-                                              isAgent = value;
+                                              isAgent = value!;
                                               print('>> ${isAgent}');
                                             });
                                           },

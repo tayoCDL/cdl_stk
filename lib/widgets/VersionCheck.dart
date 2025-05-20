@@ -19,19 +19,19 @@
 // // }
 //
 // class VersionCheckScreen extends StatefulWidget {
-//   VersionCheckScreen({Key key, this.title}) : super(key: key);
+//   VersionCheckScreen({Key? key, this.title}) : super(key: key);
 //
-//   final String title;
+//   final String?  title;
 //
 //   @override
 //   _VersionCheckScreenState createState() => _VersionCheckScreenState();
 // }
 //
 // class _VersionCheckScreenState extends State<VersionCheckScreen> {
-//   String version = '';
-//   String storeVersion = '';
-//   String storeUrl = '';
-//   String packageName = '';
+//   String?  version = '';
+//   String?  storeVersion = '';
+//   String?  storeUrl = '';
+//   String?  packageName = '';
 //   @override
 //   void initState() {
 //     super.initState();

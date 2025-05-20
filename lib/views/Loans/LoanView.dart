@@ -27,13 +27,13 @@ import '../../widgets/noEmployer.dart';
 import '../clients/SingleCustomerScreen.dart';
 
 class LoanView extends StatefulWidget {
-  // const LoanView({Key key}) : super(key: key);
+  // const LoanView({Key? key}) : super(key: key);
   //
   // @override
   // _LoanViewState createState() => _LoanViewState();
 
-  final int clientID,parentEmployerId,parentEmployerSector;
-  const LoanView({Key key,this.clientID,this.parentEmployerId,this.parentEmployerSector}) : super(key: key);
+  final int?  clientID,parentEmployerId,parentEmployerSector;
+  const LoanView({Key? key,this.clientID,this.parentEmployerId,this.parentEmployerSector}) : super(key: key);
   @override
   _LoanViewState createState() => _LoanViewState(
       clientID: this.clientID,
@@ -45,12 +45,12 @@ class LoanView extends StatefulWidget {
 
 
 class _LoanViewState extends State<LoanView> {
-  int clientID,parentEmployerId,parentEmployerSector;
+  int?  clientID,parentEmployerId,parentEmployerSector;
   List<dynamic> CustomerLists,filteredLoans = [];
-  int employerID,sectorId,parentClient;
+  int?  employerID,sectorId,parentClient;
   bool _isLoading = false;
   bool employerLoaded = false;
-  String realMonth = '';
+  String?  realMonth = '';
   _LoanViewState({this.clientID,this.parentEmployerId,this.parentEmployerSector});
 
   @override
@@ -99,7 +99,7 @@ class _LoanViewState extends State<LoanView> {
 
   checkisStaffQualifiedAndBvnAvailable() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String passed_staff_id =   prefs.getString('loanOfficerId');
+    String?  passed_staff_id =   prefs.getString('loanOfficerId');
     print('>> a staff Id >> ${passed_staff_id}');
     setState(() {
       _isLoading = true;
@@ -173,7 +173,7 @@ class _LoanViewState extends State<LoanView> {
     });
   }
 
-  click_filterloansList(int statusId){
+  click_filterloansList(int?  statusId){
     final Future<Map<String,dynamic>> respose =   RetCodes().filterLoanWithStatusId(clientID.toString(),statusId);
 
     respose.then((response) async {
@@ -245,7 +245,7 @@ class _LoanViewState extends State<LoanView> {
 
   }
 
-  v_goBack(BuildContext context,String value,{Function newFn}){
+  v_goBack(BuildContext context,String?  value,{VoidCallback newFn}){
     if(value == 'go_back'){
       // MyRouter.popPage(context);
       MyRouter.pushPageReplacement(context, ViewClient(clientID: clientID,));
@@ -254,7 +254,7 @@ class _LoanViewState extends State<LoanView> {
     }
   }
 
-  filterLoanWithStatusId(int loanStatusId){
+  filterLoanWithStatusId(int?  loanStatusId){
 
   }
 
@@ -377,7 +377,7 @@ class _LoanViewState extends State<LoanView> {
 
                 ];
               },
-              onSelected: (String value) => v_goBack(context,value,
+              onSelected: (String?  value) => v_goBack(context,value,
               ),
             ),
             actions: [
@@ -416,7 +416,7 @@ class _LoanViewState extends State<LoanView> {
               //
               //       ];
               //     },
-              //     onSelected: (String value) {
+              //     onSelected: (String?  value) {
               //
               //       filterLoanView(value);
               //       // getaloansList();
@@ -433,8 +433,8 @@ class _LoanViewState extends State<LoanView> {
                       ),
                   ];
                 },
-                onSelected: (String value) {
-                    int loan_status_val = m_filterLoanView(value);
+                onSelected: (String?  value) {
+                    int?  loan_status_val = m_filterLoanView(value);
                   click_filterloansList(loan_status_val);
                //   filterLoanView(value);
                   // getaloansList();
@@ -703,7 +703,7 @@ class _LoanViewState extends State<LoanView> {
 
 
 
-  Widget clientStatus(Color statusColor,String status) {
+  Widget clientStatus(Color statusColor,String?  status) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.33,
       padding: EdgeInsets.symmetric(horizontal: 2,vertical: 4),
@@ -718,7 +718,7 @@ class _LoanViewState extends State<LoanView> {
     );
   }
 
-  String chopPending(String pends){
+  String?  chopPending(String?  pends){
     if(pends.contains('Pending') || pends.contains('pending')){
       return "Team Lead Review";
     }
@@ -727,7 +727,7 @@ class _LoanViewState extends State<LoanView> {
     }
   }
 
-  String chopPendingApproval(String pends){
+  String?  chopPendingApproval(String?  pends){
     if(pends.contains('Pending')){
       return "Team Lead Review";
     }
@@ -815,9 +815,9 @@ class _LoanViewState extends State<LoanView> {
   }
 
 
-  retDOBfromBVN(String getDate) {
+  retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -883,15 +883,15 @@ class _LoanViewState extends State<LoanView> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 

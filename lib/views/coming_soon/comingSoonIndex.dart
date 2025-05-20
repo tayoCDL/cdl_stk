@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ComingSoonIndex extends StatefulWidget {
-  const ComingSoonIndex({Key key}) : super(key: key);
+  const ComingSoonIndex({Key? key}) : super(key: key);
 
   @override
   _ComingSoonIndexState createState() => _ComingSoonIndexState();

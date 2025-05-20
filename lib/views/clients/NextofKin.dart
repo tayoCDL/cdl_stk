@@ -24,9 +24,9 @@ import '../../view_models/post_put_method.dart';
 
 
 class NextOfKinDetails extends StatefulWidget {
-  final int ClientInt;
-  final String comingFrom;
-  const NextOfKinDetails({Key key,this.ClientInt,this.comingFrom}) : super(key: key);
+  final int?  ClientInt;
+  final String?  comingFrom;
+  const NextOfKinDetails({Key? key,this.ClientInt,this.comingFrom}) : super(key: key);
 
   @override
   _NextOfKinDetailsState createState() => _NextOfKinDetailsState(
@@ -37,8 +37,8 @@ class NextOfKinDetails extends StatefulWidget {
 
 class _NextOfKinDetailsState extends State<NextOfKinDetails> {
 
-  int ClientInt;
-  String comingFrom;
+  int?  ClientInt;
+  String?  comingFrom;
   _NextOfKinDetailsState({this.ClientInt,this.comingFrom});
 
   @override
@@ -80,21 +80,21 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
   List<dynamic> allLga = [];
 
 
-  String realMonth = '';
+  String?  realMonth = '';
   bool _isConnected = true;
-  String year_at_residence;
-  int stateInt,lgaInt;
+  String?  year_at_residence;
+  int?  stateInt,lgaInt;
 
-  String residentialState,residentialLga,residentialStatus = '';
+  String?  residentialState,residentialLga,residentialStatus = '';
 
 
   // end residential Details
 
   var nextOfKin = [];
-  String nextOfKinTitle = '';
-  String nextOfKinrelationship = '';
-  String nextOfKinMaritalStatus = '';
-  String nextOfKinGender = '';
+  String?  nextOfKinTitle = '';
+  String?  nextOfKinrelationship = '';
+  String?  nextOfKinMaritalStatus = '';
+  String?  nextOfKinGender = '';
 
   void initState() {
     // TODO: implement initState
@@ -144,7 +144,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allTitle = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectTitle.add(mtBool[i]['name']);
           }
@@ -176,7 +176,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allTitle = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectTitle.add(newEmp[i]['name']);
         }
@@ -203,7 +203,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     allRelationship = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectRelationship.add(newEmp[i]['name']);
     //   }
@@ -244,7 +244,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allRelationship = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectRelationship.add(mtBool[i]['name']);
           }
@@ -276,7 +276,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allRelationship = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectRelationship.add(newEmp[i]['name']);
         }
@@ -304,7 +304,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -346,7 +346,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allMarital = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectMarital.add(mtBool[i]['name']);
           }
@@ -378,7 +378,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allMarital = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectMarital.add(newEmp[i]['name']);
         }
@@ -406,7 +406,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     allGender = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectGender.add(newEmp[i]['name']);
     //   }
@@ -447,7 +447,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allGender = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectGender.add(mtBool[i]['name']);
           }
@@ -479,7 +479,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allGender = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectGender.add(newEmp[i]['name']);
         }
@@ -507,7 +507,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     allProfession = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectProfession.add(newEmp[i]['name']);
     //   }
@@ -549,7 +549,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allProfession = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectProfession.add(mtBool[i]['name']);
           }
@@ -581,7 +581,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allProfession = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectProfession.add(newEmp[i]['name']);
         }
@@ -603,7 +603,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
@@ -662,7 +662,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     allStates = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectState.add(newEmp[i]['name']);
     //   }
@@ -704,7 +704,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allStates = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -736,7 +736,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allStates = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -764,7 +764,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     allResidential = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectResidential.add(newEmp[i]['name']);
     //   }
@@ -804,7 +804,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allResidential = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectResidential.add(mtBool[i]['name']);
           }
@@ -837,7 +837,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allResidential = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectResidential.add(newEmp[i]['name']);
         }
@@ -860,7 +860,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
 
   }
 
-  getSubAccount(int FirstValue,int SecondValue){
+  getSubAccount(int?  FirstValue,int?  SecondValue){
 
     final Future<Map<String,dynamic>> respose =   RetCodes().getSubValues(FirstValue,SecondValue);
     // respose.then((response) {
@@ -874,7 +874,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     //     collectLga = [];
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectLga.add(newEmp[i]['name']);
     //   }
@@ -917,7 +917,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
             allLga = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -951,7 +951,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
           allLga = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }
@@ -973,7 +973,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
   getClientResidentialInformation() async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     print('localInt ${localclientID}');
 
@@ -1025,7 +1025,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
   getNextOfKinResidentialInformation() async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     print('localInt ${localclientID}');
 
@@ -1109,7 +1109,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
   TextEditingController age = TextEditingController();
   TextEditingController bsc = TextEditingController();
 
-  int residentialInt;
+  int?  residentialInt;
   bool value = false;
 
   TextEditingController permanent_address = TextEditingController();
@@ -1120,7 +1120,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
 
   final _form = GlobalKey<FormState>(); //for storing form state.
 
-  int titleInt,relationshipInt,maritalInt,genderInt,professionInt;
+  int?  titleInt,relationshipInt,maritalInt,genderInt,professionInt;
   AddClientProvider addClientProvider = AddClientProvider();
 
   Widget build(BuildContext context) {
@@ -1138,9 +1138,9 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
 
 
 
-      int getNextOfKin = prefs.getInt('tempNextOfKinInt');
+      int?  getNextOfKin = prefs.getInt('tempNextOfKinInt');
 
-      int getResidential = prefs.getInt('tempResidentialNextOfKinInt');
+      int?  getResidential = prefs.getInt('tempResidentialNextOfKinInt');
       print('residential Int ${getResidential}');
       setState(() {
         _isLoading = true;
@@ -1174,13 +1174,13 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
       };
       
       print('this is next Of kin residential ${nextOfKinResidence}');
-      int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+      int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
       PostAndPut postAndPut = new PostAndPut();
       postAndPut.isClientActive(localclientID).then(
             (value)  {
 
-              String client_status = value.toString();
+              String?  client_status = value.toString();
 
               final Future<Map<String,dynamic>> respose2 =  addClientProvider.addResidential(nextOfKinResidence,client_status);
 
@@ -1303,7 +1303,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: titleArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allTitle.where((element) => element['name'] == item).toList();
@@ -1316,7 +1316,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                                     },
                                     label: "Title * ",
                                     selectedItem: nextOfKinTitle,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1350,7 +1350,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: relationshipArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allRelationship.where((element) => element['name'] == item).toList();
@@ -1363,7 +1363,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                                     },
                                     label: "Relationship",
                                     selectedItem: nextOfKinrelationship,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1372,7 +1372,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: maritalArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allMarital.where((element) => element['name'] == item).toList();
@@ -1385,7 +1385,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                                     },
                                     label: "Marital Status",
                                     selectedItem: nextOfKinMaritalStatus,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1394,7 +1394,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: genderArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allGender.where((element) => element['name'] == item).toList();
@@ -1407,7 +1407,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                                     },
                                     label: "Gender",
                                     selectedItem: nextOfKinGender,
-                                    validator: (String item){
+                                    validator: (String?  item){
                                       if(item == null){
                                         return 'Gender cannot be empty';
 
@@ -1446,7 +1446,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: stateArray,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
                                         List<dynamic> selectID =   allStates.where((element) => element['name'] == item).toList();
                                         stateInt = selectID[0]['id'];
@@ -1463,7 +1463,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                                     },
                                     label: "Permanent Residential State",
                                     selectedItem: residentialState,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1471,7 +1471,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: lgaArray,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
                                         List<dynamic> selectID =   allLga.where((element) => element['name'] == item).toList();
                                         print('this is select ID');
@@ -1483,7 +1483,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
                                     },
                                     label: "LGA * ",
                                     selectedItem: residentialLga,
-                                    validator: (String item){
+                                    validator: (String?  item){
                                       // true and true
                                       if(lgaInt == 0 || lgaInt == null && _isConnected){
                                         return 'LGA is required';
@@ -1527,7 +1527,7 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false,bool needsValidation = true}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false,bool needsValidation = true}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

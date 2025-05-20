@@ -50,7 +50,7 @@ class Range {
 /// [selctedColor] this is the color, applied to the circle on the selcted day
 /// [todayColor] this is the color of the date of today
 /// [todayButtonText] is a [String]. With this property you can set the caption of the today icon (button to navigate to today).
-///     If left empty, the calendar will use the string "Today".
+///     If left empty, the calendar will use the String?  "Today".
 /// [eventColor] lets you optionally specify the color of the event (dot). If the [CleanCaendarEvents] property color is not set, the
 ///     calendar will use this parameter.
 /// [eventDoneColor] with this property you can define the color of "done" events, that is events in the past.
@@ -80,20 +80,20 @@ class Calendar extends StatefulWidget {
   final Map<DateTime, List<CleanCalendarEvent>> events;
   final Color selectedColor;
   final Color todayColor;
-  final String todayButtonText;
+  final String?  todayButtonText;
   final Color eventColor;
   final Color eventDoneColor;
   final DateTime initialDate;
   final bool isExpanded;
   final List<String> weekDays;
-  final String locale;
+  final String?  locale;
   final bool startOnMonday;
   final bool hideBottomBar;
   final TextStyle dayOfWeekStyle;
   final TextStyle bottomBarTextStyle;
   final Color bottomBarArrowColor;
   final Color bottomBarColor;
-  final String expandableDateFormat;
+  final String?  expandableDateFormat;
 
   Calendar({
     this.onMonthChanged,
@@ -134,9 +134,9 @@ class _CalendarState extends State<Calendar> {
    List<DateTime> selectedMonthsDays;
    Iterable<DateTime> selectedWeekDays;
   DateTime _selectedDate = DateTime.now();
-  String currentMonth;
+  String?  currentMonth;
    bool isExpanded;
-  String displayMonth = '';
+  String?  displayMonth = '';
   DateTime get selectedDate => _selectedDate;
   List<CleanCalendarEvent> _selectedEvents;
 
@@ -374,7 +374,7 @@ class _CalendarState extends State<Calendar> {
   }
 
 
-  Widget workCard({String clockin,String clockout,String location,bool isDevice}){
+  Widget workCard({String?  clockin,String?  clockout,String?  location,bool isDevice}){
     return Container(
       //color: Color(0xffEEF1F6),
       width: MediaQuery.of(context).size.width * 0.89,
@@ -438,7 +438,7 @@ class _CalendarState extends State<Calendar> {
   }
 
 
-  _singleCard(String image,String numbers,String title){
+  _singleCard(String?  image,String?  numbers,String?  title){
     return Card(
       elevation: 0.3,
       child: Container(
@@ -508,9 +508,9 @@ class _CalendarState extends State<Calendar> {
           padding: EdgeInsets.all(0.0),
           itemBuilder: (BuildContext context, int index) {
             final CleanCalendarEvent event = _selectedEvents[index];
-            final String start =
+            final String?  start =
             DateFormat('HH:mm').format(event.startTime).toString();
-            final String end =
+            final String?  end =
             DateFormat('HH:mm').format(event.endTime).toString();
             return
 
@@ -869,9 +869,9 @@ class ExpansionCrossFade extends StatelessWidget {
   final bool isExpanded;
 
   ExpansionCrossFade(
-      {@required this.collapsed,
-        @required this.expanded,
-        @required this.isExpanded});
+      {required this.collapsed,
+        required this.expanded,
+        required this.isExpanded});
 
   @override
   Widget build(BuildContext context) {

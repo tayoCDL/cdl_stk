@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+// import 'package:flutter_icons/flutter_icons.dart';
 import 'package:sales_toolkit/views/Interactions/ItHelpDesk.dart';
 import 'package:sales_toolkit/views/Interactions/IthelpdeskLists.dart';
 import 'package:sales_toolkit/views/attendance/Attendance_Index.dart';
@@ -12,7 +12,7 @@ import 'package:sales_toolkit/widgets/testLocation.dart';
 import '../../util/router.dart';
 
 class MenuIndex extends StatefulWidget {
-  const MenuIndex({Key key}) : super(key: key);
+  const MenuIndex({Key? key}) : super(key: key);
 
   @override
   _MenuIndexState createState() => _MenuIndexState();
@@ -71,14 +71,14 @@ class _MenuIndexState extends State<MenuIndex> {
   }
 
 
-  Widget menuItemList(String title,IconData iconData,{Function onTap}){
+  Widget menuItemList(String?  title,IconData iconData,{VoidCallback? onTap}){
     return  Column(
       children: [
         InkWell(
           onTap: onTap,
           child: ListTile(
             leading: Icon(iconData, color: Color(0xff000000),size: 25,),
-            title: Text(title,style: TextStyle(fontSize: 18,color: Color(0xff205072),fontWeight: FontWeight.w500),),
+            title: Text(title!,style: TextStyle(fontSize: 18,color: Color(0xff205072),fontWeight: FontWeight.w500),),
             trailing: Icon(Icons.arrow_forward_ios, color: Color(0xff000000)),
           ),
         ),

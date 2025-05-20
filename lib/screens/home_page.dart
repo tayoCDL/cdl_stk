@@ -9,8 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  TabController tabController;
-  int currentTabIndex = 0;
+  late TabController tabController;
+  int?  currentTabIndex = 0;
 
   void onTabChange() {
     setState(() {

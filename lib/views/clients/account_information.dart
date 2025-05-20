@@ -32,9 +32,9 @@ import '../trops/log_trops_issues.dart';
 import '../trops/trops_users_issues_lists.dart';
 
 class AccountInformation extends StatefulWidget {
-  final int clientID;
-  final String comingFrom;
-  const AccountInformation({Key key,this.clientID,this.comingFrom}) : super(key: key);
+  final int?  clientID;
+  final String?  comingFrom;
+  const AccountInformation({Key? key,this.clientID,this.comingFrom}) : super(key: key);
   @override
   _AccountInformationState createState() => _AccountInformationState(
       clientID: this.clientID,
@@ -45,16 +45,16 @@ class AccountInformation extends StatefulWidget {
 
 class _AccountInformationState extends State<AccountInformation> {
 
-  int clientID;
-  String comingFrom;
+  int?  clientID;
+  String?  comingFrom;
   _AccountInformationState({this.clientID,this.comingFrom});
 
   var clientProfile = {};
   var clientAvatar = '';
   var activityList = [];
-  String realMonth = '';
+  String?  realMonth = '';
   List<dynamic> CustomerProduct = [];
-  String clientAcountNumber = '';
+  String?  clientAcountNumber = '';
 
 
   final formatCurrency = NumberFormat.currency(locale: "en_US",
@@ -414,7 +414,7 @@ class _AccountInformationState extends State<AccountInformation> {
                 //
                 //           ];
                 //         },
-                //         onSelected: (String value) => actionPopUpItemSelected(value),
+                //         onSelected: (String?  value) => actionPopUpItemSelected(value),
                 //       ),
                 //     ],
                 //   ),
@@ -460,7 +460,7 @@ class _AccountInformationState extends State<AccountInformation> {
 
 
 
-  Widget productsList(String imageAsset,String title,var balance){
+  Widget productsList(String?  imageAsset,String?  title,var balance){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 1),
       child: Container(
@@ -474,7 +474,7 @@ class _AccountInformationState extends State<AccountInformation> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(imageAsset,
+                    SvgPicture.asset(imageAsset!,
                       height: 30.0,
                       width: 30.0,),
 
@@ -485,7 +485,7 @@ class _AccountInformationState extends State<AccountInformation> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(title,style: TextStyle(fontSize: 13,color: Colors.grey[500],fontWeight: FontWeight.bold),),
+                    Text(title!,style: TextStyle(fontSize: 13,color: Colors.grey[500],fontWeight: FontWeight.bold),),
                   ],
                 ),
                 SizedBox(height: 10,),
@@ -600,7 +600,7 @@ class _AccountInformationState extends State<AccountInformation> {
   //      physics: ScrollPhysics(),
   //      itemCount: 2,
   //
-  //      itemBuilder: (context, int index) {
+  //      itemBuilder: (context, int?  index) {
   //        final recentChat = recentChats[index];
   //       return InkWell(
   //          onTap: () {
@@ -679,7 +679,7 @@ class _AccountInformationState extends State<AccountInformation> {
 
 
 
-  Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped){
+  Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped){
     return InkWell(
       onTap: onTicketTapped,
       child: Container(
@@ -697,7 +697,7 @@ class _AccountInformationState extends State<AccountInformation> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
-                      Text(ticketId),
+                      Text(ticketId!),
                       Container(
                         width: 65,
                         padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -708,7 +708,7 @@ class _AccountInformationState extends State<AccountInformation> {
                             BoxShadow(color:  Color(0xff9c9595), spreadRadius: 0.1),
                           ],
                         ),
-                        child: Center(child: Text(status,style: TextStyle(color: Colors.white),)),
+                        child: Center(child: Text(status!,style: TextStyle(color: Colors.white),)),
                       ),
 
                     ],
@@ -717,7 +717,7 @@ class _AccountInformationState extends State<AccountInformation> {
                 ),
                 Container(
                   child: ListTile(
-                    title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                    title:Text(title!,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                     subtitle: Text('Last updated: 2022-01-20',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                   ),
@@ -782,7 +782,7 @@ class _AccountInformationState extends State<AccountInformation> {
   }
 
 
-  String convertToAgo(DateTime input){
+  String  convertToAgo(DateTime input){
     Duration diff = DateTime.now().difference(input);
 
     if(diff.inDays >= 1){
@@ -798,11 +798,11 @@ class _AccountInformationState extends State<AccountInformation> {
     }
   }
 
-  retDOBfromBVN(String getDate){
+  retDOBfromBVN(String?  getDate){
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate?.replaceAll("-", " ");
     print('new Rems ${removeComma}');
-    List<String> wordList = removeComma.split(" ");
+    List<String> wordList = removeComma!.split(" ");
     print(wordList[1]);
 
 
@@ -864,15 +864,15 @@ class _AccountInformationState extends State<AccountInformation> {
     }
 
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
     print('newOO ${newOO}');
 
-    String concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth! + " " + o1   ;
 
     print("concatss new Date from edit ${concatss}");
 

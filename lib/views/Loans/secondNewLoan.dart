@@ -30,16 +30,16 @@ import 'package:sales_toolkit/widgets/rounded-button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SecondNewLoan extends StatefulWidget {
-  // const SecondNewLoan({Key key}) : super(key: key);
+  // const SecondNewLoan({Key? key}) : super(key: key);
   //
   // @override
   // _SecondNewLoanState createState() => _SecondNewLoanState();
 
-  final int clientID, productID, loanID, employerId, loanPurpose, sectorID;
-  final String TheloanOfficer, comingFrom, customerID, clientBVN;
+  final int?  clientID, productID, loanID, employerId, loanPurpose, sectorID;
+  final String?  TheloanOfficer, comingFrom, customerID, clientBVN;
   final Map<String, dynamic> loadfedgoData;
   const SecondNewLoan(
-      {Key key,
+      {Key? key,
         this.clientID,
         this.productID,
         this.TheloanOfficer,
@@ -68,8 +68,8 @@ class SecondNewLoan extends StatefulWidget {
 }
 
 class _SecondNewLoanState extends State<SecondNewLoan> {
-  int clientID, productID, loanID, employerId, loanPurpose, sectorID;
-  String TheloanOfficer, comingFrom, customerID, clientBVN;
+  int?  clientID, productID, loanID, employerId, loanPurpose, sectorID;
+  String?  TheloanOfficer, comingFrom, customerID, clientBVN;
   final Map<String, dynamic> loadfedgoData;
   _SecondNewLoanState(
       {this.clientID,
@@ -102,29 +102,29 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   List<String> collectInterestType = [];
   List<dynamic> allInterstType = [];
   var updateRequired = [];
-  String accountName = '';
-  String bankName = '';
-  int singleLendersid,singleLendersid2,singleLendersid3;
-  String bankCode, accountTypeString;
-  int bankInt, bankClassificationInt, bankAccountTypeListInt;
+  String?  accountName = '';
+  String?  bankName = '';
+  int?  singleLendersid,singleLendersid2,singleLendersid3;
+  String?  bankCode, accountTypeString;
+  int?  bankInt, bankClassificationInt, bankAccountTypeListInt;
   bool isRequestLoading = false;
 
   List<String> repaymentArray = [];
   List<String> collectRepayment = [];
   List<dynamic> allRepayment = [];
-  int loanOptionInt = 0;
-  String realMonth = '';
-  String singleLendersName = '';
+  int?  loanOptionInt = 0;
+  String?  realMonth = '';
+  String?  singleLendersName = '';
   bool _isLoading = false;
   bool _isFederalOrState = false;
   bool showPrivateInterest = false;
-  int productInt, purposeInt, frequencyInt, repaymentFrequencyInt;
-  String alternateRepayment = '';
-  double interestRateForPrivate;
+  int?  productInt, purposeInt, frequencyInt, repaymentFrequencyInt;
+  String?  alternateRepayment = '';
+  double? interestRateForPrivate;
   List<dynamic> objectFetched = [];
   bool isCrcSaved = false;
   Map<String, dynamic> load_fedgoData;
-  String submitOnLoan = '';
+  String?  submitOnLoan = '';
 
   bool isBankLoading = false;
 
@@ -153,7 +153,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   List<String> collectBanksList = [];
   List<dynamic> allBanksList = [];
   var bankInfo = [];
-  int lenderIndex = 0;
+  int?  lenderIndex = 0;
 
   bool showUpdateLender = false;
   bool showAddLender = false;
@@ -246,7 +246,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     if (vlaMonth == 2) {
       var fubruaryJiffy = newJiffy.dateTime.toString();
       print('feb Jiffy ${fubruaryJiffy}');
-      String vDate = getDateForNextRepayment(fubruaryJiffy);
+      String?  vDate = getDateForNextRepayment(fubruaryJiffy);
       print('vDate ${vDate}');
       setState(() {
         alternateRepayment = vDate;
@@ -255,7 +255,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       var otherJiffy = newJiffy.add(duration: Duration(days: 2));
       print('other Jiffy ${otherJiffy.dateTime}');
       var newDee = otherJiffy.dateTime.toString();
-      String vDate = getDateForNextRepayment(newDee);
+      String?  vDate = getDateForNextRepayment(newDee);
       print('vDate ${vDate} ${newDee}');
       setState(() {
         alternateRepayment = vDate;
@@ -277,7 +277,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allLendersName = newLenders;
       });
 
-      for (int i = 0; i < newLenders.length; i++) {
+      for (int?  i = 0; i < newLenders.length; i++) {
         //  print(newLenders[i]['displayName']);
         collectLendersName.add(newLenders[i]['displayName']);
       }
@@ -304,7 +304,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBankAccount = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankAcount.add(newEmp[i]['name']);
     //   }
@@ -342,7 +342,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBankAccount = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -371,7 +371,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBankAccount = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -407,7 +407,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //       allBanksList = newEmp;
   //     });
   //
-  //     for(int i = 0; i < newEmp.length;i++){
+  //     for(int?  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectBanksList.add(newEmp[i]['name']);
   //     }
@@ -450,7 +450,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //           allBanksList = mtBool;
   //         });
   //
-  //         for(int i = 0; i < mtBool.length;i++){
+  //         for(int?  i = 0; i < mtBool.length;i++){
   //           //print(mtBool[i]['name']);
   //           collectBanksList.add(mtBool[i]['name']);
   //         }
@@ -482,7 +482,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         allBanksList = newEmp;
   //       });
   //
-  //       for(int i = 0; i < newEmp.length;i++){
+  //       for(int?  i = 0; i < newEmp.length;i++){
   //         //print(newEmp[i]['name']);
   //         collectBanksList.add(newEmp[i]['name']);
   //       }
@@ -510,7 +510,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -548,7 +548,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBanksList = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -577,7 +577,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBanksList = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -601,7 +601,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBankClassification = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankClassification.add(newEmp[i]['name']);
     //   }
@@ -640,7 +640,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBankClassification = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -669,7 +669,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBankClassification = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }
@@ -767,7 +767,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     }
   }
 
-  fetchBankInfo(String accountNumber, String sortCode) {
+  fetchBankInfo(String?  accountNumber, String?  sortCode) {
     setState(() {
       isRequestLoading = true;
       accountName = '';
@@ -844,10 +844,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           // accountName = response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] ;
           //   accountName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
 
-          String LastName = response['data']['data']['lastName'] == null
+          String?  LastName = response['data']['data']['lastName'] == null
               ? ''
               : response['data']['data']['lastName'];
-          String FirstName = response['data']['data']['firstName'] == null
+          String?  FirstName = response['data']['data']['firstName'] == null
               ? ''
               : response['data']['data']['firstName'];
 
@@ -882,7 +882,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   }
 
 
-  int currentStep = 0;
+  int?  currentStep = 0;
   DateTime selectedDate = DateTime.now();
   TextEditingController repaymentDate = TextEditingController();
 
@@ -902,29 +902,29 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   Map<String, dynamic> fullTemps;
   Map<String, dynamic> vOverrides, vOverrides2;
   List<dynamic> chargesData;
-  int ClientaccountLinkingOptions = 100;
+  int?  ClientaccountLinkingOptions = 100;
   bool value = false;
   bool isBuyOver = false;
   bool isBuyOvertopup = false;
-  String min_repayment = '';
-  String max_repayment = '';
-  String min_principal = '';
-  String max_principal = '';
+  String?  min_repayment = '';
+  String?  max_repayment = '';
+  String?  min_principal = '';
+  String?  max_principal = '';
 
-  String min_interest = '';
-  String max_interest = '';
-  double repaymentAmount = 0.0;
+  String?  min_interest = '';
+  String?  max_interest = '';
+  double? repaymentAmount = 0.0;
   bool _canUseForTopUp = false;
   bool isBuyOverAvailable = false;
   bool isBuyOverTopUpAvailable = false;
-  int maxLenderCount = 0;
+  int?  maxLenderCount = 0;
   List<dynamic> productOptions = [];
   bool canBookOtherLoans = true;
   List<String> loanOptionArray = [];
   List<String> collectLoanOption = [];
   List<dynamic> allLoanOption = [];
 
-  int employerID;
+  int?  employerID;
 
   //final formatCurrency = new NumberFormat.simpleCurrency();
 
@@ -941,7 +941,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allFrequency = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectFrequency.add(newEmp[i]['value']);
       }
@@ -965,7 +965,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allAmortization = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectAmortization.add(newEmp[i]['value']);
       }
@@ -989,7 +989,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allInterstType = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectInterestType.add(newEmp[i]['value']);
       }
@@ -1013,7 +1013,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allRepayment = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectRepayment.add(newEmp[i]['value']);
       }
@@ -1119,7 +1119,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int i = 0; i < valLenght.length; i++) {
+          for (int?  i = 0; i < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -1144,7 +1144,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allLoanOption = productOptions;
         });
 
-        for (int i = 0; i < productOptions.length; i++) {
+        for (int?  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -1258,7 +1258,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     // print('charges Data << ${chargesData.toList()}');
 
     DateTime now = DateTime.now();
-    String vasCoddd = retsNx360dates(now);
+    String?  vasCoddd = retsNx360dates(now);
 
     Map<String, dynamic> repaymentSchedule = {
       "commitment": committment.text.isEmpty ? 0 : committment.text,
@@ -1349,7 +1349,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   isPermittedtobookTopUp() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String passed_staff_id = prefs.getString('loanOfficerId');
+    String?  passed_staff_id = prefs.getString('loanOfficerId');
     RetCodes rtCocdes = RetCodes();
     rtCocdes
         .loanPermission(int.tryParse(passed_staff_id), clientID)
@@ -1372,11 +1372,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     DateTime nextRepaymentDate = now.add(const Duration(days: 30));
-    String getNextRepaymentDate = retsNx360dates(nextRepaymentDate);
-    String vasCoddd = retsNx360dates(now);
-    // int passedLoanID = prefs.getInt('loanCreatedId');
+    String?  getNextRepaymentDate = retsNx360dates(nextRepaymentDate);
+    String?  vasCoddd = retsNx360dates(now);
+    // int?  passedLoanID = prefs.getInt('loanCreatedId');
 
-    int random(min, max) {
+    int?  random(min, max) {
       return min + Random.secure().nextInt(max - min);
     }
 
@@ -1409,7 +1409,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     // getDocumentsForLoan() async{
     //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   int passedLoanID = prefs.getInt('loanCreatedId');
+    //   int?  passedLoanID = prefs.getInt('loanCreatedId');
     //   final Future<Map<String, dynamic>> respose =
     //   RetCodes().getDocumentNote(passedLoanID);
     //
@@ -1473,9 +1473,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       });
     }
 
-    geSingleLoanConfig(int configID) async {
+    geSingleLoanConfig(int?  configID) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      int passedLoanID = prefs.getInt('loanCreatedId');
+      int?  passedLoanID = prefs.getInt('loanCreatedId');
       setState(() {
         _isLoading = true;
       });
@@ -1498,7 +1498,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
         print('modifed emp ${modifiedEmp}');
 
-        for (int i = 0; i < modifiedEmp.length; i++) {
+        for (int?  i = 0; i < modifiedEmp.length; i++) {
           collectDocumentType.add(modifiedEmp[i]['name']);
         }
 
@@ -1579,7 +1579,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('base64EncodedAuthenticationKey');
       var tfaToken = prefs.getString('tfa-token');
-      int passedLoanID = prefs.getInt('loanCreatedId');
+      int?  passedLoanID = prefs.getInt('loanCreatedId');
 
       Response responsevv = await get(
         AppUrl.getLoanDetails +
@@ -1600,7 +1600,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         // loanDetail = newClientData;
 
         if (newClientData['configs'] != null) {
-          int docConfigData = newClientData['configs'][0]['id'];
+          int?  docConfigData = newClientData['configs'][0]['id'];
           if (docConfigData != null) {
             geSingleLoanConfig(docConfigData);
           }
@@ -1638,7 +1638,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
       MyRouter.popPage(context);
 
-      int passedLoanID = prefs.getInt('loanCreatedId');
+      int?  passedLoanID = prefs.getInt('loanCreatedId');
 
       Map<String, dynamic> personalData = {
         "id": passedLoanID == null ? loanID : passedLoanID,
@@ -1896,7 +1896,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       print(
           'app value value ${value} ${loanOptionInt} ${isBuyOvertopup} ${isBuyOvertopup || value ? true : false}');
 
-      int passedLoanID = prefs.getInt('loanCreatedId');
+      int?  passedLoanID = prefs.getInt('loanCreatedId');
 
       print('passed Loan ID ${passedLoanID} ${loanID}');
 
@@ -2247,7 +2247,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   buttonText: 'Copy Amount',
                   onbuttonPressed: () {
                     // sendNoteForLoan(methodType,noteId);
-                    String cp_text = response['suggested_amount'].toString();
+                    String?  cp_text = response['suggested_amount'].toString();
                     Clipboard.setData(ClipboardData(text: cp_text));
                     MyRouter.popPage(context);
                     Flushbar(
@@ -2704,7 +2704,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             // Padding(
             //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
             //   child: DropDownComponent(items: frequencyArray,
-            //       onChange: (String item) async{
+            //       onChange: (String?  item) async{
             //         setState(() {
             //           List<dynamic> selectID =   allFrequency.where((element) => element['value'] == item).toList();
             //           print('this is select ID');
@@ -2717,7 +2717,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             //       },
             //       label: "Frequency *",
             //       selectedItem: "---",
-            //       validator: (String item){
+            //       validator: (String?  item){
             //
             //       }
             //   ),
@@ -2726,7 +2726,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             // Padding(
             //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
             //   child: DropDownComponent(items: repaymentArray,
-            //       onChange: (String item) async{
+            //       onChange: (String?  item) async{
             //         setState(() {
             //           List<dynamic> selectID =   allRepayment.where((element) => element['value'] == item).toList();
             //           print('this is select ID');
@@ -2739,7 +2739,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             //       },
             //       label: "Repayment Frequency *",
             //       selectedItem: "---",
-            //       validator: (String item){
+            //       validator: (String?  item){
             //
             //       }
             //   ),
@@ -2757,7 +2757,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             // Padding(
             //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
             //   child: DropDownComponent(items: frequencyArray,
-            //       onChange: (String item) async{
+            //       onChange: (String?  item) async{
             //         setState(() {
             //           List<dynamic> selectID =   allFrequency.where((element) => element['value'] == item).toList();
             //           print('this is select ID');
@@ -2771,7 +2771,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             //       },
             //       label: "Frequency *",
             //       selectedItem: "---",
-            //       validator: (String item){
+            //       validator: (String?  item){
             //
             //       }
             //   ),
@@ -2944,7 +2944,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 isBuyOver == true ?  IconButton(
                   onPressed: (){
                     // _scrollDown();
-                    // double currentPosition = _scrollController.position.pixels;
+                    // double? currentPosition = _scrollController.position.pixels;
                     //
                     // // Scroll down by 50 pixels
                     // _scrollController.jumpTo(currentPosition + 20);
@@ -2995,8 +2995,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 children: [
                   DropDownComponent(
                       items: loanOptionArray,
-                      onChange: (String item) {
-                        String newItem = item.substring(item.length - 10);
+                      onChange: (String?  item) {
+                        String?  newItem = item.substring(item.length - 10);
                         print('newitem ${newItem}');
                         setState(() {
                           List<dynamic> selectID = allLoanOption
@@ -3011,7 +3011,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                       },
                       label: "Select a Loan to close",
                       selectedItem: "---",
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                   SizedBox(
                     height: 15,
                   ),
@@ -3076,7 +3076,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         // Padding(
   //         //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
   //         //   child: DropDownComponent(items: frequencyArray,
-  //         //       onChange: (String item) async{
+  //         //       onChange: (String?  item) async{
   //         //         setState(() {
   //         //           List<dynamic> selectID =   allFrequency.where((element) => element['value'] == item).toList();
   //         //           print('this is select ID');
@@ -3090,7 +3090,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //       },
   //         //       label: "Frequency *",
   //         //       selectedItem: "---",
-  //         //       validator: (String item){
+  //         //       validator: (String?  item){
   //         //
   //         //       }
   //         //   ),
@@ -3160,7 +3160,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         // Padding(
   //         //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
   //         //   child: DropDownComponent(items: amortizationArray,
-  //         //       onChange: (String item) async{
+  //         //       onChange: (String?  item) async{
   //         //         setState(() {
   //         //           List<dynamic> selectID =   allAmortization.where((element) => element['value'] == item).toList();
   //         //           print('this is select ID');
@@ -3174,7 +3174,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //       },
   //         //       label: "Amortization Type *",
   //         //       selectedItem: "---",
-  //         //       validator: (String item){
+  //         //       validator: (String?  item){
   //         //
   //         //       }
   //         //   ),
@@ -3183,7 +3183,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         // Padding(
   //         //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
   //         //   child: DropDownComponent(items: interstTypeArray,
-  //         //       onChange: (String item) async{
+  //         //       onChange: (String?  item) async{
   //         //         setState(() {
   //         //           List<dynamic> selectID =   allInterstType.where((element) => element['value'] == item).toList();
   //         //           print('this is select ID');
@@ -3197,7 +3197,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //       },
   //         //       label: "Interest Method *",
   //         //       selectedItem: "---",
-  //         //       validator: (String item){
+  //         //       validator: (String?  item){
   //         //
   //         //       }
   //         //   ),
@@ -3222,7 +3222,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //       selectedDate = selected;
   //       print(selected);
   //       //  date = selected.toString();
-  //       String vasCoddd = retsNx360dates(selected);
+  //       String?  vasCoddd = retsNx360dates(selected);
   //       repaymentDate.text = vasCoddd;
   //
   //     });
@@ -3495,7 +3495,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //   );
   // }
 
-  Widget buildLenderInfoRow(String title, String value) {
+  Widget buildLenderInfoRow(String?  title, String?  value) {
     return ListTile(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -3527,7 +3527,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                 child: DropDownComponent(
                     items: lendersNameArray,
-                    onChange: (String item) {
+                    onChange: (String?  item) {
                       setState(() {
                         // addLendersName = item;
                         List<dynamic> selectID = allLendersName
@@ -3542,7 +3542,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                     },
                     label: "Lender's Name",
                     selectedItem: singleLendersName,
-                    validator: (String item) {}),
+                    validator: (String?  item) {}),
               ),
               SizedBox(
                 height: 15,
@@ -3552,7 +3552,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: DropDownComponent(
                     items: banksListArray,
-                    onChange: (String item) {
+                    onChange: (String?  item) {
                       setState(() {
                         List<dynamic> selectID = allBanksList
                             .where((element) => element['name'] == item)
@@ -3566,7 +3566,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                     },
                     label: "Bank * ",
                     selectedItem: bankName,
-                    validator: (String item) {}),
+                    validator: (String?  item) {}),
               ),
 
               Padding(
@@ -4065,11 +4065,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   }
 
   // showUpdateLenderAccordion() {
-  //   int findPosition = updateRequired[0];
+  //   int?  findPosition = updateRequired[0];
   //   Map<String,dynamic> findData = updateRequired[1];
   //
   //   print('find data ${findData} ${findPosition}');
-  // //  String newLenderName = findData.where((e)=> e[id])
+  // //  String?  newLenderName = findData.where((e)=> e[id])
   //
   //       buy_over_settlement_balance_2.text = findData['settlementBalance'];
   //   accountNumber.text = findData['lenderAccountNumber'];
@@ -4096,7 +4096,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   //                 child: DropDownComponent(
   //                     items: lendersNameArray,
-  //                     onChange: (String item) {
+  //                     onChange: (String?  item) {
   //                       setState(() {
   //                         // addLendersName = item;
   //                         List<dynamic> selectID = allLendersName
@@ -4112,7 +4112,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //                     },
   //                     label: "Lender's Name",
   //                     selectedItem: singleLendersName,
-  //                     validator: (String item) {}),
+  //                     validator: (String?  item) {}),
   //               ),
   //               SizedBox(
   //                 height: 15,
@@ -4122,7 +4122,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
   //                 child: DropDownComponent(
   //                     items: banksListArray,
-  //                     onChange: (String item) {
+  //                     onChange: (String?  item) {
   //                       setState(() {
   //                         List<dynamic> selectID = allBanksList
   //                             .where((element) => element['name'] == item)
@@ -4136,7 +4136,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //                     },
   //                     label: "Bank * ",
   //                     selectedItem: bankName,
-  //                     validator: (String item) {}),
+  //                     validator: (String?  item) {}),
   //               ),
   //
   //               Padding(
@@ -4199,7 +4199,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
 
   void showUpdateLenderAccordion(BuildContext context) {
-    int findPosition = updateRequired[0];
+    int?  findPosition = updateRequired[0];
     Map<String, dynamic> findData = Map<String, dynamic>.from(updateRequired[1]);
 
     // Initialize text controllers
@@ -4225,7 +4225,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           builder: (BuildContext context, StateSetter modalSetState) {
             // Initialize Timer to periodically check for state changes
             Timer timer;
-            String previousAccountName = accountName;
+            String?  previousAccountName = accountName;
 
             void startPeriodicCheck() {
               timer = Timer.periodic(Duration(seconds: 2), (timer) {
@@ -4278,7 +4278,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           child: DropDownComponent(
                             items: lendersNameArray,
-                            onChange: (String item) {
+                            onChange: (String?  item) {
                               modalSetState(() {
                                 List<dynamic> selectID = allLendersName
                                     .where((element) => element['displayName'] == item)
@@ -4296,7 +4296,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           child: DropDownComponent(
                             items: banksListArray,
-                            onChange: (String item) {
+                            onChange: (String?  item) {
                               modalSetState(() {
                                 List<dynamic> selectID = allBanksList
                                     .where((element) => element['name'] == item)
@@ -4396,7 +4396,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: DropDownComponent(
                       items: lendersNameArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           // addLendersName = item;
                           List<dynamic> selectID = allLendersName
@@ -4412,7 +4412,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                       },
                       label: "Lender's Name",
                       selectedItem: singleLendersName,
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                 ),
                 SizedBox(
                   height: 15,
@@ -4422,7 +4422,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: DropDownComponent(
                       items: banksListArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allBanksList
                               .where((element) => element['name'] == item)
@@ -4436,7 +4436,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                       },
                       label: "Bank * ",
                       selectedItem: bankName,
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                 ),
 
                 Padding(
@@ -4497,8 +4497,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     );
   }
 
-  void addLenders(BuildContext context, int maxLenderCount) {
-    String errorMessage;
+  void addLenders(BuildContext context, int?  maxLenderCount) {
+    String?  errorMessage;
 
     // // if(lenderIndex == 1){
     //   setState(() {
@@ -4585,8 +4585,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   }
 
 
-  void updateLender(BuildContext context,int dataPosition) {
-    String errorMessage;
+  void updateLender(BuildContext context,int?  dataPosition) {
+    String?  errorMessage;
 
     // // if(lenderIndex == 1){
     //   setState(() {
@@ -4696,7 +4696,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           print(CupertinoSelectedDate);
-                          String retDate =
+                          String?  retDate =
                           retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
                           repaymentDate.text = retDate;
@@ -4716,7 +4716,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   child: const Text('OK'),
                   //  onPressed: () => Navigator.of(context).pop(),
                   onPressed: () {
-                    String retDate = retsNx360dates(CupertinoSelectedDate);
+                    String?  retDate = retsNx360dates(CupertinoSelectedDate);
                     print('ret Date ${retDate}');
                     repaymentDate.text = retDate;
                     Navigator.of(context).pop();
@@ -4729,23 +4729,23 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     print(
         'newdate ${newdate} selected ${selected} added ${DateTime.now().add(Duration(days: 0))}');
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 
@@ -4753,10 +4753,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     return concatss;
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText, var keyBoard,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText, var keyBoard,
       {bool isPassword = false,
-        Function onChanged,
+        VoidCallback onChanged,
         bool isRead = false,
         var maxLenghtAllow}) {
     var MediaSize = MediaQuery.of(context).size;
@@ -4840,7 +4840,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   }
 
   Widget BankAccountNumberEntryField(BuildContext context, var editController,
-      String labelText, String hintText, var keyBoard,
+      String?  labelText, String?  hintText, var keyBoard,
       {bool isPassword = false, var maxLenghtAllow}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -4859,7 +4859,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             style: TextStyle(fontFamily: 'Nunito SansRegular'),
             keyboardType: keyBoard,
 
-            onChanged: (String value) {
+            onChanged: (String?  value) {
               if (value.isEmpty) {
                 setState(() {
                   isBankLoading = false;
@@ -4934,12 +4934,12 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           children: [
             DropDownComponent(
                 items: [],
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {});
                 },
                 label: "Link Savings",
                 selectedItem: "---",
-                validator: (String item) {}),
+                validator: (String?  item) {}),
             SizedBox(
               height: 15,
             ),
@@ -4966,9 +4966,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     );
   }
 
-  retDOBfromBVN(String getDate) {
+  retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -5034,24 +5034,24 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
     return concatss;
   }
 
-  getDateForNextRepayment(String getDate) {
+  getDateForNextRepayment(String?  getDate) {
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -5117,15 +5117,15 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 

@@ -23,8 +23,8 @@ import '../../widgets/metricsShimmerLoading.dart';
 import '../../widgets/sizeSheet.dart';
 
 class MetricsIndex extends StatefulWidget {
-  final int activationChannel;
-  const MetricsIndex({Key key,
+  final int?  activationChannel;
+  const MetricsIndex({Key? key,
     this.activationChannel}) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class MetricsIndex extends StatefulWidget {
 
 class _MetricsIndexState extends State<MetricsIndex> {
 
-  int activationChannel;
+  int?  activationChannel;
   _MetricsIndexState({this.activationChannel});
 
   TextEditingController startDate  = TextEditingController();
@@ -45,16 +45,16 @@ class _MetricsIndexState extends State<MetricsIndex> {
   List<dynamic> metricsDataList = [];
   bool _isLoading = false;
 
-  String startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-  String endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+  String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+  String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
 
 
-  String vstartPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM");
-  String vendPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM");
+  String?  vstartPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM");
+  String?  vendPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM");
 
 
-  // String startPeriod = '01 October 2022';
-  // String endPeriod = '07 March 2023';
+  // String?  startPeriod = '01 October 2022';
+  // String?  endPeriod = '07 March 2023';
 
 
 
@@ -64,14 +64,14 @@ class _MetricsIndexState extends State<MetricsIndex> {
 
 
 
-     int staffId = prefs.getInt('staffId');
-    // int staffId = 628;
-    // String startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-    // String endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+     int?  staffId = prefs.getInt('staffId');
+    // int?  staffId = 628;
+    // String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+    // String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
     //
     var dateFormat = "dd MMMM yyyy";
-    int activationChannelId = activationChannel;
-    String params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
+    int?  activationChannelId = activationChannel;
+    String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
       setState(() {
         _isLoading =  true;
       });
@@ -92,17 +92,17 @@ class _MetricsIndexState extends State<MetricsIndex> {
   }
 
 
-  filterMetricsWithDateAndTime(String filterStartDate,String filterEndDate) async{
+  filterMetricsWithDateAndTime(String?  filterStartDate,String?  filterEndDate) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // int staffId = prefs.getInt('staffId');
-    int staffId = 1310;
-    // String startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-    // String endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+    // int?  staffId = prefs.getInt('staffId');
+    int?  staffId = 1310;
+    // String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+    // String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
     //
     var dateFormat = "dd MMMM yyyy";
-    int activationChannelId = activationChannel;
-    String params = '?startPeriod=${filterStartDate}&endPeriod=${filterEndDate}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
+    int?  activationChannelId = activationChannel;
+    String?  params = '?startPeriod=${filterStartDate}&endPeriod=${filterEndDate}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
 
     setState(() {
       _isLoading =  true;
@@ -218,7 +218,7 @@ class _MetricsIndexState extends State<MetricsIndex> {
 
 
   Widget singleMetricsCard(
-      {String activationChannel, int counts, String medalType,String reward}){
+      {String?  activationChannel, int?  counts, String?  medalType,String?  reward}){
     return Container(
       height: 150,
       padding: EdgeInsets.symmetric(horizontal: 0),
@@ -238,7 +238,7 @@ class _MetricsIndexState extends State<MetricsIndex> {
                   LinearPercentIndicator(
                     width: 200.0,
                     lineHeight: 7.0,
-                    percent: counts < 100 ? counts/100 : counts/1000,
+                    percent: counts! < 100 ? counts/100 : counts/1000,
                     progressColor: ColorUtils.PRIMARY_COLOR,
                   ),
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-retDOBfromBVN(String getDate){
-  String realMonth = '';
+retDOBfromBVN(String?  getDate){
+  String?  realMonth = '';
   //print('getDate ${getDate}');
-  String newGetDate = getDate.substring(0,10);
-  String removeComma = newGetDate.replaceAll("-", " ");
+  String?  newGetDate = getDate.substring(0,10);
+  String?  removeComma = newGetDate.replaceAll("-", " ");
   //print('new Rems ${removeComma}');
   List<String> wordList = removeComma.split(" ");
   //print(wordList[1]);
@@ -66,15 +66,15 @@ retDOBfromBVN(String getDate){
   }
 
 
-  String o1 = wordList[0];
-  String o2 = wordList[1];
-  String o3 = wordList[2];
+  String?  o1 = wordList[0];
+  String?  o2 = wordList[1];
+  String?  o3 = wordList[2];
 
-  String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+  String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
   //print('newOO ${newOO}');
 
-  String concatss =  newOO + " " + realMonth + " " + o1   ;
+  String?  concatss =  newOO + " " + realMonth + " " + o1   ;
 
   print("concatss new Date from edit ${concatss}");
 

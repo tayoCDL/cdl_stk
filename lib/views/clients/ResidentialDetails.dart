@@ -27,14 +27,14 @@ import '../../view_models/post_put_method.dart';
 
 
 class ResidentialDetails extends StatefulWidget {
-  // const ResidentialDetails({Key key}) : super(key: key);
+  // const ResidentialDetails({Key? key}) : super(key: key);
   //
   // @override
   // _ResidentialDetailsState createState() => _ResidentialDetailsState();
 
-  final   int ClientInt,ResidentialPermanentResidentialState,ResidentialPermanentLGA,ResidentialStatus,ResidentialNoOfYears;
-  final  String permanentAddress,nearestLandmark,ComingFrom;
-  const ResidentialDetails({Key key,this.ResidentialPermanentResidentialState,this.ResidentialPermanentLGA,this.ResidentialStatus,this.ResidentialNoOfYears,this.permanentAddress,this.nearestLandmark,this.ComingFrom,this.ClientInt}) : super(key: key);
+  final   int?  ClientInt,ResidentialPermanentResidentialState,ResidentialPermanentLGA,ResidentialStatus,ResidentialNoOfYears;
+  final  String?  permanentAddress,nearestLandmark,ComingFrom;
+  const ResidentialDetails({Key? key,this.ResidentialPermanentResidentialState,this.ResidentialPermanentLGA,this.ResidentialStatus,this.ResidentialNoOfYears,this.permanentAddress,this.nearestLandmark,this.ComingFrom,this.ClientInt}) : super(key: key);
   @override
   _ResidentialDetailsState createState() => _ResidentialDetailsState(
       ResidentialPermanentResidentialState:this.ResidentialPermanentResidentialState,
@@ -51,8 +51,8 @@ class ResidentialDetails extends StatefulWidget {
 
 class _ResidentialDetailsState extends State<ResidentialDetails> {
 
-  int ClientInt,ResidentialPermanentResidentialState,ResidentialPermanentLGA,ResidentialStatus,ResidentialNoOfYears;
-  String permanentAddress,nearestLandmark,ComingFrom;
+  int?  ClientInt,ResidentialPermanentResidentialState,ResidentialPermanentLGA,ResidentialStatus,ResidentialNoOfYears;
+  String?  permanentAddress,nearestLandmark,ComingFrom;
   _ResidentialDetailsState({this.ResidentialPermanentResidentialState,this.ResidentialPermanentLGA,this.ResidentialStatus,this.ResidentialNoOfYears,this.permanentAddress,this.nearestLandmark,this.ComingFrom,this.ClientInt});
 
 
@@ -73,12 +73,12 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
   List<dynamic> allLga = [];
 
 
-  String realMonth = '';
+  String?  realMonth = '';
   bool _isConnected = true;
-  String year_at_residence;
-  int stateInt,lgaInt;
+  String?  year_at_residence;
+  int?  stateInt,lgaInt;
 
-  String residentialState,residentialLga,residentialStatus = '';
+  String?  residentialState,residentialLga,residentialStatus = '';
 
 
   DateTime CupertinoSelectedDate = DateTime.now();
@@ -120,7 +120,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //     allResidential = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectResidential.add(newEmp[i]['name']);
     //   }
@@ -160,7 +160,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
             allResidential = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectResidential.add(mtBool[i]['name']);
           }
@@ -193,7 +193,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           allResidential = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectResidential.add(newEmp[i]['name']);
         }
@@ -216,7 +216,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
 
   }
 
-  getSubAccount(int FirstValue,int SecondValue){
+  getSubAccount(int?  FirstValue,int?  SecondValue){
 
     setState(() {
       _isLoading = true;
@@ -233,7 +233,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //     collectLga = [];
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectLga.add(newEmp[i]['name']);
     //   }
@@ -282,7 +282,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
             allLga = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -316,7 +316,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           allLga = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }
@@ -351,7 +351,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //     allStates = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectState.add(newEmp[i]['name']);
     //   }
@@ -395,7 +395,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
             allStates = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -428,7 +428,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           _isLoading = false;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -449,7 +449,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
   getResidentialInformation() async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     print('localInt ${localclientID} ${prefs.getInt('clientId')}');
 
@@ -505,7 +505,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
 
   @override
 
-  int residentialInt;
+  int?  residentialInt;
 
   TextEditingController permanent_address = TextEditingController();
   TextEditingController nearest_landmark = TextEditingController();
@@ -527,10 +527,10 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
       // prefs.setInt('tempResidentialInt', residentialProfile.isEmpty ? null :  residentialProfile[0]['addressId']);
 
 
-      int getResidential = prefs.getInt('tempResidentialInt');
+      int?  getResidential = prefs.getInt('tempResidentialInt');
       //    print('this is client residential ${getResidential}   ${residentialProfile[0]['addressId']} ');
       //  Map<String,dynamic> personals =  jsonDecode(prefs.getString('prefsPersonalData'));
-      //  String employer =   prefs.getString('prefsEmploymentData');
+      //  String?  employer =   prefs.getString('prefsEmploymentData');
       //   print('personal Data ${personals} ${employer}');
       //  //
       //  mergedOfflineClient.addAll(jsonDecode(personals));
@@ -563,13 +563,13 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
 
       // print('residential Profile ${residentialProfile}');
 
-      int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+      int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
       PostAndPut postAndPut = new PostAndPut();
 
       postAndPut.isClientActive(localclientID).then((value)  {
 
-        String client_status = value.toString();
+        String?  client_status = value.toString();
         Map<String,dynamic> residentialData= {
           'clientId':   ClientInt == null ? prefs.getInt('clientId') : ClientInt,
           'id': getResidential == null ? null : getResidential,
@@ -693,7 +693,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: stateArray,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
                                         List<dynamic> selectID =   allStates.where((element) => element['name'] == item).toList();
                                         stateInt = selectID[0]['id'];
@@ -711,7 +711,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                                     },
                                     label: "Permanent Residential State",
                                     selectedItem: residentialState,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -719,7 +719,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: lgaArray,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
                                         List<dynamic> selectID =   allLga.where((element) => element['name'] == item).toList();
                                         print('this is select ID');
@@ -731,7 +731,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                                     },
                                     label: "LGA * ",
                                     selectedItem: residentialLga,
-                                    validator: (String item){
+                                    validator: (String?  item){
                                       // true and true
                                       if(lgaInt == 0 || lgaInt == null && _isConnected){
                                         return 'LGA is required';
@@ -750,7 +750,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: residentialArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
                                         List<dynamic> selectID =   allResidential.where((element) => element['name'] == item).toList();
                                         print('this is select ID');
@@ -761,7 +761,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                                     },
                                     label: "Residential Status *",
                                     selectedItem: residentialStatus,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -804,7 +804,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                                             onChanged: (date) {
                                               print('change $date');
                                               setState(() {
-                                                String retDate = retsNx360dates(date);
+                                                String?  retDate = retsNx360dates(date);
                                                 dateMovedIn.text = retDate;
                                               });
                                             }, onConfirm: (date) {
@@ -860,7 +860,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool needsValidation = false}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool needsValidation = false}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(
@@ -944,29 +944,29 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
   //       print(selected);
   //       //  date = selected.toString();
   //
-  //       String newdate = selectedDate.toString().substring(0,10);
+  //       String?  newdate = selectedDate.toString().substring(0,10);
   //       print(newdate);
   //
-  //       String formattedDate = DateFormat.yMMMMd().format(selected);
+  //       String?  formattedDate = DateFormat.yMMMMd().format(selected);
   //
   //       print(formattedDate);
   //
-  //       String removeComma = formattedDate.replaceAll(",", "");
+  //       String?  removeComma = formattedDate.replaceAll(",", "");
   //
   //       List<String> wordList = removeComma.split(" ");
   //
-  //       String o1 = wordList[0];
-  //       String o2 = wordList[1];
-  //       String o3 = wordList[2];
+  //       String?  o1 = wordList[0];
+  //       String?  o2 = wordList[1];
+  //       String?  o3 = wordList[2];
   //
   //
   //       print('the first ii ${o2}');
   //
-  //        String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+  //        String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
   //
   //          print('newOO ${newOO}');
   //
-  //       String concatss = newOO + " " + o1 + " " + o3;
+  //       String?  concatss = newOO + " " + o1 + " " + o3;
   //       print("concatss");
   //       print(concatss);
   //
@@ -996,7 +996,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           print(CupertinoSelectedDate);
-                          String retDate = retsNx360dates(CupertinoSelectedDate);
+                          String?  retDate = retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
                           dateMovedIn.text = retDate;
                         });
@@ -1010,7 +1010,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String retDate = retsNx360dates(CupertinoSelectedDate);
+                    String?  retDate = retsNx360dates(CupertinoSelectedDate);
                     print('ret Date ${retDate}');
                     dateMovedIn.text = retDate;
                     Navigator.of(context).pop();
@@ -1036,13 +1036,13 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
       year_at_residence =  (diffs.inDays ~/ 365 ).toString();
     });
     print('years at residence ${year_at_residence}');
-    String newdate = selectedDate.toString().substring(0,10);
+    String?  newdate = selectedDate.toString().substring(0,10);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -1050,15 +1050,15 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);
@@ -1067,9 +1067,9 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     return concatss;
   }
 
-  retDOBfromBVN(String getDate){
+  retDOBfromBVN(String?  getDate){
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -1133,15 +1133,15 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     }
 
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
     print('newOO ${newOO}');
 
-    String concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth + " " + o1   ;
 
     print("concatss new Date from edit ${concatss}");
 

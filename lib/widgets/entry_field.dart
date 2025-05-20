@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class EntryField extends StatelessWidget {
-  const EntryField({Key key,
+  const EntryField({Key? key,
     // required this.maxLenghtAllow,
     // required this.keyBoard,
-    @required this.editController,
-    @required this.labelText,
-    @required this.hintText,
+    required this.editController,
+    required this.labelText,
+    required this.hintText,
      this.suffixWidget,
       this.keyBoard,
       this.minLines,
   }) : super(key: key);
 
 
-  // final int maxLenghtAllow;
+  // final int?  maxLenghtAllow;
   // final TextInputType keyBoard;
   final TextEditingController editController;
-  final String labelText;
-  final String hintText;
+  final String?  labelText;
+  final String?  hintText;
   final Widget suffixWidget;
   final TextInputType keyBoard;
-    final int minLines;
+    final int?  minLines;
   @override
   Widget build(BuildContext context) {
     var MediaSize = MediaQuery.of(context).size;

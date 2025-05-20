@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 class Conversation extends StatelessWidget {
   const Conversation({
-    Key key,
-    @required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
 
   final User user;
@@ -17,7 +17,7 @@ class Conversation extends StatelessWidget {
       ListView.builder(
         reverse: true,
         itemCount: messages.length,
-        itemBuilder: (context, int index) {
+        itemBuilder: (context, int?  index) {
           final message = messages[index];
           bool isMe = message.sender.id == currentUser.id;
           return Container(

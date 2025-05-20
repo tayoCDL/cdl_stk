@@ -12,8 +12,8 @@ import '../../view_models/CodesAndLogic.dart';
 // import '../leads/ViewClient.dart';
 
 class ClientSearchForInteraction extends StatefulWidget {
-  final String comingFrom;
-  const ClientSearchForInteraction({Key key,this.comingFrom}) : super(key: key);
+  final String?  comingFrom;
+  const ClientSearchForInteraction({Key? key,this.comingFrom}) : super(key: key);
 
   @override
   _ClientSearchForInteractionState createState() => _ClientSearchForInteractionState(
@@ -22,22 +22,22 @@ class ClientSearchForInteraction extends StatefulWidget {
 }
 
 class _ClientSearchForInteractionState extends State<ClientSearchForInteraction> {
-  String comingFrom;
+  String?  comingFrom;
   _ClientSearchForInteractionState({
     this.comingFrom
 });
   var allCLient = [];
   bool _isLoading = false;
-  String searchStatus = '';
+  String?  searchStatus = '';
 
-  vchangeState(String newVals){
+  vchangeState(String?  newVals){
     setState(() {
       searchStatus = newVals;
     });
     print('newStat>> ${newVals}');
   }
 
-  void searchValue(String value){
+  void searchValue(String?  value){
     if(value == 'displayName'){
       vchangeState('displayName');
     }
@@ -63,7 +63,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 
   }
 
-  Future<List> getSuggestions(String query) async{
+  Future<List> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(query.length < 3){
@@ -84,7 +84,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
           _isLoading = true;
         });
 
-        String sendQuery = searchStatus + '=${query}';
+        String?  sendQuery = searchStatus + '=${query}';
 
         final Future<Map<String,dynamic>> respose =   RetCodes().searchClient(sendQuery);
         respose.then((response) async {
@@ -200,7 +200,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 
                         ];
                       },
-                      onSelected: (String value) => searchValue(value),
+                      onSelected: (String?  value) => searchValue(value),
                     )
                 ),
 
@@ -223,7 +223,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 
 
 
-  searchResultTile(String name,String mobile,var clientID){
+  searchResultTile(String?  name,String?  mobile,var clientID){
     return InkWell(
       onTap: (){
           if(comingFrom == 'interaction'){
@@ -290,11 +290,11 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
   }
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        Function onBtnPressed,bool isSuffix = false,
-        String extension,bool needsValidation = true,Function changeValidator,Widget prefixIcon}){
+        VoidCallback onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

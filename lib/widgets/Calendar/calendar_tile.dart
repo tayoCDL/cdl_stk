@@ -28,7 +28,7 @@ import "package:intl/intl.dart";
 class CalendarTile extends StatelessWidget {
   final VoidCallback onDateSelected;
   final DateTime date;
-  final String dayOfWeek;
+  final String?  dayOfWeek;
   final bool isDayOfWeek;
   final bool isSelected;
   final bool inMonth;

@@ -7,7 +7,7 @@ import 'package:sales_toolkit/views/draft/SingleClientDraft.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ClientDraftLists extends StatefulWidget {
-  const ClientDraftLists({Key key}) : super(key: key);
+  const ClientDraftLists({Key? key}) : super(key: key);
 
   @override
   _ClientDraftListsState createState() => _ClientDraftListsState();
@@ -29,7 +29,7 @@ class _ClientDraftListsState extends State<ClientDraftLists> {
     print('get full list , ${prefs.getStringList('ListDraftClient')}');
     setState(() {
         clLists = prefs.getStringList('ListDraftClient');
-        int clLisn = clLists.length;
+        int?  clLisn = clLists.length;
         print(clLisn);
     });
   }
@@ -94,7 +94,7 @@ class _ClientDraftListsState extends State<ClientDraftLists> {
   }
 
 
-  _leadsContactView(Color colm,String title,String subtitle,String date,String nameLogo,Function onTap){
+  _leadsContactView(Color colm,String?  title,String?  subtitle,String?  date,String?  nameLogo,VoidCallback onTap){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3.9),
       child: Container(
@@ -117,7 +117,7 @@ class _ClientDraftListsState extends State<ClientDraftLists> {
   }
 
 
-  _LeadingUserTile(Color cols,String nameLogo){
+  _LeadingUserTile(Color cols,String?  nameLogo){
     return Container(
       padding: EdgeInsets.only(top: 1),
       width: 44,

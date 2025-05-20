@@ -4,7 +4,7 @@ import 'package:sales_toolkit/util/enum/color_utils.dart';
 import 'package:sales_toolkit/util/router.dart';
 
 class SingleOrderView extends StatefulWidget {
-  const SingleOrderView({Key key}) : super(key: key);
+  const SingleOrderView({Key? key}) : super(key: key);
 
   @override
   _SingleOrderViewState createState() => _SingleOrderViewState();
@@ -147,12 +147,12 @@ class _SingleOrderViewState extends State<SingleOrderView> {
     );
   }
 
-  Widget userForm(String KeyName,String ValueName){
+  Widget userForm(String?  KeyName,String?  ValueName){
     return   Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(KeyName,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17),),
-        Text(ValueName,style: TextStyle(fontSize: 17),)
+        Text(KeyName!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17),),
+        Text(ValueName!,style: TextStyle(fontSize: 17),)
       ],
     );
   }

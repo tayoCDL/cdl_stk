@@ -34,7 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class DeviceHome extends StatelessWidget {
-  const DeviceHome({Key key}) : super(key: key);
+  const DeviceHome({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class DeviceHome extends StatelessWidget {
 
 
 class DeviceHomeContent extends StatefulWidget {
-  const DeviceHomeContent({Key key}) : super(key: key);
+  const DeviceHomeContent({Key? key}) : super(key: key);
 
   @override
   _DeviceHomeContentState createState() => _DeviceHomeContentState();
@@ -108,10 +108,10 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
 
   var clientsData = [];
   var   totalRefered = [];
-  String _isLoading = 'not_loading';
-  int referalCount  = 0;
-  String supervisor = 'N/A';
-  String agentCode = 'N/A';
+  String?  _isLoading = 'not_loading';
+  int?  referalCount  = 0;
+  String?  supervisor = 'N/A';
+  String?  agentCode = 'N/A';
 
   // AppUpdateInfo _updateInfo;
 
@@ -129,13 +129,13 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
   //   _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(exception.toString())));
   // }
 
-  String username = '',role = '';
+  String?  username = '',role = '';
   DateTime now  = DateTime.now();
-  String currentDateTimey = '';
+  String?  currentDateTimey = '';
   getSalesUsername() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
-    String Vrole = prefs.getString('roleName');
+    String?  Vusername = prefs.getString('username');
+    String?  Vrole = prefs.getString('roleName');
     setState(() {
       username = Vusername;
       role = Vrole;
@@ -150,7 +150,7 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     print(tfaToken);
     print(token);
     setState(() {
@@ -466,7 +466,7 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
     );
   }
 
-  _buildSectionTitle(String title) {
+  _buildSectionTitle(String?  title) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
@@ -556,7 +556,7 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
     );
   }
 
-  _leadsContactView(Color colm,String title,String date,String nameLogo,String employer){
+  _leadsContactView(Color colm,String?  title,String?  date,String?  nameLogo,String?  employer){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.9),
       child: Container(
@@ -574,7 +574,7 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
   }
 
 
-  _LeadingUserTile(Color cols,String nameLogo){
+  _LeadingUserTile(Color cols,String?  nameLogo){
     return Container(
       padding: EdgeInsets.only(top: 1),
       width: 44,
@@ -584,13 +584,13 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
         borderRadius: BorderRadius.all(Radius.circular(60)),
 
       ),
-      child: Center(child: Text(nameLogo,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
+      child: Center(child: Text(nameLogo!,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
     );
   }
 
 
 
-  _LeadingProfileTile(Color cols,String nameLogo){
+  _LeadingProfileTile(Color cols,String?  nameLogo){
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Container(
@@ -602,14 +602,14 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
           borderRadius: BorderRadius.all(Radius.circular(23)),
 
         ),
-        child: Center(child: Text(nameLogo,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
+        child: Center(child: Text(nameLogo!,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
       ),
     );
   }
 
 
 
-  _singleCard(String image,String numbers,String title,Function onTap){
+  _singleCard(String?  image,String?  numbers,String?  title,VoidCallback onTap){
     return InkWell(
       onTap: onTap,
       child: Card(
@@ -632,7 +632,7 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
                       decoration: BoxDecoration(
 
                           image: DecorationImage(
-                            image: AssetImage(image),
+                            image: AssetImage(image!),
                             fit: BoxFit.contain,
                           )
                       ),
@@ -671,14 +671,14 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
   retsNx360dates(){
 
     DateTime now  = DateTime.now();
-    String newdate = now.toString().substring(0,10);
+    String?  newdate = now.toString().substring(0,10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(now);
+    String?  formattedDate = DateFormat.yMMMMd().format(now);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -686,15 +686,15 @@ class _DeviceHomeContentState extends State<DeviceHomeContent> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);

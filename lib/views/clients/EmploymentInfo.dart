@@ -33,13 +33,13 @@ import 'package:textfield_search/textfield_search.dart';
 import 'package:sales_toolkit/widgets/LocalTypeAhead.dart';
 
 class EmploymentInfo extends StatefulWidget {
-  // const EmploymentInfo({Key key}) : super(key: key);
+  // const EmploymentInfo({Key? key}) : super(key: key);
   //
   // @override
   // _EmploymentInfoState createState() => _EmploymentInfoState();
 
-  final int ClientInt, employerSector;
-  final String Employmentaddress,
+  final int?  ClientInt, employerSector;
+  final String?  Employmentaddress,
       EmploymentNeareastLandmark,
       EmploymentStaffId,
       EmploymentJobRole,
@@ -49,7 +49,7 @@ class EmploymentInfo extends StatefulWidget {
       EmploymentPhoneNumber,
       comingFrom;
   const EmploymentInfo(
-      {Key key,
+      {Key? key,
       this.Employmentaddress,
       this.EmploymentNeareastLandmark,
       this.EmploymentStaffId,
@@ -78,8 +78,8 @@ class EmploymentInfo extends StatefulWidget {
 }
 
 class _EmploymentInfoState extends State<EmploymentInfo> {
-  int ClientInt, employerSector;
-  String Employmentaddress,
+  int?  ClientInt, employerSector;
+  String?  Employmentaddress,
       EmploymentNeareastLandmark,
       EmploymentStaffId,
       EmploymentJobRole,
@@ -129,23 +129,23 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   List<String> BranchEmployerArray = [];
   List<String> collectBranchEmployer = [];
   List<dynamic> allBranchEmployer = [];
-  String realMonth = '';
+  String?  realMonth = '';
 
-  String branchEmployer = '';
-  String employerState = '';
-  String employerLga = '';
-  String errorText = '';
-  int empSector = null;
-  String parentEmployer = '';
-  String isPersonalEmailVerified = '';
+  String?  branchEmployer = '';
+  String?  employerState = '';
+  String?  employerLga = '';
+  String?  errorText = '';
+  int?  empSector = null;
+  String?  parentEmployer = '';
+  String?  isPersonalEmailVerified = '';
   Map<String,dynamic> emailGetter;
   bool _isWorkOTPSent = false;
   bool _isPersonalOTPSent = false;
-  int sectorId = 17;
+  int?  sectorId = 17;
   bool isNewWorkEmailVerified = false;
-  int stateInt, salaryInt, lgaInt, employerInt, clientTypeInt;
-  int branchEmployerInt = 0;
-  String employerDomain = '';
+  int?  stateInt, salaryInt, lgaInt, employerInt, clientTypeInt;
+  int?  branchEmployerInt = 0;
+  String?  employerDomain = '';
   bool _isWorEmailVerified = false;
   bool showLoading = false;
   Timer _debounce;
@@ -195,7 +195,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   getEmailValStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int tempClientID =
+    int?  tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
 
     setState(() {
@@ -232,7 +232,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   postEmailValStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int tempClientID =
+    int?  tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
 
     // setState(() {
@@ -278,9 +278,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   // end personal email impl
 
 
-  //  Future<List> getSuggestions(String query) async{
+  //  Future<List> getSuggestions(String?  query) async{
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     String query = _typeAheadController.text;
+  //     String?  query = _typeAheadController.text;
   //   final Future<Map<String,dynamic>> respose =   RetCodes().employers(clientTypeInt,query);
   //
   //   respose.then((response) async {
@@ -293,7 +293,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //       allBranchEmployer = [];
   //     });
   //
-  //     for(int i = 0; i < newEmp.length;i++){
+  //     for(int?  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectEmployer.add(newEmp[i]['name']);
   //     }
@@ -319,7 +319,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //
   // }
 
-  Future<List> getSuggestions(String query) async {
+  Future<List> getSuggestions(String?  query) async {
     if (query.length > 3) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -336,7 +336,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           collectEmployer = [];
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -359,7 +359,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     await Future.delayed(Duration(milliseconds: 1000));
     List _list = <dynamic>[];
 
-    String query = _typeAheadController.text;
+    String?  query = _typeAheadController.text;
     final Future<Map<String, dynamic>> respose =
         RetCodes().employers(clientTypeInt, query);
 
@@ -376,7 +376,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         // allBranchEmployer = [];
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //print(newEmp[i]['name']);
         collectEmployer.add(newEmp[i]['name']);
         collectEmployerID.add(newEmp[i]['id']);
@@ -405,7 +405,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //   {'label': 'Text' + ' Item 3', 'value': 32},
     // ];
 
-    for (int i = 0; i < collectEmployer.length; i++) {
+    for (int?  i = 0; i < collectEmployer.length; i++) {
       _list.add(new TestItem.fromJson(
           {'label': collectEmployer[i], 'value': collectEmployerID[i]}));
     }
@@ -429,7 +429,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allStates = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectState.add(newEmp[i]['name']);
     //   }
@@ -472,7 +472,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allStates = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -503,7 +503,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           _isLoading = false;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -532,7 +532,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -569,7 +569,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectSalary.add(mtBool[i]['name']);
           }
@@ -598,7 +598,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           allSalary = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectSalary.add(newEmp[i]['name']);
         }
@@ -612,13 +612,13 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     });
   }
 
-  getEmployersList(int SearchemployerSector, String searchemployerName) async {
+  getEmployersList(int?  SearchemployerSector, String?  searchemployerName) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    //  int _sector = prefs.getInt('employment_type');
-    // // int realEmployerSector = employerSector == null  ? empSector: empSector == null ? _sector : _sector == null ? 0 : employerSector;
+    //  int?  _sector = prefs.getInt('employment_type');
+    // // int?  realEmployerSector = employerSector == null  ? empSector: empSector == null ? _sector : _sector == null ? 0 : employerSector;
     //
-    //  int realEmployerSector = employerSector == null ? _sector : employerSector;
+    //  int?  realEmployerSector = employerSector == null ? _sector : employerSector;
     //
     // // _sector == null ? empSector : empSector == null ? employerSector : _sector;
     //  //print('sectorId ${realEmployerSector}');
@@ -635,7 +635,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -682,7 +682,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectEmployer.add(mtBool[i]['name']);
           }
@@ -715,7 +715,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           collectEmployer = [];
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -734,7 +734,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     });
   }
 
-  getEmployersBranch(int parentID) {
+  getEmployersBranch(int?  parentID) {
     //print('this is parent branch ${parentID}');
     final Future<Map<String, dynamic>> respose =
         RetCodes().getEmployersBranch(parentID);
@@ -746,7 +746,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -791,7 +791,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allBranchEmployer = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -829,7 +829,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
         //print('all Branch ${newEmp}');
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -846,7 +846,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   getEmploymentProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID = ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID = ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
@@ -972,7 +972,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   // getEmploymentProfile() async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   int localclientID =
+  //   int?  localclientID =
   //       ClientInt == null ? prefs.getInt('clientId') : ClientInt;
   //   //print('localClient ${localclientID}');
   //
@@ -1130,7 +1130,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   // getEmploymentProfile() async {
   //   try {
   //     final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     int localclientID = ClientInt ?? prefs.getInt('clientId');
+  //     int?  localclientID = ClientInt ?? prefs.getInt('clientId');
   //
   //     var token = prefs.getString('base64EncodedAuthenticationKey');
   //     var tfaToken = prefs.getString('tfa-token');
@@ -1203,14 +1203,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   // }
 
 // Helper function for text field updates
-  void _updateTextField(TextEditingController controller, var subEmployer, String key) {
+  void _updateTextField(TextEditingController controller, var subEmployer, String?  key) {
     controller.text = subEmployer == null ? '' : subEmployer[key] ?? '';
   }
 
 
 
 
-  T _getNestedValue<T>(List<dynamic> data, int index, String key, {String subKey, T defaultValue}) {
+  T _getNestedValue<T>(List<dynamic> data, int?  index, String?  key, {String?  subKey, T defaultValue}) {
     try {
       // If the data is empty or the expected value doesn't exist, return the default value
       if (data.isEmpty || data[index] == null) return defaultValue;
@@ -1226,7 +1226,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     }
   }
 
-  List<T> _getNestedListValue<T>(List<dynamic> data, int index, String key, {String subKey, List<T> defaultValue}) {
+  List<T> _getNestedListValue<T>(List<dynamic> data, int?  index, String?  key, {String?  subKey, List<T> defaultValue}) {
     try {
       // If the data is empty or the expected value doesn't exist, return the default value
       if (data.isEmpty || data[index] == null) return defaultValue ?? [];
@@ -1247,7 +1247,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
 
 // Helper method to safely format dates from the subEmployer data
-  String _formatDateFromSubEmployer(var subEmployer, String dateKey) {
+  String?  _formatDateFromSubEmployer(var subEmployer, String?  dateKey) {
   if (subEmployer == null || subEmployer[dateKey] == null || subEmployer[dateKey].length < 3) {
   return '';
   }
@@ -1259,7 +1259,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   getClientType() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =
+    int?  localclientID =
         ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     //print('localClient ${localclientID}');
 
@@ -1292,7 +1292,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //print('client Type ${clientTypeInt} ${clientType}');
   }
 
-  getSubAccount(int FirstValue, int SecondValue) {
+  getSubAccount(int?  FirstValue, int?  SecondValue) {
     setState(() {
       _isLoading = true;
     });
@@ -1314,7 +1314,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     collectLga = [];
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectLga.add(newEmp[i]['name']);
     //   }
@@ -1355,7 +1355,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allLga = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -1387,7 +1387,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           allLga = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }
@@ -1405,7 +1405,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -1455,11 +1455,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   List<Map<String, dynamic>> mergedOfflineClient = [];
 
-  String organization = "";
-  String state_ofposting = '';
-  String lga = '';
-  String salary_range = '';
-  String salary_payday = '';
+  String?  organization = "";
+  String?  state_ofposting = '';
+  String?  lga = '';
+  String?  salary_range = '';
+  String?  salary_payday = '';
 
   bool _isLoading = false;
 
@@ -1477,7 +1477,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         otpController.text = '';
       });
 
-    int tempClientID =
+    int?  tempClientID =
         prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     //print('this is tempLoan ID ${tempClientID}');
 
@@ -1491,7 +1491,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     duration: Duration(seconds: 3),
     //   ).show(context);
     // }
- String passthisemail =   isPersonalEmail == true ? emailaddress.text : work_email.text;
+ String?  passthisemail =   isPersonalEmail == true ? emailaddress.text : work_email.text;
     if (passthisemail.isEmpty || passthisemail.length < 5) {
       return Flushbar(
         flushbarPosition: FlushbarPosition.TOP,
@@ -1537,8 +1537,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
     //print('work email');
     //print(work_email.text.split('@').first);
-    // String real_workEmail = work_email.text.split('@').first;
-    String real_workEmail = passthisemail;
+    // String?  real_workEmail = work_email.text.split('@').first;
+    String?  real_workEmail = passthisemail;
 
     // final Future<Map<String,dynamic>> respose =   RetCodes().requestemployerValidation(tempClientID, real_workEmail + employerDomain);
     final Future<Map<String, dynamic>> respose =
@@ -1603,7 +1603,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     // setState(() {
     //   _isLoading = true;
     // });
-    int tempClientID =
+    int?  tempClientID =
         prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     // //print('this is tempLoan ID ${tempClientID}');
     final Future<Map<String, dynamic>> respose =
@@ -1693,9 +1693,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         ).show(context);
       }
 
-    //  String fetchWorkMail =  employmentProfile.isEmpty || employmentProfile[0]['emailAddress'] == null ? '' : employmentProfile[0]['emailAddress'];
+    //  String?  fetchWorkMail =  employmentProfile.isEmpty || employmentProfile[0]['emailAddress'] == null ? '' : employmentProfile[0]['emailAddress'];
 
-      String fetchWorkMail = (employmentProfile.isNotEmpty && employmentProfile[0]['emailAddress'] is String)
+      String?  fetchWorkMail = (employmentProfile.isNotEmpty && employmentProfile[0]['emailAddress'] is String)
           ? employmentProfile[0]['emailAddress']
           : '';
       print('fetch work mail >> ${fetchWorkMail}');
@@ -1719,19 +1719,19 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       //  prefs.setInt('tempEmployerInt',employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
-      int getEmpInt = prefs.getInt('tempEmployerInt');
+      int?  getEmpInt = prefs.getInt('tempEmployerInt');
       setState(() {
         _isLoading = true;
       });
 
       ////print(' salary payday ${salary_payday.isEmpty}');
-      int localclientID =
+      int?  localclientID =
           ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
       PostAndPut postAndPut = new PostAndPut();
 
       postAndPut.isClientActive(localclientID).then((value) {
-        String client_status = value.toString();
+        String?  client_status = value.toString();
         Map<String, dynamic> employmentData = {
           'clientId': ClientInt == null ? prefs.getInt('clientId') : ClientInt,
           'id': getEmpInt == null ? null : getEmpInt,
@@ -1861,7 +1861,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         // Padding(
                         //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                         //   child: DropDownComponent(items: employerArray,
-                        //       onChange: (String item){
+                        //       onChange: (String?  item){
                         //         setState(() {
                         //           List<dynamic> selectID =   allEmployer.where((element) => element['name'] == item).toList();
                         //           List<dynamic> selectExtension =   allEmployer.where((element) => element['name'] == item).toList();
@@ -1875,7 +1875,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         //       },
                         //       label: "Organization Head Office* ",
                         //       selectedItem: "Select Employer",
-                        //       validator: (String item){
+                        //       validator: (String?  item){
                         //
                         //       }
                         //   ),
@@ -1935,10 +1935,10 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         //
                         //         final SharedPreferences prefs = await SharedPreferences.getInstance();
                         //
-                        //         int _sector = prefs.getInt('employment_type');
-                        //         // int realEmployerSector = employerSector == null  ? empSector: empSector == null ? _sector : _sector == null ? 0 : employerSector;
+                        //         int?  _sector = prefs.getInt('employment_type');
+                        //         // int?  realEmployerSector = employerSector == null  ? empSector: empSector == null ? _sector : _sector == null ? 0 : employerSector;
                         //
-                        //         int realEmployerSector = employerSector == null ? _sector : employerSector;
+                        //         int?  realEmployerSector = employerSector == null ? _sector : employerSector;
                         //
                         //
                         //           if (_debounce?.isActive ?? false) _debounce.cancel();
@@ -2233,7 +2233,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                               horizontal: 20, vertical: 10),
                           child: DropDownComponent(
                               items: BranchEmployerArray,
-                              onChange: (String item) {
+                              onChange: (String?  item) {
                                 setState(() {
                                   List<dynamic> selectID = allBranchEmployer
                                       .where(
@@ -2251,7 +2251,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                               },
                               label: "Organization Branch * ",
                               selectedItem: branchEmployer,
-                              validator: (String item) {
+                              validator: (String?  item) {
                                 if (branchEmployerInt == 0) {
                                   return 'Employer branch cannot be empty';
                                 }
@@ -2267,7 +2267,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         horizontal: 20, vertical: 10),
                                     child: DropDownComponent(
                                         items: stateArray,
-                                        onChange: (String item) {
+                                        onChange: (String?  item) {
                                           setState(() {
                                             List<dynamic> selectID = allStates
                                                 .where((element) =>
@@ -2283,14 +2283,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         },
                                         label: "State Of Employment *",
                                         selectedItem: employerState,
-                                        validator: (String item) {}),
+                                        validator: (String?  item) {}),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     child: DropDownComponent(
                                         items: lgaArray,
-                                        onChange: (String item) {
+                                        onChange: (String?  item) {
                                           setState(() {
                                             List<dynamic> selectID = allLga
                                                 .where((element) =>
@@ -2305,7 +2305,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         },
                                         label: "LGA * ",
                                         selectedItem: employerLga,
-                                        validator: (String item) {
+                                        validator: (String?  item) {
                                           if (lgaInt == 0 || lgaInt == null) {
                                             return 'LGA is required';
                                           }
@@ -2588,7 +2588,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                         onChanged: (date) {
                                                       print('change $date');
                                                       setState(() {
-                                                        String retDate =
+                                                        String?  retDate =
                                                             retsNx360dates(
                                                                 date);
                                                         dateOfEmployment.text =
@@ -2680,7 +2680,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                         onChanged: (date) {
                                                       print('change $date');
                                                       setState(() {
-                                                        String retDate =
+                                                        String?  retDate =
                                                             retsNx360dates(
                                                                 date);
                                                         payrollDob.text =
@@ -2734,7 +2734,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         horizontal: 20, vertical: 10),
                                     child: DropDownComponent(
                                         items: salaryArray,
-                                        onChange: (String item) {
+                                        onChange: (String?  item) {
                                           setState(() {
                                             List<dynamic> selectID = allSalary
                                                 .where((element) =>
@@ -2749,7 +2749,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         },
                                         label: "Salary Range * ",
                                         selectedItem: salary_range,
-                                        validator: (String item) {
+                                        validator: (String?  item) {
                                           if (item == null || item.isEmpty) {
                                             return 'Enter salary range';
                                           }
@@ -2800,7 +2800,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                         onChanged: (date) {
                                                       print('change $date');
                                                       setState(() {
-                                                        String retDate =
+                                                        String?  retDate =
                                                             retsNx360dates(
                                                                 date);
                                                         salaryPayDayController
@@ -2877,7 +2877,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     );
   }
 
-  // Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false}){
+  // Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false}){
   //   var MediaSize = MediaQuery.of(context).size;
   //   return
   //     Container(
@@ -2929,16 +2929,16 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //
   // }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText, var keyBoard,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText, var keyBoard,
       {bool isValidateEmployer = false,
       bool isSendOTP = true,
       var maxLenghtAllow,
-      Function onBtnPressed,
+      VoidCallback onBtnPressed,
       bool isSuffix = false,
-      String extension,
+      String?  extension,
       bool needsValidation = true,
-      Function changeValidator}
+      VoidCallback changeValidator}
       ) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -3029,7 +3029,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     );
   }
 
-  Widget EntryFieldForPersonalMail(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{
+  Widget EntryFieldForPersonalMail(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{
     bool isPassword = false,
     var maxLenghtAllow,
     bool isRead = false,
@@ -3038,11 +3038,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     bool isValidateEmployer = false,
     bool isSendOTP = false,
 
-    Function onBtnPressed,
+    VoidCallback onBtnPressed,
     bool isSuffix = false,
-    String extension,
+    String?  extension,
 
-    Function changeValidator
+    VoidCallback changeValidator
 
   }){
     var MediaSize = MediaQuery.of(context).size;
@@ -3177,26 +3177,26 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //       //print(selected);
   //       //  date = selected.toString();
   //
-  //       String newdate = selectedDate.toString().substring(0,10);
+  //       String?  newdate = selectedDate.toString().substring(0,10);
   //       //print(newdate);
   //
-  //       String formattedDate = DateFormat.yMMMMd().format(selected);
+  //       String?  formattedDate = DateFormat.yMMMMd().format(selected);
   //
   //       //print(formattedDate);
   //
-  //       String removeComma = formattedDate.replaceAll(",", "");
+  //       String?  removeComma = formattedDate.replaceAll(",", "");
   //
   //       List<String> wordList = removeComma.split(" ");
   //
-  //       String o1 = wordList[0];
-  //       String o2 = wordList[1];
-  //       String o3 = wordList[2];
+  //       String?  o1 = wordList[0];
+  //       String?  o2 = wordList[1];
+  //       String?  o3 = wordList[2];
   //
-  //       String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+  //       String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
   //
   //       //print('newOO ${newOO}');
   //
-  //       String concatss = newOO + " " + o1 + " " + o3;
+  //       String?  concatss = newOO + " " + o1 + " " + o3;
   //       //print("concatss");
   //       //print(concatss);
   //
@@ -3209,14 +3209,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   retsNx360dates(DateTime selected) {
     //print(selected);
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     //print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     //print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     //print('removeComma');
     //print(removeComma);
 
@@ -3224,15 +3224,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     //print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     //print("concatss");
     //print(concatss);
@@ -3259,7 +3259,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           //print(CupertinoSelectedDate);
-                          String retDate =
+                          String?  retDate =
                               retsNx360dates(CupertinoSelectedDate);
                           //print('ret Date ${retDate}');
                           dateOfEmployment.text = retDate;
@@ -3275,7 +3275,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String retDate = retsNx360dates(CupertinoSelectedDate);
+                    String?  retDate = retsNx360dates(CupertinoSelectedDate);
                     //print('ret Date ${retDate}');
                     dateOfEmployment.text = retDate;
                     Navigator.of(context).pop();
@@ -3369,11 +3369,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         setState(() {
                           PayDayCupertinoSelectedDate = value;
                           print(PayDayCupertinoSelectedDate);
-                          String retDate =
+                          String?  retDate =
                               retsNx360dates(PayDayCupertinoSelectedDate);
                           //print('ret Date ${retDate}');
 
-                          String newSalary;
+                          String?  newSalary;
                           salaryPayDayController.text = retDate;
                         });
                     },
@@ -3394,7 +3394,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String retDate =
+                    String?  retDate =
                         retsNx360dates(PayDayCupertinoSelectedDate);
                     print('ret Date ${retDate}');
                     salaryPayDayController.text = retDate;
@@ -3407,11 +3407,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         });
   }
 
-  retDOBfromBVN(String getDate) {
+  retDOBfromBVN(String?  getDate) {
     //print('getDate ${getDate}');
 
     // 2/18/2001
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     //print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     //print(wordList[1]);
@@ -3477,15 +3477,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     //print('newOO ${newOO}');
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     //print("concatss new Date from edit ${concatss}");
 
@@ -3548,10 +3548,10 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 }
 
 class TestItem {
-  final String label;
+  final String?  label;
   dynamic value;
 
-  TestItem({@required this.label, this.value});
+  TestItem({required this.label, this.value});
 
   factory TestItem.fromJson(Map<String, dynamic> json) {
     return TestItem(label: json['label'], value: json['value']);

@@ -13,7 +13,7 @@ import 'package:sales_toolkit/widgets/dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DraftAddClient extends StatefulWidget {
-  const DraftAddClient({Key key}) : super(key: key);
+  const DraftAddClient({Key? key}) : super(key: key);
 
   @override
   _DraftAddClientState createState() => _DraftAddClientState();
@@ -27,7 +27,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
   bool isBVNLoading = false;
   bool isRequestLoading = false;
   bool isAllowedToProceed = false;
-  String tempEmail,tempFirstName,tempMiddleName,tempLastName,tempPhone1,tempPhone2;
+  String?  tempEmail,tempFirstName,tempMiddleName,tempLastName,tempPhone1,tempPhone2;
 
   void initState() {
     // TODO: implement initState
@@ -66,7 +66,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
             allEmp = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -109,7 +109,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
           allEmp = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -129,7 +129,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
     );
   }
 
-  fetchBvn(String text) {
+  fetchBvn(String?  text) {
     final Future<Map<String,dynamic>> respose =   RetCodes().verifyBVN(text);
     setState(() {
       isRequestLoading = true;
@@ -196,8 +196,8 @@ class _DraftAddClientState extends State<DraftAddClient> {
 
   @override
   var _lights = true;
-  String employment_type = '';
-  int empInt;
+  String?  employment_type = '';
+  int?  empInt;
 
 
 
@@ -327,7 +327,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
 
                   SizedBox(height: 20,),
                   DropDownComponent(items: empSector,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allEmp.where((element) => element['name'] == item).toList();
@@ -340,7 +340,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
                       },
                       label: "Select Sector",
                       selectedItem: "Select Sector",
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
@@ -380,7 +380,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
   }
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText,{var maxLenghtAllow,} ){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText,{var maxLenghtAllow,} ){
     var MediaSize = MediaQuery.of(context).size;
 
     return   Container(
@@ -402,7 +402,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
             keyboardType: TextInputType.number,
 
             controller: editController,
-            onChanged: (String value){
+            onChanged: (String?  value){
               if(value.isEmpty){
                 setState(() {
                   isBVNLoading = false;
@@ -425,7 +425,7 @@ class _DraftAddClientState extends State<DraftAddClient> {
                 print('re isloading  ${isBVNLoading}');
               }
             },
-            validator: (String value){
+            validator: (String?  value){
 
             },
             decoration: InputDecoration(

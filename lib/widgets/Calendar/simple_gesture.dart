@@ -15,8 +15,8 @@ class SimpleGestureDetector extends StatefulWidget {
   final VoidCallback onSwipeRight;
 
   const SimpleGestureDetector({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.swipeConfig = const SimpleSwipeConfig(),
     this.behavior,
     this.onSwipeUp,
@@ -155,8 +155,8 @@ class _SimpleGestureDetectorState extends State<SimpleGestureDetector> {
 enum SwipeDetectionMoment { onEnd, onUpdate }
 
 class SimpleSwipeConfig {
-  final double verticalThreshold;
-  final double horizontalThreshold;
+  final double? verticalThreshold;
+  final double? horizontalThreshold;
   final SwipeDetectionMoment swipeDetectionMoment;
 
   const SimpleSwipeConfig({

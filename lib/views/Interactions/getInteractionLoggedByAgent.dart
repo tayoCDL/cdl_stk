@@ -17,15 +17,15 @@ import 'package:sales_toolkit/widgets/client_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetInteractionLoggedByAgent extends StatefulWidget {
-  // const ClientInteraction({Key key}) : super(key: key);
+  // const ClientInteraction({Key? key}) : super(key: key);
   //
   // @override
   // _ClientInteractionState createState() => _ClientInteractionState();
 
-  final int clientID, loanOfficerId;
-  final String clientName, ClientEmail;
+  final int?  clientID, loanOfficerId;
+  final String?  clientName, ClientEmail;
   const GetInteractionLoggedByAgent(
-      {Key key,
+      {Key? key,
       this.clientID,
       this.ClientEmail,
       this.clientName,
@@ -45,9 +45,9 @@ var interactionData = [];
 
 class _GetInteractionLoggedByAgentState
     extends State<GetInteractionLoggedByAgent> {
-  int clientID, loanOfficerId;
+  int?  clientID, loanOfficerId;
   Timer _timerForInter;
-  final String clientName, ClientEmail;
+  final String?  clientName, ClientEmail;
   _GetInteractionLoggedByAgentState(
       {this.clientID, this.ClientEmail, this.clientName, this.loanOfficerId});
 
@@ -64,7 +64,7 @@ class _GetInteractionLoggedByAgentState
 
   getInteracctionForClient() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
     final Map<String, String> sequestLoginData = {
       "username": "MobileUser",
@@ -203,8 +203,8 @@ class _GetInteractionLoggedByAgentState
     );
   }
 
-  Widget recentInteractions(String ticketId, String title, String status,
-      Function onTicketTapped, String dueDate, String customerType) {
+  Widget recentInteractions(String?  ticketId, String?  title, String?  status,
+      VoidCallback onTicketTapped, String?  dueDate, String?  customerType) {
     return InkWell(
       onTap: onTicketTapped,
       child: Container(
@@ -449,10 +449,10 @@ class InteractionSearch extends SearchDelegate<String> {
     // throw UnimplementedError();
 
     Widget recentInteractions(
-      String ticketId,
-      String title,
-      String status,
-      Function onTicketTapped,
+      String?  ticketId,
+      String?  title,
+      String?  status,
+      VoidCallback onTicketTapped,
     ) {
       return InkWell(
         onTap: onTicketTapped,
@@ -544,7 +544,7 @@ class InteractionSearch extends SearchDelegate<String> {
     );
   }
 
-  Widget StatusColor(String value) {
+  Widget StatusColor(String?  value) {
     return Text(
       'value',
       style: TextStyle(

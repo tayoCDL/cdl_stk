@@ -7,9 +7,9 @@ import 'dart:async';
 import 'package:sales_toolkit/widgets/TextSearch.dart';
 
 class TestTextField extends StatefulWidget {
-  TestTextField({Key key, this.title = 'My Home Page'}) : super(key: key);
+  TestTextField({Key? key, this.title = 'My Home Page'}) : super(key: key);
 
-  final String title;
+  final String?  title;
 
 
   @override
@@ -67,7 +67,7 @@ class _TestTextFieldState extends State<TestTextField> {
     // _list.add('Test' + ' Item 1');
     // _list.add('Test' + ' Item 2');
     // _list.add('Test' + ' Item 3');
-   String query = myController2.text;
+   String?  query = myController2.text;
     final Future<Map<String,dynamic>> respose =   RetCodes().Leademployers(query);
 
     respose.then((response) async {
@@ -77,7 +77,7 @@ class _TestTextFieldState extends State<TestTextField> {
         allEmployer = newEmp;
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         print(newEmp[i]['name']);
         collectEmployer.add(newEmp[i]['name']);
       }
@@ -114,7 +114,7 @@ class _TestTextFieldState extends State<TestTextField> {
   Future<List> getSuggestions() async{
         print('got here ');
         List _list = <dynamic>[];
-        String query =  myController3.text;
+        String?  query =  myController3.text;
         await Future.delayed(Duration(milliseconds: 1000));
     final Future<Map<String,dynamic>> respose =   RetCodes().Leademployers('wow');
 
@@ -128,7 +128,7 @@ class _TestTextFieldState extends State<TestTextField> {
 
 
 
-        // for(int i=0;i < allEmployer.length;i++){
+        // for(int?  i=0;i < allEmployer.length;i++){
             _list.add(
               // SearchSelectionItem(label: parentItem.name!, value: parentItem.id)
             //    SearchSelectionItem(label: allEmployer[i]['name'],value: '')
@@ -252,10 +252,10 @@ class _TestTextFieldState extends State<TestTextField> {
 
 // Mock Test Item Class
 class TestItem {
-  final String label;
+  final String?  label;
   dynamic value;
 
-  TestItem({@required this.label, this.value});
+  TestItem({required this.label, this.value});
 
   factory TestItem.fromJson(Map<String, dynamic> json) {
     return TestItem(label: json['label'], value: json['value']);

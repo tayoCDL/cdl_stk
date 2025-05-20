@@ -27,7 +27,7 @@
 //
 //
 // class LeadDocumentUpload extends StatefulWidget {
-//   const LeadDocumentUpload({Key key}) : super(key: key);
+//   const LeadDocumentUpload({Key? key}) : super(key: key);
 //
 //   @override
 //   _LeadDocumentUploadState createState() => _LeadDocumentUploadState();
@@ -52,12 +52,12 @@
 //   File uploadimage;
 //   final ImagePicker _picker = ImagePicker();
 //
-//   String _fileName = '...';
-//   String _path = '...';
-//   String _extension;
-//   String signatureBase64;
+//   String?  _fileName = '...';
+//   String?  _path = '...';
+//   String?  _extension;
+//   String?  signatureBase64;
 //   bool _hasValidMime = false;
-//   String appendBase64 = '';
+//   String?  appendBase64 = '';
 //   FileType _pickingType;
 //   DateTime selectedDate = DateTime.now();
 //   DateTime CupertinoSelectedDate = DateTime.now();
@@ -78,12 +78,12 @@
 //   List<String> collectEmployment = [];
 //   List<dynamic> allEmployment = [];
 //
-//   int employmentInt,identityInt,residenceInt;
+//   int?  employmentInt,identityInt,residenceInt;
 //
-//   String passportFileName,passportFileSize,passportFiletype,passportFileLocation,newFileLocation;
-//   String residenceFileName,residenceFileSize,residenceFiletype,residenceFileLocation;
-//   String identityFileName,identityFileSize,identityFiletype,identityFileLocation;
-//   String employmentFileName,employmentFileSize,employmentFiletype,employmentFileLocation;
+//   String?  passportFileName,passportFileSize,passportFiletype,passportFileLocation,newFileLocation;
+//   String?  residenceFileName,residenceFileSize,residenceFiletype,residenceFileLocation;
+//   String?  identityFileName,identityFileSize,identityFiletype,identityFileLocation;
+//   String?  employmentFileName,employmentFileSize,employmentFiletype,employmentFileLocation;
 //
 //   bool _isLoading = false;
 //
@@ -146,7 +146,7 @@
 //     //     allResidence = newEmp;
 //     //   });
 //     //
-//     //   for(int i = 0; i < newEmp.length;i++){
+//     //   for(int?  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectResidence.add(newEmp[i]['name']);
 //     //   }
@@ -187,7 +187,7 @@
 //             allResidence = mtBool;
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectResidence.add(mtBool[i]['name']);
 //           }
@@ -219,7 +219,7 @@
 //           allResidence = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectResidence.add(newEmp[i]['name']);
 //         }
@@ -246,7 +246,7 @@
 //     //     allEmployment = newEmp;
 //     //   });
 //     //
-//     //   for(int i = 0; i < newEmp.length;i++){
+//     //   for(int?  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectEmployment.add(newEmp[i]['name']);
 //     //   }
@@ -287,7 +287,7 @@
 //             allEmployment = mtBool;
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectEmployment.add(mtBool[i]['name']);
 //           }
@@ -319,7 +319,7 @@
 //           allEmployment = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectEmployment.add(newEmp[i]['name']);
 //         }
@@ -346,7 +346,7 @@
 //     //     allIdentity = newEmp;
 //     //   });
 //     //
-//     //   for(int i = 0; i < newEmp.length;i++){
+//     //   for(int?  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectIdentity.add(newEmp[i]['name']);
 //     //   }
@@ -389,7 +389,7 @@
 //             allIdentity = mtBool;
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectIdentity.add(mtBool[i]['name']);
 //           }
@@ -421,7 +421,7 @@
 //           allIdentity = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectIdentity.add(newEmp[i]['name']);
 //         }
@@ -445,19 +445,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -507,19 +507,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -552,19 +552,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -597,19 +597,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -649,14 +649,14 @@
 //
 //     setState(() {
 //       uploadimage = choosedimage;
-//       String getPath  = choosedimage.toString();
+//       String?  getPath  = choosedimage.toString();
 //       _fileName = getPath != null ? getPath.split('/').last : '...';
 //         // _openFileExplorer(getPath);
 //       passport.text = _fileName;
 //     });
 //   }
 //
-//   int random(min, max){
+//   int?  random(min, max){
 //     return min + Random().nextInt(max - min);
 //   }
 //
@@ -809,7 +809,7 @@
 //       }
 //           print('passport Location ${passportFileLocation}' );
 //
-//          String passportLocation =  passportFileLocation;
+//          String?  passportLocation =  passportFileLocation;
 //
 //
 //
@@ -1172,7 +1172,7 @@
 //                       //
 //                       //                   child:
 //                       //                   DropDownComponent(items: residenceArray,
-//                       //                       onChange: (String item){
+//                       //                       onChange: (String?  item){
 //                       //                         setState(() {
 //                       //
 //                       //                           List<dynamic> selectID =   allResidence.where((element) => element['name'] == item).toList();
@@ -1185,7 +1185,7 @@
 //                       //                       },
 //                       //                       label: "Document Type * ",
 //                       //                       selectedItem: "-----",
-//                       //                       validator: (String item){
+//                       //                       validator: (String?  item){
 //                       //
 //                       //                       }
 //                       //                   ),
@@ -1243,7 +1243,7 @@
 //     );
 //   }
 //
-//   Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,{bool isPassword = false}){
+//   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,{bool isPassword = false}){
 //     var MediaSize = MediaQuery.of(context).size;
 //     return   Container(
 //       height: MediaSize.height * 0.090,
@@ -1294,7 +1294,7 @@
 //   }
 //
 //
-//   _smallInfo(String descriptions){
+//   _smallInfo(String?  descriptions){
 //     return   Padding(
 //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
 //       child: Text(descriptions,
@@ -1307,14 +1307,14 @@
 //   }
 //
 //   retsNx360dates(DateTime selected){
-//     String newdate = selectedDate.toString().substring(0,10);
+//     String?  newdate = selectedDate.toString().substring(0,10);
 //     print(newdate);
 //
-//     String formattedDate = DateFormat.yMMMMd().format(selected);
+//     String?  formattedDate = DateFormat.yMMMMd().format(selected);
 //
 //     print(formattedDate);
 //
-//     String removeComma = formattedDate.replaceAll(",", "");
+//     String?  removeComma = formattedDate.replaceAll(",", "");
 //     print('removeComma');
 //     print(removeComma);
 //
@@ -1322,15 +1322,15 @@
 //     //14 December 2011
 //
 //     //[January, 18, 1991]
-//     String o1 = wordList[0];
-//     String o2 = wordList[1];
-//     String o3 = wordList[2];
+//     String?  o1 = wordList[0];
+//     String?  o2 = wordList[1];
+//     String?  o3 = wordList[2];
 //
-//     String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+//     String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 //
 //     print('newOO ${newOO}');
 //
-//     String concatss = newOO + " " + o1 + " " + o3;
+//     String?  concatss = newOO + " " + o1 + " " + o3;
 //     print(concatss);
 //
 //     print(wordList);
@@ -1350,18 +1350,18 @@
 //   //       print(selected);
 //   //       //  date = selected.toString();
 //   //
-//   //       String vasCoddd = retsNx360dates(selected);
+//   //       String?  vasCoddd = retsNx360dates(selected);
 //   //
 //   //       dateController.text = vasCoddd;
 //   //
-//   //       //    String newdate = selectedDate.toString().substring(0,10);
+//   //       //    String?  newdate = selectedDate.toString().substring(0,10);
 //   //       //    print(newdate);
 //   //       //
-//   //       // String formattedDate = DateFormat.yMMMMd().format(selected);
+//   //       // String?  formattedDate = DateFormat.yMMMMd().format(selected);
 //   //       //
 //   //       // print(formattedDate);
 //   //       //
-//   //       //  String removeComma = formattedDate.replaceAll(",", "");
+//   //       //  String?  removeComma = formattedDate.replaceAll(",", "");
 //   //       //    print('removeComma');
 //   //       //    print(removeComma);
 //   //       //
@@ -1369,11 +1369,11 @@
 //   //       //  //14 December 2011
 //   //       //
 //   //       //  //[January, 18, 1991]
-//   //       //  String o1 = wordList[0];
-//   //       //  String o2 = wordList[1];
-//   //       //  String o3 = wordList[2];
+//   //       //  String?  o1 = wordList[0];
+//   //       //  String?  o2 = wordList[1];
+//   //       //  String?  o3 = wordList[2];
 //   //       //
-//   //       //  String concatss = o2 + " " + o1 + " " + o3;
+//   //       //  String?  concatss = o2 + " " + o1 + " " + o3;
 //   //       //  print("concatss");
 //   //       //  print(concatss);
 //   //       //
@@ -1402,7 +1402,7 @@
 //                         setState(() {
 //                           CupertinoSelectedDate = value;
 //                           print(CupertinoSelectedDate);
-//                           String retDate = retsNx360dates(CupertinoSelectedDate);
+//                           String?  retDate = retsNx360dates(CupertinoSelectedDate);
 //                           print('ret Date ${retDate}');
 //                           dateController.text = retDate;
 //                         });
@@ -1463,7 +1463,7 @@
 //                 Container(
 //                   height: 70,
 //                   child: DropDownComponent(items: residenceArray,
-//                       onChange: (String item){
+//                       onChange: (String?  item){
 //                         setState(() {
 //
 //                           List<dynamic> selectID =   allResidence.where((element) => element['name'] == item).toList();
@@ -1476,7 +1476,7 @@
 //                       },
 //                       label: "Proof Of Residence Document * ",
 //                       selectedItem: "-----",
-//                       validator: (String item){
+//                       validator: (String?  item){
 //
 //                       }
 //                   ),
@@ -1645,7 +1645,7 @@
 //                               ),
 //
 //                               child: DropDownComponent(items: identityArray,
-//                                   onChange: (String item){
+//                                   onChange: (String?  item){
 //                                     setState(() {
 //
 //                                       List<dynamic> selectID =   allIdentity.where((element) => element['name'] == item).toList();
@@ -1658,7 +1658,7 @@
 //                                   },
 //                                   label: "Document Type * ",
 //                                   selectedItem: "----",
-//                                   validator: (String item){
+//                                   validator: (String?  item){
 //
 //                                   }
 //                               ),
@@ -1822,7 +1822,7 @@
 //                       ),
 //
 //                       child: DropDownComponent(items: employmentArray,
-//                           onChange: (String item){
+//                           onChange: (String?  item){
 //                             setState(() {
 //
 //                               List<dynamic> selectID =   allEmployment.where((element) => element['name'] == item).toList();
@@ -1835,7 +1835,7 @@
 //                           },
 //                           label: "Document Type * ",
 //                           selectedItem: "-----",
-//                           validator: (String item){
+//                           validator: (String?  item){
 //
 //                           }
 //                       ),

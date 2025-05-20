@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/client_status.dart';
 
 class AllProductsMetrics extends StatefulWidget {
-  const AllProductsMetrics({Key key}) : super(key: key);
+  const AllProductsMetrics({Key? key}) : super(key: key);
 
   @override
   _AllProductsMetricsState createState() => _AllProductsMetricsState();
@@ -22,31 +22,31 @@ class AllProductsMetrics extends StatefulWidget {
 class _AllProductsMetricsState extends State<AllProductsMetrics> {
   List<dynamic> metricsDataList = [];
 
-  // String startPeriod = '01 October 2022';
-  // String endPeriod = '01 March 2023';
-   String startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-   String endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+  // String?  startPeriod = '01 October 2022';
+  // String?  endPeriod = '01 March 2023';
+   String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+   String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
 
 
-  String vstartPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM");
-  String vendPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM");
+  String?  vstartPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM");
+  String?  vendPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM");
 
 
   getMetricsForSalesAgent() async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int staffId = prefs.getInt('staffId');
-   // int staffId = 628;
-    // String startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-    // String endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+    int?  staffId = prefs.getInt('staffId');
+   // int?  staffId = 628;
+    // String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+    // String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
 
 
 
     var dateFormat = "dd MMMM yyyy";
 
-    String params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&groupBy=activationChannelId&loanOfficerId=${staffId}';
-    //String params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&groupBy=activationChannelId';
+    String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&groupBy=activationChannelId&loanOfficerId=${staffId}';
+    //String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&groupBy=activationChannelId';
     final Future<Map<String,dynamic>> respose =   RetCodes().getLoanMetrics(params);
     respose.then((response) {
       print(response['data']);
@@ -155,7 +155,7 @@ class _AllProductsMetricsState extends State<AllProductsMetrics> {
     );
   }
 
-  Widget loanWidgetList({String channelName, String medalType, int loanCount,var reward,var targetSales,String channelIcon,int channelId}){
+  Widget loanWidgetList({String?  channelName, String?  medalType, int?  loanCount,var reward,var targetSales,String?  channelIcon,int?  channelId}){
       return InkWell(
         onTap: (){
           MyRouter.pushPage(context, MetricsIndex(activationChannel: channelId,));
@@ -173,7 +173,7 @@ class _AllProductsMetricsState extends State<AllProductsMetrics> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(channelName,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 21,fontFamily: 'Nunito Bold'),),
+                      Text(channelName!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 21,fontFamily: 'Nunito Bold'),),
                        IconChooser(channelIcon)
                     ],
                   ),
@@ -246,7 +246,7 @@ class _AllProductsMetricsState extends State<AllProductsMetrics> {
   }
 
 
-  String stripOffYear(String vals){
+  String?  stripOffYear(String?  vals){
     // return vals.split(' ').last.replaceAll('', replace);
   }
 }

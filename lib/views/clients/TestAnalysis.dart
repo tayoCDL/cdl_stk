@@ -50,7 +50,7 @@
 //     required this.observer,
 //   }) : super(key: key);
 //
-//   final String title;
+//   final String?  title;
 //   final FirebaseAnalytics analytics;
 //   final FirebaseAnalyticsObserver observer;
 //
@@ -59,9 +59,9 @@
 // }
 //
 // class _MyHomePageState extends State<MyHomePage> {
-//   String _message = '';
+//   String?  _message = '';
 //
-//   void setMessage(String message) {
+//   void setMessage(String?  message) {
 //     setState(() {
 //       _message = message;
 //     });

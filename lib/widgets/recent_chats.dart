@@ -8,7 +8,7 @@ import '../app_theme.dart';
 
 class RecentChats extends StatelessWidget {
   const RecentChats({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class RecentChats extends StatelessWidget {
             shrinkWrap: true,
             physics: ScrollPhysics(),
             itemCount: recentChats.length,
-            itemBuilder: (context, int index) {
+            itemBuilder: (context, int?  index) {
               final recentChat = recentChats[index];
               return Container(
                   margin: const EdgeInsets.only(top: 20),

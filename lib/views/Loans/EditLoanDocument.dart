@@ -31,9 +31,9 @@
 //
 //
 // class EditLoanDocument extends StatefulWidget {
-//   final int ClientInt,documentID;
+//   final int?  ClientInt,documentID;
 //
-//   const EditLoanDocument({Key key,this.ClientInt,this.documentID}) : super(key: key);
+//   const EditLoanDocument({Key? key,this.ClientInt,this.documentID}) : super(key: key);
 //
 //   @override
 //   _EditLoanDocumentState createState() => _EditLoanDocumentState(
@@ -43,7 +43,7 @@
 // }
 //
 // class _EditLoanDocumentState extends State<EditLoanDocument> {
-//   int ClientInt,documentID;
+//   int?  ClientInt,documentID;
 //
 //   _EditLoanDocumentState({this.ClientInt,this.documentID});
 //   @override
@@ -54,7 +54,7 @@
 //   TextEditingController proof_of_employment = TextEditingController();
 //   TextEditingController dateController = TextEditingController();
 //
-//   String fileName ='';
+//   String?  fileName ='';
 //   // final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
 //
 //   // void _handleClearButtonPressed() {
@@ -65,12 +65,12 @@
 //   File uploadimage;
 //   final ImagePicker _picker = ImagePicker();
 //
-//   String _fileName = '...';
-//   String _path = '...';
-//   String _extension;
-//   String signatureBase64;
+//   String?  _fileName = '...';
+//   String?  _path = '...';
+//   String?  _extension;
+//   String?  signatureBase64;
 //   bool _hasValidMime = false;
-//   String appendBase64 = '';
+//   String?  appendBase64 = '';
 //   bool value = false;
 //   FileType _pickingType;
 //   DateTime selectedDate = DateTime.now();
@@ -101,12 +101,12 @@
 //   List<String> UpdatecollectDocumentCategory = [];
 //   List<dynamic> UpdateallDocumentCategory = [];
 //
-//   int employmentInt,identityInt,documentTypeInt,updateDocumentInt;
+//   int?  employmentInt,identityInt,documentTypeInt,updateDocumentInt;
 //
-//   String passportFileName,passportFileSize,passportFiletype,passportFileLocation,newFileLocation;
-//   String documentFileName,residenceFileSize,documentFiletype,documentFileLocation;
-//   String identityFileName,identityFileSize,identityFiletype,identityFileLocation;
-//   String employmentFileName,employmentFileSize,employmentFiletype,employmentFileLocation;
+//   String?  passportFileName,passportFileSize,passportFiletype,passportFileLocation,newFileLocation;
+//   String?  documentFileName,residenceFileSize,documentFiletype,documentFileLocation;
+//   String?  identityFileName,identityFileSize,identityFiletype,identityFileLocation;
+//   String?  employmentFileName,employmentFileSize,employmentFiletype,employmentFileLocation;
 //
 //   bool _isLoading = false;
 //   List<dynamic> objectFetched = [];
@@ -174,7 +174,7 @@
 //     //     allResidence = newEmp;
 //     //   });
 //     //
-//     //   for(int i = 0; i < newEmp.length;i++){
+//     //   for(int?  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectResidence.add(newEmp[i]['name']);
 //     //   }
@@ -216,7 +216,7 @@
 //             UpdateallDocumentType = mtBool;
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectDocumentType.add(mtBool[i]['name']);
 //           }
@@ -250,7 +250,7 @@
 //           UpdateallDocumentType = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectDocumentType.add(newEmp[i]['name']);
 //           UpdatecollectDocumentType.add(newEmp[i]['name']);
@@ -269,7 +269,7 @@
 //     );
 //   }
 //
-//   getSubCategoryForCOnfig(String codeID){
+//   getSubCategoryForCOnfig(String?  codeID){
 //     final Future<Map<String,dynamic>> respose =   RetCodes().getCodes(codeID);
 //
 //
@@ -302,7 +302,7 @@
 //
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectDocumentCategory.add(mtBool[i]['name']);
 //           }
@@ -336,7 +336,7 @@
 //           UpdateallDocumentCategory = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectDocumentCategory.add(newEmp[i]['name']);
 //           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -357,7 +357,7 @@
 //   }
 //
 //
-//   getSubCategoryForCOnfigUpdate(String codeID){
+//   getSubCategoryForCOnfigUpdate(String?  codeID){
 //     final Future<Map<String,dynamic>> respose =   RetCodes().getCodes(codeID);
 //
 //
@@ -390,7 +390,7 @@
 //
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectDocumentCategory.add(mtBool[i]['name']);
 //           }
@@ -424,7 +424,7 @@
 //           UpdateallDocumentCategory = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           //  collectDocumentCategory.add(newEmp[i]['name']);
 //           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -458,7 +458,7 @@
 //     //     allIdentity = newEmp;
 //     //   });
 //     //
-//     //   for(int i = 0; i < newEmp.length;i++){
+//     //   for(int?  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectIdentity.add(newEmp[i]['name']);
 //     //   }
@@ -501,7 +501,7 @@
 //             allIdentity = mtBool;
 //           });
 //
-//           for(int i = 0; i < mtBool.length;i++){
+//           for(int?  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectIdentity.add(mtBool[i]['name']);
 //           }
@@ -533,7 +533,7 @@
 //           allIdentity = newEmp;
 //         });
 //
-//         for(int i = 0; i < newEmp.length;i++){
+//         for(int?  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectIdentity.add(newEmp[i]['name']);
 //         }
@@ -557,19 +557,19 @@
 //         print('this is Path ${_path}');
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -617,7 +617,7 @@
 //   getDocumentUploadInformation() async{
 //
 //     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+//     int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 //
 //     print('localInt ${localclientID}');
 //
@@ -658,19 +658,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -735,19 +735,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -780,19 +780,19 @@
 //         _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 //
 //         // List<int> imageBytes = _path.readAsBytesSync();
-//         // String baseimage = base64Encode(imageBytes);
+//         // String?  baseimage = base64Encode(imageBytes);
 //
 //         print('file extension ${_path.split('.').last}');
 //
 //         final bytes = Io.File(_path).readAsBytesSync();
 //         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-//         String img64 = base64Encode(bytes);
+//         String?  img64 = base64Encode(bytes);
 //
 //         // get file size
 //         final kb = byeInLength / 1024;
 //         final mb = kb / 1024;
 //         print('this is the MB ${mb}');
-//         String filesizeAsString  = mb.toString();
+//         String?  filesizeAsString?   = mb.toString();
 //         print('this is file sizelenght ${filesizeAsString}');
 //         print('image base64 ${img64}');
 //
@@ -833,19 +833,19 @@
 //     File imagefile = choosedimage;//convert Path to File
 //
 //     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-//     String base64string = base64.encode(imagebytes); //convert bytes to base64 string
-//     print('base64string ${base64string}');
+//     String?  base64String?  = base64.encode(imagebytes); //convert bytes to base64 string
+//     print('base64String?  ${base64string}');
 //
-//     String _finalPath =   choosedimage.toString();
+//     String?  _finalPath =   choosedimage.toString();
 //     // final bytes = Io.File(_finalPath).readAsBytesSync();
 //     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-//     // String img64 = base64Encode(bytes);
+//     // String?  img64 = base64Encode(bytes);
 //
 //     // print(img64);
 //
 //     setState(() {
 //       // uploadimage = choosedimage;
-//       // String getPath  = choosedimage.toString();
+//       // String?  getPath  = choosedimage.toString();
 //       // _fileName = getPath != null ? getPath.split('/').last : '...';
 //       // _openFileExplorer(getPath);
 //
@@ -859,7 +859,7 @@
 //     // final kb = byeInLength / 1024;
 //     // final mb = kb / 1024;
 //     // print('this is the MB ${mb}');
-//     //  String filesizeAsString  = mb.toString();
+//     //  String?  filesizeAsString?   = mb.toString();
 //     // print('this is file sizelenght ${filesizeAsString}');
 //     // print('image base64 ${img64}');
 //
@@ -900,7 +900,7 @@
 //
 //   }
 //
-//   void doDocumentAction(String value){
+//   void doDocumentAction(String?  value){
 //
 //     if(value == 'Edit_Documenta'){
 //       MyRouter.pushPage(context,EditLoanDocument());
@@ -913,7 +913,7 @@
 //
 //   }
 //
-//   int random(min, max){
+//   int?  random(min, max){
 //     return min + Random().nextInt(max - min);
 //   }
 //
@@ -1071,7 +1071,7 @@
 //       // }
 //       print('passport Location ${passportFileLocation}' );
 //
-//       String passportLocation =  passportFileLocation;
+//       String?  passportLocation =  passportFileLocation;
 //
 //
 //
@@ -1281,7 +1281,7 @@
 //     );
 //   }
 //
-//   Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,{bool isPassword = false}){
+//   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,{bool isPassword = false}){
 //     var MediaSize = MediaQuery.of(context).size;
 //     return   Container(
 //       height: MediaSize.height * 0.090,
@@ -1332,7 +1332,7 @@
 //   }
 //
 //
-//   _smallInfo(String descriptions){
+//   _smallInfo(String?  descriptions){
 //     return   Padding(
 //       padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
 //       child: Text(descriptions,
@@ -1345,14 +1345,14 @@
 //   }
 //
 //   retsNx360dates(DateTime selected){
-//     String newdate = selectedDate.toString().substring(0,10);
+//     String?  newdate = selectedDate.toString().substring(0,10);
 //     print(newdate);
 //
-//     String formattedDate = DateFormat.yMMMMd().format(selected);
+//     String?  formattedDate = DateFormat.yMMMMd().format(selected);
 //
 //     print(formattedDate);
 //
-//     String removeComma = formattedDate.replaceAll(",", "");
+//     String?  removeComma = formattedDate.replaceAll(",", "");
 //     print('removeComma');
 //     print(removeComma);
 //
@@ -1360,15 +1360,15 @@
 //     //14 December 2011
 //
 //     //[January, 18, 1991]
-//     String o1 = wordList[0];
-//     String o2 = wordList[1];
-//     String o3 = wordList[2];
+//     String?  o1 = wordList[0];
+//     String?  o2 = wordList[1];
+//     String?  o3 = wordList[2];
 //
-//     String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+//     String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 //
 //     print('newOO ${newOO}');
 //
-//     String concatss = newOO + " " + o1 + " " + o3;
+//     String?  concatss = newOO + " " + o1 + " " + o3;
 //     print(concatss);
 //
 //     print(wordList);
@@ -1388,18 +1388,18 @@
 //   //       print(selected);
 //   //       //  date = selected.toString();
 //   //
-//   //       String vasCoddd = retsNx360dates(selected);
+//   //       String?  vasCoddd = retsNx360dates(selected);
 //   //
 //   //       dateController.text = vasCoddd;
 //   //
-//   //       //    String newdate = selectedDate.toString().substring(0,10);
+//   //       //    String?  newdate = selectedDate.toString().substring(0,10);
 //   //       //    print(newdate);
 //   //       //
-//   //       // String formattedDate = DateFormat.yMMMMd().format(selected);
+//   //       // String?  formattedDate = DateFormat.yMMMMd().format(selected);
 //   //       //
 //   //       // print(formattedDate);
 //   //       //
-//   //       //  String removeComma = formattedDate.replaceAll(",", "");
+//   //       //  String?  removeComma = formattedDate.replaceAll(",", "");
 //   //       //    print('removeComma');
 //   //       //    print(removeComma);
 //   //       //
@@ -1407,11 +1407,11 @@
 //   //       //  //14 December 2011
 //   //       //
 //   //       //  //[January, 18, 1991]
-//   //       //  String o1 = wordList[0];
-//   //       //  String o2 = wordList[1];
-//   //       //  String o3 = wordList[2];
+//   //       //  String?  o1 = wordList[0];
+//   //       //  String?  o2 = wordList[1];
+//   //       //  String?  o3 = wordList[2];
 //   //       //
-//   //       //  String concatss = o2 + " " + o1 + " " + o3;
+//   //       //  String?  concatss = o2 + " " + o1 + " " + o3;
 //   //       //  print("concatss");
 //   //       //  print(concatss);
 //   //       //
@@ -1440,7 +1440,7 @@
 //                         setState(() {
 //                           CupertinoSelectedDate = value;
 //                           print(CupertinoSelectedDate);
-//                           String retDate = retsNx360dates(CupertinoSelectedDate);
+//                           String?  retDate = retsNx360dates(CupertinoSelectedDate);
 //                           print('ret Date ${retDate}');
 //                           dateController.text = retDate;
 //                         });
@@ -1496,7 +1496,7 @@
 //                 Container(
 //                   height: 70,
 //                   child: DropDownComponent(items: DocumentTypeArray,
-//                       onChange: (String item){
+//                       onChange: (String?  item){
 //                         setState(() {
 //
 //                           List<dynamic> selectID =   allDocumentType.where((element) => element['name'] == item).toList();
@@ -1510,7 +1510,7 @@
 //                       },
 //                       label: "Select Document Type * ",
 //                       selectedItem: "",
-//                       validator: (String item){
+//                       validator: (String?  item){
 //
 //                       }
 //                   ),
@@ -1519,7 +1519,7 @@
 //                 Container(
 //                   height: 70,
 //                   child: DropDownComponent(items: documentCategoryArray,
-//                       onChange: (String item){
+//                       onChange: (String?  item){
 //                         setState(() {
 //
 //                           List<dynamic> selectID =   allDocumentCategory.where((element) => element['name'] == item).toList();
@@ -1534,7 +1534,7 @@
 //                       },
 //                       label: "Select category * ",
 //                       selectedItem: "-----",
-//                       validator: (String item){
+//                       validator: (String?  item){
 //
 //                       }
 //                   ),
@@ -1608,7 +1608,7 @@
 //   }
 //
 //
-//   Widget showDocumentUpdate(int documentID,String documentKey){
+//   Widget showDocumentUpdate(int?  documentID,String?  documentKey){
 //     return Column(
 //       children: [
 //         Row(
@@ -1631,7 +1631,7 @@
 //                 Container(
 //                   height: 70,
 //                   child: DropDownComponent(items: UpdateDocumentTypeArray,
-//                       onChange: (String item){
+//                       onChange: (String?  item){
 //                         setState(() {
 //
 //                           List<dynamic> selectID =   UpdateallDocumentType.where((element) => element['name'] == item).toList();
@@ -1645,7 +1645,7 @@
 //                       },
 //                       label: "Select Document Type * ",
 //                       selectedItem: "",
-//                       validator: (String item){
+//                       validator: (String?  item){
 //
 //                       }
 //                   ),
@@ -1654,7 +1654,7 @@
 //                 Container(
 //                   height: 70,
 //                   child: DropDownComponent(items: UpdatedocumentCategoryArray,
-//                       onChange: (String item){
+//                       onChange: (String?  item){
 //                         setState(() {
 //
 //                           List<dynamic> selectID =   UpdateallDocumentCategory.where((element) => element['name'] == item).toList();
@@ -1669,7 +1669,7 @@
 //                       },
 //                       label: "Select category * ",
 //                       selectedItem: "-----",
-//                       validator: (String item){
+//                       validator: (String?  item){
 //
 //                       }
 //                   ),

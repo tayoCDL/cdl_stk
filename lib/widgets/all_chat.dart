@@ -25,7 +25,7 @@ class AllChats extends StatelessWidget {
             shrinkWrap: true,
             physics: ScrollPhysics(),
             itemCount: allChats.length,
-            itemBuilder: (context, int index) {
+            itemBuilder: (context, int?  index) {
               final allChat = allChats[index];
               return Container(
                   margin: const EdgeInsets.only(top: 20),

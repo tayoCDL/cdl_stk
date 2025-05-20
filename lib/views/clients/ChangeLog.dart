@@ -9,8 +9,8 @@ import '../../view_models/CodesAndLogic.dart';
 
 
 class ChangeLog extends StatefulWidget {
-  final int clientID;
-  const ChangeLog({Key key,this.clientID}) : super(key: key);
+  final int?  clientID;
+  const ChangeLog({Key? key,this.clientID}) : super(key: key);
 
   @override
   _ChangeLogState createState() => _ChangeLogState(
@@ -20,14 +20,14 @@ class ChangeLog extends StatefulWidget {
 
 class _ChangeLogState extends State<ChangeLog> {
 
-  int clientID;
+  int?  clientID;
   List<dynamic> changeLogs = [];
   _ChangeLogState({this.clientID});
   bool loaded = false;
 
 
   getChangeLog() async{
-    String changeLogUrl = AppUrl.getResidentialClient + clientID.toString() + '/update-request';
+    String?  changeLogUrl = AppUrl.getResidentialClient + clientID.toString() + '/update-request';
     final Future<List<dynamic>> changeLogResponse =   RetCodes().getterAPI(changeLogUrl);
 
     changeLogResponse.then((response) {
@@ -234,7 +234,7 @@ class _ChangeLogState extends State<ChangeLog> {
   }
 
 
-  Widget clientStatus(String status,Color textColor) {
+  Widget clientStatus(String?  status,Color textColor) {
    Color cols =  status == 'REJECTED' ? ColorUtils.REJECTED_COLOR : status == 'PENDING' ? ColorUtils.PENDING_COLOR : ColorUtils.CHANGE_LOG_APP_COLOR;
    Color tColor =  status == 'REJECTED' ? ColorUtils.REJECTED_TEXT : status == 'PENDING' ? ColorUtils.PENDING_TEXT : ColorUtils.CHANGE_LOG_APP_COLOR_WITH_OPACITY;
 
@@ -276,7 +276,7 @@ class _ChangeLogState extends State<ChangeLog> {
 
 
 
-  Widget singleValues({String propertyName, String valueName}){
+  Widget singleValues({String?  propertyName, String?  valueName}){
     return  Container(
       padding: EdgeInsets.symmetric(vertical: 8),
       child:  Row(
@@ -291,10 +291,10 @@ class _ChangeLogState extends State<ChangeLog> {
     );
   }
 
-  String chopOff(String field){
+  String?  chopOff(String?  field){
       if(field.contains(':')) {
-        String ob = field;
-        String newOb = ob
+        String?  ob = field;
+        String?  newOb = ob
             .split(':')
             .last;
         return newOb;
@@ -303,7 +303,7 @@ class _ChangeLogState extends State<ChangeLog> {
         return field;
       }
       // if(newOb.contains('->')){
-      //   String newSplit  = newOb.split('->').last;
+      //   String?  newSplit  = newOb.split('->').last;
       //   return newSplit;
       // }
       // else {

@@ -21,9 +21,9 @@ import 'package:sales_toolkit/widgets/dropdown.dart';
 import '../../palatte.dart';
 
 class AddOpportunityFromOverview extends StatefulWidget {
-  final int ClientID;
-  final String clientName,ClientEmail,comingFrom;
-  const AddOpportunityFromOverview({Key key,this.ClientID,this.ClientEmail,this.clientName,this.comingFrom}) : super(key: key);
+  final int?  ClientID;
+  final String?  clientName,ClientEmail,comingFrom;
+  const AddOpportunityFromOverview({Key? key,this.ClientID,this.ClientEmail,this.clientName,this.comingFrom}) : super(key: key);
 
   @override
   _AddOpportunityFromOverviewState createState() => _AddOpportunityFromOverviewState(
@@ -38,8 +38,8 @@ enum SingingCharacter { resolved,Open, Closed }
 
 
 class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview> {
-  int ClientID;
-  String ClientEmail,clientName,comingFrom;
+  int?  ClientID;
+  String?  ClientEmail,clientName,comingFrom;
 
   _AddOpportunityFromOverviewState({
     this.ClientID,
@@ -74,19 +74,19 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
   File uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
+  String?  _fileName = '...';
 
-  String fileSize = '';
+  String?  fileSize = '';
 
-  String _path = '...';
-  String baseimage = '';
-  String _extension;
+  String?  _path = '...';
+  String?  baseimage = '';
+  String?  _extension;
   bool _hasValidMime = false;
   FileType _pickingType;
   TextEditingController _controller = new TextEditingController();
   File chosenImage;
-  String agent_name,agent_email = '';
-  int agentId = 0;
+  String?  agent_name,agent_email = '';
+  int?  agentId = 0;
 
   TextEditingController passport = TextEditingController();
 
@@ -144,7 +144,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         _isLoading = false;
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -169,7 +169,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -183,7 +183,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
     );
   }
 
-  TicketType(int affectedType){
+  TicketType(int?  affectedType){
     setState(() {
       _isLoading = true;
     });
@@ -203,7 +203,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         collectTicketType = [];
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -242,7 +242,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         allCategory = newEmp;
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectCategory.add(newEmp[i]['categoryName']);
       }
@@ -257,7 +257,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
     );
   }
 
-  getSubCategory(int categoryID){
+  getSubCategory(int?  categoryID){
     setState(() {
       _isLoading = true;
     });
@@ -278,7 +278,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         collectSubCategory = [];
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -297,8 +297,8 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
 
   @override
   var _lights = true;
-  String employment_type = '';
-  int affectedInt,departmentInt,ticketInt,categoryInt,subCategoryInt;
+  String?  employment_type = '';
+  int?  affectedInt,departmentInt,ticketInt,categoryInt,subCategoryInt;
   bool _isLoading = false;
 
 
@@ -344,7 +344,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
           "responsiblePersonId": agentId.toString()
         };
 
-        String url = AppUrl.createOpportunity;
+        String?  url = AppUrl.createOpportunity;
         final Future<Map<String,dynamic>> respose =  addInteractionProvider.addInteraction(interactionData,url);
 
         print('response from backend ${respose}');
@@ -509,7 +509,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   SizedBox(height: 20,),
 
                   // DropDownComponent(items: affectedUserArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allAffected.where((element) => element['affectedTypeName'] == item).toList();
@@ -523,7 +523,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   //     },
                   //     label: "Affected User Type: ",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -532,7 +532,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   // EntryField(context, bvn, 'Staff ID *','Enter Staff ID',TextInputType.name),
                   //  SizedBox(height: 20,),
                   // DropDownComponent(items: TicketTypeArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allTicketType.where((element) => element['requestTypeName'] == item).toList();
@@ -546,7 +546,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   //     },
                   //     label: "Ticket Type",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -554,7 +554,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
 
                  SizedBox(height: 20,),
                   DropDownComponent(items: departmentUnitArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allDepartmentUnit.where((element) => element['unitName'] == item).toList();
@@ -568,7 +568,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                       },
                       label: "Responsible Department(Unit): ",
                       selectedItem: "----",
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
@@ -577,7 +577,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   // SizedBox(height: 20,),
                   SizedBox(height: 20,),
                   DropDownComponent(items: CategoryArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allCategory.where((element) => element['categoryName'] == item).toList();
@@ -591,14 +591,14 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                       },
                       label: "Category",
                       selectedItem: "----",
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
                   ),
                   SizedBox(height: 20,),
                   DropDownComponent(items: SubCategoryArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
                           List<dynamic> selectID =   allSubCategory.where((element) => element['subCategoryName'] == item).toList();
                           print('this is select ID');
@@ -609,7 +609,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                       },
                       label: "Sub Category",
                       selectedItem: "----",
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
@@ -789,7 +789,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
       final kb = bytes / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString  = mb.toString();
+      String?  filesizeAsString?   = mb.toString();
       fileSize = filesizeAsString;
 
       // end get file size
@@ -799,13 +799,13 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
 
 
 
-      String getPath  = choosedimage.toString();
+      String?  getPath  = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       passport.text = _fileName;
     });
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

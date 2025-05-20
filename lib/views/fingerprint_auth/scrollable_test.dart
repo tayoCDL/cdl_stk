@@ -12,8 +12,8 @@
 //
 // class _BottomSheetDemoState extends State<BottomSheetDemo> with TickerProviderStateMixin {
 //   bool _bottomSheetActive = false;
-//   String _currentState = "initial";
-//   String _currentDirection = "up";
+//   String?  _currentState = "initial";
+//   String?  _currentDirection = "up";
 //   final controller = ScrollableController();
 //
 //   void _showMessage(BuildContext context) {

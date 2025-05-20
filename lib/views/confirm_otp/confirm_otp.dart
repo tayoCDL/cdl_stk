@@ -16,7 +16,7 @@ import 'package:sales_toolkit/widgets/text-input-with-border.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfirmOtp extends StatefulWidget {
-  const ConfirmOtp({Key key}) : super(key: key);
+  const ConfirmOtp({Key? key}) : super(key: key);
 
   @override
   _ConfirmOtpState createState() => _ConfirmOtpState();
@@ -47,17 +47,17 @@ class _ConfirmOtpState extends State<ConfirmOtp> {
 
   final interval = const Duration(seconds: 1);
 
-  final int timerMaxSeconds = 300;
+  final int?  timerMaxSeconds = 300;
 
-  int currentSeconds = 0;
+  int?  currentSeconds = 0;
   bool _isLoading = false;
 
   bool showTimer= false;
 
-  String get timerText =>
-      '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
+  String?  get timerText =>
+      '${((timerMaxSeconds! - currentSeconds!) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds! - currentSeconds!) % 60).toString().padLeft(2, '0')}';
 
-  startTimeout([int milliseconds]) {
+  startTimeout([int?  milliseconds]) {
     var duration = interval;
     Timer.periodic(duration, (timer) {
 
@@ -66,7 +66,7 @@ class _ConfirmOtpState extends State<ConfirmOtp> {
 
           // print(timer.tick);
           currentSeconds = timer.tick;
-          if (timer.tick >= timerMaxSeconds)
+          if (timer.tick >= timerMaxSeconds!)
           {
             timer.cancel();
             showTimer = true;
@@ -94,7 +94,7 @@ class _ConfirmOtpState extends State<ConfirmOtp> {
 
       //   prefs.setString('delivery', mtd);
 
-      String getDelivery = prefs.getString('delivery');
+      String?  getDelivery = prefs.getString('delivery');
 
       print(' getDelivery ${getDelivery}');
 

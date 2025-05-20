@@ -1,11 +1,11 @@
 class User {
-  int id;
-  String name;
-  String username;
-  String email;
+  int?  id;
+  String?  name;
+  String?  username;
+  String?  email;
   Address address;
-  String phone;
-  String website;
+  String?  phone;
+  String?  website;
   Company company;
 
   User(
@@ -50,10 +50,10 @@ class User {
 }
 
 class Address {
-  String street;
-  String suite;
-  String city;
-  String zipcode;
+  String?  street;
+  String?  suite;
+  String?  city;
+  String?  zipcode;
   Geo geo;
 
   Address({this.street, this.suite, this.city, this.zipcode, this.geo});
@@ -80,8 +80,8 @@ class Address {
 }
 
 class Geo {
-  String lat;
-  String lng;
+  String?  lat;
+  String?  lng;
 
   Geo({this.lat, this.lng});
 
@@ -99,9 +99,9 @@ class Geo {
 }
 
 class Company {
-  String name;
-  String catchPhrase;
-  String bs;
+  String?  name;
+  String?  catchPhrase;
+  String?  bs;
 
   Company({this.name, this.catchPhrase, this.bs});
 

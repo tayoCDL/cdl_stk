@@ -44,7 +44,7 @@ class VerifyOtpProvider extends ChangeNotifier {
       User authUser = User.fromJson(responseData);
 
       // now we will create shared preferences and save data
-      UserPreferences().saveUser(authUser);
+   //   UserPreferences().saveUser(authUser);
 
       result = {
         'status':true,
@@ -63,11 +63,12 @@ class VerifyOtpProvider extends ChangeNotifier {
     return result;
   }
 
-  Future<Map<String, dynamic>> login(String username, String password) async {
+  Future<Map<String, dynamic>> login(String?  username, String?  password) async {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String token = prefs.get('base64EncodedAuthenticationKey');
+   // String  token = prefs.get('base64EncodedAuthenticationKey');
+    String?  token = prefs.getString('base64EncodedAuthenticationKey');
 
     print('token');
     print(token);
@@ -101,7 +102,7 @@ class VerifyOtpProvider extends ChangeNotifier {
 
 
     Response response = await post(
-      AppUrl.twofactor,
+      Uri.parse(AppUrl.twofactor),
       body: json.encode(verifyData),
       headers: {
         'Content-Type': 'application/json',

@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 class BottomNavComponent extends StatelessWidget {
   const BottomNavComponent({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
 
-    @required this.callAction,
+    required this.callAction,
 
   }) : super(key: key);
 
-  final String text;
-  final Function callAction;
+  final String?  text;
+  final VoidCallback callAction;
 
   @override
   Widget build(BuildContext context) {
@@ -48,4 +48,3 @@ return    Container(
 );
   }
 }
-

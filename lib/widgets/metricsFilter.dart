@@ -15,7 +15,7 @@ class MetricsFilterModal extends StatelessWidget {
 
 
   const MetricsFilterModal(
-      {Key key, this.onChanged,
+      {Key? key, this.onChanged,
         this.controller1,
         this.controller2,
         this.onPress
@@ -91,7 +91,7 @@ class MetricsFilterModal extends StatelessWidget {
 
 
 
-  Widget StartAndEndDate(BuildContext context,var controller,String dateText){
+  Widget StartAndEndDate(BuildContext context,var controller,String?  dateText){
     return  Padding(
       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
       child: Container(
@@ -158,7 +158,7 @@ class MetricsFilterModal extends StatelessWidget {
         maxTime:  DateTime.now().add(Duration(days: 0,hours: 2)),
         onChanged: (date) {
           print('change $date');
-          String retDate = retsNx360dates(date);
+          String?  retDate = retsNx360dates(date);
           controller.text = retDate;
         }, onConfirm: (date) {
           print('confirm $date');
@@ -186,7 +186,7 @@ class MetricsFilterModal extends StatelessWidget {
   //
   //                         CupertinoSelectedDate = value;
   //                         print(CupertinoSelectedDate);
-  //                         String retDate = retsNx360dates(CupertinoSelectedDate);
+  //                         String?  retDate = retsNx360dates(CupertinoSelectedDate);
   //                         print('ret Date ${retDate}');
   //                         //  repaymentDate.text = retDate;
   //
@@ -203,7 +203,7 @@ class MetricsFilterModal extends StatelessWidget {
   //                 child: const Text('OK'),
   //                 //  onPressed: () => Navigator.of(context).pop(),
   //                 onPressed: (){
-  //                   String retDate = retsNx360dates(CupertinoSelectedDate);
+  //                   String?  retDate = retsNx360dates(CupertinoSelectedDate);
   //                   print('ret Date ${retDate}');
   //                   // repaymentDate.text = retDate;
   //                   Navigator.of(context).pop();
@@ -219,23 +219,23 @@ class MetricsFilterModal extends StatelessWidget {
   retsNx360dates(DateTime selected){
     DateTime selectedDate = DateTime.now();
 
-    String newdate = selectedDate.toString().substring(0,10);
+    String?  newdate = selectedDate.toString().substring(0,10);
     print('newdate ${newdate} selected ${selected} added ${DateTime.now().add(Duration(days: 0))}');
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 

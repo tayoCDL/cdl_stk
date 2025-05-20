@@ -27,7 +27,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LeadList extends StatelessWidget {
-  const LeadList({Key key}) : super(key: key);
+  const LeadList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class LeadList extends StatelessWidget {
 
 
 class LeadsLists extends StatefulWidget {
-  const LeadsLists({Key key}) : super(key: key);
+  const LeadsLists({Key? key}) : super(key: key);
 
   @override
   _LeadsListsState createState() => _LeadsListsState();
@@ -70,7 +70,7 @@ var allLead = [];
 var GlobalLeadData =  [];
 bool isScrolled = true;
 
-String _isLoading = 'not_loading';
+String?  _isLoading = 'not_loading';
 //var clientsData = [];
 
 class _LeadsListsState extends State<LeadsLists> {
@@ -109,7 +109,7 @@ class _LeadsListsState extends State<LeadsLists> {
     getGlobalLeadsList();
   }
 
-  Future<List> getSuggestions(String query) async{
+  Future<List> getSuggestions(String?  query) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final Future<Map<String,dynamic>> respose =   RetCodes().searchClient(query);
@@ -139,7 +139,7 @@ class _LeadsListsState extends State<LeadsLists> {
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     print('staffId ${staffId}');
     print(tfaToken);
     print(token);
@@ -173,7 +173,7 @@ class _LeadsListsState extends State<LeadsLists> {
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     print('staffId ${staffId}');
     print(tfaToken);
     print(token);
@@ -196,9 +196,9 @@ class _LeadsListsState extends State<LeadsLists> {
     print(GlobalLeadData);
   }
 
-  allWordsCapitilize (String str) {
+  allWordsCapitilize (String?  str) {
     return str.toLowerCase().split(' ').map((word) {
-      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+      String?  leftText = (word.length > 1) ? word.substring(1, word.length) : '';
       return word[0].toUpperCase() + leftText;
     }).join(' ');
   }
@@ -428,7 +428,7 @@ class _LeadsListsState extends State<LeadsLists> {
 
   }
 
-  _leadsContactView(var onTapped,Color colm,String title,String date,String nameLogo,String employer){
+  _leadsContactView(var onTapped,Color colm,String?  title,String?  date,String?  nameLogo,String?  employer){
     return InkWell(
       onTap: onTapped,
       child: Padding(
@@ -448,7 +448,7 @@ class _LeadsListsState extends State<LeadsLists> {
     );
   }
 
-  _LeadingUserTile(Color cols,String nameLogo){
+  _LeadingUserTile(Color cols,String?  nameLogo){
     return Container(
       padding: EdgeInsets.only(top: 1),
       width: 44,
@@ -558,7 +558,7 @@ class ClientSearch extends SearchDelegate<String>{
         element['moreInfo']['clients']['displayName'].startsWith(query.toUpperCase())).toList();
 
 
-    _LeadingUserTile(Color cols,String nameLogo){
+    _LeadingUserTile(Color cols,String?  nameLogo){
       return Container(
         padding: EdgeInsets.only(top: 1),
         width: 44,
@@ -572,7 +572,7 @@ class ClientSearch extends SearchDelegate<String>{
       );
     }
 
-    _leadsContactView(Color colm,String title,String date,String nameLogo,String employer){
+    _leadsContactView(Color colm,String?  title,String?  date,String?  nameLogo,String?  employer){
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0.9),
         child: Container(

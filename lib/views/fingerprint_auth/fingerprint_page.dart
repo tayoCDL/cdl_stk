@@ -29,7 +29,7 @@ class FingerprintPage extends StatefulWidget {
 
 class _FingerprintPageState extends State<FingerprintPage> {
 
-  String code ='';
+  String?  code ='';
 
 
 // AppUpdateInfo _updateInfo;
@@ -74,7 +74,7 @@ class _FingerprintPageState extends State<FingerprintPage> {
 getLoanOfficerId() async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   // int
-  int staffId = prefs.getInt('staffId');
+  int?  staffId = prefs.getInt('staffId');
     setState(() {
 
     });
@@ -386,7 +386,7 @@ getLoanOfficerId() async{
         // else {
           final SharedPreferences prefs = await SharedPreferences.getInstance();
           // int
-          int staffId = prefs.getInt('staffId');
+          int?  staffId = prefs.getInt('staffId');
 
           MyRouter.pushPage(context, MainScreen(passedLoanOfficerId: staffId,));
         // }
@@ -400,7 +400,7 @@ getLoanOfficerId() async{
     }, icon: Icon(Icons.fingerprint,color: Colors.white,size: 50,));
   }
 
-  Widget buildCodeNumberBox(String codeNumber) {
+  Widget buildCodeNumberBox(String?  codeNumber) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal:3),
       child: SizedBox(
@@ -437,7 +437,7 @@ getLoanOfficerId() async{
     );
   }
 
-  void checkPass(String code) async{
+  void checkPass(String?  code) async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
       var secureCode = prefs.getString('securecode');
@@ -473,7 +473,7 @@ getLoanOfficerId() async{
          // else {
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             // int
-            int staffId = prefs.getInt('staffId');
+            int?  staffId = prefs.getInt('staffId');
 
             MyRouter.pushPage(context, MainScreen(passedLoanOfficerId: staffId,));
          //  }

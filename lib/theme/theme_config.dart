@@ -10,7 +10,7 @@ class ThemeConfig {
   static Color darkBG = Color(0xff121212);
   static Color bellColor = Colors.black;
   static ThemeData lightTheme = ThemeData(
-    backgroundColor: lightBG,
+   // backgroundColor: lightBG,
     primaryColor: lightPrimary,
     scaffoldBackgroundColor: lightBG,
 
@@ -20,7 +20,7 @@ class ThemeConfig {
   );
 
   static ThemeData darkTheme = ThemeData(
-    backgroundColor: lightBG,
+  //  backgroundColor: lightBG,
     primaryColor: lightPrimary,
     scaffoldBackgroundColor: lightBG,
 

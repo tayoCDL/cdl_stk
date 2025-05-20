@@ -22,17 +22,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 class LeadPersonalInfo extends StatefulWidget {
-  // const PersonalInfo({Key key}) : super(key: key);
+  // const PersonalInfo({Key? key}) : super(key: key);
   //
   // @override
   // _PersonalInfoState createState() => _PersonalInfoState();
 
   //title,gender,noOfDeps
-  final int leadInt,PassedtitleInt,PassedgenderInt,
+  final int?  leadInt,PassedtitleInt,PassedgenderInt,
       leadCategory,leadRating,leadSource,empInt,
       PassednoOfdepsInt,PassededucationInt;
-  final String bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,projectedInflow,bvn,leadType;
-  const LeadPersonalInfo({Key key,this.leadInt,this.bvnFirstName,this.bvnMiddleName,this.bvnLastName,this.bvnEmail,this.bvnPhone1,this.bvnPhone2,this.comingFrom,this.PassedtitleInt,
+  final String?  bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,projectedInflow,bvn,leadType;
+  const LeadPersonalInfo({Key? key,this.leadInt,this.bvnFirstName,this.bvnMiddleName,this.bvnLastName,this.bvnEmail,this.bvnPhone1,this.bvnPhone2,this.comingFrom,this.PassedtitleInt,
     this.PassedgenderInt,this.PassednoOfdepsInt,this.PassededucationInt,
   this.leadCategory,this.leadRating,this.leadType,this.leadSource,this.projectedInflow,this.bvn,this.empInt
   }) : super(key: key);
@@ -63,8 +63,8 @@ class LeadPersonalInfo extends StatefulWidget {
 }
 
 class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
-  int leadInt,PassedtitleInt,PassedgenderInt,PassednoOfdepsInt,PassededucationInt,leadCategory,leadRating,leadSource,empInt;
-  String bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,projectedInflow,bvn,leadType;
+  int?  leadInt,PassedtitleInt,PassedgenderInt,PassednoOfdepsInt,PassededucationInt,leadCategory,leadRating,leadSource,empInt;
+  String?  bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,projectedInflow,bvn,leadType;
   _LeadPersonalInfoState({this.leadInt,this.bvnFirstName,this.bvnMiddleName,
     this.bvnLastName,this.bvnEmail,
     this.bvnPhone1,this.bvnPhone2,this.comingFrom,this.PassednoOfdepsInt,
@@ -93,11 +93,11 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
   List<String> collectEducation = [];
   List<dynamic> allEducation = [];
   bool _isLoading = false;
-  String realMonth = '';
-  String educationLevel = '';
-  String maritalStatus = '';
+  String?  realMonth = '';
+  String?  educationLevel = '';
+  String?  maritalStatus = '';
   var leadInfo = {};
-  int tempClientID = null;
+  int?  tempClientID = null;
 
   void initState() {
     // TODO: implement initState
@@ -154,7 +154,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
             allTitle = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectTitle.add(mtBool[i]['name']);
           }
@@ -188,7 +188,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
           allTitle = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectTitle.add(newEmp[i]['name']);
         }
@@ -215,7 +215,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
     //     allGender = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectGender.add(newEmp[i]['name']);
     //   }
@@ -262,7 +262,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
             allGender = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectGender.add(mtBool[i]['name']);
           }
@@ -294,7 +294,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
           allGender = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectGender.add(newEmp[i]['name']);
         }
@@ -323,7 +323,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -362,7 +362,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
             allMarital = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectMarital.add(mtBool[i]['name']);
           }
@@ -394,7 +394,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
           allMarital = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectMarital.add(newEmp[i]['name']);
         }
@@ -423,7 +423,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -462,7 +462,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
             allEducation = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectEducation.add(mtBool[i]['name']);
           }
@@ -494,7 +494,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
           allEducation = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectEducation.add(newEmp[i]['name']);
         }
@@ -517,7 +517,7 @@ class _LeadPersonalInfoState extends State<LeadPersonalInfo> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    int localclientID =   leadInt == null ? prefs.getInt('leadId') : leadInt;
+    int?  localclientID =   leadInt == null ? prefs.getInt('leadId') : leadInt;
     print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -612,16 +612,16 @@ if(!leadInfo.isEmpty){
   TextEditingController dateController = TextEditingController();
 
 
-  String date = "";
-  String title = '';
-  String gender ='';
+  String?  date = "";
+  String?  title = '';
+  String?  gender ='';
 
-  int dateInt,titleInt,genderInt,maritalInt,educationInt ;
+  int?  dateInt,titleInt,genderInt,maritalInt,educationInt ;
 
 
-  String no_of_dependents = '';
-  String marital_status = '';
-  int client_dependent_number = 0;
+  String?  no_of_dependents = '';
+  String?  marital_status = '';
+  int?  client_dependent_number = 0;
   DateTime selectedDate = DateTime.now();
   DateTime CupertinoSelectedDate = DateTime.now();
   AddLeadProvider addLeadProvider = AddLeadProvider();
@@ -636,9 +636,9 @@ if(!leadInfo.isEmpty){
     var submitPersonalInfo = () async{
     //  return  MyRouter.pushPage(context, EmploymentInfo());
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-        int PassedInt = prefs.getInt('leadId');
-        int passedCLientInt = prefs.getInt('clientId');
-    String personals =   prefs.getString('prefsPersonalData');
+        int?  PassedInt = prefs.getInt('leadId');
+        int?  passedCLientInt = prefs.getInt('clientId');
+    String?  personals =   prefs.getString('prefsPersonalData');
 
      // print('date Of Birth ${dateController.text}');
         dateController.text.isEmpty ? print("hi") : print('jddj');
@@ -774,7 +774,7 @@ if(!leadInfo.isEmpty){
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                             child: DropDownComponent(items: titleArray,
-                                onChange: (String item) async{
+                                onChange: (String?  item) async{
                                   setState(() {
                                     title = item;
                                     List<dynamic> selectID =   allTitle.where((element) => element['name'] == item).toList();
@@ -787,7 +787,7 @@ if(!leadInfo.isEmpty){
                                 },
                                 label: "Title",
                                 selectedItem: title,
-                                validator: (String item){
+                                validator: (String?  item){
 
                                 }
                             ),
@@ -815,7 +815,7 @@ if(!leadInfo.isEmpty){
                             padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                             child:
                             DropDownComponent(items: genderArray,
-                                onChange: (String item){
+                                onChange: (String?  item){
                                   setState(() {
 
                                     List<dynamic> selectID =   allGender.where((element) => element['name'] == item).toList();
@@ -828,7 +828,7 @@ if(!leadInfo.isEmpty){
                                 },
                                 label: "Gender",
                                 selectedItem: gender,
-                                validator: (String item){
+                                validator: (String?  item){
 
                                 }
                             ),
@@ -868,7 +868,7 @@ if(!leadInfo.isEmpty){
                                                 onChanged: (date) {
                                                   print('change $date');
                                                   setState(() {
-                                                    String retDate = retsNx360dates(date);
+                                                    String?  retDate = retsNx360dates(date);
                                                     dateController.text = retDate;
                                                   });
                                                 }, onConfirm: (date) {
@@ -903,7 +903,7 @@ if(!leadInfo.isEmpty){
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                             child: DropDownComponent(items: educationArray,
-                                onChange: (String item) async{
+                                onChange: (String?  item) async{
                                   setState(() {
                                     educationLevel = item;
                                     List<dynamic> selectID =   allEducation.where((element) => element['name'] == item).toList();
@@ -916,7 +916,7 @@ if(!leadInfo.isEmpty){
                                 },
                                 label: "Education level",
                                 selectedItem: educationLevel,
-                                validator: (String item){
+                                validator: (String?  item){
 
                                 }
                             ),
@@ -924,7 +924,7 @@ if(!leadInfo.isEmpty){
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                             child: DropDownComponent(items: maritalArray,
-                                onChange: (String item){
+                                onChange: (String?  item){
                                   setState(() {
 
                                     List<dynamic> selectID =   allMarital.where((element) => element['name'] == item).toList();
@@ -937,7 +937,7 @@ if(!leadInfo.isEmpty){
                                 },
                                 label: "Marital Status",
                                 selectedItem: marital_status,
-                                validator: (String item){
+                                validator: (String?  item){
 
                                 }
                             ),
@@ -946,14 +946,14 @@ if(!leadInfo.isEmpty){
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                             child: DropDownComponent(items: ["0","1","2",'3','4','5','6','7','8','9','10'],
-                                onChange: (String item){
+                                onChange: (String?  item){
                                   setState(() {
                                     no_of_dependents = item;
                                   });
                                 },
                                 label: "No. Of dependednts",
                                 selectedItem: client_dependent_number.toString(),
-                                validator: (String item){
+                                validator: (String?  item){
 
                                 }
                             ),
@@ -1013,7 +1013,7 @@ if(!leadInfo.isEmpty){
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false,needsValidation = true}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false,needsValidation = true}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(
@@ -1102,7 +1102,7 @@ if(!leadInfo.isEmpty){
   //      print(selected);
   //       //  date = selected.toString();
   //
-  //       String vasCoddd = retsNx360dates(selected);
+  //       String?  vasCoddd = retsNx360dates(selected);
   //
   //       dateController.text = vasCoddd;
   //
@@ -1139,7 +1139,7 @@ if(!leadInfo.isEmpty){
                       setState(() {
                         CupertinoSelectedDate = value;
                         print(CupertinoSelectedDate);
-                        String retDate = retsNx360dates(CupertinoSelectedDate);
+                        String?  retDate = retsNx360dates(CupertinoSelectedDate);
                         print('ret Date ${retDate}');
                         dateController.text = retDate;
                       });
@@ -1165,14 +1165,14 @@ if(!leadInfo.isEmpty){
 
   retsNx360dates(DateTime selected){
     print(selected);
-    String newdate = selectedDate.toString().substring(0,10);
+    String?  newdate = selectedDate.toString().substring(0,10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -1180,15 +1180,15 @@ if(!leadInfo.isEmpty){
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);
@@ -1197,9 +1197,9 @@ if(!leadInfo.isEmpty){
       return concatss;
   }
 
-  retDOBfromBVN(String getDate){
+  retDOBfromBVN(String?  getDate){
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -1263,15 +1263,15 @@ if(!leadInfo.isEmpty){
     }
 
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
     print('newOO ${newOO}');
 
-    String concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth + " " + o1   ;
 
     print("concatss new Date from edit ${concatss}");
 

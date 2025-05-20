@@ -17,8 +17,8 @@ import '../../view_models/CodesAndLogic.dart';
 
 
 class ClientSearchPage extends StatelessWidget {
-//  final String comingFrom;
-  const ClientSearchPage({Key key}) : super(key: key);
+//  final String?  comingFrom;
+  const ClientSearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ClientSearchPage extends StatelessWidget {
 }
 
 class ClientSearchPages extends StatefulWidget {
-  const ClientSearchPages({Key key}) : super(key: key);
+  const ClientSearchPages({Key? key}) : super(key: key);
 
   @override
   _ClientSearchPagesState createState() => _ClientSearchPagesState();
@@ -77,10 +77,10 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
 
   var allCLient = [];
   bool _isLoading = false;
-  String searchStatus = '';
+  String?  searchStatus = '';
 
 
-  Future<List> getSuggestions(String query) async{
+  Future<List> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(query.length < 3){
@@ -113,7 +113,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
           _isLoading = true;
         });
 
-        String sendQuery = searchStatus + '=${query}';
+        String?  sendQuery = searchStatus + '=${query}';
 
         final Future<Map<String,dynamic>> respose =   RetCodes().searchClient(sendQuery);
         respose.then((response) async {
@@ -176,14 +176,14 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
 
   Widget build(BuildContext context) {
 
-    vchangeState(String newVals){
+    vchangeState(String?  newVals){
       setState(() {
         searchStatus = newVals;
       });
       print('newStat>> ${newVals}');
     }
 
-    void searchValue(String value){
+    void searchValue(String?  value){
       if(value == 'displayName'){
         vchangeState('displayName');
       }
@@ -284,7 +284,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
 
                         ];
                       },
-                      onSelected: (String value) => searchValue(value),
+                      onSelected: (String?  value) => searchValue(value),
                     ),
 
 
@@ -309,7 +309,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
 
 
 
-  searchResultTile(String name,String mobile,var clientID,String status){
+  searchResultTile(String?  name,String?  mobile,var clientID,String?  status){
     return InkWell(
       onTap: (){
         MyRouter.pushPage(context, ViewClient(clientID: clientID));
@@ -383,11 +383,11 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
   }
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        Function onBtnPressed,bool isSuffix = false,
-        String extension,bool needsValidation = true,Function changeValidator,Widget prefixIcon}){
+        VoidCallback onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

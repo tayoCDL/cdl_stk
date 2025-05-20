@@ -1,6 +1,6 @@
 // class CategoryFeed {
-//   String version;
-//   String encoding;
+//   String?  version;
+//   String?  encoding;
 //   Feed feed;
 //
 //   CategoryFeed({this.version, this.encoding, this.feed});
@@ -23,16 +23,16 @@
 // }
 //
 // class Feed {
-//   String xmlLang;
-//   String xmlns;
-//   String xmlnsDcterms;
-//   String xmlnsThr;
-//   String xmlnsApp;
-//   String xmlnsOpensearch;
-//   String xmlnsOpds;
-//   String xmlnsXsi;
-//   String xmlnsOdl;
-//   String xmlnsSchema;
+//   String?  xmlLang;
+//   String?  xmlns;
+//   String?  xmlnsDcterms;
+//   String?  xmlnsThr;
+//   String?  xmlnsApp;
+//   String?  xmlnsOpensearch;
+//   String?  xmlnsOpds;
+//   String?  xmlnsXsi;
+//   String?  xmlnsOdl;
+//   String?  xmlnsSchema;
 //   Id id;
 //   Id title;
 //   Id updated;
@@ -99,7 +99,7 @@
 //         ? new Id.fromJson(json[r'opensearch$startIndex'])
 //         : null;
 //     if (json['entry'] != null) {
-//       String t = json['entry'].runtimeType.toString();
+//       String?  t = json['entry'].runtimeType.toString();
 //       if (t == 'List<dynamic>' || t == '_GrowableList<dynamic>') {
 //         entry = new List<Entry>();
 //         json['entry'].forEach((v) {
@@ -159,7 +159,7 @@
 // }
 //
 // class Id {
-//   String t;
+//   String?  t;
 //
 //   Id({this.t});
 //
@@ -203,13 +203,13 @@
 // }
 //
 // class Link {
-//   String rel;
-//   String type;
-//   String href;
-//   String title;
-//   String opdsActiveFacet;
-//   String opdsFacetGroup;
-//   String thrCount;
+//   String?  rel;
+//   String?  type;
+//   String?  href;
+//   String?  title;
+//   String?  opdsActiveFacet;
+//   String?  opdsFacetGroup;
+//   String?  thrCount;
 //
 //   Link(
 //       {this.rel,
@@ -296,7 +296,7 @@
 //         : null;
 //     summary = json['summary'] != null ? new Id.fromJson(json['summary']) : null;
 //     if (json['category'] != null) {
-//       String t = json['category'].runtimeType.toString();
+//       String?  t = json['category'].runtimeType.toString();
 //       if (t == 'List<dynamic>' || t == '_GrowableList<dynamic>') {
 //         category = new List<Category>();
 //         json['category'].forEach((v) {
@@ -384,9 +384,9 @@
 // }
 //
 // class Category {
-//   String label;
-//   String term;
-//   String scheme;
+//   String?  label;
+//   String?  term;
+//   String?  scheme;
 //
 //   Category({this.label, this.term, this.scheme});
 //
@@ -406,10 +406,10 @@
 // }
 //
 // class Link1 {
-//   String type;
-//   String rel;
-//   String title;
-//   String href;
+//   String?  type;
+//   String?  rel;
+//   String?  title;
+//   String?  href;
 //
 //   Link1({this.type, this.rel, this.title, this.href});
 //
@@ -431,9 +431,9 @@
 // }
 //
 // class SchemaSeries {
-//   String schemaPosition;
-//   String schemaName;
-//   String schemaUrl;
+//   String?  schemaPosition;
+//   String?  schemaName;
+//   String?  schemaUrl;
 //
 //   SchemaSeries({this.schemaPosition, this.schemaName, this.schemaUrl});
 //

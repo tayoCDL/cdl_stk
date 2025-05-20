@@ -4,7 +4,7 @@ import 'package:sales_toolkit/util/enum/color_utils.dart';
 class AppSummaryCard extends StatelessWidget {
   final List<Map<String, dynamic>> sections;
 
-  AppSummaryCard({this.sections});
+  AppSummaryCard({required this.sections});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class AppSummaryCard extends StatelessWidget {
         children: List.generate(sections.length * 2 - 1, (index) {
           if (index % 2 == 0) {
             // For content sections
-            int sectionIndex = index ~/ 2;
+            int?  sectionIndex = index ~/ 2;
             return Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

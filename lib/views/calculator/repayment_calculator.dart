@@ -23,7 +23,7 @@ import '../../palatte.dart';
 import '../../widgets/LocalTypeAhead.dart';
 
 class RepaymentCalculator extends StatefulWidget {
-  const RepaymentCalculator({Key key}) : super(key: key);
+  const RepaymentCalculator({Key? key}) : super(key: key);
 
   @override
   _RepaymentCalculatorState createState() => _RepaymentCalculatorState();
@@ -34,8 +34,8 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
   TextEditingController tenor = TextEditingController();
   TextEditingController netPay = TextEditingController();
   TextEditingController _typeAheadController = TextEditingController();
-  Timer _debounce;
-  String parentEmployer = '';
+  Timer? _debounce;
+  String?  parentEmployer = '';
   bool _isLoading = false;
 
   List<String> employerArray = [];
@@ -54,13 +54,13 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
   List<String> collectCategory = [];
   List<dynamic> allCategory = [];
 
-  String branchEmployer = '';
+  String?  branchEmployer = '';
   bool isCategorySelected = false;
   List<dynamic> allEmployer = [];
 
-  int stateInt,salaryInt,lgaInt,employerInt,clientTypeInt;
-  int branchEmployerInt = 0;
-  String employerDomain ='';
+  int?  stateInt,salaryInt,lgaInt,employerInt,clientTypeInt;
+  int?  branchEmployerInt = 0;
+  String?  employerDomain ='';
 
   List<String> empSector = [];
   List<String> collectData = [];
@@ -73,21 +73,21 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
   dynamic maxPrincipal = 0.00;
   dynamic minNumberOfRepayment;
   dynamic maxNumberOfRepayment;
-  double _value = 1.0;
-  double _currentSliderValue = 1;
+  double? _value = 1.0;
+  double? _currentSliderValue = 1;
   var repaymentAmount = 0.0;
 
   bool isRequestLoading = false;
-  int catInt;
-  String employerSector = '';
-  String categorySector = '';
-  String accountName = '';
-  String realMonth = '';
+  int?  catInt;
+  String?  employerSector = '';
+  String?  categorySector = '';
+  String?  accountName = '';
+  String?  realMonth = '';
 
-  String productName = '';
-  int productInt, purposeInt;
+  String?  productName = '';
+  int?  productInt, purposeInt;
 
-  int empInt;
+  int?  empInt;
 
   final formatCurrency = NumberFormat.currency(locale: "en_US", symbol: "");
 
@@ -102,7 +102,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
     super.initState();
   }
 
-  getEmployersBranch(int parentID){
+  getEmployersBranch(int?  parentID){
     //print('this is parent branch ${parentID}');
     final Future<Map<String,dynamic>> respose =   RetCodes().getEmployersBranch(parentID);
     // respose.then((response) {
@@ -113,7 +113,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -140,7 +140,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
         List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBranchEmployer'));
 
-        if(prefs.getString('prefsBranchEmployer').isEmpty){
+        if(prefs.getString('prefsBranchEmployer')!.isEmpty){
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -159,7 +159,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
             allBranchEmployer = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i! < mtBool.length;i++){
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -201,7 +201,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
         //print('all Branch ${newEmp}');
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -238,7 +238,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
 
         //
-        if(prefs.getString('prefsEmpSector').isEmpty){
+        if(prefs.getString('prefsEmpSector')!.isEmpty){
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -256,7 +256,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
             allEmp = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -298,14 +298,14 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
         prefs.setString('prefsEmpSector', jsonEncode(newEmp));
 
-        int leadToClient = prefs.getInt('leadToClientID');
+        int?  leadToClient = prefs.getInt('leadToClientID');
         //print('lead To Client Id ${leadToClient}');
 
         setState(() {
           allEmp = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i! < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -352,7 +352,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
 
         //
-        if(prefs.getString('prefsEmpCategory').isEmpty){
+        if(prefs.getString('prefsEmpCategory')!.isEmpty){
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -370,7 +370,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
             allCategory = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectCategory.add(mtBool[i]['name']);
           }
@@ -413,14 +413,14 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
         prefs.setString('prefsEmpCategory', jsonEncode(newEmp));
 
-        // int leadToClient = prefs.getInt('leadToClientID');
+        // int?  leadToClient = prefs.getInt('leadToClientID');
         // //print('lead To Client Id ${leadToClient}');
 
         setState(() {
           allCategory = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i! < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectCategory.add(newEmp[i]['name']);
         }
@@ -448,9 +448,9 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
   }
 
 
-  getLoanProductForEmployer(int employerInt) async {
+  getLoanProductForEmployer(int?  employerInt) async {
     //  print('this is clientID ${clientID} ${employerId}');
-    //   int empID = employerID == null ? employerId : employerID;
+    //   int?  empID = employerID == null ? employerId : employerID;
 //    print('empID ${empID}');
     setState(() {
       _isLoading = true;
@@ -473,9 +473,9 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
   }
 
 
-  loadLoanTemplates(int employerInt) async {
+  loadLoanTemplates(int?  employerInt) async {
   //  print('this is clientID ${clientID} ${employerId}');
- //   int empID = employerID == null ? employerId : employerID;
+ //   int?  empID = employerID == null ? employerId : employerID;
 //    print('empID ${empID}');
     setState(() {
       _isLoading = true;
@@ -497,7 +497,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
       print('all Products ${newEmp}');
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -508,7 +508,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
       var filtered = newEmp.toList();
 
 
-      for (int i = 0; i < filtered.length; i++) {
+      for (int?  i = 0; i! < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -626,7 +626,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                     buttonText: 'Copy Amount',
                     onbuttonPressed: () {
                       // sendNoteForLoan(methodType,noteId);
-                      String cp_text = response['suggestedAmount'].toString();
+                      String?  cp_text = response['suggestedAmount'].toString();
                       Clipboard.setData(ClipboardData(text: cp_text));
                       MyRouter.popPage(context);
                       Flushbar(
@@ -663,9 +663,9 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
 
     }
 
-    Future<List> getSuggestions(String query) async{
+    Future<List> getSuggestions(String?  query) async{
 
-      if(query.length > 3){
+      if(query!.length > 3){
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         final Future<Map<String,dynamic>> result_response =   RetCodes().employers(catInt,query);
@@ -678,7 +678,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
             collectEmployer = [];
           });
 
-          for(int i = 0; i < newEmp.length;i++){
+          for(int?  i = 0; i! < newEmp.length;i++){
             //print(newEmp[i]['name']);
             collectEmployer.add(newEmp[i]['name']);
           }
@@ -739,7 +739,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                   // ),
 
                   DropDownComponent(items: empSector,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allEmp.where((element) => element['name'] == item).toList();
@@ -756,14 +756,14 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                       },
                       label: "Select Sector",
                       selectedItem: employerSector,
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
                   ),
                   SizedBox(height: 20,),
                   DropDownComponent(items: empCategory,
-                      popUpDisabled: (String s) {
+                      popUpDisabled: (String?  s) {
                         if(empInt == 17){
                           return  s.startsWith('Federal') || s.startsWith('State') || s.startsWith('NYSC');
                         }
@@ -773,7 +773,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                         }
 
                       } ,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
                           List<dynamic> selectID =   allCategory.where((element) => element['name'] == item).toList();
                           //print('this is select ID');
@@ -786,7 +786,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                       },
                       label: "Select Category",
                       selectedItem: categorySector,
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
@@ -859,7 +859,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                             padding: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
                             child:
                             DropDownComponent(items: BranchEmployerArray,
-                                onChange: (String item){
+                                onChange: (String?  item){
                                   setState(() {
                                     List<dynamic> selectID =   allBranchEmployer.where((element) => element['name'] == item).toList();
                                     // List<dynamic> selectExtension =   allBranchEmployer.where((element) => element['name'] == item).toList();
@@ -875,7 +875,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                                 },
                                 label: "Organization Branch * ",
                                 selectedItem: branchEmployer,
-                                validator: (String item){
+                                validator: (String?  item){
 
                                   if(branchEmployerInt == 0){
                                     return 'Employer branch cannot be empty';
@@ -892,7 +892,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                             padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                             child: DropDownComponent(
                                 items: filteredProduct,
-                                onChange: (String item) async {
+                                onChange: (String?  item) async {
                                   setState(() {
                                     List<dynamic> selectID = allProduct
                                         .where((element) => element['name'] == item)
@@ -906,7 +906,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                                 },
                                 label: "Product Name *",
                                 selectedItem: productName,
-                                validator: (String item) {
+                                validator: (String?  item) {
                                   if (item.length == 0) {
                                     return "Loan product is mandatory";
                                   }
@@ -1107,9 +1107,9 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                         itemBuilder: (context, index) {
                           var single_loan_calculated =
                           local_loanCalculatedResponse?.periods[index];
-                          String d =
+                          String?  d =
                           single_loan_calculated?.dueDate?.join(",");
-                          String formattedDate = AppHelper().formatDateTime(d);
+                          String?  formattedDate = AppHelper().formatDateTime(d);
                           if (index == 0) {
                             return const SizedBox();
                           }
@@ -1328,7 +1328,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
         });
   }
 
-  Widget containerFees({String title,String fee}){
+  Widget containerFees({String?  title,String?  fee}){
     return Card(
       elevation: 3,
       child: Center(

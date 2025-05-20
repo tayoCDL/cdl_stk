@@ -17,7 +17,7 @@ import 'package:sales_toolkit/views/leads/LeadsList.dart';
 import 'package:sales_toolkit/views/menu/menu_index.dart';
 import 'package:sales_toolkit/views/orders/orderHistory.dart';
 import 'package:sales_toolkit/views/referrals/referralIndex.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+// import 'package:flutter_icons/flutter_icons.dart';
 import 'package:sales_toolkit/views/trops/trops_issues_lists.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,15 +26,15 @@ import 'orders/createOrder.dart';
 
 
 class MainScreen extends StatefulWidget {
-  final int passedLoanOfficerId;
-  const MainScreen({Key key, this.passedLoanOfficerId}) : super(key: key);
+  final int?  passedLoanOfficerId;
+  const MainScreen({Key? key, this.passedLoanOfficerId}) : super(key: key);
 
   @override
   _MainScreenState createState() => _MainScreenState(passedLoanOfficerId: this.passedLoanOfficerId);
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int passedLoanOfficerId;
+  int?  passedLoanOfficerId;
 
   _MainScreenState({this.passedLoanOfficerId});
 
@@ -57,8 +57,8 @@ class _MainScreenState extends State<MainScreen> {
 
   }
 
-  int _page = 0;
-  String login_type='Loan Management';
+  int?  _page = 0;
+  String?  login_type='Loan Management';
   // final GlobalKey<AnimatedFloatingActionButtonState> fabKey = GlobalKey();
 
   updateDialog(){
@@ -95,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void navigationTapped(int page) {
+  void navigationTapped(int  page) {
    // updateDialog();
  //   _updateInfo.availableVersionCode != null &&  _updateInfo.updateAvailable == true  ? updateDialog() :  _pageController.jumpToPage(page);
     _pageController.jumpToPage(page);
@@ -104,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
   checkUserType() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.getString('login_type');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     setState(() {
       login_type = prefs.getString('login_type');
     });
@@ -126,7 +126,7 @@ class _MainScreenState extends State<MainScreen> {
     _pageController.dispose();
   }
 
-  void onPageChanged(int page) {
+  void onPageChanged(int?  page) {
     setState(() {
       this._page = page;
     });
@@ -147,14 +147,14 @@ var bottomItemA =   <BottomNavigationBarItem>[
   ),
   BottomNavigationBarItem(
       icon: Icon(
-        Feather.user,
+        Icons.person,
       ),
       label:'Clients'
 
   ),
   BottomNavigationBarItem(
       icon: Icon(
-        Feather.list,
+        Icons.list,
       ),
       label: 'Feex'
 
@@ -169,7 +169,7 @@ var bottomItemA =   <BottomNavigationBarItem>[
   ),
   BottomNavigationBarItem(
       icon: Icon(
-        Feather.menu,
+        Icons.menu,
       ),
       label: 'Menu'
 

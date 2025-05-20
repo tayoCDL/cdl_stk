@@ -25,16 +25,16 @@ import 'create_wacs_loan_terms.dart';
 import 'embedded_loan_terms.dart';
 
 class EmbeddedDetails extends StatefulWidget {
-  // const NewLoan({Key key}) : super(key: key);
+  // const NewLoan({Key? key}) : super(key: key);
   //
   // @override
   // _NewLoanState createState() => _NewLoanState();
 
-  final int clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
+  final int?  clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
   final Map<String,dynamic> thirdParty_response;
-  final String staff_id;
+  final String?  staff_id;
   const EmbeddedDetails(
-      {Key key,
+      {Key? key,
         this.clientID,
         this.productId,
         this.loanId,
@@ -62,9 +62,9 @@ class EmbeddedDetails extends StatefulWidget {
 }
 
 class _EmbeddedDetailsState extends State<EmbeddedDetails> {
-  int clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
+  int?  clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
   Map<String,dynamic> thirdParty_response;
-  String staff_id;
+  String?  staff_id;
  // TextEditingController staffId = TextEditingController(text: 'CDL00OP');
   bool isCustomerFound = false;
 
@@ -95,17 +95,17 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
   bool _isLoading = false;
   bool _isDeduktLoading = false;
 
-  int sectorId;
+  int?  sectorId;
 
   List<String> fundingArray = [];
   List<String> collectFunding = [];
   List<dynamic> allFunding = [];
-  String productName = '';
-  String PassloanPurpose = '';
-  String username,clientBvn;
-  int productInt, purposeInt;
+  String?  productName = '';
+  String?  PassloanPurpose = '';
+  String?  username,clientBvn;
+  int?  productInt, purposeInt;
   var employmentProfile = [];
-  int employerID;
+  int?  employerID;
 
   Map<String,dynamic> third_party_client_info = {};
 
@@ -143,7 +143,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         clientBvn = responseData['bvn'];
 
         //  interestRateForPrivate = responseData['data']['data']['categpries']['interestRate'];
-        //    String nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
+        //    String?  nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
 
       });
 
@@ -185,7 +185,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
       //   clientBvn = responseData['bvn'];
       //
       //   //  interestRateForPrivate = responseData['data']['data']['categpries']['interestRate'];
-      //   //    String nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
+      //   //    String?  nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
       //
       // });
 
@@ -195,7 +195,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 
   getSalesUsername() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
+    String?  Vusername = prefs.getString('username');
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
@@ -252,7 +252,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 
   loadLoanTemplates() async {
     print('this is clientID ${clientID} ${employerId}');
-    int empID = employerID == null ? employerId : employerID;
+    int?  empID = employerID == null ? employerId : employerID;
     print('empID ${empID}');
     setState(() {
       _isLoading = true;
@@ -274,7 +274,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 
       print('all Products ${newEmp}');
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -319,7 +319,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int i = 0; i < filtered.length; i++) {
+      for (int?  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -336,7 +336,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
     });
   }
 
-  loadPurposeTemplate(int productId) async {
+  loadPurposeTemplate(int?  productId) async {
     setState(() {
       _isLoading = true;
     });
@@ -355,7 +355,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -380,7 +380,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -423,7 +423,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
     });
   }
 
-  int currentStep = 0;
+  int?  currentStep = 0;
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
 
@@ -688,12 +688,12 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
           //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           //   child: DropDownComponent(
           //       items: ['Employer 1','Employer 2'],
-          //       onChange: (String item) async {
+          //       onChange: (String?  item) async {
           //
           //       },
           //       label: "Employers   *",
           //       selectedItem: '',
-          //       validator: (String item) {
+          //       validator: (String?  item) {
           //         if (item.length == 0) {
           //           return "Employers ";
           //         }
@@ -785,7 +785,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
   }
 
 
-  Widget dummyDataPass(String value,String title){
+  Widget dummyDataPass(String?  value,String?  title){
    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
      child:   Row(
@@ -823,28 +823,28 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         selectedDate = selected;
         print(selected);
         //  date = selected.toString();
-        String vasCoddd = retsNx360dates(selected);
+        String?  vasCoddd = retsNx360dates(selected);
         dateController.text = vasCoddd;
       });
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 
@@ -855,8 +855,8 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
   Widget EntryField(
       BuildContext context,
       var editController,
-      String labelText,
-      String hintText,
+      String?  labelText,
+      String?  hintText,
       var keyBoard, {
         bool isPassword = false,
         isRealOnly: false,
@@ -926,12 +926,12 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
           children: [
             DropDownComponent(
                 items: [],
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {});
                 },
                 label: "Link Savings",
                 selectedItem: "---",
-                validator: (String item) {}),
+                validator: (String?  item) {}),
             SizedBox(
               height: 15,
             ),

@@ -43,7 +43,7 @@ class AddLeadProvider extends ChangeNotifier {
       User authUser = User.fromJson(responseData);
 
       // now we will create shared preferences and save data
-      UserPreferences().saveUser(authUser);
+     // UserPreferences().saveUser(authUser);
 
       result = {
         'status':true,
@@ -181,8 +181,8 @@ class AddLeadProvider extends ChangeNotifier {
         final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
         print(responseData2);
 
-       int oldCLient =  prefs.getInt('clientId');
-       int oldLead = prefs.getInt('leadId');
+       int?  oldCLient =  prefs.getInt('clientId');
+       int?  oldLead = prefs.getInt('leadId');
         if(oldLead == null || oldCLient == null){
           prefs.setInt('clientId', responseData2['clientId']);
           prefs.setInt('leadId', responseData2['resourceId']);
@@ -368,9 +368,9 @@ class AddLeadProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsLeadPersonalData');
+        String?  vlas =   prefs.getString('prefsLeadPersonalData');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal ${prefPersonals}');
 
@@ -431,8 +431,8 @@ class AddLeadProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsEmployment', jsonEncode(empsPrefs));
-        String lils =   prefs.getString('prefsEmployment');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsEmployment');
+        //  String?  prefsDee = jsonDecode(lils);
         print('prefsDee ${lils}');
 
         return result = {'status': false, 'message': 'Network_error','data':'No Internet connection'};
@@ -580,9 +580,9 @@ class AddLeadProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsEmployment');
+        String?  vlas =   prefs.getString('prefsEmployment');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal ${prefPersonals}');
 
@@ -662,16 +662,16 @@ class AddLeadProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsLeadResidentials', jsonEncode(resPrefs));
-        String lils =   prefs.getString('prefsLeadResidentials');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsLeadResidentials');
+        //  String?  prefsDee = jsonDecode(lils);
 
 
-       List<String> listLead =  prefs.getStringList('LeadDraftLists');
+       List<String>? listLead =  prefs.getStringList('LeadDraftLists');
           if(listLead == null){
             listLead = [];
-           listLead.add(lils);
+           listLead.add(lils!);
           }else {
-            listLead.add(lils);
+            listLead.add(lils!);
           }
 
        //    prefs.setStringList('LeadDraftLists', listLead);
@@ -798,9 +798,9 @@ class AddLeadProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsResidentials');
+        String?  vlas =   prefs.getString('prefsResidentials');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal address ${prefPersonals['addresses']}');
 
@@ -883,8 +883,8 @@ class AddLeadProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsNextOfKin', jsonEncode(nextOfKinsPrefs));
-        String lils =   prefs.getString('prefsNextOfKin');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsNextOfKin');
+        //  String?  prefsDee = jsonDecode(lils);
 
         print('prefsDee ${lils}');
 
@@ -980,9 +980,9 @@ class AddLeadProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsNextOfKin');
+        String?  vlas =   prefs.getString('prefsNextOfKin');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal family ${prefPersonals['familyMembers']}');
 
@@ -1073,8 +1073,8 @@ class AddLeadProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsBankAccountPrefs', jsonEncode(BankAccountPrefs));
-        String lils =   prefs.getString('prefsBankAccountPrefs');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsBankAccountPrefs');
+        //  String?  prefsDee = jsonDecode(lils);
 
         print('prefsDee plus bank ${lils}');
 
@@ -1093,7 +1093,7 @@ class AddLeadProvider extends ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>>  addDocumentUpload(var docData,String passportLocation,String passportFileType) async {
+  Future<Map<String, dynamic>>  addDocumentUpload(var docData,String?  passportLocation,String?  passportFileType) async {
     var result;
 
     _addStatus = Status.Sending;
@@ -1180,9 +1180,9 @@ class AddLeadProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsBankAccountPrefs');
+        String?  vlas =   prefs.getString('prefsBankAccountPrefs');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal family ${prefPersonals['familyMembers']}');
 
@@ -1274,18 +1274,18 @@ class AddLeadProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsDocUploadsPrefs', jsonEncode(DocuUploadPrefs));
-        String lils =   prefs.getString('prefsDocUploadsPrefs');
+        String?  lils =   prefs.getString('prefsDocUploadsPrefs');
         // Map<String,dynamic> vLils= jsonDecode(lils);
         //
         // var mVilils = vLils['clientIdentifiers'];
         //
-        // //  String prefsDee = jsonDecode(lils);
+        // //  String?  prefsDee = jsonDecode(lils);
         //
         // print('prefsDee plus doc Upload ${mVilils}');
 
         List<String> bGiz= [];
 
-        bGiz.add(lils);
+        bGiz.add(lils!);
 
         prefs.setStringList('ListDraftClient', bGiz);
 

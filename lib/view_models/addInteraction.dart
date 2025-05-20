@@ -43,7 +43,7 @@ class AddInteractionProvider extends ChangeNotifier {
       User authUser = User.fromJson(responseData);
 
       // now we will create shared preferences and save data
-      UserPreferences().saveUser(authUser);
+     // UserPreferences().saveUser(authUser);
 
       result = {
         'status':true,
@@ -61,7 +61,7 @@ class AddInteractionProvider extends ChangeNotifier {
     return result;
   }
 
-  Future<Map<String, dynamic>> addInteraction(var interactionData,String url) async {
+  Future<Map<String, dynamic>> addInteraction(var interactionData,String?  url) async {
     var result;
 
     _addStatus = uStatus.NotSent;
@@ -71,7 +71,7 @@ class AddInteractionProvider extends ChangeNotifier {
     print('interaction Data');
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
+    String?  Vusername = prefs.getString('username');
     print(prefs);
     print('this url >> ${url}');
     //   January 24, 1991
@@ -118,7 +118,7 @@ class AddInteractionProvider extends ChangeNotifier {
     try{
       _addStatus = uStatus.Sending;
       Response responsevv = await post(
-        url,
+        Uri.parse(url!),
         body: json.encode(interactionData),
         headers: {
           'Content-Type': 'application/json',
@@ -211,7 +211,7 @@ class AddInteractionProvider extends ChangeNotifier {
     try{
       _addStatus = uStatus.Sending;
       Response responsevv = await post(
-        AppUrl.replyTicket,
+       AppUrl.replyTicket,
         body: json.encode(interactionData),
         headers: {
           'Content-Type': 'application/json',

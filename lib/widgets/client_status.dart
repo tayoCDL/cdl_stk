@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:sales_toolkit/util/enum/color_utils.dart';
 
-Widget clientStatus(Color statusColor,String status,{Color fontColor,double fontSize,double containerSIze,double brdradius,Function ontaPP,double containerHeight}) {
+Widget clientStatus(Color statusColor,String?  status,{Color fontColor,double? fontSize,double? containerSIze,double? brdradius,VoidCallback ontaPP,double? containerHeight}) {
   return InkWell(
     onTap: ontaPP,
     child: Container(
@@ -21,7 +21,7 @@ Widget clientStatus(Color statusColor,String status,{Color fontColor,double font
   );
 }
 
-IconChooser(String value){
+IconChooser(String?  value){
   switch (value) {
     case 'NX360' :
      return Icon(Icons.desktop_windows,color: ColorUtils.PRIMARY_COLOR,size: 20,);
@@ -71,14 +71,14 @@ IconChooser(String value){
 };
 
 
-int m_filterLoanView(String key) {
-  int value = getValueForKey(key);
+int?  m_filterLoanView(String?  key) {
+  int?  value = getValueForKey(key);
   print('Value for $key: $value');
   return value;
   // Implement your logic here based on the retrieved value
 }
 
-int getValueForKey(String key) {
+int?  getValueForKey(String?  key) {
   return colorUtilsMap[key] ?? -1; // Return -1 if key is not found
 }
 
@@ -243,17 +243,17 @@ colorChoser(var vals){
   }
 }
 
-get10(String val_10){
-  String vals = val_10.substring(0,10);
+get10(String?  val_10){
+  String?  vals = val_10.substring(0,10);
   return vals;
 }
 
 
-String capit_alize(String cpText) {
+String?  capit_alize(String?  cpText) {
   return "${cpText[0].toUpperCase()}${cpText.substring(1)}";
 }
 
-getHumanReadable(String hmReads){
+getHumanReadable(String?  hmReads){
  return hmReads.replaceAll('_', ' ').toUpperCase();
 }
 

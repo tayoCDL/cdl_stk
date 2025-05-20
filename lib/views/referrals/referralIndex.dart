@@ -11,7 +11,7 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 
 class ReferralIndex extends StatefulWidget {
-  const ReferralIndex({Key key}) : super(key: key);
+  const ReferralIndex({Key? key}) : super(key: key);
 
   @override
   _ReferralIndexState createState() => _ReferralIndexState();
@@ -27,10 +27,10 @@ class _ReferralIndexState extends State<ReferralIndex> {
     super.initState();
   }
 
-  int referalCount  = 0;
-  int staffRefId = 0;
+  int?  referalCount  = 0;
+  int?  staffRefId = 0;
   List<dynamic> uncompleted = [];
-  int countUncompleted = 0;
+  int?  countUncompleted = 0;
   List<dynamic> totalReferrals = [];
   getStaffID() async{
     final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData();
@@ -51,7 +51,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
 
   }
 
-  Future<void> share(String codeLink) async {
+  Future<void> share(String?  codeLink) async {
   //  await
     // FlutterShare.share(
     //     title: 'Referral Code',
@@ -61,28 +61,28 @@ class _ReferralIndexState extends State<ReferralIndex> {
     // );
   }
 
-  sendReferrals(String shareType ) async{
+  sendReferrals(String?  shareType ) async{
        final SharedPreferences prefs = await SharedPreferences.getInstance();
-       String refId = prefs.getString('agentCode');
-       String staffName = prefs.getString('username');
+       String?  refId = prefs.getString('agentCode');
+       String?  staffName = prefs.getString('username');
     switch (shareType) {
       case 'general' :
      //   MyRouter.popPage(context);
-         String shareLink = AppUrl.referralLinkUrl + '15/${refId}';
-         String useLink = 'Use this referral link from ${staffName} to register \n\n ${shareLink}';
+         String?  shareLink = AppUrl.referralLinkUrl + '15/${refId}';
+         String?  useLink = 'Use this referral link from ${staffName} to register \n\n ${shareLink}';
             share(useLink);
       break;
       case 'ussd' :
        // MyRouter.popPage(context);
-        String shareLink = '*5120*${staffRefId}#';
-        String useLink = 'Use this referral link from ${staffName} to access our USSD service \n\n ${shareLink}';
+        String?  shareLink = '*5120*${staffRefId}#';
+        String?  useLink = 'Use this referral link from ${staffName} to access our USSD service \n\n ${shareLink}';
       //  Share.share(useLink,);
         share(useLink);
         break;
       case 'mobile' :
       //  MyRouter.popPage(context);
-        String shareLink = '*5120*2*${refId}#';
-        String useLink = 'Use this referral link from ${staffName} to register on our mobile App \n\n ${shareLink}';
+        String?  shareLink = '*5120*2*${refId}#';
+        String?  useLink = 'Use this referral link from ${staffName} to register on our mobile App \n\n ${shareLink}';
       // Share.share(useLink,);
         share(useLink);
         break;
@@ -273,7 +273,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
   }
 
 
-  _singleCard(String image,String numbers,String title){
+  _singleCard(String?  image,String?  numbers,String?  title){
     return Card(
       elevation: 0.3,
       child: Container(
@@ -294,7 +294,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
                     decoration: BoxDecoration(
 
                         image: DecorationImage(
-                          image: AssetImage(image),
+                          image: AssetImage(image!),
                           fit: BoxFit.contain,
                         )
                     ),
@@ -312,7 +312,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(numbers,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
+                  Text(numbers!,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
                   Text('')
                 ],
 
@@ -320,7 +320,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
 
               Row(
                 children: [
-                  Text(title,style: TextStyle(fontSize: 11),),
+                  Text(title!,style: TextStyle(fontSize: 11),),
                 ],
               )
 
@@ -431,7 +431,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
         });
   }
 
-  Widget clientStatus(Color statusColor,Color textColor,String status) {
+  Widget clientStatus(Color statusColor,Color textColor,String?  status) {
     return Container(
       width: 75,
       height: 23,
@@ -444,7 +444,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
         ],
       ),
       child: Center(
-          child: Text(status,style: TextStyle(color: textColor),)
+          child: Text(status!,style: TextStyle(color: textColor),)
       ),
     );
   }

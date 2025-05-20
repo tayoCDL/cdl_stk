@@ -44,7 +44,7 @@ class SendOtpProvider extends ChangeNotifier {
       User authUser = User.fromJson(responseData);
 
       // now we will create shared preferences and save data
-      UserPreferences().saveUser(authUser);
+    //  UserPreferences().saveUser(authUser);
 
       result = {
         'status':true,
@@ -62,7 +62,7 @@ class SendOtpProvider extends ChangeNotifier {
     return result;
   }
 
-  Future<Map<String, dynamic>> twofactor( String deliveryMethod) async {
+  Future<Map<String, dynamic>> twofactor( String?  deliveryMethod) async {
     var result;
 
     _otpStatus = Status.Sending;
@@ -73,7 +73,7 @@ class SendOtpProvider extends ChangeNotifier {
     var token = prefs.getString('base64EncodedAuthenticationKey');
     print(token);
     Response responsevv = await post(
-      AppUrl.twofactor + '${deliveryMethod}&extendedToken=true',
+      Uri.parse(AppUrl.twofactor + '${deliveryMethod}&extendedToken=true'),
       body: json.encode(null),
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ class SendOtpProvider extends ChangeNotifier {
 
   }
 
-  Future<Map<String, dynamic>> validatetwofactor(String rToken) async {
+  Future<Map<String, dynamic>> validatetwofactor(String?  rToken) async {
     var result;
     print(rToken);
     _otpStatus = Status.Sending;
@@ -103,7 +103,7 @@ class SendOtpProvider extends ChangeNotifier {
     var token = prefs.getString('base64EncodedAuthenticationKey');
     print(token);
     Response responsevv = await post(
-      AppUrl.validateTwofactor+rToken,
+      Uri.parse(AppUrl.validateTwofactor+rToken!),
       body: json.encode(null),
       headers: {
         'Content-Type': 'application/json',

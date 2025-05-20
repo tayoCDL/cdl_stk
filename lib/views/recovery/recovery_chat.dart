@@ -14,8 +14,8 @@ import 'package:sales_toolkit/view_models/addInteraction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryChat extends StatefulWidget {
-  final String ticketID;
-  const RecoveryChat({Key key, @required this.ticketID}) : super(key: key);
+  final String?  ticketID;
+  const RecoveryChat({Key? key, required this.ticketID}) : super(key: key);
 
   @override
   _RecoveryChatState createState() =>
@@ -28,15 +28,15 @@ class _RecoveryChatState extends State<RecoveryChat> {
   var discussData = [];
   var fullRequestData = {};
 
-  File uploadimage;
+  File? uploadimage; // Made nullable for null safety
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
+  String?  _fileName = '...';
   bool _isLoading = false;
-  String fileSize = '';
-  String baseimage = '';
+  String?  fileSize = '';
+  String?  baseimage = '';
 
-  File chosenImage;
+  File? chosenImage;
 
   AddInteractionProvider _addInteractionProvider = AddInteractionProvider();
   TextEditingController chatSendController = TextEditingController();
@@ -46,8 +46,8 @@ class _RecoveryChatState extends State<RecoveryChat> {
     super.initState();
   }
 
-  String ticketID;
-  _RecoveryChatState({this.ticketID});
+  String?  ticketID;
+  _RecoveryChatState({this.ticketID}); // Constructor placed after field definitions for clarity
 
   getDiscourseLists() async {
     print('ticketID ${ticketID}');
@@ -56,7 +56,7 @@ class _RecoveryChatState extends State<RecoveryChat> {
     var sequesttoken = prefs.getString('sequestToken');
     print('sequest Token ${sequesttoken}');
     Response responsevv = await get(
-      AppUrl.getFullDiscussWithTicketID + ticketID,
+      Uri.parse(AppUrl.getFullDiscussWithTicketID + ticketID),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -189,7 +189,7 @@ class _RecoveryChatState extends State<RecoveryChat> {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(0),
                       topRight: Radius.circular(0),
@@ -205,7 +205,7 @@ class _RecoveryChatState extends State<RecoveryChat> {
                           itemCount: discussData == null || discussData.isEmpty
                               ? 0
                               : discussData.length,
-                          itemBuilder: (context, int index) {
+                          itemBuilder: (context, int?  index) {
                             print(discussData);
 
                             final message = discussData[index];
@@ -381,18 +381,18 @@ class _RecoveryChatState extends State<RecoveryChat> {
     );
   }
 
-  retsNx360dates(String chatDate) {
+  retsNx360dates(String?  chatDate) {
     print('2022-03-11T10:03:18.7029365');
 
-    // String newdate = selectedDate.toString().substring(0,10);
+    // String?  newdate = selectedDate.toString().substring(0,10);
     // print(newdate);
 
-    DateTime inputDate = DateTime.parse(chatDate);
-    String formattedDate = DateFormat.yMMMMd().format(inputDate);
+    DateTime inputDate = DateTime.parse(chatDate!);
+    String?  formattedDate = DateFormat.yMMMMd().format(inputDate);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -400,15 +400,15 @@ class _RecoveryChatState extends State<RecoveryChat> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);
@@ -525,11 +525,12 @@ class _RecoveryChatState extends State<RecoveryChat> {
     // );
     // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 
-    var choosedimage = await ImagePicker.pickImage(source: source);
+   // var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker.platform.pickImage(source: source);
     print(choosedimage);
 
     setState(() {
-      uploadimage = choosedimage;
+      uploadimage = choosedimage?.path != null ? File(choosedImage!.path) : null;
 
       final bytes = choosedimage.readAsBytesSync().lengthInBytes;
 
@@ -537,7 +538,7 @@ class _RecoveryChatState extends State<RecoveryChat> {
       final kb = bytes / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String  filesizeAsString  = mb.toString();
       fileSize = filesizeAsString;
 
       // end get file size
@@ -545,7 +546,7 @@ class _RecoveryChatState extends State<RecoveryChat> {
       List<int> imageBytes = uploadimage.readAsBytesSync();
       baseimage = base64Encode(imageBytes);
 
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // passport.text = _fileName;
     });

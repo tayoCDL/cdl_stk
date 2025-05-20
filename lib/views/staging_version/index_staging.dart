@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class IndexStaging extends StatefulWidget {
-  const IndexStaging({Key key}) : super(key: key);
+  const IndexStaging({Key? key}) : super(key: key);
 
   @override
   _IndexStagingState createState() => _IndexStagingState();
@@ -15,7 +15,7 @@ class _IndexStagingState extends State<IndexStaging> {
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.black,),
+            icon: Icon(Icons.arrow_back_ios_outlined,color: Colors.black,), onPressed: () {  },
           ),
         title: Text('All Apps',style: TextStyle(color: Colors.black,fontSize: 21),),
       ),

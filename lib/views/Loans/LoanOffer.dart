@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sales_toolkit/util/router.dart';
 
 class LoanOffer extends StatefulWidget {
-  const LoanOffer({Key key}) : super(key: key);
+  const LoanOffer({Key? key}) : super(key: key);
 
   @override
   _LoanOfferState createState() => _LoanOfferState();

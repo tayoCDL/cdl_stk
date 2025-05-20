@@ -1,7 +1,7 @@
 class SequestRequest {
-  String username="";
-  String email="";
-  String password="";
+  String?  username="";
+  String?  email="";
+  String?  password="";
 
   SequestRequest({this.username, this.email, this.password});
 

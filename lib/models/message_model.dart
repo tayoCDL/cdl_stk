@@ -2,11 +2,11 @@ import './user_model.dart';
 
 class Message {
   final User sender;
-  final String avatar;
-  final String time;
-  final int unreadCount;
+  final String?  avatar;
+  final String?  time;
+  final int?  unreadCount;
   final bool isRead;
-  final String text;
+  final String?  text;
 
   Message({
     this.sender,

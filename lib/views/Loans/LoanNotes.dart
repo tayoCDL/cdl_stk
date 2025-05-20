@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoanNotes extends StatefulWidget {
-  const LoanNotes({Key key}) : super(key: key);
+  const LoanNotes({Key? key}) : super(key: key);
 
   @override
   _LoanNotesState createState() => _LoanNotesState();

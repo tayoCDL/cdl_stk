@@ -42,9 +42,9 @@ import 'dart:math';
 import 'package:timelines/timelines.dart';
 
 class SingleLoanView extends StatefulWidget {
-  final int loanID, clientID;
-  final String comingFrom;
-  const SingleLoanView({Key key, this.loanID, this.clientID, this.comingFrom})
+  final int?  loanID, clientID;
+  final String?  comingFrom;
+  const SingleLoanView({Key? key, this.loanID, this.clientID, this.comingFrom})
       : super(key: key);
 
   @override
@@ -63,31 +63,31 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   List<String> collectData = [];
   List<dynamic> allEmp = [];
 
-  String employerSector = '';
-  String categorySector = '';
+  String?  employerSector = '';
+  String?  categorySector = '';
 
   List<String> LAFArray = [];
   List<String> collectLAF = [];
   List<dynamic> allLAF = [];
-  String realMonth = '';
+  String?  realMonth = '';
   Timer _timerForInter;
   File uploadimage;
   var clientType = {};
   var employmentProfile = [];
-  String documentFileName,
+  String?  documentFileName,
       residenceFileSize,
       documentFiletype,
       documentFileLocation;
 
-  int documentTypeInt, clientTypeInt;
+  int?  documentTypeInt, clientTypeInt;
   bool _isLoading = false;
   bool showApprovalButton = false;
-  int approvalId ;
+  int?  approvalId ;
   bool isPendingOnMe = false ;
 
-  int empInt;
+  int?  empInt;
 
-  String lafArr = '';
+  String?  lafArr = '';
   List<Status> statuses = [];
 
 
@@ -163,18 +163,18 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   Map<String, dynamic> loanDetail = {};
-  String settlementBalance = '';
-  String method = '';
-  String commandType = '';
+  String?  settlementBalance = '';
+  String?  method = '';
+  String?  commandType = '';
 
   bool isLafSigned = false;
   bool isDocumentComplete = false;
   bool isRequestLoading = false;
 
-  int employmentInt, identityInt, residenceInt;
-  String identityName;
-  String documentType = '';
-  String branchEmployer = '';
+  int?  employmentInt, identityInt, residenceInt;
+  String?  identityName;
+  String?  documentType = '';
+  String?  branchEmployer = '';
 
   List<dynamic> objectFetched = [];
   List<dynamic> notesArray = [];
@@ -197,17 +197,17 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
-  String _path = '...';
-  String _extension;
-  String signatureBase64;
+  String?  _fileName = '...';
+  String?  _path = '...';
+  String?  _extension;
+  String?  signatureBase64;
   bool _hasValidMime = false;
-  String appendBase64 = '';
+  String?  appendBase64 = '';
   bool value = false;
   FileType _pickingType;
-  int employerID, sectorId, parentClient, employerInt;
-  int branchEmployerInt = 0;
-  String employerDomain = '';
+  int?  employerID, sectorId, parentClient, employerInt;
+  int?  branchEmployerInt = 0;
+  String?  employerDomain = '';
   bool _pickFileInProgress = false;
   bool _iosPublicDataUTI = true;
   bool _checkByCustomExtension = false;
@@ -225,7 +225,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     text: 'application/pdf image/png',
   );
 
-  int random(min, max) {
+  int?  random(min, max) {
     return min + Random.secure().nextInt(max - min);
   }
 
@@ -235,7 +235,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   TextEditingController emp_note = TextEditingController();
   TextEditingController _typeAheadController = TextEditingController();
   TextEditingController employeeID = TextEditingController();
-  String parentEmployer = '';
+  String?  parentEmployer = '';
 
   getCodesList() {
     setState(() {
@@ -268,7 +268,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
             allEmp = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -304,14 +304,14 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
         prefs.setString('prefsEmpSector', jsonEncode(newEmp));
 
-        int leadToClient = prefs.getInt('leadToClientID');
+        int?  leadToClient = prefs.getInt('leadToClientID');
         //print('lead To Client Id ${leadToClient}');
 
         setState(() {
           allEmp = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -330,7 +330,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     });
   }
 
-  single_loan_view_employerProfile(int clientid) async {
+  single_loan_view_employerProfile(int?  clientid) async {
     print('got here>>');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -432,7 +432,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       isDocumentComplete = loanDetail['isDocumentComplete'];
 
       if (loanDetail['configs'] != null) {
-        int docConfigData = loanDetail['configs'][0]['id'];
+        int?  docConfigData = loanDetail['configs'][0]['id'];
         if (docConfigData != null) {
           //
           geSingleLoanConfig(docConfigData);
@@ -495,7 +495,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   getClientType() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID = clientID;
+    int?  localclientID = clientID;
     print('localClient ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -528,7 +528,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     print('client Type ${clientTypeInt} ${clientType}');
   }
 
-  Future<List> getSuggestions(String query) async {
+  Future<List> getSuggestions(String?  query) async {
     if (query.length > 3) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -543,7 +543,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           collectEmployer = [];
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -562,7 +562,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     }
   }
 
-  getEmployersBranch(int parentID) {
+  getEmployersBranch(int?  parentID) {
     //print('this is parent branch ${parentID}');
     final Future<Map<String, dynamic>> respose =
     RetCodes().getEmployersBranch(parentID);
@@ -574,7 +574,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -619,7 +619,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
             allBranchEmployer = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -657,7 +657,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
         //print('all Branch ${newEmp}');
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -672,7 +672,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     });
   }
 
-  geSingleLoanConfig(int configID) {
+  geSingleLoanConfig(int?  configID) {
     setState(() {
       _isLoading = true;
     });
@@ -701,7 +701,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       newEmp.where((element) => element['systemDefined']).toList();
 
       print('modifed emp ${modifiedEmp}');
-      for (int i = 0; i < modifiedEmp.length; i++) {
+      for (int?  i = 0; i < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 
@@ -715,7 +715,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   getSettlementBalance() async {
     DateTime todayZdate = DateTime.now();
-    String convertedDate = retsNx360dates(todayZdate);
+    String?  convertedDate = retsNx360dates(todayZdate);
     final Future<Map<String, dynamic>> respose =
     RetCodes().getSttlement(loanID, convertedDate);
     respose.then((response) {
@@ -770,7 +770,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       }
     });
   }
-  getSubCategoryList(String categoryID) {
+  getSubCategoryList(String?  categoryID) {
     setState(() {
       _isLoading = true;
     });
@@ -798,12 +798,12 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
         print('checkisLaf ${checkisLaf.length}');
         if (checkisLaf.length < 4) {
-          for (int i = 0; i < newEmp.length; i++) {
+          for (int?  i = 0; i < newEmp.length; i++) {
             print(newEmp[i]['name']);
             collectLAF.add(newEmp[i]['name']);
           }
         } else {
-          for (int i = 0; i < 2; i++) {
+          for (int?  i = 0; i < 2; i++) {
             print(newEmp[i]['name']);
             collectLAF.add(newEmp[i]['name']);
           }
@@ -819,7 +819,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     });
   }
 
-  getIdentityList(String vals) {
+  getIdentityList(String?  vals) {
     final Future<Map<String, dynamic>> respose = RetCodes().getCodes(vals);
 
     respose.then((response) async {
@@ -848,7 +848,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
             allIdentity = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -879,7 +879,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           allIdentity = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }
@@ -968,7 +968,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           // Map the API response to Status model
           if(response['data'] != []){
             statuses = parseStatuses(response['data']);
-            String Vusername = prefs.getString('username');
+            String?  Vusername = prefs.getString('username');
             for (var item in response['data']) {
               if (item['email'] == Vusername) {
                 setState(() {
@@ -990,7 +990,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   getEmploymentProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID = clientID;
+    int?  localclientID = clientID;
     //print('localClient ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -1113,7 +1113,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   void checkForLAF(List<dynamic> data) {
     for (var item in data) {
-      String name = item['name'].toString().toLowerCase();
+      String?  name = item['name'].toString().toLowerCase();
 
       if (name.contains('laf')) {
         print('Found "LAF" in the name: ${item['name']}');
@@ -1130,7 +1130,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
 
 
-  getSingleDocument(int documentId) async{
+  getSingleDocument(int?  documentId) async{
     setState(() {
       _isLoading = true;
     });
@@ -1146,10 +1146,10 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       var docType = singleDoc['type'];
       print('single doc >> ${singleDoc}');
       if (docType == 'application/pdf') {
-        // String pdf = singleDoc['location'];
-        // String fileName = singleDoc['name'];
+        // String?  pdf = singleDoc['location'];
+        // String?  fileName = singleDoc['name'];
         // var Velo = pdf.split(',').first;
-        // int chopOut = Velo.length + 1;
+        // int?  chopOut = Velo.length + 1;
         // var bytes = base64Decode(pdf
         //     .substring(chopOut)
         //     .replaceAll("\n", "")
@@ -1180,7 +1180,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   void _openDocumentsExplorer() async {
     MyRouter.popPage(context);
 
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';
@@ -1256,19 +1256,19 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       //  _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 
       // List<int> imageBytes = _path.readAsBytesSync();
-      // String baseimage = base64Encode(imageBytes);
+      // String?  baseimage = base64Encode(imageBytes);
 
       //  print('file extension ${_path.split('.').last}');
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(bytes);
+      String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -1326,7 +1326,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     print('objectFetched' + objectFetched.toString());
   }
 
-  singleGoBack(String value) {
+  singleGoBack(String?  value) {
     if (value == 'go_back') {
       // MyRouter.popPage(context);
       MyRouter.pushPageReplacement(context, LoanView(clientID: clientID,));
@@ -1350,20 +1350,20 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
     base64.encode(imagebytes); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -1377,7 +1377,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -1481,11 +1481,11 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   final formatCurrency = NumberFormat.currency(locale: "en_US", symbol: "");
 
-  int loanID, clientID;
-  String comingFrom;
+  int?  loanID, clientID;
+  String?  comingFrom;
   _SingleLoanViewState({this.loanID, this.clientID, this.comingFrom});
 
-  sendNoteForLoan(String methodType, int noteId) async {
+  sendNoteForLoan(String?  methodType, int?  noteId) async {
     if (note.text.isEmpty || note.text.length < 5) {
       setState(() {
         _isLoading = false;
@@ -1542,7 +1542,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     });
   }
 
-  addNote(String methodType, String passedNote, int noteId) {
+  addNote(String?  methodType, String?  passedNote, int?  noteId) {
     note.text = passedNote;
     return alert(
       context,
@@ -1572,7 +1572,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   copyLinkForClient() async {
-    String cp_text = AppUrl.paymentLinkUrl + loanDetail['payRef'];
+    String?  cp_text = AppUrl.paymentLinkUrl + loanDetail['payRef'];
     Clipboard.setData(ClipboardData(text: cp_text));
     Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
@@ -1698,7 +1698,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       }
 
       DateTime now = DateTime.now();
-      String vasCoddd = retsNx360dates(now);
+      String?  vasCoddd = retsNx360dates(now);
 
 
       Map<String, dynamic> noteData =  {
@@ -1811,9 +1811,9 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       );
     }
 
-    var sendGenerationLink = (String mode, String commandType) async {
+    var sendGenerationLink = (String?  mode, String?  commandType) async {
       print('this is mode ${mode}');
-      //  String loanCommandType = loanDetail['status']['value'] == 'Active' ? 'repayment' : 'tokenization';
+      //  String?  loanCommandType = loanDetail['status']['value'] == 'Active' ? 'repayment' : 'tokenization';
       final Future<Map<String, dynamic>> respose =
       RetCodes().sendLinkToCLient(loanID, mode, commandType);
       respose.then((response) {
@@ -1866,7 +1866,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                 child: loanDetail['status']['value'] == 'Active'
                     ? DropDownComponent(
                     items: ['Repayment','Tokenize'],
-                    onChange: (String item) {
+                    onChange: (String?  item) {
                       setState(() {
                         if(item == 'Tokenize'){
                           commandType = 'tokenization';
@@ -1879,19 +1879,19 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                     },
                     label: "Link Type *",
                     selectedItem: 'Tokenize or Repayment',
-                    validator: (String item) {})
+                    validator: (String?  item) {})
                     : DropDownComponent(
                     items: [
                       'Laf And Repayment Method',
                     ],
-                    onChange: (String item) {
+                    onChange: (String?  item) {
                       setState(() {
                         commandType = 'tokenization';
                       });
                     },
                     label: "Link Type *",
                     selectedItem: 'Laf And Repayment Method',
-                    validator: (String item) {}),
+                    validator: (String?  item) {}),
               ),
               SizedBox(
                 height: 20,
@@ -1900,14 +1900,14 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                 height: MediaQuery.of(context).size.height * 0.1,
                 child: DropDownComponent(
                     items: ['Email', 'Mobile'],
-                    onChange: (String item) {
+                    onChange: (String?  item) {
                       setState(() {
                         method = item;
                       });
                     },
                     label: "Mode *",
                     selectedItem: "Email",
-                    validator: (String item) {}),
+                    validator: (String?  item) {}),
               ),
             ],
           ),
@@ -1964,8 +1964,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          int selectedRadio = 0; // Declare your variable outside the builder
-          String contentText = "Content of Dialog";
+          int?  selectedRadio = 0; // Declare your variable outside the builder
+          String?  contentText = "Content of Dialog";
           return AlertDialog(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2073,7 +2073,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       );
     }
 
-    void actionPopUpItemSelected(String value) {
+    void actionPopUpItemSelected(String?  value) {
       if (value == 'send_loan_for_approval') {
         sendForAppro();
       } else if (value == 'add_note') {
@@ -2142,7 +2142,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                   ),
                 ];
               },
-              onSelected: (String value) => singleGoBack(value),
+              onSelected: (String?  value) => singleGoBack(value),
             ),
 
             // IconButton(
@@ -2181,7 +2181,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                     ),
                   ];
                 },
-                onSelected: (String value) =>
+                onSelected: (String?  value) =>
                     actionPopUpItemSelected(value),
               )
                   :
@@ -2244,7 +2244,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                     ),
                   ];
                 },
-                onSelected: (String value) =>
+                onSelected: (String?  value) =>
                     actionPopUpItemSelected(value),
               ),
             ],
@@ -2348,7 +2348,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                               ['periods']
                                   .length -
                                   1,
-                              itemBuilder: (context, int index) {
+                              itemBuilder: (context, int?  index) {
                                 var loanPeriod =
                                 loanDetail['repaymentSchedule']
                                 ['periods'][index + 1];
@@ -3160,7 +3160,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                 itemCount: notesArray.length,
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (context, int index) {
+                itemBuilder: (context, int?  index) {
                   return ListTile(
                     title: Text(
                       '${notesArray[index]['note']}',
@@ -3228,7 +3228,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: DropDownComponent(
                   items: empSector,
-                  onChange: (String item) {
+                  onChange: (String?  item) {
                     setState(() {
                       List<dynamic> selectID = allEmp
                           .where((element) => element['name'] == item)
@@ -3245,7 +3245,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                   },
                   label: "Select Sector",
                   selectedItem: employerSector,
-                  validator: (String item) {}),
+                  validator: (String?  item) {}),
             ),
             SizedBox(
               height: 20,
@@ -3367,7 +3367,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: DropDownComponent(
                   items: BranchEmployerArray,
-                  onChange: (String item) {
+                  onChange: (String?  item) {
                     setState(() {
                       List<dynamic> selectID = allBranchEmployer
                           .where((element) => element['name'] == item)
@@ -3383,7 +3383,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                   },
                   label: "Organization Branch * ",
                   selectedItem: branchEmployer,
-                  validator: (String item) {
+                  validator: (String?  item) {
                     if (branchEmployerInt == 0) {
                       return 'Employer branch cannot be empty';
                     }
@@ -3483,7 +3483,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         itemCount: documentsArray.length,
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
-        itemBuilder: (context, int index) {
+        itemBuilder: (context, int?  index) {
           return
 
             ListTile(
@@ -3510,10 +3510,10 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                   // var documentName = documentsArray[index]['fileName'];
 
                   // if (documentType == 'application/pdf') {
-                  //   String pdf = documentsArray[index]['location'];
-                  //   String fileName = documentsArray[index]['fileName'];
+                  //   String?  pdf = documentsArray[index]['location'];
+                  //   String?  fileName = documentsArray[index]['fileName'];
                   //   var Velo = pdf.split(',').first;
-                  //   int chopOut = Velo.length + 1;
+                  //   int?  chopOut = Velo.length + 1;
                   //   var bytes = base64Decode(pdf
                   //       .substring(chopOut)
                   //       .replaceAll("\n", "")
@@ -3543,8 +3543,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         });
   }
 
-  Widget ReapymentSchedule(int numbers, String title, String status,
-      String duedate, double dueAmount) {
+  Widget ReapymentSchedule(int?  numbers, String?  title, String?  status,
+      String?  duedate, double? dueAmount) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.169,
       padding: EdgeInsets.symmetric(horizontal: 12),
@@ -3604,18 +3604,18 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   Widget newRepayment(
-      int periodNumber,
-      String dueDate,
+      int?  periodNumber,
+      String?  dueDate,
       bool isComplete,
-      double principalDue,
-      double totalOutstandingForPeriod,
-      double totalActualCostOfLoanForPeriod,
-      double totalInstallmentAmountForPeriod,
+      double? principalDue,
+      double? totalOutstandingForPeriod,
+      double? totalActualCostOfLoanForPeriod,
+      double? totalInstallmentAmountForPeriod,
       var totalPaidForPeriod,
       Color statusColor,
       Color textStatus,
-      String paidStatus,
-      String paymentDate) {
+      String?  paidStatus,
+      String?  paymentDate) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Column(
@@ -3846,22 +3846,22 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selected.toString().substring(0, 10);
+    String?  newdate = selected.toString().substring(0, 10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 
@@ -3869,17 +3869,17 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     return concatss;
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText, var keyBoard,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText, var keyBoard,
       {bool isValidateEmployer = false,
         bool isSendOTP = true,
         var maxLenghtAllow,
-        int maxlines,
-        Function onBtnPressed,
+        int?  maxlines,
+        VoidCallback onBtnPressed,
         bool isSuffix = false,
-        String extension,
+        String?  extension,
         bool needsValidation = true,
-        Function changeValidator}) {
+        VoidCallback changeValidator}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
       child: Padding(
@@ -3993,7 +3993,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           //   height: 70,
           //   child: DropDownComponent(
           //       items: DocumentTypeArray,
-          //       onChange: (String item) {
+          //       onChange: (String?  item) {
           //         setState(() {
           //           List<dynamic> selectID = allDocumentType
           //               .where((element) => element['name'] == item)
@@ -4009,7 +4009,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           //       },
           //       label: "Select Document Type * ",
           //       selectedItem: "",
-          //       validator: (String item) {}),
+          //       validator: (String?  item) {}),
           // ),
           // SizedBox(
           //   height: 20,
@@ -4020,7 +4020,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           //       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 1),
           //       child: DropDownComponent(
           //           items: LAFArray,
-          //           onChange: (String item) {
+          //           onChange: (String?  item) {
           //             setState(() {
           //               List<dynamic> selectID = allLAF
           //                   .where((element) => element['name'] == item)
@@ -4033,7 +4033,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           //           },
           //           label: "Document * ",
           //           selectedItem: '',
-          //           validator: (String item) {})),
+          //           validator: (String?  item) {})),
           // ),
           // SizedBox(
           //   height: 20,
@@ -4088,7 +4088,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     );
   }
 
-  Widget paymentStatus(Color statusColor, Color TextColor, String status) {
+  Widget paymentStatus(Color statusColor, Color TextColor, String?  status) {
     return Container(
       width: 120,
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
@@ -4107,9 +4107,9 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     );
   }
 
-  retDOBfromBVN(String getDate) {
+  retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -4175,22 +4175,22 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
     return concatss;
   }
 
-  errorMessage(String message) {
+  errorMessage(String?  message) {
     return Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -4201,7 +4201,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     ).show(context);
   }
 
-  String subStr(String subs) {
+  String?  subStr(String?  subs) {
     subs.substring(0, 10);
   }
 
@@ -4244,9 +4244,9 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 }
 
 class Status {
-  final String date;
-  final String status;
-  final String assignee;
+  final String?  date;
+  final String?  status;
+  final String?  assignee;
   final IconData statusIcon;
   final Color statusColor;
   final bool showReassignButton;

@@ -18,13 +18,13 @@ import 'package:sales_toolkit/widgets/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoanSoldView extends StatefulWidget {
-  // const LoanView({Key key}) : super(key: key);
+  // const LoanView({Key? key}) : super(key: key);
   //
   // @override
   // _LoanViewState createState() => _LoanViewState();
 
-  final int clientID,loanOfficerId,parentEmployerSector;
-  const LoanSoldView({Key key,this.clientID,this.loanOfficerId,this.parentEmployerSector}) : super(key: key);
+  final int?  clientID,loanOfficerId,parentEmployerSector;
+  const LoanSoldView({Key? key,this.clientID,this.loanOfficerId,this.parentEmployerSector}) : super(key: key);
   @override
   _LoanSoldViewState createState() => _LoanSoldViewState(
       clientID: this.clientID,
@@ -36,9 +36,9 @@ class LoanSoldView extends StatefulWidget {
 
 
 class _LoanSoldViewState extends State<LoanSoldView> {
-  int clientID,loanOfficerId,parentEmployerSector;
+  int?  clientID,loanOfficerId,parentEmployerSector;
   List<dynamic> CustomerLists,filteredLoans = [];
-  int employerID,sectorId,parentClient;
+  int?  employerID,sectorId,parentClient;
   bool _isLoading = false;
 
   _LoanSoldViewState({this.clientID,this.loanOfficerId,this.parentEmployerSector});
@@ -58,13 +58,13 @@ class _LoanSoldViewState extends State<LoanSoldView> {
     super.initState();
   }
 
-  getaloansList({int loanStatus}){
+  getaloansList({int?  loanStatus}){
     setState(() {
       _isLoading = true;
     });
 
     print('loanStat ${loanStatus} ${loanOfficerId}');
-    int passedStatus = loanStatus ?? 50;
+    int?  passedStatus = loanStatus ?? 50;
     final Future<Map<String,dynamic>> respose =   RetCodes().loanSold(loanOfficerId,passedStatus);
 
     respose.then((response) async {
@@ -231,7 +231,7 @@ class _LoanSoldViewState extends State<LoanSoldView> {
 
                     ];
                   },
-                  onSelected: (String value) {
+                  onSelected: (String?  value) {
 
                     filterLoanView(value);
                     // getaloansList();
@@ -397,7 +397,7 @@ class _LoanSoldViewState extends State<LoanSoldView> {
 
 
 
-  Widget clientStatus(Color statusColor,String status) {
+  Widget clientStatus(Color statusColor,String?  status) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.35,
       height: MediaQuery.of(context).size.width * 0.06,
@@ -413,7 +413,7 @@ class _LoanSoldViewState extends State<LoanSoldView> {
     );
   }
 
-  String chopPending(String pends){
+  String?  chopPending(String?  pends){
     if(pends.contains('Pending')){
       return "Team Lead Review";
     }
@@ -422,7 +422,7 @@ class _LoanSoldViewState extends State<LoanSoldView> {
     }
   }
 
-  String chopPendingApproval(String pends){
+  String?  chopPendingApproval(String?  pends){
     if(pends.contains('Pending')){
       return "Team Lead Review";
     }
@@ -431,11 +431,11 @@ class _LoanSoldViewState extends State<LoanSoldView> {
     }
   }
 
-String getLoanStatus(int loanStatus){
-  String loanstats =   loanStatus == 50 ? 'Team Lead Approval' : loanStatus == 100 ? 'L1 Underwriters' : loanStatus == 200 ? 'L2 Underwriters' : loanStatus == 300 ? 'Active' : loanStatus == 500 ? 'Rejected': loanStatus == 600 ? 'Closed' : loanStatus == 700 ? 'Overpaid': 'Draft';
+String?  getLoanStatus(int?  loanStatus){
+  String?  loanstats =   loanStatus == 50 ? 'Team Lead Approval' : loanStatus == 100 ? 'L1 Underwriters' : loanStatus == 200 ? 'L2 Underwriters' : loanStatus == 300 ? 'Active' : loanStatus == 500 ? 'Rejected': loanStatus == 600 ? 'Closed' : loanStatus == 700 ? 'Overpaid': 'Draft';
     return loanstats;
   }
-String thirtyMax(String txt){
+String?  thirtyMax(String?  txt){
    return txt.length > 20 ? txt.substring(0,20) + '...' : txt;
 }
 

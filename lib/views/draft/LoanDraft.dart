@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sales_toolkit/util/router.dart';
 
 class LoanDraft extends StatefulWidget {
-  const LoanDraft({Key key}) : super(key: key);
+  const LoanDraft({Key? key}) : super(key: key);
 
   @override
   _LoanDraftState createState() => _LoanDraftState();
@@ -53,7 +53,7 @@ class _LoanDraftState extends State<LoanDraft> {
     );
   }
 
-  Widget publishStatus(Color statusColor,String status) {
+  Widget publishStatus(Color statusColor,String?  status) {
     return Container(
       width: 100,
 

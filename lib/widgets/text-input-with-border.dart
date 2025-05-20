@@ -5,10 +5,10 @@ import '../palatte.dart';
 
 class TextInputWithBorder extends StatelessWidget {
   const TextInputWithBorder({
-    Key key,
+    Key? key,
     this.icon,
-    @required this.isIconAvailable,
-    @required this.hint,
+    required this.isIconAvailable,
+    required this.hint,
     this.controls,
     this.maxLenght,
     this.onButtonPressed,
@@ -23,17 +23,17 @@ class TextInputWithBorder extends StatelessWidget {
 
   final IconData icon;
   final bool isIconAvailable;
-  final String hint;
+  final String?  hint;
   final bool eyeOpen;
   final bool isObscure;
-  final Function onButtonPressed;
+  final VoidCallback onButtonPressed;
   final TextInputType inputType;
   final TextInputAction inputAction;
   final Widget suffixWidget;
-  final Function onSave;
-  final Function validate;
+  final VoidCallback onSave;
+  final VoidCallback validate;
   final TextEditingController controls;
-  final int maxLenght;
+  final int?  maxLenght;
   @override
   Widget build(BuildContext context) {
     return Padding(

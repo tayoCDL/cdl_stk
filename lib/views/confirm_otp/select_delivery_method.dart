@@ -11,7 +11,7 @@ import 'package:sales_toolkit/widgets/background-image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectDeliveryMethod extends StatefulWidget {
-  const SelectDeliveryMethod({Key key}) : super(key: key);
+  const SelectDeliveryMethod({Key? key}) : super(key: key);
 
   @override
   _SelectDeliveryMethodState createState() => _SelectDeliveryMethodState();
@@ -21,12 +21,12 @@ class _SelectDeliveryMethodState extends State<SelectDeliveryMethod> {
   @override
 
   Color bulbColor = Colors.black;
-    String DeliveryMethod ='';
+    String?  DeliveryMethod ='';
   Widget build(BuildContext context) {
     SendOtpProvider sendOtpProvider = SendOtpProvider();
         var realDelivery = '';
 
-    var sendOTP = (String mtd) async{
+    var sendOTP = (String?  mtd) async{
 
         print('this is real deliver ${realDelivery}');
         final Future<Map<String,dynamic>> respose =  sendOtpProvider.twofactor(mtd);
@@ -36,7 +36,7 @@ class _SelectDeliveryMethodState extends State<SelectDeliveryMethod> {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        prefs.setString('delivery', mtd);
+        prefs.setString('delivery', mtd!);
         respose.then((response) {
 
           MyRouter.pushPage(context, ConfirmOtp());
@@ -129,10 +129,10 @@ class _SelectDeliveryMethodState extends State<SelectDeliveryMethod> {
                   //     child: DropDownComponent(items: ["Email Address","Phone Number",],
                   //         label: "",
                   //         selectedItem: "Email Address",
-                  //         validator: (String item){
+                  //         validator: (String?  item){
                   //
                   //         },
-                  //       onChange: (String item){
+                  //       onChange: (String?  item){
                   //         setState(() {
                   //
                   //           DeliveryMethod = item;

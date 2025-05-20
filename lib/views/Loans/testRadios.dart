@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TestRadio extends StatefulWidget {
-  const TestRadio({Key key}) : super(key: key);
+  const TestRadio({Key? key}) : super(key: key);
 
   @override
   _TestRadioState createState() => _TestRadioState();

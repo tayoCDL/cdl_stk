@@ -6,7 +6,7 @@ import '../../../widgets/rounded-button.dart';
 import '../../../widgets/text-input-with-border.dart';
 
 class CreateOrder extends StatefulWidget {
-  const CreateOrder({Key key}) : super(key: key);
+  const CreateOrder({Key? key}) : super(key: key);
 
   @override
   _CreateOrderState createState() => _CreateOrderState();

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CleanCalendarEvent {
-  String summary;
-  String description;
-  String location;
-  String clockIn;
-  String clockOut;
+  String?  summary;
+  String?  description;
+  String?  location;
+  String?  clockIn;
+  String?  clockOut;
   bool isDevice;
   DateTime startTime;
   DateTime endTime;
@@ -19,8 +19,8 @@ class CleanCalendarEvent {
         this.clockIn = '',
         this.clockOut = '',
         this.isDevice = false,
-        @required this.startTime,
-        @required this.endTime,
+        required this.startTime,
+        required this.endTime,
         this.color = Colors.blue,
         this.isAllDay = false,
         this.isDone = false});

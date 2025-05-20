@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 class TextInputWithFLoating extends StatelessWidget {
 
   const TextInputWithFLoating({
-    Key key,
-    @required this.hint,
-    @required this.label,
+    Key? key,
+    required this.hint,
+    required this.label,
     this.inputType,
     this.inputAction,
-    @required this.nameController,
+    required this.nameController,
   }) : super(key: key);
 
 
-  final String hint;
-  final String label;
+  final String?  hint;
+  final String?  label;
   final TextInputType inputType;
   final TextInputAction inputAction;
   final TextEditingController nameController;

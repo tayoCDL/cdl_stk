@@ -28,10 +28,10 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import '../../util/enum/color_utils.dart';
 
 class AddClient extends StatefulWidget {
-  final int ClientInt;
-  final String comingFrom, sector, Passedbvn;
+  final int?  ClientInt;
+  final String?  comingFrom, sector, Passedbvn;
   const AddClient(
-      {Key key, this.ClientInt, this.comingFrom, this.sector, this.Passedbvn})
+      {Key? key, this.ClientInt, this.comingFrom, this.sector, this.Passedbvn})
       : super(key: key);
 
   @override
@@ -43,8 +43,8 @@ class AddClient extends StatefulWidget {
 }
 
 class _AddClientState extends State<AddClient> {
-  int ClientInt;
-  String comingFrom, sector, Passedbvn;
+  int?  ClientInt;
+  String?  comingFrom, sector, Passedbvn;
   _AddClientState(
       {this.ClientInt, this.comingFrom, this.sector, this.Passedbvn});
   @override
@@ -61,7 +61,7 @@ class _AddClientState extends State<AddClient> {
   bool isBVNLoading = false;
   bool isRequestLoading = false;
   bool isAllowedToProceed = false;
-  String tempEmail,
+  String?  tempEmail,
       tempFirstName,
       tempMiddleName,
       tempLastName,
@@ -72,21 +72,21 @@ class _AddClientState extends State<AddClient> {
   List<String> banksListArray = [];
   List<String> collectBanksList = [];
   List<dynamic> allBanksList = [];
-  String act_bvn = '';
+  String?  act_bvn = '';
   var bankInfo = [];
-  int catInt;
-  String employerSector = '';
-  String categorySector = '';
-  String accountName = '';
-  String realMonth = '';
-  String bankCode;
-  int bankInt, bankClassificationInt;
+  int?  catInt;
+  String?  employerSector = '';
+  String?  categorySector = '';
+  String?  accountName = '';
+  String?  realMonth = '';
+  String?  bankCode;
+  int?  bankInt, bankClassificationInt;
   bool bvnFecthedSuccessfully = false;
   bool otpValidationStatus = false;
   DateTime CupertinoSelectedDate = DateTime.now();
-  String iAgreeLink = '';
+  String?  iAgreeLink = '';
   bool isAvailable;
-  String isTestState = 'test';
+  String?  isTestState = 'test';
   void initState() {
     // TODO: implement initState
     bvn.text = Passedbvn;
@@ -112,7 +112,7 @@ class _AddClientState extends State<AddClient> {
   getPersonalInformation() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int localclientID = ClientInt;
+    int?  localclientID = ClientInt;
     //print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -206,7 +206,7 @@ class _AddClientState extends State<AddClient> {
             allEmp = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -242,14 +242,14 @@ class _AddClientState extends State<AddClient> {
 
         prefs.setString('prefsEmpSector', jsonEncode(newEmp));
 
-        int leadToClient = prefs.getInt('leadToClientID');
+        int?  leadToClient = prefs.getInt('leadToClientID');
         //print('lead To Client Id ${leadToClient}');
 
         setState(() {
           allEmp = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -301,7 +301,7 @@ class _AddClientState extends State<AddClient> {
             allCategory = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectCategory.add(mtBool[i]['name']);
           }
@@ -338,14 +338,14 @@ class _AddClientState extends State<AddClient> {
 
         prefs.setString('prefsEmpCategory', jsonEncode(newEmp));
 
-        // int leadToClient = prefs.getInt('leadToClientID');
+        // int?  leadToClient = prefs.getInt('leadToClientID');
         // //print('lead To Client Id ${leadToClient}');
 
         setState(() {
           allCategory = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectCategory.add(newEmp[i]['name']);
         }
@@ -374,7 +374,7 @@ class _AddClientState extends State<AddClient> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -412,7 +412,7 @@ class _AddClientState extends State<AddClient> {
             allBanksList = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -441,7 +441,7 @@ class _AddClientState extends State<AddClient> {
           allBanksList = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -470,7 +470,7 @@ class _AddClientState extends State<AddClient> {
     //print('employer sector ${empInt.toString()} category sector ${catInt} ');
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String getBVN = prefs.getString('inputBvn');
+    String?  getBVN = prefs.getString('inputBvn');
     //print('pre :: ${getBVN}');
 
     if (empInt == null || catInt == null) {
@@ -550,10 +550,10 @@ class _AddClientState extends State<AddClient> {
           TempdateOfBirth = response['data']['data']['dateOfBirth'];
           Tempgender = response['data']['data']['gender'];
 
-          String LastName = response['data']['data']['lastName'] == null
+          String?  LastName = response['data']['data']['lastName'] == null
               ? ''
               : response['data']['data']['lastName'];
-          String FirstName = response['data']['data']['firstName'] == null
+          String?  FirstName = response['data']['data']['firstName'] == null
               ? ''
               : response['data']['data']['firstName'];
 
@@ -631,7 +631,7 @@ class _AddClientState extends State<AddClient> {
     });
   }
 
-  void _launchURL(BuildContext context, String iAgreeLink) async {
+  void _launchURL(BuildContext context, String?  iAgreeLink) async {
     try {
       await launch(
         iAgreeLink,
@@ -932,7 +932,7 @@ class _AddClientState extends State<AddClient> {
       barrierDismissible: false,
       context: context,
       builder: (dialogContext) {
-        String contentText = "Content of Dialog";
+        String?  contentText = "Content of Dialog";
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -1017,7 +1017,7 @@ class _AddClientState extends State<AddClient> {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        String contentText = "Content of Dialog";
+        String?  contentText = "Content of Dialog";
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -1056,8 +1056,8 @@ class _AddClientState extends State<AddClient> {
                                 //  confirmOTP();
                                 //print('new newtemp date ${retDOBfromBVN(TempdateOfBirth)} ${dobController.text}');
 
-                                String compA = retDOBfromBVN(TempdateOfBirth);
-                                String compB = dobController.text;
+                                String?  compA = retDOBfromBVN(TempdateOfBirth);
+                                String?  compB = dobController.text;
 
                                 if (compA.compareTo(compB) == 0) {
                                   // //print('correct');
@@ -1161,8 +1161,8 @@ class _AddClientState extends State<AddClient> {
 
   @override
   var _lights = true;
-  String employment_type = '';
-  int empInt;
+  String?  employment_type = '';
+  int?  empInt;
 
   TextEditingController bvn = TextEditingController();
   TextEditingController dobController = TextEditingController();
@@ -1174,8 +1174,8 @@ class _AddClientState extends State<AddClient> {
       //  //print(bvn.text);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      // int leadToClient =  prefs.getInt('leadToClientID');
-//    int getClientID = prefs.getInt('tempClientInt');
+      // int?  leadToClient =  prefs.getInt('leadToClientID');
+//    int?  getClientID = prefs.getInt('tempClientInt');
       if (comingFrom != 'customerPreview') {
         ClearCaches().clearMems();
 
@@ -1356,7 +1356,7 @@ class _AddClientState extends State<AddClient> {
                   ),
                   DropDownComponent(
                       items: empSector,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allEmp
                               .where((element) => element['name'] == item)
@@ -1373,13 +1373,13 @@ class _AddClientState extends State<AddClient> {
                       },
                       label: "Select Sector",
                       selectedItem: employerSector,
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                   SizedBox(
                     height: 20,
                   ),
                   DropDownComponent(
                       items: empCategory,
-                      popUpDisabled: (String s) {
+                      popUpDisabled: (String?  s) {
                         if (empInt == 17) {
                           return s.startsWith('Federal') ||
                               s.startsWith('State') ||
@@ -1388,7 +1388,7 @@ class _AddClientState extends State<AddClient> {
                           return s.startsWith('Private');
                         }
                       },
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allCategory
                               .where((element) => element['name'] == item)
@@ -1402,7 +1402,7 @@ class _AddClientState extends State<AddClient> {
                       },
                       label: "Select Category",
                       selectedItem: categorySector,
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
 
                   SizedBox(
                     height: 30,
@@ -1468,8 +1468,8 @@ class _AddClientState extends State<AddClient> {
     );
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText,
       {var maxLenghtAllow, bool isRead = false, bool isDateAllowed = false}) {
     var MediaSize = MediaQuery.of(context).size;
 
@@ -1491,7 +1491,7 @@ class _AddClientState extends State<AddClient> {
             style: TextStyle(fontFamily: 'Nunito SansRegular'),
             keyboardType: TextInputType.number,
             controller: editController,
-            onChanged: (String value) {
+            onChanged: (String?  value) {
               if (value.isEmpty) {
                 setState(() {
                   isBVNLoading = false;
@@ -1518,7 +1518,7 @@ class _AddClientState extends State<AddClient> {
                 //print('re isloading  ${isBVNLoading}');
               }
             },
-            validator: (String value) {},
+            validator: (String?  value) {},
             decoration: InputDecoration(
 
                 // suffixIcon:  Visibility(
@@ -1550,7 +1550,7 @@ class _AddClientState extends State<AddClient> {
                               onChanged: (date) {
                             print('change $date');
                             setState(() {
-                              String retDate = retsNx360dates(date);
+                              String?  retDate = retsNx360dates(date);
                               dobController.text = retDate;
                             });
                           }, onConfirm: (date) {
@@ -1590,7 +1590,7 @@ class _AddClientState extends State<AddClient> {
             padding: EdgeInsets.symmetric(horizontal: 00, vertical: 10),
             child: DropDownComponent(
                 items: banksListArray,
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {
                     List<dynamic> selectID = allBanksList
                         .where((element) => element['name'] == item)
@@ -1603,7 +1603,7 @@ class _AddClientState extends State<AddClient> {
                 },
                 label: "Bank * ",
                 selectedItem: "---",
-                validator: (String item) {}),
+                validator: (String?  item) {}),
           ),
           SizedBox(
             height: 10,
@@ -1654,7 +1654,7 @@ class _AddClientState extends State<AddClient> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           //print(CupertinoSelectedDate);
-                          String retDate =
+                          String?  retDate =
                               retsNx360dates(CupertinoSelectedDate);
                           //print('ret Date ${retDate}');
 
@@ -1682,14 +1682,14 @@ class _AddClientState extends State<AddClient> {
 
   retsNx360dates(DateTime selected) {
     //print(selected);
-    String newdate = selected.toString().substring(0, 10);
+    String?  newdate = selected.toString().substring(0, 10);
     //print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     //print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     //print('removeComma');
     //print(removeComma);
 
@@ -1697,15 +1697,15 @@ class _AddClientState extends State<AddClient> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     //print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     //print("concatss");
     //print(concatss);
@@ -1714,10 +1714,10 @@ class _AddClientState extends State<AddClient> {
     return concatss;
   }
 
-  retDOBfromBVN(String getDate) {
+  retDOBfromBVN(String?  getDate) {
     //print('getDate ${getDate}');
-    String newGetDate = getDate.substring(0, 10);
-    String removeComma = newGetDate.replaceAll("-", " ");
+    String?  newGetDate = getDate.substring(0, 10);
+    String?  removeComma = newGetDate.replaceAll("-", " ");
     //print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     //print(wordList[1]);
@@ -1783,13 +1783,13 @@ class _AddClientState extends State<AddClient> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     return concatss;
   }

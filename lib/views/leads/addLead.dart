@@ -16,9 +16,9 @@ import 'package:sales_toolkit/widgets/dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddLead extends StatefulWidget {
-  final int leadInt;
-  final String comingFrom,PassedleadType;
-  const AddLead({Key key,this.leadInt,this.comingFrom,this.PassedleadType}) : super(key: key);
+  final int?  leadInt;
+  final String?  comingFrom,PassedleadType;
+  const AddLead({Key? key,this.leadInt,this.comingFrom,this.PassedleadType}) : super(key: key);
 
   @override
   _AddLeadState createState() => _AddLeadState(
@@ -29,8 +29,8 @@ class AddLead extends StatefulWidget {
 }
 
 class _AddLeadState extends State<AddLead> {
-  int leadInt;
-  String comingFrom,PassedleadType;
+  int?  leadInt;
+  String?  comingFrom,PassedleadType;
   _AddLeadState({this.leadInt,this.comingFrom,this.PassedleadType});
 
   @override
@@ -58,8 +58,8 @@ class _AddLeadState extends State<AddLead> {
   bool _isLoading = false;
 
 
-  int leadCategoryInt,leadRatintInt,leadSourceInt;
-  String leadCategory,leadRating,leadType,leadSource,leadTypeInt;
+  int?  leadCategoryInt,leadRatintInt,leadSourceInt;
+  String?  leadCategory,leadRating,leadType,leadSource,leadTypeInt;
   TextEditingController projectedInflow = TextEditingController();
 
   AddLeadProvider addLeadProvider = AddLeadProvider();
@@ -82,7 +82,7 @@ class _AddLeadState extends State<AddLead> {
     respose.then((response) {
       print(response['data']);
       List<dynamic> newEmp = response['data'];
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         print(newEmp[i]['name']);
         collectData.add(newEmp[i]['name']);
       }
@@ -134,7 +134,7 @@ class _AddLeadState extends State<AddLead> {
             allLeadCategory = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLeadCategory.add(mtBool[i]['name']);
           }
@@ -168,7 +168,7 @@ class _AddLeadState extends State<AddLead> {
           allLeadCategory = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectLeadCategory.add(newEmp[i]['name']);
         }
@@ -217,7 +217,7 @@ class _AddLeadState extends State<AddLead> {
             allLeadRating = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLeadRating.add(mtBool[i]['name']);
           }
@@ -251,7 +251,7 @@ class _AddLeadState extends State<AddLead> {
           allLeadRating = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectLeadRating.add(newEmp[i]['name']);
         }
@@ -301,7 +301,7 @@ class _AddLeadState extends State<AddLead> {
             allLeadProduct = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLeadProduct.add(mtBool[i]['name']);
           }
@@ -338,7 +338,7 @@ class _AddLeadState extends State<AddLead> {
           allLeadProduct = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectLeadProduct.add(newEmp[i]['name']);
         }
@@ -367,7 +367,7 @@ class _AddLeadState extends State<AddLead> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    int localclientID =   leadInt == null ? prefs.getInt('leadId') : leadInt;
+    int?  localclientID =   leadInt == null ? prefs.getInt('leadId') : leadInt;
     print('localInt ${localclientID} ${leadInt}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -446,7 +446,7 @@ class _AddLeadState extends State<AddLead> {
             allLeadSource = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLeadSource.add(mtBool[i]['name']);
           }
@@ -484,7 +484,7 @@ class _AddLeadState extends State<AddLead> {
         allLeadSource = newEmp;
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         print(newEmp[i]['name']);
         collectLeadSource.add(newEmp[i]['name']);
       }
@@ -585,7 +585,7 @@ class _AddLeadState extends State<AddLead> {
                   SizedBox(height: 40,),
 
                   DropDownComponent(items: leadCategoryArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allLeadCategory.where((element) => element['name'] == item).toList();
@@ -598,14 +598,14 @@ class _AddLeadState extends State<AddLead> {
                       },
                       label: "Select Lead category",
                       selectedItem: leadCategory,
-                      validator: (String item){
+                      validator: (String?  item){
                         return "Lead category is required";
                       }
 
                   ),
                   SizedBox(height: 20,),
                   DropDownComponent(items: leadRatingArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allLeadRating.where((element) => element['name'] == item).toList();
@@ -618,14 +618,14 @@ class _AddLeadState extends State<AddLead> {
                       },
                       label: "Select Lead Rating",
                       selectedItem: leadRating,
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
                   ),
                   SizedBox(height: 20,),
                   DropDownComponent(items: leadProductArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allLeadProduct.where((element) => element['name'] == item).toList();
@@ -638,14 +638,14 @@ class _AddLeadState extends State<AddLead> {
                       },
                       label: "Interested Products*",
                       selectedItem: leadType,
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
                   ),
                   SizedBox(height: 20,),
                   DropDownComponent(items: leadSourceArray,
-                      onChange: (String item){
+                      onChange: (String?  item){
                         setState(() {
 
                           List<dynamic> selectID =   allLeadSource.where((element) => element['name'] == item).toList();
@@ -658,7 +658,7 @@ class _AddLeadState extends State<AddLead> {
                       },
                       label: "Select Lead Source",
                       selectedItem: leadSource,
-                      validator: (String item){
+                      validator: (String?  item){
 
                       }
 
@@ -685,7 +685,7 @@ class _AddLeadState extends State<AddLead> {
 
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

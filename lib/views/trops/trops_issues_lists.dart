@@ -23,16 +23,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Interactions/t_client_chat.dart';
 
 class TropIssuesLists extends StatefulWidget {
-  // const ClientInteraction({Key key}) : super(key: key);
+  // const ClientInteraction({Key? key}) : super(key: key);
   //
   // @override
   // _ClientInteractionState createState() => _ClientInteractionState();
 
 
 
-  final int clientID,loanOfficerId;
-  final String clientName,ClientEmail;
-  const TropIssuesLists({Key key,this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId}) : super(key: key);
+  final int?  clientID,loanOfficerId;
+  final String?  clientName,ClientEmail;
+  const TropIssuesLists({Key? key,this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId}) : super(key: key);
   @override
   _TropIssuesListsState createState() => _TropIssuesListsState(
     clientID: this.clientID,
@@ -46,9 +46,9 @@ var interactionData = [];
 
 
 class _TropIssuesListsState extends State<TropIssuesLists> {
-  int clientID,loanOfficerId;
+  int?  clientID,loanOfficerId;
   Timer _timerForInter;
-  final String clientName,ClientEmail;
+  final String?  clientName,ClientEmail;
   _TropIssuesListsState({this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId});
 
 
@@ -68,7 +68,7 @@ class _TropIssuesListsState extends State<TropIssuesLists> {
 
   getInteracctionForClient() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
     final Map<String, String> sequestLoginData = {
       "username": "MobileUser",
@@ -93,7 +93,7 @@ class _TropIssuesListsState extends State<TropIssuesLists> {
 
     var sequestTokenTaker = prefs.setString('sequestToken', sequestData['token']);
 
-    String localLoanOfficerId = prefs.getString('loanOfficerId');
+    String?  localLoanOfficerId = prefs.getString('loanOfficerId');
 
     print('clientID ${clientID}');
     //   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -226,12 +226,12 @@ class _TropIssuesListsState extends State<TropIssuesLists> {
 
   }
 
-String changeStaticStatus(int position){
+String?  changeStaticStatus(int?  position){
   return  position % 2 == 0 ? 'Pending' : position % 3 == 0 ? 'Overdue' : 'Completed';
 }
 
-  Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped,String dueDate,
-      {int position}){
+  Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,String?  dueDate,
+      {int?  position}){
     return InkWell(
       onTap: onTicketTapped,
       child: Container(
@@ -289,7 +289,7 @@ String changeStaticStatus(int position){
   }
 
 
-  // String returnDepts(int position){
+  // String?  returnDepts(int?  position){
   //   return  position % 2 == 0 ? 'Operations' : position % 1 == 0 ? 'Customer Experience' : 'Operations';
   // }
 
@@ -344,8 +344,8 @@ String changeStaticStatus(int position){
     );
   }
 
-  get10(String val_10){
-    String vals = val_10.substring(0,10);
+  get10(String?  val_10){
+    String?  vals = val_10.substring(0,10);
     return vals;
   }
 
@@ -377,7 +377,7 @@ Widget NoSearchResult(){
 class InteractionSearch extends SearchDelegate<String>{
 
   @override
-  String get searchFieldLabel => 'Client ID,Mobile No or BVN';
+  String?  get searchFieldLabel => 'Client ID,Mobile No or BVN';
 
 
   @override
@@ -417,7 +417,7 @@ class InteractionSearch extends SearchDelegate<String>{
     // TODO: implement buildSuggestions
     // throw UnimplementedError();
 
-    Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped,){
+    Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,){
       return InkWell(
         onTap: onTicketTapped,
         child: Container(
@@ -495,7 +495,7 @@ class InteractionSearch extends SearchDelegate<String>{
   }
 
 
-  Widget StatusColor (String value){
+  Widget StatusColor (String?  value){
     return Text('value',style: TextStyle(color: value == 'Pending' ? Colors.orangeAccent : Colors.red),);
   }
 

@@ -30,23 +30,23 @@ import '../../widgets/rounded-button.dart';
 import 'DocumentExtraScreen.dart';
 
 class CreateWacsLoanTerms extends StatefulWidget {
-  // const NewLoan({Key key}) : super(key: key);
+  // const NewLoan({Key? key}) : super(key: key);
   //
   // @override
   // _NewLoanState createState() => _NewLoanState();
 
-  final int clientID, productId, loanId, employerId, sectorID, parentClientType;
+  final int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
   final Map<String,dynamic> thirdPartyLoanResponse,otherInfo;
   const CreateWacsLoanTerms(
-      {Key key,
+      {Key? key,
         this.clientID,
         this.productId,
         this.loanId,
         this.employerId,
         this.sectorID,
         this.parentClientType,
-        this.thirdPartyLoanResponse,
-        this.otherInfo,
+        required this.thirdPartyLoanResponse,
+        required this.otherInfo,
       })
       : super(key: key);
 
@@ -64,7 +64,7 @@ class CreateWacsLoanTerms extends StatefulWidget {
 }
 
 class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
-  int clientID, productId, loanId, employerId, sectorID, parentClientType;
+  int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
   Map<String,dynamic> thirdPartyLoanResponse,otherInfo;
 
   TextEditingController staffId = TextEditingController();
@@ -75,12 +75,12 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
   List<String> collectDocumentType = [];
 
 
-  // String netpay;
-  String committment;
-  // String no_of_repayments;
-  String loanTerm;
-  String repaidEvery;
-  String nominal_interest;
+  // String?  netpay;
+  String?  committment;
+  // String?  no_of_repayments;
+  String?  loanTerm;
+  String?  repaidEvery;
+  String?  nominal_interest;
 
 
   _CreateWacsLoanTermsState(
@@ -90,8 +90,8 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
         this.employerId,
         this.sectorID,
         this.parentClientType,
-        this.thirdPartyLoanResponse,
-        this.otherInfo
+        required this.thirdPartyLoanResponse,
+        required this.otherInfo
       });
 
   @override
@@ -108,18 +108,18 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
   List<dynamic> allEmployer = ["employer"];
   bool _isLoading = false;
 
-  int sectorId;
+  int?  sectorId;
 
   List<String> fundingArray = [];
   List<String> collectFunding = [];
   List<dynamic> allFunding = [];
-  String productName = '';
-  String PassloanPurpose = '';
-  String username,clientBvn;
-  int productInt, purposeInt;
+  String?  productName = '';
+  String?  PassloanPurpose = '';
+  String?  username,clientBvn;
+  int?  productInt, purposeInt;
   var employmentProfile = [];
-  int employerID;
-  String alternateDate;
+  int?  employerID;
+  String?  alternateDate;
   final formatCurrency = NumberFormat.currency(locale: "en_US", symbol: "");
   bool _isFederalOrState = false;
 
@@ -128,17 +128,17 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
   Map<String, dynamic> fullTemps;
   Map<String, dynamic> vOverrides, vOverrides2;
   List<dynamic> chargesData;
-  int ClientaccountLinkingOptions = 100;
+  int?  ClientaccountLinkingOptions = 100;
   bool value = false;
-  String min_repayment = '';
-  String max_repayment = '';
-  String min_principal = '';
-  String max_principal = '';
-  String comp_max_principal = '';
+  String?  min_repayment = '';
+  String?  max_repayment = '';
+  String?  min_principal = '';
+  String?  max_principal = '';
+  String?  comp_max_principal = '';
 
-  String min_interest = '';
-  String max_interest = '';
-  double repaymentAmount = 0.0;
+  String?  min_interest = '';
+  String?  max_interest = '';
+  double? repaymentAmount = 0.0;
   bool _canUseForTopUp = false;
   List<dynamic> productOptions = [];
 
@@ -170,7 +170,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
   loadFullTemplate() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  //  int productID = otherInfo['loanProductId'];
+  //  int?  productID = otherInfo['loanProductId'];
 
     final Future<Map<String, dynamic>> respose =
     RetCodes().getFullTemplate(clientID, productId, employerId);
@@ -264,7 +264,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int i = 0; i < valLenght.length; i++) {
+          for (int?  i = 0; i! < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -289,7 +289,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           allLoanOption = productOptions;
         });
 
-        for (int i = 0; i < productOptions.length; i++) {
+        for (int?  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -355,8 +355,8 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
     DateTime now = DateTime.now();
 
-    String vasCoddd = retsNx360dates(now);
-   // int productID = otherInfo['loanProductId'];
+    String?  vasCoddd = retsNx360dates(now);
+   // int?  productID = otherInfo['loanProductId'];
     Map<String, dynamic> repaymentSchedule = {
       "commitment": 0,
       "netpay": netpay.text,
@@ -440,7 +440,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
     if (vlaMonth == 2) {
       var fubruaryJiffy = newJiffy.dateTime.toString();
       print('feb Jiffy ${fubruaryJiffy}');
-      String vDate = AppDateUtils.getDateForNextRepayment(fubruaryJiffy);
+      String?  vDate = AppDateUtils.getDateForNextRepayment(fubruaryJiffy);
       print('vDate ${vDate}');
       setState(() {
         alternateDate = vDate;
@@ -449,7 +449,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       var otherJiffy = newJiffy.add(duration: Duration(days: 2));
       print('other Jiffy ${otherJiffy.dateTime}');
       var newDee = otherJiffy.dateTime.toString();
-      String vDate = AppDateUtils.getDateForNextRepayment(newDee);
+      String?  vDate = AppDateUtils.getDateForNextRepayment(newDee);
       print('vDate ${vDate} ${newDee}');
       setState(() {
         alternateDate = vDate;
@@ -465,7 +465,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
         clientBvn = responseData['bvn'];
 
         //  interestRateForPrivate = responseData['data']['data']['categpries']['interestRate'];
-        //    String nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
+        //    String?  nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
 
       });
 
@@ -475,11 +475,11 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
   getSalesUsername() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
+    String?  Vusername = prefs.getString('username');
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername!;
     });
   }
 
@@ -494,7 +494,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       _isLoading = true;
     });
     Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+      Uri.parse(AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -532,7 +532,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
   loadLoanTemplates() async {
     print('this is clientID ${clientID} ${employerId}');
-    int empID = employerID == null ? employerId : employerID;
+    int?  empID = employerID == null ? employerId : employerID;
     print('empID ${empID}');
     setState(() {
       _isLoading = true;
@@ -554,7 +554,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
       print('all Products ${newEmp}');
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -599,7 +599,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int i = 0; i < filtered.length; i++) {
+      for (int?  i = 0; i! < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -616,7 +616,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
     });
   }
 
-  loadPurposeTemplate(int productId) async {
+  loadPurposeTemplate(int?  productId) async {
     setState(() {
       _isLoading = true;
     });
@@ -635,7 +635,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -683,7 +683,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
 
 
-  int currentStep = 0;
+  int?  currentStep = 0;
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
 
@@ -699,7 +699,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    String disburseNow = AppDateUtils.retsNx360dates(disburse_now);
+    String?  disburseNow = AppDateUtils.retsNx360dates(disburse_now);
 
     Map<String,dynamic> sendLoanDataForThirdParty = {
 
@@ -818,7 +818,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       //   clientBvn = responseData['bvn'];
       //
       //   //  interestRateForPrivate = responseData['data']['data']['categpries']['interestRate'];
-      //   //    String nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
+      //   //    String?  nomsInterest = responseData['data']['data']['categpries']['interestRate'].toString();
       //
       // });
 
@@ -831,7 +831,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int passedLoanID = prefs.getInt('loanCreatedId');
+    int?  passedLoanID = prefs.getInt('loanCreatedId');
 
     Response responsevv = await get(
       AppUrl.getLoanDetails +
@@ -852,7 +852,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       // loanDetail = newClientData;
 
       if (newClientData['configs'] != null) {
-        int docConfigData = newClientData['configs'][0]['id'];
+        int?  docConfigData = newClientData['configs'][0]['id'];
         if (docConfigData != null) {
           geSingleLoanConfig(docConfigData);
         }
@@ -870,9 +870,9 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
     //   print('Loan detail ${loanDetail}');
   }
 
-  geSingleLoanConfig(int configID) async{
+  geSingleLoanConfig(int?  configID) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int passedLoanID = prefs.getInt('loanCreatedId');
+    int?  passedLoanID = prefs.getInt('loanCreatedId');
     setState(() {
       _isLoading = true;
     });
@@ -895,7 +895,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
       print('modifed emp ${modifiedEmp}');
 
-      for (int i = 0; i < modifiedEmp.length; i++) {
+      for (int?  i = 0; i! < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 
@@ -1555,12 +1555,12 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
           //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           //   child: DropDownComponent(
           //       items: ['Employer 1','Employer 2'],
-          //       onChange: (String item) async {
+          //       onChange: (String?  item) async {
           //
           //       },
           //       label: "Employers   *",
           //       selectedItem: '',
-          //       validator: (String item) {
+          //       validator: (String?  item) {
           //         if (item.length == 0) {
           //           return "Employers ";
           //         }
@@ -1587,7 +1587,7 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
     );
   }
 
-  Widget dummyDataPass(String value,String title){
+  Widget dummyDataPass(String?  value,String?  title){
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
       child:   Row(
@@ -1612,28 +1612,28 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
         selectedDate = selected;
         print(selected);
         //  date = selected.toString();
-        String vasCoddd = retsNx360dates(selected);
+        String?  vasCoddd = retsNx360dates(selected);
         dateController.text = vasCoddd;
       });
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 
@@ -1644,8 +1644,8 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
   Widget EntryField(
       BuildContext context,
       var editController,
-      String labelText,
-      String hintText,
+      String?  labelText,
+      String?  hintText,
       var keyBoard, {
         bool isPassword = false,
         isRealOnly: false,
@@ -1725,12 +1725,12 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
           children: [
             DropDownComponent(
                 items: [],
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {});
                 },
                 label: "Link Savings",
                 selectedItem: "---",
-                validator: (String item) {}),
+                validator: (String?  item) {}),
             SizedBox(
               height: 15,
             ),

@@ -17,7 +17,7 @@
 // }
 //
 // class _MyHomePageState extends State<MyHomePage> {
-//   String deviceId = 'Loading...';
+//   String?  deviceId = 'Loading...';
 //
 //   @override
 //   void initState() {

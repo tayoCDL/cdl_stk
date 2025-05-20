@@ -4,7 +4,7 @@ import 'package:overlay_support/overlay_support.dart';
 class Utils {
   static void showTopSnackBar(
       BuildContext context,
-      String message,
+      String?  message,
       Color color,
       ) =>
       showSimpleNotification(

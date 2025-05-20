@@ -1,8 +1,8 @@
 
 class Client {
-  int id;
-  String name;
-  int miles;
+  int? id;
+  String?  name;
+  int? miles;
 
   Client(this.id, this.name, this.miles);
 

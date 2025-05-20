@@ -13,9 +13,9 @@ import '../../view_models/CodesAndLogic.dart';
 // import '../leads/ViewClient.dart';
 
 class LeadSearch extends StatefulWidget {
-  final String comingFrom;
-  final int loanOfficerId;
-  const LeadSearch({Key key,this.comingFrom,this.loanOfficerId}) : super(key: key);
+  final String?  comingFrom;
+  final int?  loanOfficerId;
+  const LeadSearch({Key? key,this.comingFrom,this.loanOfficerId}) : super(key: key);
 
   @override
   _LeadSearchState createState() => _LeadSearchState(
@@ -25,24 +25,24 @@ class LeadSearch extends StatefulWidget {
 }
 
 class _LeadSearchState extends State<LeadSearch> {
-  String comingFrom;
-  int loanOfficerId;
+  String?  comingFrom;
+  int?  loanOfficerId;
   _LeadSearchState({
     this.comingFrom,
     this.loanOfficerId
   });
   var allCLient = [];
   bool _isLoading = false;
-  String searchStatus = '';
+  String?  searchStatus = '';
 
-  vchangeState(String newVals){
+  vchangeState(String?  newVals){
     setState(() {
       searchStatus = newVals;
     });
     print('newStat>> ${newVals}');
   }
 
-  void searchValue(String value){
+  void searchValue(String?  value){
     if(value == 'displayName'){
       vchangeState('displayName');
     }
@@ -68,7 +68,7 @@ class _LeadSearchState extends State<LeadSearch> {
 
   }
 
-  Future<List> getSuggestions(String query) async{
+  Future<List> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(query.length < 3){
@@ -90,7 +90,7 @@ class _LeadSearchState extends State<LeadSearch> {
         });
 
         print('loan Officer Id ${loanOfficerId}');
-        String sendQuery = searchStatus + '${query}';
+        String?  sendQuery = searchStatus + '${query}';
 
         final Future<Map<String,dynamic>> respose =   RetCodes().leadSearch(loanOfficerId,sendQuery);
         respose.then((response) async {
@@ -184,7 +184,7 @@ class _LeadSearchState extends State<LeadSearch> {
 
 
 
-  searchResultTile(String name,String mobile,var clientID,String category,String status){
+  searchResultTile(String?  name,String?  mobile,var clientID,String?  category,String?  status){
     return InkWell(
       onTap: (){
 
@@ -274,11 +274,11 @@ class _LeadSearchState extends State<LeadSearch> {
   }
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        Function onBtnPressed,bool isSuffix = false,
-        String extension,bool needsValidation = true,Function changeValidator,Widget prefixIcon}){
+        VoidCallback onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

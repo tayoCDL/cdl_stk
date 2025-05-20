@@ -25,9 +25,9 @@ import 'dart:io' as Io;
 import '../../palatte.dart';
 
 class LogTropsIssues extends StatefulWidget {
-  final int ClientID;
-  final String clientName, ClientEmail;
-  const LogTropsIssues({Key key, this.ClientID, this.ClientEmail, this.clientName})
+  final int  ClientID;
+  final String  clientName, ClientEmail;
+  const LogTropsIssues({Key? key, required this.ClientID, required this.ClientEmail, required this.clientName})
       : super(key: key);
 
   @override
@@ -40,10 +40,10 @@ class LogTropsIssues extends StatefulWidget {
 enum SingingCharacter { resolved, Open, Closed }
 
 class _LogTropsIssuesState extends State<LogTropsIssues> {
-  int ClientID;
-  String ClientEmail, clientName;
+  int  ClientID;
+  String  ClientEmail, clientName;
 
-  _LogTropsIssuesState({this.ClientID, this.clientName, this.ClientEmail});
+  _LogTropsIssuesState({ required this.ClientID,  required this.clientName, required this.ClientEmail});
 
   @override
   List<String> affectedUserArray = [];
@@ -66,31 +66,31 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   List<String> SubCategoryArray = [];
   List<String> collectSubCategory = [];
   List<dynamic> allSubCategory = [];
-  String tat = '0';
-  String passportFileName,
+  String?  tat = '0';
+  String?  passportFileName,
       passportFileSize,
       passportFiletype,
       passportFileLocation,
       newFileLocation;
-  String appendBase64 = '';
+  String?  appendBase64 = '';
 
   File uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
+  String?  _fileName = '...';
 
-  String fileSize = '';
+  String?  fileSize = '';
 
-  String _path = '...';
-  String baseimage = '';
-  String _extension;
+  String?  _path = '...';
+  String?  baseimage = '';
+  String?  _extension;
   bool _hasValidMime = false;
   FileType _pickingType;
   TextEditingController _controller = new TextEditingController();
   File chosenImage;
-  String agent_name, agent_email = '';
-  int agentId = 0;
-  String agentCode = "";
+  String?  agent_name, agent_email = '';
+  int?  agentId = 0;
+  String?  agentCode = "";
 
   TextEditingController passport = TextEditingController();
 
@@ -159,7 +159,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         _isLoading = false;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -183,7 +183,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -196,7 +196,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
     });
   }
 
-  TicketType(int affectedType) {
+  TicketType(int?  affectedType) {
     setState(() {
       _isLoading = true;
     });
@@ -216,7 +216,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         collectTicketType = [];
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -237,7 +237,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //   setState(() {
   //     _isLoading = true;
   //   });
-  //   String url = AppUrl.getCategoryByUnitId;
+  //   String?  url = AppUrl.getCategoryByUnitId;
   //   final Future<Map<String,dynamic>> respose =   RetCodes().getCategorybyUnitId(2761);
   //   respose.then((response) {
   //     setState(() {
@@ -254,7 +254,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //       allCategory = newEmp;
   //     });
   //
-  //     for(int i = 0; i < newEmp.length;i++){
+  //     for(int?  i = 0; i < newEmp.length;i++){
   //       //  print(newEmp[i].affectedTypeName);
   //       collectCategory.add(newEmp[i]['categoryName']);
   //     }
@@ -269,7 +269,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //   );
   // }
 
-  CategoryType(int ticketInt, int unitID) {
+  CategoryType(int?  ticketInt, int?  unitID) {
     setState(() {
       _isLoading = true;
     });
@@ -289,7 +289,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allCategory = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['categoryName']);
 
         collectCategory.add(newEmp[i]['categoryName']);
@@ -304,7 +304,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
     });
   }
 
-  getSubCategory(int categoryID) {
+  getSubCategory(int?  categoryID) {
     setState(() {
       _isLoading = true;
     });
@@ -326,7 +326,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         collectSubCategory = [];
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -342,10 +342,10 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
   @override
   var _lights = true;
-  String employment_type = '';
-  int affectedInt, ticketInt, categoryInt, subCategoryInt;
-  //int departmentInt = 2761;
-  int departmentInt;
+  String?  employment_type = '';
+  int?  affectedInt, ticketInt, categoryInt, subCategoryInt;
+  //int?  departmentInt = 2761;
+  int?  departmentInt;
   bool _isLoading = false;
 
   TextEditingController title = TextEditingController();
@@ -413,7 +413,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
           //  "closeTicket": false,
         };
 
-        String url = AppUrl.raiseTicket;
+        String?  url = AppUrl.raiseTicket;
         final Future<Map<String, dynamic>> respose =
         addInteractionProvider.addInteraction(interactionData, url);
 
@@ -421,7 +421,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
         respose.then((response) {
           if (response['status']) {
-            String localLoanOfficerId = prefs.getString('loanOfficerId');
+            String?  localLoanOfficerId = prefs.getString('loanOfficerId');
 
             // Navigator.pushReplacementNamed(context, '');
             // MyRouter.pushPageReplacement(
@@ -504,7 +504,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
                   // DropDownComponent(
                   //     items: ["Operations","Customer experience"],
-                  //     onChange: (String item) {
+                  //     onChange: (String?  item) {
                   //       setState(() {
                   //         List<dynamic> selectID = allCategory
                   //             .where(
@@ -520,12 +520,12 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                   //     },
                   //     label: "Department",
                   //     selectedItem: "----",
-                  //     validator: (String item) {}),
+                  //     validator: (String?  item) {}),
 
                   Visibility(
                     visible: true,
                     child: DropDownComponent(items: departmentUnitArray,
-                        onChange: (String item){
+                        onChange: (String?  item){
                           setState(() {
 
                             List<dynamic> selectID =   allDepartmentUnit.where((element) => element['unitName'] == item).toList();
@@ -539,7 +539,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                         },
                         label: "Responsible Department(Unit): ",
                         selectedItem: "----",
-                        validator: (String item){
+                        validator: (String?  item){
 
                         }
 
@@ -606,7 +606,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                   //  SizedBox(height: 20,),
 
                   // DropDownComponent(items: affectedUserArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allAffected.where((element) => element['affectedTypeName'] == item).toList();
@@ -620,7 +620,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                   //     },
                   //     label: "Affected User Type: ",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -632,7 +632,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                   // ),
                   // DropDownComponent(
                   //     items: TicketTypeArray,
-                  //     onChange: (String item) {
+                  //     onChange: (String?  item) {
                   //       setState(() {
                   //         List<dynamic> selectID = allTicketType
                   //             .where((element) =>
@@ -646,7 +646,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                   //     },
                   //     label: "Ticket Type",
                   //     selectedItem: "----",
-                  //     validator: (String item) {}),
+                  //     validator: (String?  item) {}),
 
                   // SizedBox(height: 20,),
 
@@ -656,7 +656,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                   ),
                   DropDownComponent(
                       items: CategoryArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allCategory
                               .where(
@@ -672,13 +672,13 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                       },
                       label: "Category",
                       selectedItem: "----",
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                   SizedBox(
                     height: 20,
                   ),
                   DropDownComponent(
                       items: SubCategoryArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allSubCategory
                               .where((element) =>
@@ -693,7 +693,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                       },
                       label: "Sub Category",
                       selectedItem: "----",
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                   SizedBox(
                     height: 20,
                   ),
@@ -863,7 +863,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //     final kb = bytes / 1024;
   //     final mb = kb / 1024;
   //     print('this is the MB ${mb}');
-  //     String filesizeAsString  = mb.toString();
+  //     String?  filesizeAsString?   = mb.toString();
   //     fileSize = filesizeAsString;
   //
   //     // end get file size
@@ -873,7 +873,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //
   //
   //
-  //     String getPath  = choosedimage.toString();
+  //     String?  getPath  = choosedimage.toString();
   //     _fileName = getPath != null ? getPath.split('/').last : '...';
   //     passport.text = _fileName;
   //   });
@@ -902,20 +902,20 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
     base64.encode(result); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -929,7 +929,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -965,7 +965,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   void _openFileExplorer() async {
     MyRouter.popPage(context);
 
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';
@@ -1038,7 +1038,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
       print('file extension ${_path.split('.').last}');
 
-      String filePath = _path.split('.').last;
+      String?  filePath = _path.split('.').last;
 
       var result;
 
@@ -1061,13 +1061,13 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(extensionChecker ? result : bytes);
+      String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -1112,8 +1112,8 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   Widget EntryField(
       BuildContext context,
       var editController,
-      String labelText,
-      String hintText,
+      String?  labelText,
+      String?  hintText,
       var keyBoard, {
         bool isPassword = false,
         var maxLenghtAllow,

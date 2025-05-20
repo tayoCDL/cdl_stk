@@ -33,8 +33,8 @@ import '../../widgets/shared/top_toastr.dart';
 import 'client_search_page.dart';
 
 class ClientList extends StatelessWidget {
-  final String comingFrom;
-  const ClientList({Key key,this.comingFrom}) : super(key: key);
+  final String?  comingFrom;
+  const ClientList({Key? key,this.comingFrom}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class ClientList extends StatelessWidget {
 
 
 class ClientLists extends StatefulWidget {
-  const ClientLists({Key key}) : super(key: key);
+  const ClientLists({Key? key}) : super(key: key);
 
   @override
   _ClientListsState createState() => _ClientListsState();
@@ -82,7 +82,7 @@ List<int> collectClientId = [];
 
 bool isScrolled = true;
 bool isSearchLoading = false;
-String _isLoading = 'not_loading';
+String?  _isLoading = 'not_loading';
 
 var searchCLientData = [];
 
@@ -153,7 +153,7 @@ class _ClientListsState extends State<ClientLists> {
   }
 
 
-  Future<List> getSuggestions(String query) async{
+  Future<List> getSuggestions(String?  query) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(mounted){
@@ -199,7 +199,7 @@ class _ClientListsState extends State<ClientLists> {
     await Future.delayed(Duration(milliseconds: 2000));
     List _list = <dynamic>[];
 
-    String query = _typeAheadController.text;
+    String?  query = _typeAheadController.text;
     final Future<Map<String,dynamic>> respose =   RetCodes().searchClient(query);
 
     respose.then((response) async {
@@ -219,7 +219,7 @@ class _ClientListsState extends State<ClientLists> {
         print('allClient ${allCLient}');
 
 
-        for(int i = 0; i < allCLient.length;i++){
+        for(int?  i = 0; i < allCLient.length;i++){
           print(' new client ${allCLient[i]['entityName']}');
           collectClientName.add(allCLient[i]['entityName']);
 
@@ -239,7 +239,7 @@ class _ClientListsState extends State<ClientLists> {
     print('collect Client Name ${collectClientName}');
 
 
-    for(int i=0;i < allCLient.length;i++){
+    for(int?  i=0;i < allCLient.length;i++){
       _list.add(new TestItem.fromJson(
           {'label': collectClientName[i], 'value': collectClientId[i]}
       ));
@@ -262,8 +262,8 @@ class _ClientListsState extends State<ClientLists> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
-    String accessToken = prefs.getString('cloak_access_token');
+    int?  staffId = prefs.getInt('staffId');
+    String?  accessToken = prefs.getString('cloak_access_token');
     print('staffId ${staffId}');
     print(tfaToken);
     print(token);
@@ -297,8 +297,8 @@ class _ClientListsState extends State<ClientLists> {
 
 
       // final Map<String, dynamic> encryptedResponseData = json.decode(responsevv.body);
-      // String decryptResult = encryptedResponseData['result'];
-      // String decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
+      // String?  decryptResult = encryptedResponseData['result'];
+      // String?  decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
       //
       // Map<String, dynamic> responseData2 = jsonDecode(decryptedResponse);
       final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
@@ -323,7 +323,7 @@ class _ClientListsState extends State<ClientLists> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     print('staffId ${staffId}');
     print(tfaToken);
     print(token);
@@ -358,11 +358,11 @@ class _ClientListsState extends State<ClientLists> {
 
   @override
 
-  int CLientID;
+  int?  CLientID;
 
-  allWordsCapitilize (String str) {
+  allWordsCapitilize (String?  str) {
     return str.toLowerCase().split(' ').map((word) {
-      String leftText = (word.length > 1) ? word.substring(1, word.length) : '';
+      String?  leftText = (word.length > 1) ? word.substring(1, word.length) : '';
       return word[0].toUpperCase() + leftText;
     }).join(' ');
   }
@@ -595,7 +595,7 @@ class _ClientListsState extends State<ClientLists> {
     );
   }
 
-  _leadsContactView(Color colm,String title,String date,String nameLogo,String employer){
+  _leadsContactView(Color colm,String?  title,String?  date,String?  nameLogo,String?  employer){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.9),
       child: Container(
@@ -612,7 +612,7 @@ class _ClientListsState extends State<ClientLists> {
     );
   }
 
-  _LeadingUserTile(Color cols,String nameLogo){
+  _LeadingUserTile(Color cols,String?  nameLogo){
     return Container(
       padding: EdgeInsets.only(top: 1),
       width: 44,
@@ -650,7 +650,7 @@ class _ClientListsState extends State<ClientLists> {
                   child: ListView.builder(
                     controller: scrollController,
                     itemCount: 25,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (BuildContext context, int?  index) {
                       return ListTile(title: Text('Item $index'));
                     },
                   ),
@@ -796,7 +796,7 @@ class ClientSearch extends SearchDelegate<String>{
     //     element['displayName'].startsWith(query.toUpperCase())).toList();
 
 
-    _LeadingUserTile(Color cols,String nameLogo){
+    _LeadingUserTile(Color cols,String?  nameLogo){
       return Container(
         padding: EdgeInsets.only(top: 1),
         width: 44,
@@ -810,7 +810,7 @@ class ClientSearch extends SearchDelegate<String>{
       );
     }
 
-    _leadsContactView(Color colm,String title,String date,String nameLogo,String employer,String status){
+    _leadsContactView(Color colm,String?  title,String?  date,String?  nameLogo,String?  employer,String?  status){
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0.9),
         child: Container(
@@ -853,7 +853,7 @@ class ClientSearch extends SearchDelegate<String>{
   }
 
 
-  Widget StatusColor (String value){
+  Widget StatusColor (String?  value){
     return Text('value',style: TextStyle(color: value == 'Pending' ? Colors.orangeAccent : Colors.red),);
   }
 
@@ -918,10 +918,10 @@ class ClientSearch extends SearchDelegate<String>{
 
 
 class TestItem {
-  final String label;
+  final String?  label;
   dynamic value;
 
-  TestItem({@required this.label, this.value});
+  TestItem({required this.label, this.value});
 
   factory TestItem.fromJson(Map<String, dynamic> json) {
     return TestItem(label: json['label'], value: json['value']);

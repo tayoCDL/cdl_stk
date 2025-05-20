@@ -18,8 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LeadNextOfKinDetails extends StatefulWidget {
-  final int ClientInt;
-  const LeadNextOfKinDetails({Key key,this.ClientInt}) : super(key: key);
+  final int?  ClientInt;
+  const LeadNextOfKinDetails({Key? key,this.ClientInt}) : super(key: key);
 
   @override
   _LeadNextOfKinDetailsState createState() => _LeadNextOfKinDetailsState(
@@ -29,7 +29,7 @@ class LeadNextOfKinDetails extends StatefulWidget {
 
 class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
 
-  int ClientInt;
+  int?  ClientInt;
   _LeadNextOfKinDetailsState({this.ClientInt});
 
   @override
@@ -97,7 +97,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
             allTitle = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectTitle.add(mtBool[i]['name']);
           }
@@ -129,7 +129,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
           allTitle = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectTitle.add(newEmp[i]['name']);
         }
@@ -156,7 +156,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
     //     allRelationship = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectRelationship.add(newEmp[i]['name']);
     //   }
@@ -197,7 +197,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
             allRelationship = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectRelationship.add(mtBool[i]['name']);
           }
@@ -229,7 +229,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
           allRelationship = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectRelationship.add(newEmp[i]['name']);
         }
@@ -257,7 +257,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -299,7 +299,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
             allMarital = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectMarital.add(mtBool[i]['name']);
           }
@@ -331,7 +331,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
           allMarital = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectMarital.add(newEmp[i]['name']);
         }
@@ -359,7 +359,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
     //     allGender = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectGender.add(newEmp[i]['name']);
     //   }
@@ -400,7 +400,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
             allGender = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectGender.add(mtBool[i]['name']);
           }
@@ -432,7 +432,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
           allGender = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectGender.add(newEmp[i]['name']);
         }
@@ -460,7 +460,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
     //     allProfession = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectProfession.add(newEmp[i]['name']);
     //   }
@@ -502,7 +502,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
             allProfession = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectProfession.add(mtBool[i]['name']);
           }
@@ -534,7 +534,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
           allProfession = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectProfession.add(newEmp[i]['name']);
         }
@@ -556,7 +556,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
@@ -598,7 +598,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
 
   final _form = GlobalKey<FormState>(); //for storing form state.
 
-  int titleInt,relationshipInt,maritalInt,genderInt,professionInt;
+  int?  titleInt,relationshipInt,maritalInt,genderInt,professionInt;
   AddClientProvider addClientProvider = AddClientProvider();
 
   Widget build(BuildContext context) {
@@ -617,7 +617,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
       prefs.setInt('tempNextOfKinInt', nextOfKin.isEmpty ? null :  nextOfKin[0]['id']);
 
 
-      int getNextOfKin = prefs.getInt('tempNextOfKinInt');
+      int?  getNextOfKin = prefs.getInt('tempNextOfKinInt');
 
 
 
@@ -730,7 +730,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: titleArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allTitle.where((element) => element['name'] == item).toList();
@@ -743,7 +743,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                                     },
                                     label: "Title * ",
                                     selectedItem: "Mr",
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -777,7 +777,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: relationshipArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allRelationship.where((element) => element['name'] == item).toList();
@@ -790,7 +790,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                                     },
                                     label: "Relationship",
                                     selectedItem: "--",
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -799,7 +799,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: maritalArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allMarital.where((element) => element['name'] == item).toList();
@@ -812,7 +812,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                                     },
                                     label: "Marital Status",
                                     selectedItem: "--",
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -821,7 +821,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: genderArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
 
                                         List<dynamic> selectID =   allGender.where((element) => element['name'] == item).toList();
@@ -834,7 +834,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                                     },
                                     label: "Gender",
                                     selectedItem: "--",
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -843,7 +843,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                               // Padding(
                               //   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               //   child: DropDownComponent(items: professionArray,
-                              //       onChange: (String item) async{
+                              //       onChange: (String?  item) async{
                               //         setState(() {
                               //
                               //           List<dynamic> selectID =   allProfession.where((element) => element['name'] == item).toList();
@@ -856,7 +856,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
                               //       },
                               //       label: "Profession",
                               //       selectedItem: "--",
-                              //       validator: (String item){
+                              //       validator: (String?  item){
                               //
                               //       }
                               //   ),
@@ -888,7 +888,7 @@ class _LeadNextOfKinDetailsState extends State<LeadNextOfKinDetails> {
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

@@ -13,7 +13,7 @@ import '../widgets/background-image.dart';
 import 'Login/login.dart';
 
 class SalesType extends StatefulWidget {
-  const SalesType({Key key}) : super(key: key);
+  const SalesType({Key? key}) : super(key: key);
 
   @override
   _SalesTypeState createState() => _SalesTypeState();
@@ -34,7 +34,7 @@ class _SalesTypeState extends State<SalesType> {
 
    isAppPermissionChecked() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool checkPermission = prefs.getBool('permissionEnabled');
+    bool? checkPermission = prefs.getBool('permissionEnabled');
     if(checkPermission == null){
       return true;
     }
@@ -166,7 +166,7 @@ class _SalesTypeState extends State<SalesType> {
                                       //  MyRouter.pushPage(context, LoginScreen(login_type: 'Loan Management',));
                                       //  MyRouter.pushPage(context, AppPermission());
                                         final SharedPreferences prefs = await SharedPreferences.getInstance();
-                                        bool checkPermission = prefs.getBool('permissionEnabled');
+                                        bool? checkPermission = prefs.getBool('permissionEnabled');
 
                                         // if(checkPermission == null){
                                    //       Flushbar(

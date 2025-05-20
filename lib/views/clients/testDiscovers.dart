@@ -4,7 +4,7 @@ import 'package:simple_image_cropper/simple_image_cropper.dart';
 
 
 class Demo extends StatefulWidget {
-  Demo({Key key}) : super(key: key);
+  Demo({Key? key}) : super(key: key);
 
   @override
   _DemoState createState() => _DemoState();

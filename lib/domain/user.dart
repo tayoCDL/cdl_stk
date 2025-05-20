@@ -1,16 +1,16 @@
 class User {
-  String username;
-  int userId;
-  String base64EncodedAuthenticationKey;
-  bool authenticated;
-  int officeId;
-  int staffId;
-  String officeName;
-  String staffDisplayName;
-  List<dynamic> roles;
-  List<dynamic> permissions;
-  bool shouldRenewPassword;
-  bool isTwoFactorAuthenticationRequired;
+  String? username;
+  int? userId;
+  String? base64EncodedAuthenticationKey;
+  bool? authenticated;
+  int? officeId;
+  int? staffId;
+  String? officeName;
+  String? staffDisplayName;
+  List<dynamic>? roles;
+  List<dynamic>? permissions;
+  bool? shouldRenewPassword;
+  bool? isTwoFactorAuthenticationRequired;
 
 
   User({this.username,

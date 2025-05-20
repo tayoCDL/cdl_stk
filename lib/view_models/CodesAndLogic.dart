@@ -59,7 +59,7 @@ class RetCodes {
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     print(tfaToken);
     print(token);
 
@@ -96,7 +96,7 @@ class RetCodes {
     if (responsevv.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(responsevv.body);
 
-      String agentCode = responseData['agentCode'];
+      String?  agentCode = responseData['agentCode'];
       prefs.setString('agentCode', agentCode);
       // print('agent COde ${agentCode}');
 
@@ -111,7 +111,7 @@ class RetCodes {
       if (responseAgent.statusCode == 200) {
         final Map<String, dynamic> responseDataAgent =
             json.decode(responseAgent.body);
-        int referralCount = responseDataAgent['totalFilteredRecords'];
+        int?  referralCount = responseDataAgent['totalFilteredRecords'];
         print('get response from agent Code ${responseDataAgent}');
 
         print('end from auth provider ');
@@ -135,7 +135,7 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> clientAccount(String clientId,
+  Future<Map<String, dynamic>> clientAccount(String?  clientId,
       {BuildContext context}) async {
     var result;
 
@@ -143,7 +143,7 @@ class RetCodes {
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    // int staffId = prefs.getInt('staffId');
+    // int?  staffId = prefs.getInt('staffId');
     print(tfaToken);
     print(token);
 
@@ -280,7 +280,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getCodes(String valID) async {
+  Future<Map<String, dynamic>> getCodes(String?  valID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -340,7 +340,7 @@ class RetCodes {
     return result;
   }
 
-  Future<List<dynamic>> getterAPI(String url) async {
+  Future<List<dynamic>> getterAPI(String?  url) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -440,7 +440,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> SingleLoanDocumentConfiguration(
-      int codeID) async {
+      int?  codeID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -503,7 +503,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> employers(int sector, String name) async {
+  Future<Map<String, dynamic>> employers(int?  sector, String?  name) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -564,7 +564,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> searchClient(String name) async {
+  Future<Map<String, dynamic>> searchClient(String?  name) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -627,11 +627,11 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> leadSearch(
-      int staffId, String searchName) async {
+      int?  staffId, String?  searchName) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
 
@@ -722,7 +722,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> Leademployers(String employerName) async {
+  Future<Map<String, dynamic>> Leademployers(String?  employerName) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -783,7 +783,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> employerProduct(int employerId) async {
+  Future<Map<String, dynamic>> employerProduct(int?  employerId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -848,7 +848,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> thirdparty_employerProduct(int employerId) async {
+  Future<Map<String, dynamic>> thirdparty_employerProduct(int?  employerId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -985,7 +985,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> accounts(String clientID) async {
+  Future<Map<String, dynamic>> accounts(String?  clientID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1048,7 +1048,7 @@ class RetCodes {
 
 
 
-  Future<Map<String, dynamic>> activityList(String accountNumber) async {
+  Future<Map<String, dynamic>> activityList(String?  accountNumber) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1112,7 +1112,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> recoveryOverview(int collectionID) async {
+  Future<Map<String, dynamic>> recoveryOverview(int?  collectionID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1177,7 +1177,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> loanSold(
-      int loanOfficerId, int loanStatus) async {
+      int?  loanOfficerId, int?  loanStatus) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1186,7 +1186,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
     print(tfaToken);
     print(token);
-    String iUrl = AppUrl.loanGet +
+    String?  iUrl = AppUrl.loanGet +
         'loanStatusId=${loanStatus}&loanOfficerId=${loanOfficerId}&orderBy=id&sortOrder=desc&locale=en&dateFormat=yyyy-MM-dd';
     print(iUrl);
 
@@ -1241,7 +1241,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> loanLists(String clientID) async {
+  Future<Map<String, dynamic>> loanLists(String?  clientID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1302,7 +1302,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> filterLoanWithStatusId(String clientID,int loanStatusId) async {
+  Future<Map<String, dynamic>> filterLoanWithStatusId(String?  clientID,int?  loanStatusId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1366,7 +1366,7 @@ class RetCodes {
 
   Future<Map<String, dynamic>> affectedUsers() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
     var result;
 
@@ -1420,7 +1420,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getTicketStatus(String ticketId) async {
+  Future<Map<String, dynamic>> getTicketStatus(String?  ticketId) async {
     print('ticketID ${ticketId}');
     var result;
     try {
@@ -1463,7 +1463,7 @@ class RetCodes {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
     final Map<String, String> sequestLoginData = {
@@ -1517,10 +1517,10 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> ticketType(int affectedUserType) async {
+  Future<Map<String, dynamic>> ticketType(int?  affectedUserType) async {
     var result;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
     final Map<String, String> sequestLoginData = {
       "username": "MobileUser",
@@ -1572,11 +1572,11 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getCategorybyUnitId(int unitId) async {
+  Future<Map<String, dynamic>> getCategorybyUnitId(int?  unitId) async {
     var result;
     //
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
     final Map<String, String> sequestLoginData = {
@@ -1629,11 +1629,11 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> categoryType(int ticketInt, int unitId) async {
+  Future<Map<String, dynamic>> categoryType(int?  ticketInt, int?  unitId) async {
     var result;
     //
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
     final Map<String, String> sequestLoginData = {
@@ -1685,11 +1685,11 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> categoryTypeForOpportunity(int ticketInt) async {
+  Future<Map<String, dynamic>> categoryTypeForOpportunity(int?  ticketInt) async {
     var result;
     //
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
     final Map<String, String> sequestLoginData = {
@@ -1745,7 +1745,7 @@ class RetCodes {
     var result;
     //
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
     final Map<String, String> sequestLoginData = {
@@ -1796,10 +1796,10 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getSubCategoryType(int categoryID) async {
+  Future<Map<String, dynamic>> getSubCategoryType(int?  categoryID) async {
     var result;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
 
     final Map<String, String> sequestLoginData = {
@@ -1850,7 +1850,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getSubValues(
-      int firstValue, int secondValue) async {
+      int?  firstValue, int?  secondValue) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1901,7 +1901,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getLoanProducts(
-      int clientId, int employerId) async {
+      int?  clientId, int?  employerId) async {
     var result;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -1936,7 +1936,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> repayment_loan_products(
-     int employerId) async {
+     int?  employerId) async {
     var result;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -1968,7 +1968,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> getLoanPurpose(
-      int clientId, int productId) async {
+      int?  clientId, int?  productId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2010,7 +2010,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> fundingOptions(
-      int clientId, int productId) async {
+      int?  clientId, int?  productId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2044,7 +2044,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getLoanMetrics(String params) async {
+  Future<Map<String, dynamic>> getLoanMetrics(String?  params) async {
     var result;
     var dateFormat = "dd MMMM yyyy";
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2076,7 +2076,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getLoanFrequency(
-      int clientId, int productId) async {
+      int?  clientId, int?  productId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2111,7 +2111,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getAmortizationType(
-      int clientId, int productId) async {
+      int?  clientId, int?  productId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2146,7 +2146,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getInterestMethod(
-      int clientId, int productId) async {
+      int?  clientId, int?  productId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2181,7 +2181,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getFullTemplate(
-      int clientId, int productId, int employerID) async {
+      int?  clientId, int?  productId, int?  employerID) async {
     var result;
 
     print('sent items ${clientId},${productId},${employerID}');
@@ -2226,7 +2226,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getRepaymentFrequency(
-      int clientId, int productId) async {
+      int?  clientId, int?  productId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2527,7 +2527,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getClientProfile(String clientID) async {
+  Future<Map<String, dynamic>> getClientProfile(String?  clientID) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -2550,7 +2550,7 @@ class RetCodes {
     return newClientData;
   }
 
-  Future<Map<String, dynamic>> new_getClientProfile(String clientID) async {
+  Future<Map<String, dynamic>> new_getClientProfile(String?  clientID) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -2774,7 +2774,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> verifyOTP(String phone, String otp) async {
+  Future<Map<String, dynamic>> verifyOTP(String?  phone, String?  otp) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2871,7 +2871,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> getRiskDetails(
-      {String bvn, String productId}) async {
+      {String?  bvn, String?  productId}) async {
     var result;
    //   print('>> productId ${productId} and ${bvn}');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -2908,7 +2908,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> getConfigForLoan(
-    int loanID,
+    int?  loanID,
   ) async {
     var result;
 
@@ -2984,7 +2984,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> requestLafOTP(int loanID, String mode) async {
+  Future<Map<String, dynamic>> requestLafOTP(int?  loanID, String?  mode) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3051,7 +3051,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> sendLinkToCLient(
-      int loanID, String mode, String commandType) async {
+      int?  loanID, String?  mode, String?  commandType) async {
     var result;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -3090,7 +3090,7 @@ class RetCodes {
     return result;
   }
 
-  Future<bool> isBvnAvailable(int clientId) async {
+  Future<bool> isBvnAvailable(int?  clientId) async {
     var result;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -3125,7 +3125,7 @@ class RetCodes {
   }
 
 
-    Future<Map<String,dynamic>> lafDocument(int loanID) async{
+    Future<Map<String,dynamic>> lafDocument(int?  loanID) async{
       var result;
     try{
         final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3169,7 +3169,7 @@ class RetCodes {
 
   }
 
-  // Future<Map<String, dynamic>> lafDocument(int loanID) async {
+  // Future<Map<String, dynamic>> lafDocument(int?  loanID) async {
   //   var result;
   //
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3207,7 +3207,7 @@ class RetCodes {
   // }
 
 
-  Future<Map<String, dynamic>> lafDownoad(int loanID) async {
+  Future<Map<String, dynamic>> lafDownoad(int?  loanID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3232,7 +3232,7 @@ class RetCodes {
       // var fetchDoe = responseData;
       //
       // var dir=await getApplicationDocumentsDirectory();
-      // String tempPath = dir.path;
+      // String?  tempPath = dir.path;
       //
       // File file = new File('$tempPath/pdfLaf.png');
       // await file.writeAsBytes(responseData);
@@ -3246,7 +3246,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> verifyLafOTP(int loanID, String OTPtoken) async {
+  Future<Map<String, dynamic>> verifyLafOTP(int?  loanID, String?  OTPtoken) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3287,7 +3287,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> addNote(
-      var note, int loanID, String methodType, int noteId) async {
+      var note, int?  loanID, String?  methodType, int?  noteId) async {
     print('method type ${methodType}');
 
     var result;
@@ -3366,7 +3366,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> SendLoanForApproval(
-      var note, int loanID, String approvalType) async {
+      var note, int?  loanID, String?  approvalType) async {
     ///external/loan/{loanId}/decide
     var result;
 
@@ -3378,9 +3378,9 @@ class RetCodes {
     //base URL/loan
 
     // loans/3636?command=draftapprove
-    // String url  = approvalType == 'auto_review' ? AppUrl.externalApprove + '${loanID}' + '/decide' : AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
-   // String url = AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
-    String url = AppUrl.newSendLoanForApproval + '${loanID}';
+    // String?  url  = approvalType == 'auto_review' ? AppUrl.externalApprove + '${loanID}' + '/decide' : AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
+   // String?  url = AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
+    String?  url = AppUrl.newSendLoanForApproval + '${loanID}';
 
     print('url ${url}');
     Response responsevv = await post(
@@ -3417,7 +3417,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> sendForReApprove(
-      var note, int approvalId, String approvalType) async {
+      var note, int?  approvalId, String?  approvalType) async {
     ///external/loan/{loanId}/decide
     var result;
 
@@ -3429,9 +3429,9 @@ class RetCodes {
     //base URL/loan
 
     // loans/3636?command=draftapprove
-    // String url  = approvalType == 'auto_review' ? AppUrl.externalApprove + '${loanID}' + '/decide' : AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
-    // String url = AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
-    String url = AppUrl.sendForReApprove + '${approvalId}';
+    // String?  url  = approvalType == 'auto_review' ? AppUrl.externalApprove + '${loanID}' + '/decide' : AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
+    // String?  url = AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
+    String?  url = AppUrl.sendForReApprove + '${approvalId}';
 
     print('url ${url}');
     Response responsevv = await post(
@@ -3469,7 +3469,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> requestemployerValidation(
-      int clientID, String mode) async {
+      int?  clientID, String?  mode) async {
     var result;
 
     print('client iD ${clientID} ${mode}');
@@ -3507,7 +3507,7 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> employerValidation(
-      int clientID, String tokenReceived) async {
+      int?  clientID, String?  tokenReceived) async {
     var result;
 
     print('client iD ${clientID} ${tokenReceived}');
@@ -3560,7 +3560,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> bankStatementAnalyser(
-      var analysisData, int loanId, int clientId) async {
+      var analysisData, int?  loanId, int?  clientId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3605,7 +3605,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getEmployersBranch(int firstValue) async {
+  Future<Map<String, dynamic>> getEmployersBranch(int?  firstValue) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3658,7 +3658,7 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> loanPermission(int staffId,int clientId) async {
+  Future<Map<String, dynamic>> loanPermission(int?  staffId,int?  clientId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3669,7 +3669,7 @@ class RetCodes {
     print(token);
     //2645
     AppUrl appUrl = AppUrl();
-    String request_url = appUrl.loan_permission(staffId, clientId);
+    String?  request_url = appUrl.loan_permission(staffId, clientId);
     try {
       Response responsevv = await get(
         request_url,
@@ -3710,12 +3710,12 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> getLoanOfferForClient(int clientId) async {
+  Future<Map<String, dynamic>> getLoanOfferForClient(int?  clientId) async {
     var result;
 
     //2645
     AppUrl appUrl = AppUrl();
-    String request_url = appUrl.getLoanOfferForClient(clientId);
+    String?  request_url = appUrl.getLoanOfferForClient(clientId);
     try {
       Response responsevv = await get(
         request_url,
@@ -3754,7 +3754,7 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> getEmailValidationStatus(int clientId) async {
+  Future<Map<String, dynamic>> getEmailValidationStatus(int?  clientId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3763,7 +3763,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
 
     AppUrl appUrl = AppUrl();
-    String requestUrl = appUrl.getOrPostEmailValidationStatus(clientId, false);
+    String?  requestUrl = appUrl.getOrPostEmailValidationStatus(clientId, false);
     try {
       Response response = await get(
         requestUrl,
@@ -3809,7 +3809,7 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> postEmailValidationStatus(int clientId,Map<String,dynamic> emailData) async {
+  Future<Map<String, dynamic>> postEmailValidationStatus(int?  clientId,Map<String,dynamic> emailData) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3818,7 +3818,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
 
     AppUrl appUrl = AppUrl();
-    String request_url = appUrl.getOrPostEmailValidationStatus(clientId,false);
+    String?  request_url = appUrl.getOrPostEmailValidationStatus(clientId,false);
     try {
       Response responsevv = await post(
         request_url,
@@ -3859,7 +3859,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> putEmailValidationStatus(int clientId,Map<String,dynamic> emailData) async {
+  Future<Map<String, dynamic>> putEmailValidationStatus(int?  clientId,Map<String,dynamic> emailData) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3868,7 +3868,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
 
     AppUrl appUrl = AppUrl();
-    String request_url = appUrl.getOrPostEmailValidationStatus(clientId,false);
+    String?  request_url = appUrl.getOrPostEmailValidationStatus(clientId,false);
     try {
       Response responsevv = await put(
         request_url,
@@ -4190,7 +4190,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> getSttlement(
-      int loanID, String todayDate) async {
+      int?  loanID, String?  todayDate) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4246,7 +4246,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getLoanNote(int loanID) async {
+  Future<Map<String, dynamic>> getLoanNote(int?  loanID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4297,7 +4297,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getApprovals(int loanID) async {
+  Future<Map<String, dynamic>> getApprovals(int?  loanID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4350,7 +4350,7 @@ class RetCodes {
 
 
   Future<Map<String, dynamic>> getEmployerInLoanView(
-      int loanID, var employer) async {
+      int?  loanID, var employer) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4411,7 +4411,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> getDocumentNote(int loanID) async {
+  Future<Map<String, dynamic>> getDocumentNote(int?  loanID) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4464,7 +4464,7 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> get_SingleDocument(int loanID,int documentId) async {
+  Future<Map<String, dynamic>> get_SingleDocument(int?  loanID,int?  documentId) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4517,7 +4517,7 @@ class RetCodes {
   }
 
 
-  Future<Map<String, dynamic>> addDocument(int loanID, var docObject) async {
+  Future<Map<String, dynamic>> addDocument(int?  loanID, var docObject) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4710,9 +4710,9 @@ class RetCodes {
   }
 
   Future<Map<String, dynamic>> getProductMetrics(
-      String loanOfficerId, String cycleId) async {
+      String?  loanOfficerId, String?  cycleId) async {
     //  final SharedPreferences prefs = await SharedPreferences.getInstance();
-    //  String loanOfficer = prefs.getString('loanOfficerId');
+    //  String?  loanOfficer = prefs.getString('loanOfficerId');
 
     //print('this is the officer ID ${loanOfficer}');
     // =1377&cycleId=3
@@ -4788,11 +4788,11 @@ class RetCodes {
       // notifyListeners();
       print('enc data >> ${encData}');
         AppUrl appUrl = AppUrl();
-  String request_url =     appUrl.appThirdParty(
+  String?  request_url =     appUrl.appThirdParty(
           userData['channelId'],
           userData['staffId'],
           userData['companyUUId']);
-      String accessToken = prefs.getString('cloak_access_token');
+      String?  accessToken = prefs.getString('cloak_access_token');
 ///
       print('>> request url >> ${request_url}');
       Response response = await _postWithTimeout(
@@ -4808,7 +4808,7 @@ class RetCodes {
     }
   }
 
-  Future<Map<String, dynamic>> post_encryptAndSend(Map<String,dynamic> userData,{int tp_customerId,int channelId}) async {
+  Future<Map<String, dynamic>> post_encryptAndSend(Map<String,dynamic> userData,{int?  tp_customerId,int?  channelId}) async {
     try {
       // appCloakLogin();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4824,10 +4824,10 @@ class RetCodes {
       // notifyListeners();
       print('enc data >> ${encData}');
       AppUrl appUrl = AppUrl();
-      String request_url =     appUrl.book_thirdparty_loan(
+      String?  request_url =     appUrl.book_thirdparty_loan(
         channelId ??  1,
         tp_customerId,);
-      String accessToken = prefs.getString('cloak_access_token');
+      String?  accessToken = prefs.getString('cloak_access_token');
 
       Response response = await _postWithTimeout(
         request_url,
@@ -4842,7 +4842,7 @@ class RetCodes {
     }
   }
 
-  Future<Map<String, dynamic>> fetch_wacs_profile(Map<String,dynamic> userData,{String staffId}) async {
+  Future<Map<String, dynamic>> fetch_wacs_profile(Map<String,dynamic> userData,{String?  staffId}) async {
     try {
       // appCloakLogin();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -4858,10 +4858,10 @@ class RetCodes {
       // notifyListeners();
       print('enc data >> ${encData}');
       AppUrl appUrl = AppUrl();
-      String request_url =     appUrl.fetch_wacs_info(
+      String?  request_url =     appUrl.fetch_wacs_info(
         2,
         staffId,);
-      String accessToken = prefs.getString('cloak_access_token');
+      String?  accessToken = prefs.getString('cloak_access_token');
 
       Response response = await _postWithTimeout(
         request_url,
@@ -4887,7 +4887,7 @@ class RetCodes {
     }
   }
 
-  Map<String, dynamic> _generateErrorResponse(String message, int statusCode) {
+  Map<String, dynamic> _generateErrorResponse(String?  message, int?  statusCode) {
     return {
       'status': false,
       'message': message,
@@ -4907,7 +4907,7 @@ class RetCodes {
     return {'status': false, 'message': 'An unexpected error occurred'};
   }
 
-  Future<Response> _postWithTimeout(String url, String body, Map<String, String> headers) async {
+  Future<Response> _postWithTimeout(String?  url, String?  body, Map<String, String> headers) async {
     try {
       return await post(
         url,
@@ -4926,7 +4926,7 @@ class RetCodes {
     }
   }
 
-  Future<Response> _getWithTimeout(String url, Map<String, String> headers) async {
+  Future<Response> _getWithTimeout(String?  url, Map<String, String> headers) async {
     try {
       return await get(
         url,
@@ -4972,9 +4972,9 @@ class RetCodes {
   Map<String, dynamic> _handleSuccessfulResponse(Response response) {
     final Map<String, dynamic> encryptedResponseData = json.decode(response.body);
     print('>> enc response ${encryptedResponseData}');
-    String decryptResult = encryptedResponseData['result'];
+    String?  decryptResult = encryptedResponseData['result'];
     print('>> dec result ${decryptResult}');
-    String decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
+    String?  decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
     print('>> dec response ${decryptedResponse}');
     Map<String, dynamic> responseData = jsonDecode(decryptedResponse);
 
@@ -4998,8 +4998,8 @@ class RetCodes {
   // }
 
   Map<String, dynamic> _buildRequestData(
-      {String authCode,
-        String extendedToken,
+      {String?  authCode,
+        String?  extendedToken,
         Map<String, dynamic> requestPayload}) {
     return {
 

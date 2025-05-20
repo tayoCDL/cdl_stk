@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class LoanDocument extends StatefulWidget {
-  const LoanDocument({Key key}) : super(key: key);
+  const LoanDocument({Key? key}) : super(key: key);
 
   @override
   _LoanDocumentState createState() => _LoanDocumentState();
@@ -26,7 +26,7 @@ class _LoanDocumentState extends State<LoanDocument> {
   }
 
 
-Widget getDocumentLists(){
-
-}
+// Widget getDocumentLists(){
+//
+// }
 }

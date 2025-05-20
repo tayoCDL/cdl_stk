@@ -8,41 +8,41 @@ description: Credit Direct Sales toolkit
 # build by specifying --build-name and --build-number, respectively.
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# In iOS, build-name is used as CFBundleShortVersionString?  while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.2+4
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=3.0.5 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  provider: ^4.0.1
-  shared_preferences: ^0.5.12+4
-  flutter_icons: ^1.1.0
+  cupertino_icons:
+  provider:
+  shared_preferences:
+#  flutter_icons:
   #cached_network_image: ^2.5.1
-  uuid: ^2.2.0
+  uuid:
   #  epub_viewer: ^0.1.8
-  path_provider: ^1.4.0
-  flutter_feather_icons: ^2.0.0
+  path_provider:
+  flutter_feather_icons:
   dio:
   permission_handler:
-  google_fonts: ^1.1.0
+  google_fonts:
   injectable:
   http_interceptor:
-  flutter_svg: ^0.19.3
-  font_awesome_flutter: ^8.10.0
+  flutter_svg:
+  font_awesome_flutter:
   #  flutter_verification_code: ^1.1.0
-  local_auth: ^1.1.8
-  dropdown_search: ^3.0.0
+  local_auth:
+  dropdown_search:
   quick_actions:
   http:
-  another_flushbar: 1.10.29
-  percent_indicator: ^2.1.7
-  flutter_typeahead: ^1.9.3
+  another_flushbar:
+  percent_indicator:
+  flutter_typeahead:
   file_picker:
   shimmer:
   loading_overlay:
@@ -51,7 +51,7 @@ dependencies:
   jiffy:
   image_picker:
   localstorage:
-  image_utils_class:
+#  image_utils_class:
   email_validator:
   basic_utils:
   flutter_slidable:
@@ -72,14 +72,14 @@ dependencies:
   tab_indicator_styler:
 #  showcaseview:
 #  flutter_share:
-  flutter_image_compress: ^1.1.0
-  flutter_native_image: 0.0.6+1
+  flutter_image_compress:
+  flutter_native_image:
   #in_app_update: ^1.1.15
   avatar_glow:
   flutter_clean_calendar:
 #  google_maps_flutter:
   syncfusion_flutter_sliders:
-  geolocator: ^6.2.1
+#  geolocator: ^6.2.1
   flutter_custom_tabs:
   flutter_document_picker:
   flutter_datetime_picker:
@@ -115,7 +115,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  change_app_package_name: ^0.1.3
+#  change_app_package_name: ^0.1.3
   build_runner:
 
 # For information on the generic Dart part of this file, see the

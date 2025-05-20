@@ -23,10 +23,10 @@ import 'package:sales_toolkit/widgets/go_backWidget.dart';
 import '../../palatte.dart';
 
 class AddInteraction extends StatefulWidget {
-  final int ClientID;
-  final String clientName, ClientEmail;
+  final int?  ClientID;
+  final String?  clientName, ClientEmail;
   const AddInteraction(
-      {Key key, this.ClientID, this.ClientEmail, this.clientName})
+      {Key? key, this.ClientID, this.ClientEmail, this.clientName})
       : super(key: key);
 
   @override
@@ -39,8 +39,8 @@ class AddInteraction extends StatefulWidget {
 enum SingingCharacter { resolved, Open, Closed }
 
 class _AddInteractionState extends State<AddInteraction> {
-  int ClientID;
-  String ClientEmail, clientName;
+  int?  ClientID;
+  String?  ClientEmail, clientName;
 
   _AddInteractionState({this.ClientID, this.clientName, this.ClientEmail});
 
@@ -69,22 +69,22 @@ class _AddInteractionState extends State<AddInteraction> {
   File uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
+  String?  _fileName = '...';
 
-  String fileSize = '';
+  String?  fileSize = '';
 
-  String _path = '...';
-  String baseimage = '';
-  String _extension;
+  String?  _path = '...';
+  String?  baseimage = '';
+  String?  _extension;
   bool _hasValidMime = false;
   FileType _pickingType;
 
-  String passportFileName,
+  String?  passportFileName,
       passportFileSize,
       passportFiletype,
       passportFileLocation,
       newFileLocation;
-  String appendBase64 = '';
+  String?  appendBase64 = '';
 
   bool _pickFileInProgress = false;
   bool _iosPublicDataUTI = true;
@@ -105,8 +105,8 @@ class _AddInteractionState extends State<AddInteraction> {
 
   TextEditingController _controller = new TextEditingController();
   File chosenImage;
-  String agent_name, agent_email = '';
-  int agentId = 0;
+  String?  agent_name, agent_email = '';
+  int?  agentId = 0;
 
   TextEditingController passport = TextEditingController();
 
@@ -119,8 +119,8 @@ class _AddInteractionState extends State<AddInteraction> {
     // getSubCategory(10);
     getSubCategory(153);
     getStaffID();
-    email.text = ClientEmail;
-    name.text = clientName;
+    email.text = ClientEmail!;
+    name.text = clientName!;
     sequestClientID.text = ClientID.toString();
     super.initState();
   }
@@ -158,7 +158,7 @@ class _AddInteractionState extends State<AddInteraction> {
         _isLoading = false;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -182,7 +182,7 @@ class _AddInteractionState extends State<AddInteraction> {
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -195,7 +195,7 @@ class _AddInteractionState extends State<AddInteraction> {
     });
   }
 
-  TicketType(int affectedType) {
+  TicketType(int?  affectedType) {
     setState(() {
       _isLoading = true;
     });
@@ -215,7 +215,7 @@ class _AddInteractionState extends State<AddInteraction> {
         collectTicketType = [];
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -232,7 +232,7 @@ class _AddInteractionState extends State<AddInteraction> {
     });
   }
 
-  CategoryType(int ticketInt, int unitID) {
+  CategoryType(int?  ticketInt, int?  unitID) {
     setState(() {
       _isLoading = true;
     });
@@ -253,7 +253,7 @@ class _AddInteractionState extends State<AddInteraction> {
         allCategory = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectCategory.add(newEmp[i]['categoryName']);
       }
@@ -267,7 +267,7 @@ class _AddInteractionState extends State<AddInteraction> {
     });
   }
 
-  getSubCategory(int categoryID) {
+  getSubCategory(int?  categoryID) {
     setState(() {
       _isLoading = true;
     });
@@ -289,7 +289,7 @@ class _AddInteractionState extends State<AddInteraction> {
         collectSubCategory = [];
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -305,9 +305,9 @@ class _AddInteractionState extends State<AddInteraction> {
 
   @override
   var _lights = true;
-  String employment_type = '';
-  int affectedInt, ticketInt, categoryInt, subCategoryInt;
-  int departmentInt = 2666;
+  String?  employment_type = '';
+  int?  affectedInt, ticketInt, categoryInt, subCategoryInt;
+  int?  departmentInt = 2666;
   bool _isLoading = false;
 
   TextEditingController title = TextEditingController();
@@ -361,7 +361,7 @@ class _AddInteractionState extends State<AddInteraction> {
           //   "responsibleUnitId": departmentInt
           // }
         };
-        String url = AppUrl.raiseTicket;
+        String?  url = AppUrl.raiseTicket;
         final Future<Map<String, dynamic>> respose =
             addInteractionProvider.addInteraction(interactionData, url);
 
@@ -513,7 +513,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   // SizedBox(height: 20,),
 
                   // DropDownComponent(items: affectedUserArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allAffected.where((element) => element['affectedTypeName'] == item).toList();
@@ -527,7 +527,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   //     },
                   //     label: "Affected User Type: ",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -537,7 +537,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   //  SizedBox(height: 20,),
 
                   // DropDownComponent(items: TicketTypeArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allTicketType.where((element) => element['requestTypeName'] == item).toList();
@@ -551,7 +551,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   //     },
                   //     label: "Ticket Type",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -559,7 +559,7 @@ class _AddInteractionState extends State<AddInteraction> {
 
                   // SizedBox(height: 20,),
                   // DropDownComponent(items: departmentUnitArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allDepartmentUnit.where((element) => element['unitName'] == item).toList();
@@ -573,7 +573,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   //     },
                   //     label: "Responsible Department(Unit): ",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -582,7 +582,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   // SizedBox(height: 20,),
                   //  SizedBox(height: 20,),
                   // DropDownComponent(items: CategoryArray,
-                  //     onChange: (String item){
+                  //     onChange: (String?  item){
                   //       setState(() {
                   //
                   //         List<dynamic> selectID =   allCategory.where((element) => element['categoryName'] == item).toList();
@@ -597,7 +597,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   //     },
                   //     label: "Category",
                   //     selectedItem: "----",
-                  //     validator: (String item){
+                  //     validator: (String?  item){
                   //
                   //     }
                   //
@@ -605,7 +605,7 @@ class _AddInteractionState extends State<AddInteraction> {
                   // SizedBox(height: 20,),
                   DropDownComponent(
                       items: SubCategoryArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allSubCategory
                               .where((element) =>
@@ -619,7 +619,7 @@ class _AddInteractionState extends State<AddInteraction> {
                       },
                       label: "Category",
                       selectedItem: "----",
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                   SizedBox(
                     height: 20,
                   ),
@@ -796,7 +796,7 @@ class _AddInteractionState extends State<AddInteraction> {
   //     final kb = bytes / 1024;
   //     final mb = kb / 1024;
   //     print('this is the MB ${mb}');
-  //     String filesizeAsString  = mb.toString();
+  //     String?  filesizeAsString?   = mb.toString();
   //       fileSize = filesizeAsString;
   //
   //       // end get file size
@@ -806,7 +806,7 @@ class _AddInteractionState extends State<AddInteraction> {
   //
   //
   //
-  //     String getPath  = choosedimage.toString();
+  //     String?  getPath  = choosedimage.toString();
   //     _fileName = getPath != null ? getPath.split('/').last : '...';
   //     passport.text = _fileName;
   //   });
@@ -835,20 +835,20 @@ class _AddInteractionState extends State<AddInteraction> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
         base64.encode(result); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -862,7 +862,7 @@ class _AddInteractionState extends State<AddInteraction> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -898,7 +898,7 @@ class _AddInteractionState extends State<AddInteraction> {
   void _openFileExplorer() async {
     MyRouter.popPage(context);
 
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';
@@ -971,7 +971,7 @@ class _AddInteractionState extends State<AddInteraction> {
 
       print('file extension ${_path.split('.').last}');
 
-      String filePath = _path.split('.').last;
+      String?  filePath = _path.split('.').last;
 
       var result;
 
@@ -994,13 +994,13 @@ class _AddInteractionState extends State<AddInteraction> {
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(extensionChecker ? result : bytes);
+      String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -1040,8 +1040,8 @@ class _AddInteractionState extends State<AddInteraction> {
     // }
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText, var keyBoard,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText, var keyBoard,
       {bool isPassword = false, var maxLenghtAllow, bool isRead = false}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(

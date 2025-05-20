@@ -3,7 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:sales_toolkit/util/router.dart';
 
 class ServerErrorScreen extends StatefulWidget {
-  const ServerErrorScreen({Key key}) : super(key: key);
+  const ServerErrorScreen({Key? key}) : super(key: key);
 
   @override
   _ServerErrorScreenState createState() => _ServerErrorScreenState();

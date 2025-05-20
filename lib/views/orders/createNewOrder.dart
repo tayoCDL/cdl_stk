@@ -15,7 +15,7 @@ import 'package:sales_toolkit/widgets/rounded-button.dart';
 import '../../palatte.dart';
 
 class CreateNewOrder extends StatefulWidget {
-  const CreateNewOrder({Key key}) : super(key: key);
+  const CreateNewOrder({Key? key}) : super(key: key);
 
   @override
   _CreateNewOrderState createState() => _CreateNewOrderState();
@@ -36,17 +36,17 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
   List<String> collectDeviceFromCategory = [];
   List<dynamic> allDeviceFrom = [];
 
-  String deviceCategoryId = '';
-  String deviceFromCategoryId = '';
-  String device_Name = '';
-  String phonePrice = '';
+  String?  deviceCategoryId = '';
+  String?  deviceFromCategoryId = '';
+  String?  device_Name = '';
+  String?  phonePrice = '';
 
   bool _isLoading = false;
   // getAndReturnArray(apiData,allData,collectData,dataArray,iterableData,valueToIterate){
   //   setState(() {
   //     allData = apiData;
   //   });
-  //   for(int i = 0; i < apiData['result'].length;i++){
+  //   for(int?  i = 0; i < apiData['result'].length;i++){
   //     // print(arr1[i]['name']);
   //     collectData.add(iterableData[i][valueToIterate]);
   //   }
@@ -83,7 +83,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
         DeviceFromcategoryArray = [];
         collectDeviceFromCategory = [];
       });
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectCategory.add(newEmp[i]['categoryDescription']);
       }
@@ -93,7 +93,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
     });
   }
 
-  getDeviceFromCategory(String categoryId) async {
+  getDeviceFromCategory(String?  categoryId) async {
     setState(() {
       _isLoading = true;
     });
@@ -111,7 +111,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
         DeviceFromcategoryArray = [];
         collectDeviceFromCategory = [];
       });
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectDeviceFromCategory.add(newEmp[i]['deviceName']);
       }
@@ -121,7 +121,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
     });
   }
 
-  int random(min, max) {
+  int?  random(min, max) {
     return min + Random.secure().nextInt(max - min);
   }
 
@@ -207,7 +207,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
                   ),
                   DropDownComponent(
                       items: categoryArray,
-                      onChange: (String item) async {
+                      onChange: (String?  item) async {
                         setState(() {
                           List<dynamic> selectID = allCategory
                               .where((element) =>
@@ -223,7 +223,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
                       },
                       label: "Device Category *",
                       selectedItem: '',
-                      validator: (String item) {
+                      validator: (String?  item) {
                         // if(item.length == 0){
                         //   return "Loan product is mandatory";
                         // }
@@ -233,7 +233,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
                   ),
                   DropDownComponent(
                       items: DeviceFromcategoryArray,
-                      onChange: (String item) async {
+                      onChange: (String?  item) async {
                         setState(() {
                           List<dynamic> selectID = allDeviceFrom
                               .where((element) => element['deviceName'] == item)
@@ -246,7 +246,7 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
                       },
                       label: "Get Device *",
                       selectedItem: '',
-                      validator: (String item) {
+                      validator: (String?  item) {
                         // if(item.length == 0){
                         //   return "Loan product is mandatory";
                         // }
@@ -356,12 +356,12 @@ class _CreateNewOrderState extends State<CreateNewOrder> {
     var redirectUrl =
         'RedirectUrl=https%3A%2F%2Fdevfinapi.sentinelock.com%2Fv1%2Fdev%2Fpost%2Fcdl%2F';
 
-    String totalUrl =
+    String?  totalUrl =
         'https://paystaging.creditdirect.ng/?TransactionReference=${TransactionReference}&MerchantId=${MerchantId}&ProductId=${ProductId}&CustomerName=${CustomerName}s&DeviceName=${deviceName}&DeviceModel=${deviceModel}&AssetAmount=${AssetAmount}&${redirectUrl}&CustomerEquity=${CustomerEquity}&CdlFinance=&submit=';
 
-    // String testUrl  = 'https://pay.creditdirect.ng/?TransactionReference=4373031&MerchantId=1427779&ProductId=53&CustomerName=Habisb+Lanss&DeviceName=Tecno+Camon+18i+4GB%2F128GB&DeviceModel=Tecno+Camon+18i+4GB%2F128GB&AssetAmount=104684&RedirectUrl=https%3A%2F%2Fdevfinapi.sentinelock.com%2Fv1%2Fdev%2Fpost%2Fcdl%2F&CustomerEquity=31405.2&CdlFinance=&submit=';
+    // String?  testUrl  = 'https://pay.creditdirect.ng/?TransactionReference=4373031&MerchantId=1427779&ProductId=53&CustomerName=Habisb+Lanss&DeviceName=Tecno+Camon+18i+4GB%2F128GB&DeviceModel=Tecno+Camon+18i+4GB%2F128GB&AssetAmount=104684&RedirectUrl=https%3A%2F%2Fdevfinapi.sentinelock.com%2Fv1%2Fdev%2Fpost%2Fcdl%2F&CustomerEquity=31405.2&CdlFinance=&submit=';
 
-    String cleanTotalUrl = totalUrl.replaceAll(" ", "+");
+    String?  cleanTotalUrl = totalUrl.replaceAll(" ", "+");
 
     print('total Link ${cleanTotalUrl}');
     try {

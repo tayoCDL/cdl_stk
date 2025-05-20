@@ -58,7 +58,7 @@
 /// configure the displayed `TextField` as we want. In this example, we are
 /// configuring the `autofocus`, `style` and `decoration` properties.
 ///
-/// The `suggestionsCallback` is called with the search string that the user
+/// The `suggestionsCallback` is called with the search String?  that the user
 /// types, and is expected to return a `List` of data either synchronously or
 /// asynchronously. In this example, we are calling an asynchronous function
 /// called `BackendService.getSuggestions` which fetches the list of
@@ -79,7 +79,7 @@
 /// ```dart
 /// final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 /// final TextEditingController _typeAheadController = TextEditingController();
-/// String _selectedCity;
+/// String?  _selectedCity;
 /// ...
 /// Form(
 ///   key: this._formKey,
@@ -233,7 +233,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-typedef FutureOr<Iterable<T>> SuggestionsCallback<T>(String pattern);
+typedef FutureOr<Iterable<T>> SuggestionsCallback<T>(String?  pattern);
 typedef Widget ItemBuilder<T>(BuildContext context, T itemData);
 typedef void SuggestionSelectionCallback<T>(T suggestion);
 typedef Widget ErrorBuilder(BuildContext context, Object error);
@@ -256,8 +256,8 @@ class TypeAheadFormField<T> extends FormField<String> {
 
   /// Creates a [TypeAheadFormField]
   TypeAheadFormField(
-      {Key key,
-      String initialValue,
+      {Key? key,
+      String?  initialValue,
       bool getImmediateSuggestions: false,
       @Deprecated('Use autovalidateMode parameter which provides more specific '
           'behavior related to auto validation. '
@@ -280,11 +280,11 @@ class TypeAheadFormField<T> extends FormField<String> {
           ItemBuilder<T> itemBuilder,
       @required
           SuggestionsCallback<T> suggestionsCallback,
-      double suggestionsBoxVerticalOffset: 5.0,
+      double? suggestionsBoxVerticalOffset: 5.0,
       this.textFieldConfiguration: const TextFieldConfiguration(),
       AnimationTransitionBuilder transitionBuilder,
       Duration animationDuration: const Duration(milliseconds: 500),
-      double animationStart: 0.25,
+      double? animationStart: 0.25,
       AxisDirection direction: AxisDirection.down,
       bool hideOnLoading: false,
       bool hideOnEmpty: false,
@@ -597,7 +597,7 @@ class TypeAheadField<T> extends StatefulWidget {
   /// to fully control the animation.
   ///
   /// Defaults to 0.25.
-  final double animationStart;
+  final double? animationStart;
 
   /// The configuration of the [TextField](https://docs.flutter.io/flutter/material/TextField-class.html)
   /// that the TypeAhead widget displays
@@ -606,7 +606,7 @@ class TypeAheadField<T> extends StatefulWidget {
   /// How far below the text field should the suggestions box be
   ///
   /// Defaults to 5.0
-  final double suggestionsBoxVerticalOffset;
+  final double? suggestionsBoxVerticalOffset;
 
   /// If set to true, suggestions will be fetched immediately when the field is
   /// added to the view.
@@ -672,10 +672,10 @@ class TypeAheadField<T> extends StatefulWidget {
 
   /// Creates a [TypeAheadField]
   TypeAheadField(
-      {Key key,
-      @required this.suggestionsCallback,
-      @required this.itemBuilder,
-      @required this.onSuggestionSelected,
+      {Key? key,
+      required this.suggestionsCallback,
+      required this.itemBuilder,
+      required this.onSuggestionSelected,
       this.textFieldConfiguration: const TextFieldConfiguration(),
       this.suggestionsBoxDecoration: const SuggestionsBoxDecoration(),
       this.debounceDuration: const Duration(milliseconds: 300),
@@ -874,7 +874,7 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
         keepSuggestionsOnLoading: widget.keepSuggestionsOnLoading,
       );
 
-      double w = _suggestionsBox.textBoxWidth;
+      double? w = _suggestionsBox.textBoxWidth;
       if (widget.suggestionsBoxDecoration.constraints != null) {
         if (widget.suggestionsBoxDecoration.constraints.minWidth != 0.0 &&
             widget.suggestionsBoxDecoration.constraints.maxWidth !=
@@ -970,7 +970,7 @@ class _SuggestionsList<T> extends StatefulWidget {
   final ErrorBuilder errorBuilder;
   final AnimationTransitionBuilder transitionBuilder;
   final Duration animationDuration;
-  final double animationStart;
+  final double? animationStart;
   final AxisDirection direction;
   final bool hideOnLoading;
   final bool hideOnEmpty;
@@ -978,7 +978,7 @@ class _SuggestionsList<T> extends StatefulWidget {
   final bool keepSuggestionsOnLoading;
 
   _SuggestionsList({
-    @required this.suggestionsBox,
+    required this.suggestionsBox,
     this.controller,
     this.getImmediateSuggestions: false,
     this.onSuggestionSelected,
@@ -1012,7 +1012,7 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
   bool _isLoading, _isQueued;
   Object _error;
   AnimationController _animationController;
-  String _lastTextValue;
+  String?  _lastTextValue;
 
   _SuggestionsListState() {
     this._controllerListener = () {
@@ -1102,7 +1102,7 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
       if (this.mounted) {
         // if it wasn't removed in the meantime
         setState(() {
-          double animationStart = widget.animationStart;
+          double? animationStart = widget.animationStart;
           if (error != null || suggestions == null || suggestions.isEmpty) {
             animationStart = 1.0;
           }
@@ -1165,7 +1165,7 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
         maxHeight: widget.suggestionsBox.maxHeight,
       );
     } else {
-      double maxHeight = min(widget.decoration.constraints.maxHeight,
+      double? maxHeight = min(widget.decoration.constraints.maxHeight,
           widget.suggestionsBox.maxHeight);
       constraints = widget.decoration.constraints.copyWith(
         minHeight: min(widget.decoration.constraints.minHeight, maxHeight),
@@ -1272,7 +1272,7 @@ class SuggestionsBoxDecoration {
   /// of the shadow below the box.
   ///
   /// Same as [Material.elevation](https://docs.flutter.io/flutter/material/Material/elevation.html)
-  final double elevation;
+  final double? elevation;
 
   /// The color to paint the suggestions box.
   ///
@@ -1301,7 +1301,7 @@ class SuggestionsBoxDecoration {
   final BoxConstraints constraints;
 
   /// Adds an offset to the suggestions box
-  final double offsetX;
+  final double? offsetX;
 
   /// The content will be clipped (or not) according to this option.
   ///
@@ -1407,18 +1407,18 @@ class TextFieldConfiguration<T> {
   /// The maximum number of lines for the text to span, wrapping if necessary.
   ///
   /// Same as [TextField.maxLines](https://docs.flutter.io/flutter/material/TextField/maxLines.html)
-  final int maxLines;
+  final int?  maxLines;
 
   /// The minimum number of lines to occupy when the content spans fewer lines.
   ///
   /// Same as [TextField.minLines](https://docs.flutter.io/flutter/material/TextField/minLines.html)
-  final int minLines;
+  final int?  minLines;
 
   /// The maximum number of characters (Unicode scalar values) to allow in the
   /// text field.
   ///
   /// Same as [TextField.maxLength](https://docs.flutter.io/flutter/material/TextField/maxLength.html)
-  final int maxLength;
+  final int?  maxLength;
 
   /// If true, prevents the field from allowing more than [maxLength]
   /// characters.
@@ -1455,7 +1455,7 @@ class TextFieldConfiguration<T> {
   /// How thick the cursor will be.
   ///
   /// Same as [TextField.cursorWidth](https://docs.flutter.io/flutter/material/TextField/cursorWidth.html)
-  final double cursorWidth;
+  final double? cursorWidth;
 
   /// The appearance of the keyboard.
   ///
@@ -1467,7 +1467,7 @@ class TextFieldConfiguration<T> {
   /// Same as [TextField.onEditingComplete](https://docs.flutter.io/flutter/material/TextField/onEditingComplete.html)
   final VoidCallback onEditingComplete;
 
-  /// Called for each distinct tap except for every second tap of a double tap.
+  /// Called for each distinct tap except for every second tap of a double? tap.
   ///
   /// Same as [TextField.onTap](https://docs.flutter.io/flutter/material/TextField/onTap.html)
   final GestureTapCallback onTap;
@@ -1532,9 +1532,9 @@ class TextFieldConfiguration<T> {
       ValueChanged<T> onSubmitted,
       bool obscureText,
       bool maxLengthEnforced,
-      int maxLength,
-      int maxLines,
-      int minLines,
+      int?  maxLength,
+      int?  maxLines,
+      int?  minLines,
       bool autocorrect,
       List<TextInputFormatter> inputFormatters,
       bool autofocus,
@@ -1545,7 +1545,7 @@ class TextFieldConfiguration<T> {
       FocusNode focusNode,
       Color cursorColor,
       Radius cursorRadius,
-      double cursorWidth,
+      double? cursorWidth,
       Brightness keyboardAppearance,
       VoidCallback onEditingComplete,
       GestureTapCallback onTap,
@@ -1590,8 +1590,8 @@ class TextFieldConfiguration<T> {
 }
 
 class _SuggestionsBox {
-  static const int waitMetricsTimeoutMillis = 1000;
-  static const double minOverlaySpace = 64.0;
+  static const int?  waitMetricsTimeoutMillis = 1000;
+  static const double? minOverlaySpace = 64.0;
 
   final BuildContext context;
   final AxisDirection desiredDirection;
@@ -1602,10 +1602,10 @@ class _SuggestionsBox {
 
   bool isOpened = false;
   bool widgetMounted = true;
-  double maxHeight = 300.0;
-  double textBoxWidth = 100.0;
-  double textBoxHeight = 100.0;
-  double directionUpOffset;
+  double? maxHeight = 300.0;
+  double? textBoxWidth = 100.0;
+  double? textBoxHeight = 100.0;
+  double? directionUpOffset;
 
   _SuggestionsBox(this.context, this.direction, this.autoFlipDirection)
       : desiredDirection = direction;
@@ -1652,7 +1652,7 @@ class _SuggestionsBox {
       // initial MediaQuery for orientation change
       MediaQuery initialRootMediaQuery = _findRootMediaQuery();
 
-      int timer = 0;
+      int?  timer = 0;
       // viewInsets or MediaQuery have changed once keyboard has toggled or orientation has changed
       while (widgetMounted && timer < waitMetricsTimeoutMillis) {
         // TODO: reduce delay if showDialog ever exposes detection of animation end
@@ -1689,10 +1689,10 @@ class _SuggestionsBox {
     textBoxHeight = box.size.height;
 
     // top of text box
-    double textBoxAbsY = box.localToGlobal(Offset.zero).dy;
+    double? textBoxAbsY = box.localToGlobal(Offset.zero).dy;
 
     // height of window
-    double windowHeight = MediaQuery.of(context).size.height;
+    double? windowHeight = MediaQuery.of(context).size.height;
 
     // we need to find the root MediaQuery for the unsafe area height
     // we cannot use BuildContext.ancestorWidgetOfExactType because
@@ -1700,9 +1700,9 @@ class _SuggestionsBox {
     MediaQuery rootMediaQuery = _findRootMediaQuery();
 
     // height of keyboard
-    double keyboardHeight = rootMediaQuery.data.viewInsets.bottom;
+    double? keyboardHeight = rootMediaQuery.data.viewInsets.bottom;
 
-    double maxHDesired = _calculateMaxHeight(desiredDirection, box, widget,
+    double? maxHDesired = _calculateMaxHeight(desiredDirection, box, widget,
         windowHeight, rootMediaQuery, keyboardHeight, textBoxAbsY);
 
     // if there's enough room in the desired direction, update the direction and the max height
@@ -1712,7 +1712,7 @@ class _SuggestionsBox {
     } else {
       // There's not enough room in the desired direction so see how much room is in the opposite direction
       AxisDirection flipped = flipAxisDirection(desiredDirection);
-      double maxHFlipped = _calculateMaxHeight(flipped, box, widget,
+      double? maxHFlipped = _calculateMaxHeight(flipped, box, widget,
           windowHeight, rootMediaQuery, keyboardHeight, textBoxAbsY);
 
       // if there's more room in this opposite direction, update the direction and maxHeight
@@ -1725,14 +1725,14 @@ class _SuggestionsBox {
     if (maxHeight < 0) maxHeight = 0;
   }
 
-  double _calculateMaxHeight(
+  double? _calculateMaxHeight(
       AxisDirection direction,
       RenderBox box,
       TypeAheadField widget,
-      double windowHeight,
+      double? windowHeight,
       MediaQuery rootMediaQuery,
-      double keyboardHeight,
-      double textBoxAbsY) {
+      double? keyboardHeight,
+      double? textBoxAbsY) {
     return direction == AxisDirection.down
         ? _calculateMaxHeightDown(box, widget, windowHeight, rootMediaQuery,
             keyboardHeight, textBoxAbsY)
@@ -1740,16 +1740,16 @@ class _SuggestionsBox {
             keyboardHeight, textBoxAbsY);
   }
 
-  double _calculateMaxHeightDown(
+  double? _calculateMaxHeightDown(
       RenderBox box,
       TypeAheadField widget,
-      double windowHeight,
+      double? windowHeight,
       MediaQuery rootMediaQuery,
-      double keyboardHeight,
-      double textBoxAbsY) {
+      double? keyboardHeight,
+      double? textBoxAbsY) {
     // unsafe area, ie: iPhone X 'home button'
     // keyboardHeight includes unsafeAreaHeight, if keyboard is showing, set to 0
-    double unsafeAreaHeight = keyboardHeight == 0 && rootMediaQuery != null
+    double? unsafeAreaHeight = keyboardHeight == 0 && rootMediaQuery != null
         ? rootMediaQuery.data.padding.bottom
         : 0;
 
@@ -1761,22 +1761,22 @@ class _SuggestionsBox {
         2 * widget.suggestionsBoxVerticalOffset;
   }
 
-  double _calculateMaxHeightUp(
+  double? _calculateMaxHeightUp(
       RenderBox box,
       TypeAheadField widget,
-      double windowHeight,
+      double? windowHeight,
       MediaQuery rootMediaQuery,
-      double keyboardHeight,
-      double textBoxAbsY) {
+      double? keyboardHeight,
+      double? textBoxAbsY) {
     // recalculate keyboard absolute y value
-    double keyboardAbsY = windowHeight - keyboardHeight;
+    double? keyboardAbsY = windowHeight - keyboardHeight;
 
     directionUpOffset = textBoxAbsY > keyboardAbsY
         ? keyboardAbsY - textBoxAbsY - widget.suggestionsBoxVerticalOffset
         : -widget.suggestionsBoxVerticalOffset;
 
     // unsafe area, ie: iPhone X notch
-    double unsafeAreaHeight = rootMediaQuery.data.padding.top;
+    double? unsafeAreaHeight = rootMediaQuery.data.padding.top;
 
     return textBoxAbsY > keyboardAbsY
         ? keyboardAbsY -

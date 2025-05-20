@@ -8,9 +8,9 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: _buildBody(context),
-    // );
+    return Center(
+      child: Text('')
+    );
   }
 
   // _buildBody(BuildContext context) {

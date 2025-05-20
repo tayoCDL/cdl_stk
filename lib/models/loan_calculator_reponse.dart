@@ -1,5 +1,5 @@
 class LoanCalculatorResponse {
-  Currency currency;
+  Currency? currency;
   dynamic loanTermInDays;
   dynamic totalPrincipalDisbursed;
   dynamic totalPrincipalExpected;
@@ -9,10 +9,10 @@ class LoanCalculatorResponse {
   dynamic totalPenaltyChargesCharged;
   dynamic totalRepaymentExpected;
   dynamic totalOutstanding;
-  List<Periods> periods;
+  List<Periods>? periods;
 
   LoanCalculatorResponse(
-      {this.currency,
+      {required this.currency,
         this.loanTermInDays,
         this.totalPrincipalDisbursed,
         this.totalPrincipalExpected,
@@ -22,7 +22,7 @@ class LoanCalculatorResponse {
         this.totalPenaltyChargesCharged,
         this.totalRepaymentExpected,
         this.totalOutstanding,
-        this.periods});
+        required this.periods});
 
   LoanCalculatorResponse.fromJson(Map<String, dynamic> json) {
     // currency = json['currency'] != null
@@ -40,7 +40,7 @@ class LoanCalculatorResponse {
     if (json['periods'] != null) {
       periods = <Periods>[];
       json['periods'].forEach((v) {
-        periods.add(new Periods.fromJson(v));
+        periods!.add(new Periods.fromJson(v));
       });
     }
   }
@@ -48,7 +48,7 @@ class LoanCalculatorResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.currency != null) {
-      data['currency'] = this.currency.toJson();
+      data['currency'] = this.currency!.toJson();
     }
     data['loanTermInDays'] = this.loanTermInDays;
     data['totalPrincipalDisbursed'] = this.totalPrincipalDisbursed;
@@ -60,20 +60,20 @@ class LoanCalculatorResponse {
     data['totalRepaymentExpected'] = this.totalRepaymentExpected;
     data['totalOutstanding'] = this.totalOutstanding;
     if (this.periods != null) {
-      data['periods'] = this.periods.map((v) => v.toJson()).toList();
+      data['periods'] = this.periods!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Currency {
-  String code;
-  String name;
+  String?  code;
+  String?  name;
   dynamic decimalPlaces;
   dynamic inMultiplesOf;
-  String displaySymbol;
-  String nameCode;
-  String displayLabel;
+  String?  displaySymbol;
+  String?  nameCode;
+  String?  displayLabel;
 
   Currency(
       {this.code,
@@ -108,7 +108,7 @@ class Currency {
 }
 
 class Periods {
-  List<dynamic> dueDate;
+  List<dynamic>? dueDate;
   dynamic principalDisbursed;
   dynamic principalLoanBalanceOutstanding;
   dynamic feeChargesDue;
@@ -118,7 +118,7 @@ class Periods {
   dynamic totalOutstandingForPeriod;
   dynamic totalActualCostOfLoanForPeriod;
   dynamic period;
-  List<dynamic> fromDate;
+  List<dynamic>? fromDate;
   dynamic daysInPeriod;
   dynamic principalOriginalDue;
   dynamic principalDue;

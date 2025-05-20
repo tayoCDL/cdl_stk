@@ -9,7 +9,7 @@ class TestFileSelector extends StatefulWidget {
 }
 
 class _TestFileSelectorState extends State<TestFileSelector> {
-  String _path = '-';
+  String?  _path = '-';
   bool _pickFileInProgress = false;
   bool _iosPublicDataUTI = true;
   bool _checkByCustomExtension = false;
@@ -67,7 +67,7 @@ class _TestFileSelectorState extends State<TestFileSelector> {
   }
 
   _pickDocument() async {
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';

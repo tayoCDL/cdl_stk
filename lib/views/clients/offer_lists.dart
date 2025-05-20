@@ -9,9 +9,9 @@ import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OfferScreenSubMenu extends StatefulWidget {
-  final int clientID;
+  final int?  clientID;
 
-  const OfferScreenSubMenu({Key key, this.clientID}) : super(key: key);
+  const OfferScreenSubMenu({Key? key, this.clientID}) : super(key: key);
 
   @override
   _OfferScreenSubMenuState createState() =>
@@ -20,8 +20,8 @@ class OfferScreenSubMenu extends StatefulWidget {
 
 class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
   List<dynamic> offers_lists = [];
-  final int clientID;
-  String staffId = '';
+  final int?  clientID;
+  String?  staffId = '';
   bool appIsLoading = false;
   _OfferScreenSubMenuState({this.clientID});
 
@@ -31,7 +31,7 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
     super.initState();
   }
 
-  Future<void> shareOffer(String offerDetails) async {
+  Future<void> shareOffer(String?  offerDetails) async {
     await FlutterShare.share(
       title: 'Loan Offer',
       text: offerDetails,
@@ -166,7 +166,7 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
   }
 
   // Widget shareOfferButton() {
-  //   final String allOffersDetails = offers_lists.map((offer) {
+  //   final String?  allOffersDetails = offers_lists.map((offer) {
   //  //   return 'Offer ${offer['loanId']}: ₦${AppHelper().formatCurrency(offer['amount'].toStringAsFixed(2))} - ${offer['tenure']} months';
   //     return 'Offer ${offer['loanId']}: ₦${AppHelper().formatCurrency(offer['amount'].toStringAsFixed(2))} - ${offer['tenure']} months';
   //   }).join('\n');
@@ -185,7 +185,7 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
   // }
   Widget shareOfferButton() {
     // Redeem instructions content
-    final String redeemInstructionsDetails = """
+    final String?  redeemInstructionsDetails = """
 
 Good news! You're eligible for a loan offer with Credit Direct! Follow the prompts below to redeem your offer:
 1. Dial *5120*${staffId}#

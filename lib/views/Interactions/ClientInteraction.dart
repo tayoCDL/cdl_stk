@@ -15,16 +15,16 @@ import 'package:sales_toolkit/widgets/go_backWidget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ClientInteraction extends StatefulWidget {
-  // const ClientInteraction({Key key}) : super(key: key);
+  // const ClientInteraction({Key? key}) : super(key: key);
   //
   // @override
   // _ClientInteractionState createState() => _ClientInteractionState();
 
 
 
-  final int clientID;
-  final String clientName,ClientEmail;
-  const ClientInteraction({Key key,this.clientID,this.ClientEmail,this.clientName}) : super(key: key);
+  final int?  clientID;
+  final String?  clientName,ClientEmail;
+  const ClientInteraction({Key? key,this.clientID,this.ClientEmail,this.clientName}) : super(key: key);
   @override
   _ClientInteractionState createState() => _ClientInteractionState(
       clientID: this.clientID,
@@ -37,9 +37,9 @@ var interactionData = [];
 
 
 class _ClientInteractionState extends State<ClientInteraction> {
-  int clientID;
+  int?  clientID;
   Timer _timerForInter;
-  final String clientName,ClientEmail;
+  final String?  clientName,ClientEmail;
   _ClientInteractionState({this.clientID,this.ClientEmail,this.clientName});
 
   @override
@@ -156,7 +156,7 @@ class _ClientInteractionState extends State<ClientInteraction> {
   }
 
 
-  Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped,String duedate){
+  Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,String?  duedate){
     return InkWell(
       onTap: onTicketTapped,
       child: Container(
@@ -327,7 +327,7 @@ class InteractionSearch extends SearchDelegate<String>{
     // TODO: implement buildSuggestions
     // throw UnimplementedError();
 
-    Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped,){
+    Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,){
       return InkWell(
         onTap: onTicketTapped,
         child: Container(
@@ -405,7 +405,7 @@ class InteractionSearch extends SearchDelegate<String>{
   }
 
 
-  Widget StatusColor (String value){
+  Widget StatusColor (String?  value){
     return Text('value',style: TextStyle(color: value == 'Pending' ? Colors.orangeAccent : Colors.red),);
   }
 

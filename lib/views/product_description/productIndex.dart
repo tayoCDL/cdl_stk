@@ -3,7 +3,7 @@ import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:sales_toolkit/widgets/go_backWidget.dart';
 
 class ProductIndex extends StatefulWidget {
-  const ProductIndex({Key key}) : super(key: key);
+  const ProductIndex({Key? key}) : super(key: key);
 
   @override
   _ProductIndexState createState() => _ProductIndexState();
@@ -190,7 +190,7 @@ class _ProductIndexState extends State<ProductIndex> {
     );
   }
   
-  String replacecommawithbullet(String vals){
+  String?  replacecommawithbullet(String  vals){
     return  vals.replaceAll(',', '\n');
   }
   

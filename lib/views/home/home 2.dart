@@ -52,7 +52,7 @@ import 'checkAppUpdatee.dart';
 
 
 class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
 
 
@@ -88,8 +88,8 @@ class Home extends StatelessWidget {
 
 
 class HomeContent extends StatefulWidget {
-  final int passLoanOfficer;
-  const HomeContent({Key key,this.passLoanOfficer}) : super(key: key);
+  final int?  passLoanOfficer;
+  const HomeContent({Key? key,this.passLoanOfficer}) : super(key: key);
 
   @override
   _HomeContentState createState() => _HomeContentState(passLoanOfficer: this.passLoanOfficer);
@@ -97,7 +97,7 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
 
-  int passLoanOfficer;
+  int?  passLoanOfficer;
   _HomeContentState({this.passLoanOfficer});
 
 
@@ -121,10 +121,10 @@ class _HomeContentState extends State<HomeContent> {
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
   final GlobalKey _three = GlobalKey();
-  String cycle = '';
+  String?  cycle = '';
   List<dynamic> metricsDataList = [];
   List<dynamic> cycleListData = [];
-  int totalCommision = 0;
+  int?  totalCommision = 0;
   bool isCycleClicked = false;
   bool isLoading = false;
   final formatCurrency = NumberFormat.currency(locale: "en_US",
@@ -156,7 +156,7 @@ class _HomeContentState extends State<HomeContent> {
   dynamic performanceEarned = 0;
   dynamic totalEarned = 0.0;
   dynamic commissionEarned = 0.0;
-  String percentageOfSales = '0';
+  String?  percentageOfSales = '0';
   dynamic performancePayEarn = 0.0;
 
   dynamic totalLoanCount = 0;
@@ -168,7 +168,7 @@ class _HomeContentState extends State<HomeContent> {
   dynamic totalDisbursedLoanCount = 0;
   dynamic totalDisbursedLoanAmount = 0.0;
 
-  int savedCycleId;
+  int?  savedCycleId;
   // var totalPay = 0.0;
 
   // "totalLoanCount": 0,
@@ -210,9 +210,9 @@ class _HomeContentState extends State<HomeContent> {
 
 
 
-  getDateStringAndReturnMonthInWord(String dateString){
+  getDateStringAndReturnMonthInWord(String?  dateString){
     DateTime date = DateTime.parse(dateString);
-    String monthInWord = DateFormat.MMMM().format(date);
+    String?  monthInWord = DateFormat.MMMM().format(date);
     print(monthInWord); // Output: May
       return monthInWord;
   }
@@ -231,7 +231,7 @@ class _HomeContentState extends State<HomeContent> {
     // });
 
     // final Stream _myStream =
-    // Stream.periodic(const Duration(seconds: 1), (int count) {
+    // Stream.periodic(const Duration(seconds: 1), (int?  count) {
     //   // Do something and return something here
     //
     // });
@@ -248,7 +248,7 @@ class _HomeContentState extends State<HomeContent> {
           setState(() {
             cycleListData = response['data']['content'];
 
-           int currentCycleId = cycleListData[0]['id'];
+           int?  currentCycleId = cycleListData[0]['id'];
             print('cycleList Data ${currentCycleId}');
 
               getMetricsForCycle(currentCycleId.toString());
@@ -267,15 +267,15 @@ class _HomeContentState extends State<HomeContent> {
 
   calculateCommision(){
 
-    String startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+    String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
      var ComparestartPeriod =  Jiffy().startOf(Units.MONTH).dateTime;
 
-    String endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+    String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
     Jiffy now = Jiffy();
     var todaySdate = Jiffy(now).format("dd MMMM yyyy");
     var ComparetodaySdate = Jiffy(now).dateTime;
 
-    int daysInMonth = Jiffy(now).daysInMonth;
+    int?  daysInMonth = Jiffy(now).daysInMonth;
     var halfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).format("dd MMMM yyyy");
     var ComparehalfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).dateTime;
 
@@ -287,7 +287,7 @@ class _HomeContentState extends State<HomeContent> {
 
     var dateFormat = "dd MMMM yyyy";
 
-    int activationChannelId = 77;
+    int?  activationChannelId = 77;
 
     if(ComparetodaySdate.isAfter(ComparehalfOfthisMonth)){
     //  print('today date >>');
@@ -305,13 +305,13 @@ class _HomeContentState extends State<HomeContent> {
 
     }
 
-   //  int staffId = 428;
-    // String mstartPeriod =  '10 January 2022';
-    // String mendPeriod = '10 April 2023';
+   //  int?  staffId = 428;
+    // String?  mstartPeriod =  '10 January 2022';
+    // String?  mendPeriod = '10 April 2023';
     //
 
-    String params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
-  //  String params = '?startPeriod=${mstartPeriod}&endPeriod=${mendPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}';
+    String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
+  //  String?  params = '?startPeriod=${mstartPeriod}&endPeriod=${mendPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}';
 
     final Future<Map<String,dynamic>> respose =   RetCodes().getLoanMetrics(params);
 
@@ -326,14 +326,14 @@ class _HomeContentState extends State<HomeContent> {
      print('metrics Data ${metricsDataList}');
      var caluclatedCommision = 0;
      List<dynamic> accumulated_commision = [];
-     for(int i=0; i < metricsDataList.length;i++){
+     for(int?  i=0; i < metricsDataList.length;i++){
        var singleMetric = metricsDataList[i];
-    int amts =  int.tryParse(singleMetric['level']['value']);
+    int?  amts =  int.tryParse(singleMetric['level']['value']);
        // print('calc commission ${caluclatedCommision}');
        accumulated_commision.add(amts);
      }
       print('accumulated commision');
-      int total = accumulated_commision.fold(0, (previousValue, element) => previousValue + element);
+      int?  total = accumulated_commision.fold(0, (previousValue, element) => previousValue + element);
       print('accumulated ${accumulated_commision} total ${total}');
 
       setState(() {
@@ -347,18 +347,18 @@ class _HomeContentState extends State<HomeContent> {
 
   var clientsData = [];
   var   totalRefered = [];
-  String _isLoading = 'not_loading';
-  int referalCount  = 0;
-  int loanOfficerId = 0;
-  String supervisor = 'N/A';
-  String agentCode = 'N/A';
-  String agentFirstName = '---';
+  String?  _isLoading = 'not_loading';
+  int?  referalCount  = 0;
+  int?  loanOfficerId = 0;
+  String?  supervisor = 'N/A';
+  String?  agentCode = 'N/A';
+  String?  agentFirstName = '---';
 
-  int staffId = 0;
-  int newStaffId = 0;
+  int?  staffId = 0;
+  int?  newStaffId = 0;
 
-  String cycleId;
-  String cycleName = 'Current cycle';
+  String?  cycleId;
+  String?  cycleName = 'Current cycle';
 
   // AppUpdateInfo _updateInfo;
 
@@ -379,33 +379,33 @@ class _HomeContentState extends State<HomeContent> {
   // }
 
 
-  String username = '',role = '',referralCode ='';
+  String?  username = '',role = '',referralCode ='';
   DateTime now  = DateTime.now();
 
 
-  String currentDateTimey = '';
+  String?  currentDateTimey = '';
   getSalesUsername() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
-    String Vrole = prefs.getString('roleName');
+    String?  Vusername = prefs.getString('username');
+    String?  Vrole = prefs.getString('roleName');
 
     prefs.setString('sequestpassword', 'Mobiluser@123');
 
-  //  String sequestCredential = prefs.setString('password','Mobiluser@123');
+  //  String?  sequestCredential = prefs.setString('password','Mobiluser@123');
 
-   // String vDescription = prefs.getString('');
+   // String?  vDescription = prefs.getString('');
     setState(() {
       username = Vusername;
       role = Vrole;
       currentDateTimey = prefs.getString('currentDateTime');
     });
 
-  //  String email = 'tayo.oladosu@fcmb.com';
+  //  String?  email = 'tayo.oladosu@fcmb.com';
    // await OneSignal.shared.setEmail(email: username);
 
     // var status = await OneSignal.shared.getDeviceState();
-    // String playerId = status.userId;
-    // String playerIdEmail = status.emailAddress;
+    // String?  playerId = status.userId;
+    // String?  playerIdEmail = status.emailAddress;
     //
     // print('this is player Id ${playerId} ${playerIdEmail}');
 
@@ -419,7 +419,7 @@ class _HomeContentState extends State<HomeContent> {
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int staffId = prefs.getInt('staffId');
+    int?  staffId = prefs.getInt('staffId');
     setState(() {
       newStaffId = staffId;
     });
@@ -508,9 +508,9 @@ class _HomeContentState extends State<HomeContent> {
 
   }
 
-  getMetricsForCycle(String cycleId) async{
+  getMetricsForCycle(String?  cycleId) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String local_loanOfficerId =  prefs.getString('loanOfficerId');
+    String?  local_loanOfficerId =  prefs.getString('loanOfficerId');
 
       setState(() {
         isLoading = true;
@@ -921,7 +921,7 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  Widget appText(String title,String subtitle,{String extension}){
+  Widget appText(String?  title,String?  subtitle,{String?  extension}){
     return    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -938,7 +938,7 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  Widget reverseappText(String title,String subtitle,{double fontSize}){
+  Widget reverseappText(String?  title,String?  subtitle,{double? fontSize}){
     return    Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -950,8 +950,8 @@ class _HomeContentState extends State<HomeContent> {
   }
 
 
-  Widget appCards(String appIcon,String appName,var loanCount,var totalD,
-      {String loancounts = "Count",String amount ="Amount"}){
+  Widget appCards(String?  appIcon,String?  appName,var loanCount,var totalD,
+      {String?  loancounts = "Count",String?  amount ="Amount"}){
     return Container(
       width: MediaQuery.of(context).size.width * 0.42,
       height: MediaQuery.of(context).size.height * 0.231,
@@ -1144,7 +1144,7 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  _buildSectionTitle(String title) {
+  _buildSectionTitle(String?  title) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
@@ -1243,7 +1243,7 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  _leadsContactView(Color colm,String title,String date,String nameLogo,String employer){
+  _leadsContactView(Color colm,String?  title,String?  date,String?  nameLogo,String?  employer){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.9),
       child: Container(
@@ -1261,7 +1261,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
 
-  _LeadingUserTile(Color cols,String nameLogo){
+  _LeadingUserTile(Color cols,String?  nameLogo){
     return Container(
       padding: EdgeInsets.only(top: 1),
       width: 44,
@@ -1277,7 +1277,7 @@ class _HomeContentState extends State<HomeContent> {
 
 
 
-  _LeadingProfileTile(Color cols,String nameLogo){
+  _LeadingProfileTile(Color cols,String?  nameLogo){
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Container(
@@ -1296,7 +1296,7 @@ class _HomeContentState extends State<HomeContent> {
 
 
 
-  _singleCard(String image,String numbers,String title,Function onTap,{Color singleCardColor,double MyLoanFontsize,Color singleCardTextColor}){
+  _singleCard(String?  image,String?  numbers,String?  title,VoidCallback onTap,{Color singleCardColor,double? MyLoanFontsize,Color singleCardTextColor}){
     return InkWell(
       onTap: onTap,
       child: Card(
@@ -1360,14 +1360,14 @@ class _HomeContentState extends State<HomeContent> {
   retsNx360dates(){
 
     DateTime now  = DateTime.now();
-    String newdate = now.toString().substring(0,10);
+    String?  newdate = now.toString().substring(0,10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(now);
+    String?  formattedDate = DateFormat.yMMMMd().format(now);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -1375,15 +1375,15 @@ class _HomeContentState extends State<HomeContent> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);

@@ -7,7 +7,7 @@ import 'package:sales_toolkit/views/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DraftOverview extends StatefulWidget {
-  const DraftOverview({Key key}) : super(key: key);
+  const DraftOverview({Key? key}) : super(key: key);
 
   @override
   _DraftOverviewState createState() => _DraftOverviewState();
@@ -22,8 +22,8 @@ class _DraftOverviewState extends State<DraftOverview> {
     super.initState();
   }
 
-  String totalClient = '0';
-  String totalLead = '0';
+  String?  totalClient = '0';
+  String?  totalLead = '0';
   getTotalCounts() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -108,7 +108,7 @@ class _DraftOverviewState extends State<DraftOverview> {
     );
   }
 
-  _singleCard(Color cols,String numbers,String dateAdded,String title,Function onButtonPress){
+  _singleCard(Color cols,String?  numbers,String?  dateAdded,String?  title,VoidCallback onButtonPress){
     return InkWell(
       onTap: onButtonPress,
       child: Card(

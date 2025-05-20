@@ -4,7 +4,7 @@ import 'package:sales_toolkit/util/enum/color_utils.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/views/main_screen.dart';
 
-goBack(BuildContext context,String value,{Function newFn}){
+goBack(BuildContext context,String?  value,{VoidCallback newFn}){
   if(value == 'go_back'){
    MyRouter.popPage(context);
   }else if(value == 'go_home'){
@@ -42,7 +42,7 @@ Widget appBack(BuildContext context,){
 
       ];
     },
-    onSelected: (String value) => goBack(context,value,
+    onSelected: (String?  value) => goBack(context,value,
     ),
   );
 

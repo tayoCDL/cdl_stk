@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorReturn {
 
-   retCOlor(String Alpha) {
+   retCOlor(String?  Alpha) {
     if(Alpha == 'A'){
       return Colors.blue;
     }
@@ -73,7 +73,7 @@ class ColorReturn {
    }
 
 
-  retStatus(String value){
+  retStatus(String  value){
     if(value.toLowerCase() == 'incomplete'){
       return Colors.red;
     }

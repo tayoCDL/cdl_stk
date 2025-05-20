@@ -30,14 +30,14 @@ import 'package:sales_toolkit/widgets/LocalTypeAhead.dart';
 
 
 class LeadEmploymentInfo extends StatefulWidget {
-  // const EmploymentInfo({Key key}) : super(key: key);
+  // const EmploymentInfo({Key? key}) : super(key: key);
   //
   // @override
   // _EmploymentInfoState createState() => _EmploymentInfoState();
 
-  final int ClientInt,leadInt;
-  final String Employmentaddress,EmploymentNeareastLandmark,EmploymentStaffId,EmploymentJobRole,EmploymentWorkEmail,EmploymentSalaryRange,EmploymentSalaryPayday,EmploymentPhoneNumber,comingFrom;
-  const LeadEmploymentInfo({Key key,this.Employmentaddress,this.EmploymentNeareastLandmark,this.EmploymentStaffId,this.EmploymentJobRole,this.EmploymentWorkEmail,this.EmploymentSalaryRange,this.EmploymentSalaryPayday,this.EmploymentPhoneNumber,this.comingFrom,this.ClientInt,this.leadInt}) : super(key: key);
+  final int?  ClientInt,leadInt;
+  final String?  Employmentaddress,EmploymentNeareastLandmark,EmploymentStaffId,EmploymentJobRole,EmploymentWorkEmail,EmploymentSalaryRange,EmploymentSalaryPayday,EmploymentPhoneNumber,comingFrom;
+  const LeadEmploymentInfo({Key? key,this.Employmentaddress,this.EmploymentNeareastLandmark,this.EmploymentStaffId,this.EmploymentJobRole,this.EmploymentWorkEmail,this.EmploymentSalaryRange,this.EmploymentSalaryPayday,this.EmploymentPhoneNumber,this.comingFrom,this.ClientInt,this.leadInt}) : super(key: key);
   @override
   _LeadEmploymentInfoState createState() => _LeadEmploymentInfoState(
       Employmentaddress: this.Employmentaddress,
@@ -55,8 +55,8 @@ class LeadEmploymentInfo extends StatefulWidget {
 }
 
 class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
-  int ClientInt,leadInt;
-  String Employmentaddress,EmploymentNeareastLandmark,
+  int?  ClientInt,leadInt;
+  String?  Employmentaddress,EmploymentNeareastLandmark,
       EmploymentStaffId,EmploymentJobRole,
       EmploymentWorkEmail,EmploymentSalaryRange,
       EmploymentSalaryPayday,EmploymentPhoneNumber,
@@ -102,18 +102,18 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
   List<dynamic> allBranchEmployer = [];
 
 
-  String employerName = '';
-  String employerState = '';
-  String employerLga = '';
-  String realMonth = '';
-  String parentEmployer = '';
-  int empSector = 0;
+  String?  employerName = '';
+  String?  employerState = '';
+  String?  employerLga = '';
+  String?  realMonth = '';
+  String?  parentEmployer = '';
+  int?  empSector = 0;
   bool showLoading = false;
   Timer _debounce;
 
-  int stateInt,salaryInt,lgaInt,employerInt,clientTypeInt;
-  int branchEmployerInt = 0;
-  String employerDomain ='';
+  int?  stateInt,salaryInt,lgaInt,employerInt,clientTypeInt;
+  int?  branchEmployerInt = 0;
+  String?  employerDomain ='';
   void initState() {
     // TODO: implement initState
     getStateList();
@@ -151,7 +151,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
 
 
-  Future<List> getSuggestions(String query) async{
+  Future<List> getSuggestions(String?  query) async{
 
     print('GET client type >> ${clientTypeInt}');
 
@@ -172,7 +172,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
           collectEmployer = [];
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -207,7 +207,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     await Future.delayed(Duration(milliseconds: 2000));
     List _list = <dynamic>[];
 
-    String query = _typeAheadController.text;
+    String?  query = _typeAheadController.text;
     final Future<Map<String,dynamic>> respose =   RetCodes().Leademployers(query);
 
     respose.then((response) async {
@@ -218,7 +218,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
         collectEmployer = [];
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //print(newEmp[i]['name']);
         collectEmployer.add(newEmp[i]['name']);
         collectEmployerID.add(newEmp[i]['id']);
@@ -253,7 +253,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
 
 
-    for(int i=0;i < collectEmployer.length;i++){
+    for(int?  i=0;i < collectEmployer.length;i++){
       _list.add(new TestItem.fromJson(
           {'label': collectEmployer[i], 'value': collectEmployerID[i]}
       ));
@@ -273,7 +273,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     // prefs.setInt('leadId', responseData2['resourceId']);
 
-    int localclientID =   leadInt == null ? prefs.getInt('leadId') : leadInt;
+    int?  localclientID =   leadInt == null ? prefs.getInt('leadId') : leadInt;
     //print('localClient ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -317,7 +317,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     //     allStates = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectState.add(newEmp[i]['name']);
     //   }
@@ -358,7 +358,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
             allStates = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -390,7 +390,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
           allStates = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -418,7 +418,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -458,7 +458,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectSalary.add(mtBool[i]['name']);
           }
@@ -490,7 +490,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
           allSalary = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectSalary.add(newEmp[i]['name']);
         }
@@ -508,7 +508,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
   }
 
-  getEmployersList(String EmployerName) async {
+  getEmployersList(String?  EmployerName) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // setState(() {
@@ -524,7 +524,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -570,7 +570,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
             collectEmployer = [];
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectEmployer.add(mtBool[i]['name']);
           }
@@ -612,7 +612,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
           allEmployer = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -633,7 +633,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
   getEmploymentProfile() async{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     //print('localClient ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -696,7 +696,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
   }
 
-  getSubAccount(int FirstValue,int SecondValue){
+  getSubAccount(int?  FirstValue,int?  SecondValue){
 
     final Future<Map<String,dynamic>> respose =   RetCodes().getSubValues(FirstValue,SecondValue);
     setState(() {
@@ -715,7 +715,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     //     collectLga = [];
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectLga.add(newEmp[i]['name']);
     //   }
@@ -760,7 +760,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
             allLga = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -794,7 +794,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
           allLga = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }
@@ -811,7 +811,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     );
   }
 
-  getEmployersBranch(int parentID){
+  getEmployersBranch(int?  parentID){
     //print('this is parent branch ${parentID}');
 
     final Future<Map<String,dynamic>> respose =   RetCodes().getEmployersBranch(parentID);
@@ -824,7 +824,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -865,7 +865,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
             allBranchEmployer = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -907,7 +907,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
         //print('all Branch ${newEmp}');
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -943,11 +943,11 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
   List<Map<String,dynamic>> mergedOfflineClient = [];
 
 
-  String organization = "";
-  String state_ofposting = '';
-  String lga = '';
-  String salary_range = '';
-  String salary_payday = '';
+  String?  organization = "";
+  String?  state_ofposting = '';
+  String?  lga = '';
+  String?  salary_range = '';
+  String?  salary_payday = '';
 
   bool _isLoading = false;
 
@@ -970,7 +970,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      int getEmpInt = prefs.getInt('tempEmployerInt');
+      int?  getEmpInt = prefs.getInt('tempEmployerInt');
 
       setState(() {
         _isLoading = true;
@@ -1326,7 +1326,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                           child: DropDownComponent(items: BranchEmployerArray,
-                              onChange: (String item){
+                              onChange: (String?  item){
                                 setState(() {
                                   List<dynamic> selectID =   allBranchEmployer.where((element) => element['name'] == item).toList();
                                   // List<dynamic> selectExtension =   allBranchEmployer.where((element) => element['name'] == item).toList();
@@ -1341,7 +1341,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                               },
                               label: "Select Organisation * ",
                               selectedItem: employerName,
-                              validator: (String item){
+                              validator: (String?  item){
                                 // if(branchEmployerInt == 0){
                                 //   return 'Employer branch cannot be empty';
                                 // }
@@ -1354,7 +1354,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               child: DropDownComponent(items: stateArray,
-                                  onChange: (String item){
+                                  onChange: (String?  item){
                                     setState(() {
                                       List<dynamic> selectID =   allStates.where((element) => element['name'] == item).toList();
                                       stateInt = selectID[0]['id'];
@@ -1366,7 +1366,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                                   },
                                   label: "State ",
                                   selectedItem: employerState,
-                                  validator: (String item){
+                                  validator: (String?  item){
 
                                   }
                               ),
@@ -1374,7 +1374,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               child: DropDownComponent(items: lgaArray,
-                                  onChange: (String item){
+                                  onChange: (String?  item){
                                     setState(() {
 
                                       List<dynamic> selectID =   allLga.where((element) => element['name'] == item).toList();
@@ -1387,7 +1387,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                                   },
                                   label: "LGA * ",
                                   selectedItem: employerLga,
-                                  validator: (String item){
+                                  validator: (String?  item){
                                     // if(lgaInt == 0 || lgaInt == null){
                                     //   return 'LGA is required';
                                     // }
@@ -1455,7 +1455,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                                                   onChanged: (date) {
                                                     print('change $date');
                                                     setState(() {
-                                                      String retDate = retsNx360dates(date);
+                                                      String?  retDate = retsNx360dates(date);
                                                       dateOfEmployment.text = retDate;
                                                     });
                                                   }, onConfirm: (date) {
@@ -1498,7 +1498,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                               child: DropDownComponent(items: salaryArray,
-                                  onChange: (String item){
+                                  onChange: (String?  item){
                                     setState(() {
                                       List<dynamic> selectID =   allSalary.where((element) => element['name'] == item).toList();
                                       //print('this is select ID');
@@ -1510,7 +1510,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                                   },
                                   label: "Salary Range * ",
                                   selectedItem: salary_range,
-                                  validator: (String item){
+                                  validator: (String?  item){
                                     // if(item.isEmpty || item == null){
                                     //   return 'Salary range is required';
                                     // }
@@ -1554,7 +1554,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                                                   onChanged: (date) {
                                                     print('change $date');
                                                     setState(() {
-                                                      String retDate = retsNx360dates(date);
+                                                      String?  retDate = retsNx360dates(date);
                                                       salaryPayDayController.text = retDate;
                                                     });
                                                   }, onConfirm: (date) {
@@ -1617,7 +1617,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     );
   }
 
-  // Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false}){
+  // Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false}){
   //   var MediaSize = MediaQuery.of(context).size;
   //   return
   //     Container(
@@ -1671,7 +1671,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
 
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,needsValidation = true}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,needsValidation = true}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(
@@ -1763,7 +1763,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                         setState(() {
                           PayDayCupertinoSelectedDate = value;
                           //print(CupertinoSelectedDate);
-                          String retDate = retsNx360dates(PayDayCupertinoSelectedDate);
+                          String?  retDate = retsNx360dates(PayDayCupertinoSelectedDate);
                           //print('ret Date ${retDate}');
                           salaryPayDayController.text = retDate;
                         });
@@ -1777,7 +1777,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String retDate = retsNx360dates(PayDayCupertinoSelectedDate);
+                    String?  retDate = retsNx360dates(PayDayCupertinoSelectedDate);
                     //print('ret Date ${retDate}');
                     salaryPayDayController.text = retDate;
                     MyRouter.popPage(context);
@@ -1806,26 +1806,26 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
   //       //print(selected);
   //       //  date = selected.toString();
   //
-  //       String newdate = selectedDate.toString().substring(0,10);
+  //       String?  newdate = selectedDate.toString().substring(0,10);
   //       //print(newdate);
   //
-  //       String formattedDate = DateFormat.yMMMMd().format(selected);
+  //       String?  formattedDate = DateFormat.yMMMMd().format(selected);
   //
   //       //print(formattedDate);
   //
-  //       String removeComma = formattedDate.replaceAll(",", "");
+  //       String?  removeComma = formattedDate.replaceAll(",", "");
   //
   //       List<String> wordList = removeComma.split(" ");
   //
-  //       String o1 = wordList[0];
-  //       String o2 = wordList[1];
-  //       String o3 = wordList[2];
+  //       String?  o1 = wordList[0];
+  //       String?  o2 = wordList[1];
+  //       String?  o3 = wordList[2];
   //
-  //       String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+  //       String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
   //
   //       //print('newOO ${newOO}');
   //
-  //       String concatss = newOO + " " + o1 + " " + o3;
+  //       String?  concatss = newOO + " " + o1 + " " + o3;
   //       //print("concatss");
   //       //print(concatss);
   //
@@ -1839,14 +1839,14 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
   retsNx360dates(DateTime selected){
     //print(selected);
-    String newdate = selectedDate.toString().substring(0,10);
+    String?  newdate = selectedDate.toString().substring(0,10);
     //print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     //print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     //print('removeComma');
     //print(removeComma);
 
@@ -1854,15 +1854,15 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 
     //print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     //print("concatss");
     //print(concatss);
@@ -1890,7 +1890,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           //print(CupertinoSelectedDate);
-                          String retDate = retsNx360dates(CupertinoSelectedDate);
+                          String?  retDate = retsNx360dates(CupertinoSelectedDate);
                           //print('ret Date ${retDate}');
                           dateOfEmployment.text = retDate;
                         });
@@ -1904,7 +1904,7 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String retDate = retsNx360dates(CupertinoSelectedDate);
+                    String?  retDate = retsNx360dates(CupertinoSelectedDate);
                     //print('ret Date ${retDate}');
                     dateOfEmployment.text = retDate;
                     Navigator.of(context).pop();
@@ -1918,9 +1918,9 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
   }
 
 
-  retDOBfromBVN(String getDate){
+  retDOBfromBVN(String?  getDate){
     //print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     //print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     //print(wordList[1]);
@@ -1984,15 +1984,15 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
     }
 
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
     //print('newOO ${newOO}');
 
-    String concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth + " " + o1   ;
 
     //print("concatss new Date from edit ${concatss}");
 
@@ -2053,10 +2053,10 @@ class _LeadEmploymentInfoState extends State<LeadEmploymentInfo> {
 
 
 class TestItem {
-  final String label;
+  final String?  label;
   dynamic value;
 
-  TestItem({@required this.label, this.value});
+  TestItem({required this.label, this.value});
 
   factory TestItem.fromJson(Map<String, dynamic> json) {
     return TestItem(label: json['label'], value: json['value']);

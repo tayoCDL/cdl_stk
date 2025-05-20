@@ -31,7 +31,7 @@
 //
 //   final _globalKey = GlobalKey<FormState>();
 //
-//   String errorText;
+//   String?  errorText;
 //   bool validate = false;
 //   bool circular = false;
 //   bool isLoading = false;
@@ -43,11 +43,11 @@
 //   TextEditingController _townEditingController = TextEditingController();
 //
 //   List<String> professions= ['Select a profession','mechanic','vulcaniser','driver','Market','Gas station'];
-//   String _selectProfession = '';
+//   String?  _selectProfession = '';
 //   List<Marker> myMarker = [];
 //
-//   double draggedLatitude;
-//   double draggedLongitude;
+//   double? draggedLatitude;
+//   double? draggedLongitude;
 //
 //
 //   Completer<GoogleMapController> _controllerGogleMap = Completer();
@@ -57,9 +57,9 @@
 //   Position newPosition;
 //   LatLng draggedLocation;
 //   var geoLocatior = Geolocator();
-//   String placedAddress ='';
+//   String?  placedAddress ='';
 //
-//   String realAddress = '';
+//   String?  realAddress = '';
 //   var Dlatitude;
 //   var Dlongitude;
 //   void locatePosition() async{
@@ -78,7 +78,7 @@
 //     CameraPosition cameraPosition = new CameraPosition(target: latLngPosition,zoom: 14.0);
 //     newGoogleController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 //
-//     String address = await AssistantMethods.searchCordinateaddress(position);
+//     String?  address = await AssistantMethods.searchCordinateaddress(position);
 //     setState(() {
 //       realAddress = address;
 //     });
@@ -269,7 +269,7 @@
 //
 //
 //
-//   Widget _entryField(var editController,String title, {bool isPassword = false}) {
+//   Widget _entryField(var editController,String?  title, {bool isPassword = false}) {
 //     return Container(
 //       padding: EdgeInsets.symmetric(horizontal: 25),
 //       margin: EdgeInsets.symmetric(vertical: 10),
@@ -331,7 +331,7 @@
 //     );
 //   }
 //
-//   // void _successAlert(BuildContext context, String title,String subtitle){
+//   // void _successAlert(BuildContext context, String?  title,String?  subtitle){
 //   //   AchievementView(
 //   //     context,
 //   //     title: title,
@@ -345,7 +345,7 @@
 //   // }
 //   //
 //   //
-//   // void _errorAlert(BuildContext context, String title,String subtitle){
+//   // void _errorAlert(BuildContext context, String?  title,String?  subtitle){
 //   //   AchievementView(
 //   //     context,
 //   //     title: title,

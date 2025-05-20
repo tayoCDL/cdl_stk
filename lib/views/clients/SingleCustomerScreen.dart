@@ -32,22 +32,22 @@ import 'package:sales_toolkit/widgets/server_error_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SingleCustomerScreen extends StatefulWidget {
-  final int clientID;
-  const SingleCustomerScreen({Key key, this.clientID}) : super(key: key);
+  final int?  clientID;
+  const SingleCustomerScreen({Key? key, this.clientID}) : super(key: key);
   @override
   _SingleCustomerScreenState createState() =>
       _SingleCustomerScreenState(clientID: this.clientID);
 }
 
 class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
-  int clientID;
-  String realMonth = '';
+  int?  clientID;
+  String?  realMonth = '';
   _SingleCustomerScreenState({this.clientID});
 
   Map<String, Object> clientPersonal = {};
   var clientProfile = {};
   bool _isLoading = false;
-  String dummyAvatar =
+  String?  dummyAvatar =
       "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a\r\nHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy\r\nMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACWAJYDASIA\r\nAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA\r\nAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3\r\nODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm\r\np6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA\r\nAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx\r\nBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK\r\nU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3\r\nuLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2Siii\r\ngAooooAKKWjFABRS4qvdX9pZDNxOiH+7nJ/Ic0AT0YrAn8WW6HEFvJJ7sQo/rVf/AIS5/wDnzX/v\r\n5/8AWoA6eisK28VWshC3ELw/7QO4f4/pW5FJHPEskTq6N0ZTkGgBcUlOxSUAJRRiigAooooAKKKK\r\nACiiigApaKUCgAApwFKBWfrtybTR53U4dhsU/X/62aAMLWfEMjyNbWT7I1OGlU8t9D2Fc6SWJJJJ\r\nPUmkooAKKKKACrllql3p+Rby7VY5KkAg1TooA7jQ9Z/tRXjlVUnTnC9GHqK1iK4PQJ/I1q2OTh22\r\nEDvngfriu/IoAixRTiKSgBtFLSUAFFFFABS0lKKAFAp4FIBT1FACgVg+MONJh/67j/0Fq6JRWJ4u\r\nhL6IHH/LOVWP6j+tAHB0UUUAFFFFABRRRQBd0hS2sWYAz++U/rXpBWuA8MqG8Q2gIzyx/wDHTXob\r\nLQBXIphFTMKjIoAjpKcRSUAJRRRQAtKKSnigByipFFNUVKooAcorJ8UzRw6BMr/elKog9TnP9DWy\r\nornPG6/8Sm3b0nA/8dP+FAHC0UUUAFFFFABRRRQBf0W8Sw1i2uZBlFYhvYEEZ/DOa9NIzXkdesWW\r\n46dbF/veUufrgUADComFWGFQsKAISKYakYUw0ANopaKAFFPWmCpFoAeoqZRUa1MtAD1FZXim0N1o\r\nE+0ZaLEoH06/pmtdaeKAPG6K6vxho9pYJb3FpAIhI7CQKTgnqMDoO/SuUoAKKKKACiiigCeztXvb\r\n2G2jBLSOF+nvXrW0KoUDAAwKy9B0W20yzikEQN06AySHk5PUD0FaxoAhYVCwqdqiagCBhUZqVqjN\r\nADKKKKAHCnrTBUi0ASrUy1CtTLQBItPFNFOFAHOeN42fQ42UEhJ1LewwR/MivPq9b1GWzh0+Vr8q\r\nLYja+4E5zx0HNeUXAiFzKIGZoQ58st1K54z+FAEdFFFABUkEElzcRwRLueRgqj3NR10XhS90zT7m\r\nae+k2S4CxEoWwO/Qden60AehKoVQo6AYpDTgQRkHIPQ000ARtULVM1RNQBC1RGpWqJqAGGig0UAK\r\nKkWoxUi0ATLUq1CtLLcw20fmTypGg/idsCgC0tPFcnfeNLaIFLGIzN2d/lX8up/Sucu/EmrXZIa7\r\neNSSQsXyAe2RyfxNAGr4z1YXNymnwtmOE5kI6F/T8Ofz9q5WjrRQAUUUUAFFFFAHofhLVhe6cLSR\r\nv9Itxjn+JOx/Dp+XrXQGvH4ppYJBJDI8bjoyNgj8a2rPxZqlqVEkouIwMbZRz+Y5z9c0AehNULVj\r\n2PizT7zCzE20h7Sfd/76/wAcVrFgyhlIIPIIPWgCNqjNSNURoAaaKKKAFFU7rWbGyyJZ1Lj+BPmP\r\n6dPxrmta1uW4ne3t3KQKSpKnl/8A61YdAHS3vi6ZwUsohEP778t+XQfrXP3FzPdSeZPK8j+rHNRU\r\nUAFFFFABRRRQAUUUUAFFFFABRRRQAVbs9SvLA5tp2Qd16qfwPFVKKAOstPFyPhbyAof78fI/I8/z\r\nrat761vFzbzpJ3wDyPqOtec0qsyMGRirDkEHBFAHpdFc9omu+cjQXrgOgysh/iHofeigDlnOZGPu\r\nabQTkk0UAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQBNbttkJzjiiolbac0UAJRRRQA\r\nUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB/9k=";
 
   @override
@@ -58,7 +58,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
     super.initState();
   }
 
-  goBack(BuildContext context, String value) {
+  goBack(BuildContext context, String?  value) {
     if (value == 'go_back') {
       MyRouter.pushPageReplacement(
           context,
@@ -70,10 +70,10 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
     }
   }
 
-  retRealFile(String img) {
+  retRealFile(String?  img) {
     var Velo = img.split(',').first;
-    int chopOut = Velo.length + 1;
-    String realfile =
+    int?  chopOut = Velo.length + 1;
+    String?  realfile =
         img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
   }
@@ -374,7 +374,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                 ),
                               ];
                             },
-                            onSelected: (String value) => goBack(
+                            onSelected: (String?  value) => goBack(
                               context,
                               value,
                             ),
@@ -2083,14 +2083,14 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                                                       'attachment']
                                                                   ['type'] ==
                                                               'application/pdf') {
-                                                            String pdf = clientProfile[
+                                                            String?  pdf = clientProfile[
                                                                             'clientIdentifiers']
                                                                         [
                                                                         position]
                                                                     [
                                                                     'attachment']
                                                                 ['location'];
-                                                            String fileName =
+                                                            String?  fileName =
                                                                 clientProfile['clientIdentifiers']
                                                                             [
                                                                             position]
@@ -2101,7 +2101,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                                             var Velo = pdf
                                                                 .split(',')
                                                                 .first;
-                                                            int chopOut =
+                                                            int?  chopOut =
                                                                 Velo.length + 1;
                                                             var bytes =
                                                                 base64Decode(pdf
@@ -2236,7 +2236,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
               );
   }
 
-  Widget clientStatus(Color statusColor, String status) {
+  Widget clientStatus(Color statusColor, String?  status) {
     return Container(
       width: 125,
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
@@ -2255,9 +2255,9 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
     );
   }
 
-  retDOBfromBVN(String getDate) {
+  retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -2323,15 +2323,15 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
       });
     }
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
@@ -2351,7 +2351,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
     }
 
     // Get the status value
-    String status = clientProfile['clients']['status']['value'];
+    String?  status = clientProfile['clients']['status']['value'];
 
     // Return widget based on status
     if (status == 'InComplete') {

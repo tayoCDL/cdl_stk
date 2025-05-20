@@ -26,15 +26,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/rounded-button.dart';
 
 class RemittaBioData extends StatefulWidget {
-  // const NewLoan({Key key}) : super(key: key);
+  // const NewLoan({Key? key}) : super(key: key);
   //
   // @override
   // _NewLoanState createState() => _NewLoanState();
 
-  final int clientID, productId, loanId, employerId, sectorID, parentClientType;
+  final int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
 
   const RemittaBioData(
-      {Key key,
+      {Key? key,
         this.clientID,
         this.productId,
         this.loanId,
@@ -54,7 +54,7 @@ class RemittaBioData extends StatefulWidget {
 }
 
 class _RemittaBioDataState extends State<RemittaBioData> {
-  int clientID, productId, loanId, employerId, sectorID, parentClientType;
+  int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
 
   _RemittaBioDataState(
       {this.clientID,
@@ -78,26 +78,26 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   List<dynamic> allEmployer = ["employer"];
   bool _isLoading = false;
 
-  int sectorId;
+  int?  sectorId;
 
   List<String> fundingArray = [];
   List<String> collectFunding = [];
   List<dynamic> allFunding = [];
-  String productName = '';
-  String PassloanPurpose = '';
-  String username;
-  int productInt, purposeInt;
+  String?  productName = '';
+  String?  PassloanPurpose = '';
+  String?  username;
+  int?  productInt, purposeInt;
   var employmentProfile = [];
-  int employerID;
+  int?  employerID;
 
   bool otpValidationStatus = false;
   bool bvnFecthedSuccessfully = false;
   bool isBankLoading = false;
   bool isRequestLoading = false;
-  String accountName = '';
-  String bankName = '';
-  String bankCode,accountTypeString,TempdateOfBirth;
-  int bankInt,bankClassificationInt,bankAccountTypeListInt;
+  String?  accountName = '';
+  String?  bankName = '';
+  String?  bankCode,accountTypeString,TempdateOfBirth;
+  int?  bankInt,bankClassificationInt,bankAccountTypeListInt;
 
   bool isAllowedToProceed = false;
 
@@ -163,7 +163,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         allBanksList = newEmp;
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         //print(newEmp[i]['name']);
         collectBanksList.add(newEmp[i]['name']);
       }
@@ -206,7 +206,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
             allBanksList = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -238,7 +238,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
           allBanksList = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -259,7 +259,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 
   getSalesUsername() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Vusername = prefs.getString('username');
+    String?  Vusername = prefs.getString('username');
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
@@ -368,7 +368,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
           ).show(context);
         }
        if(response['data']['message'] == 'SUCCESS'){
-         String customerID = response['data']['data']['data']['customerId'];
+         String?  customerID = response['data']['data']['data']['customerId'];
 
          print('customer ID ${customerID}');
          MyRouter.pushPage(
@@ -402,7 +402,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 
   loadLoanTemplates() async {
     print('this is clientID ${clientID} ${employerId}');
-    int empID = employerID == null ? employerId : employerID;
+    int?  empID = employerID == null ? employerId : employerID;
     print('empID ${empID}');
     setState(() {
       _isLoading = true;
@@ -424,7 +424,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 
       print('all Products ${newEmp}');
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -467,7 +467,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int i = 0; i < filtered.length; i++) {
+      for (int?  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -484,7 +484,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
     });
   }
 
-  loadPurposeTemplate(int productId) async {
+  loadPurposeTemplate(int?  productId) async {
     setState(() {
       _isLoading = true;
     });
@@ -503,7 +503,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -528,7 +528,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         allPurpose = newEmp;
       });
 
-      for (int i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -572,7 +572,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   }
 
 
-  fetchBankInfo(String accountNumber,String sortCode) {
+  fetchBankInfo(String?  accountNumber,String?  sortCode) {
     setState(() {
       _isLoading = true;
       accountName = '';
@@ -649,8 +649,8 @@ class _RemittaBioDataState extends State<RemittaBioData> {
           // accountName = response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] ;
           //   accountName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
 
-          String LastName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'];
-          String FirstName = response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
+          String?  LastName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'];
+          String?  FirstName = response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
 
           accountName = response['data']['data']['accountName'];
 
@@ -685,7 +685,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   }
 
 
-  // fetchBankInfo(String accountNumber,String sortCode) {
+  // fetchBankInfo(String?  accountNumber,String?  sortCode) {
   //   setState(() {
   //     _isLoading = true;
   //     accountName = '';
@@ -760,8 +760,8 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   //         // accountName = response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] ;
   //         //   accountName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
   //
-  //         String LastName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'];
-  //         String FirstName = response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
+  //         String?  LastName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'];
+  //         String?  FirstName = response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
   //
   //         accountName = response['data']['data']['accountName'];
   //
@@ -800,7 +800,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   //   //print('employer sector ${empInt.toString()} category sector ${catInt} ');
   //
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String getBVN = prefs.getString('inputBvn');
+  //   String?  getBVN = prefs.getString('inputBvn');
   //
   //   Map <String,dynamic> subData = {
   //     "bvn":bvn.text ,
@@ -976,7 +976,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   }
 
 
-  int currentStep = 0;
+  int?  currentStep = 0;
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
 
@@ -1037,7 +1037,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                   child: DropDownComponent(items: banksListArray,
-                                      onChange: (String item){
+                                      onChange: (String?  item){
                                         setState(() {
 
                                           List<dynamic> selectID =   allBanksList.where((element) => element['name'] == item).toList();
@@ -1050,7 +1050,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                                       },
                                       label: "Bank * ",
                                       selectedItem: bankName,
-                                      validator: (String item){
+                                      validator: (String?  item){
 
                                       }
 
@@ -1118,7 +1118,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                                   child: DropDownComponent(
                                       items: filteredProduct,
-                                      onChange: (String item) async {
+                                      onChange: (String?  item) async {
                                         setState(() {
                                           List<dynamic> selectID = allProduct
                                               .where((element) => element['name'] == item)
@@ -1132,7 +1132,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                                       },
                                       label: "Product Name *",
                                       selectedItem: productName,
-                                      validator: (String item) {
+                                      validator: (String?  item) {
                                         if (item.length == 0) {
                                           return "Loan product is mandatory";
                                         }
@@ -1333,7 +1333,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: DropDownComponent(
                 items: filteredProduct,
-                onChange: (String item) async {
+                onChange: (String?  item) async {
                   setState(() {
                     List<dynamic> selectID = allProduct
                         .where((element) => element['name'] == item)
@@ -1347,7 +1347,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 },
                 label: "Product Name *",
                 selectedItem: productName,
-                validator: (String item) {
+                validator: (String?  item) {
                   if (item.length == 0) {
                     return "Loan product is mandatory";
                   }
@@ -1367,7 +1367,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: DropDownComponent(
                 items: purposeArray,
-                onChange: (String item) async {
+                onChange: (String?  item) async {
                   setState(() {
                     List<dynamic> selectID = allPurpose
                         .where((element) => element['name'] == item)
@@ -1381,7 +1381,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 },
                 label: "Loan Purpose   *",
                 selectedItem: PassloanPurpose,
-                validator: (String item) {
+                validator: (String?  item) {
                   if (item.length == 0) {
                     return "Loan purpose is mandatory ";
                   }
@@ -1411,28 +1411,28 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         selectedDate = selected;
         print(selected);
         //  date = selected.toString();
-        String vasCoddd = retsNx360dates(selected);
+        String?  vasCoddd = retsNx360dates(selected);
         dateController.text = vasCoddd;
       });
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
 
     List<String> wordList = removeComma.split(" ");
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String concatss = o2 + " " + o1 + " " + o3;
+    String?  concatss = o2 + " " + o1 + " " + o3;
     print("concatss");
     print(concatss);
 
@@ -1443,15 +1443,15 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   Widget EntryField(
       BuildContext context,
       var editController,
-      String labelText,
-      String hintText,
+      String?  labelText,
+      String?  hintText,
       var keyBoard, {
         bool isPassword = false,
         isRealOnly: false,
         var maxLenghtAllow,
         bool showHelpText = false,
         bool isDateAllowed = false,
-        String helpText,Function onChangeVal,
+        String?  helpText,VoidCallback onChangeVal,
       }) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -1487,7 +1487,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                         onChanged: (date) {
                           print('change $date');
                           setState(() {
-                            String retDate = retsNx360dates(date);
+                            String?  retDate = retsNx360dates(date);
                             dobController.text = retDate;
                           });
                         }, onConfirm: (date) {
@@ -1520,7 +1520,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
             ),
             textInputAction: TextInputAction.done,
 
-            onChanged: (String value){
+            onChanged: (String?  value){
              onChangeVal(value);
             },
 
@@ -1538,7 +1538,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
       barrierDismissible: false,
       context: context,
       builder: (dialogContext) {
-       // String contentText = "Content of Dialog";
+       // String?  contentText = "Content of Dialog";
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -1724,12 +1724,12 @@ class _RemittaBioDataState extends State<RemittaBioData> {
           children: [
             DropDownComponent(
                 items: [],
-                onChange: (String item) {
+                onChange: (String?  item) {
                   setState(() {});
                 },
                 label: "Link Savings",
                 selectedItem: "---",
-                validator: (String item) {
+                validator: (String?  item) {
                   if(item.isEmpty || item.length < 2){
                     return "Field cannot be empty";
                   }
@@ -1765,7 +1765,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        String contentText = "Content of Dialog";
+        String?  contentText = "Content of Dialog";
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -1802,8 +1802,8 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                           //  confirmOTP();
                           //print('new newtemp date ${retDOBfromBVN(TempdateOfBirth)} ${dobController.text}');
 
-                          String compA = retDOBfromBVN(TempdateOfBirth);
-                          String compB = dobController.text;
+                          String?  compA = retDOBfromBVN(TempdateOfBirth);
+                          String?  compB = dobController.text;
 
                           if(compA.compareTo(compB) == 0){
 

@@ -27,7 +27,7 @@
 //     });
 //   }
 //
-//   void showSnack(String text) {
+//   void showSnack(String?  text) {
 //     if (_scaffoldKey.currentContext != null) {
 //       ScaffoldMessenger.of(_scaffoldKey.currentContext)
 //           .showSnackBar(SnackBar(content: Text(text)));

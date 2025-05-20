@@ -45,7 +45,7 @@ class AddClientProvider extends ChangeNotifier {
       User authUser = User.fromJson(responseData);
 
       // now we will create shared preferences and save data
-      UserPreferences().saveUser(authUser);
+   //   UserPreferences().saveUser(authUser);
 
       result = {
         'status':true,
@@ -65,7 +65,7 @@ class AddClientProvider extends ChangeNotifier {
 
 
 
-  Future<Map<String, dynamic>> addPersonal(var personalData,String clientStatus) async {
+  Future<Map<String, dynamic>> addPersonal(var personalData,String?  clientStatus) async {
     var result;
 
     _addStatus = Status.NotSent;
@@ -77,20 +77,20 @@ class AddClientProvider extends ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
-    int getClientID = prefs.getInt('tempClientInt');
-    int PregetClientID = prefs.getInt('clientId');
+    int?  getClientID = prefs.getInt('tempClientInt');
+    int?  PregetClientID = prefs.getInt('clientId');
 
 
-    String getBVN = prefs.getString('inputBvn');
-    int emptType = prefs.getInt('employment_type');
-    int getEmploymentsector = prefs.getInt('emp_category');
+    String?  getBVN = prefs.getString('inputBvn');
+    int?  emptType = prefs.getInt('employment_type');
+    int?  getEmploymentsector = prefs.getInt('emp_category');
 
 
     print('controller tempCLient ID ${PregetClientID} ${getClientID} ${personalData['id']}  ${getBVN} ${emptType} ${getEmploymentsector}');
 
 
   // print(prefs);
-   int leadToClient =  prefs.getInt('leadToClientID');
+   int?  leadToClient =  prefs.getInt('leadToClientID');
     if(leadToClient != null){
       prefs.setInt('clientId', leadToClient);
     }
@@ -180,7 +180,7 @@ class AddClientProvider extends ChangeNotifier {
     print(clientId);
     print(token);
     var vClientID = personalData['id'] == null ? prefs.getInt('clientId') : personalData['id'];
-    String url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
+    String?  url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
     print('dd<< ${url}');
     try{
       Response responsevv;
@@ -198,8 +198,7 @@ class AddClientProvider extends ChangeNotifier {
       //   );
       // }
       // else {
-        responsevv = await post(
-          AppUrl.addClient,
+        responsevv = await post(AppUrl.addClient,
           body: json.encode(prefs.getInt('clientId')  ==  null && personalData['id']  == null ? clientData : clientData2),
           headers: {
             'Content-Type': 'application/json',
@@ -266,7 +265,7 @@ class AddClientProvider extends ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>> addEmployment(var employmentData,String clientStatus) async {
+  Future<Map<String, dynamic>> addEmployment(var employmentData,String?  clientStatus) async {
     var result;
 
     _addStatus = Status.Sending;
@@ -423,7 +422,7 @@ class AddClientProvider extends ChangeNotifier {
     var vClientID = employmentData['clientId'] == null ? prefs.getInt('clientId') : employmentData['clientId'];
 
 
-    String url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
+    String?  url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
       print('employer URL >>> ${url} client Status ${clientStatus}');
     prefs.setString('prefsEmploymentData', jsonEncode(clientData));
 
@@ -506,9 +505,9 @@ class AddClientProvider extends ChangeNotifier {
         e.toString().contains('HandshakeException')) {
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      String vlas =   prefs.getString('prefsPersonalData');
+      String?  vlas =   prefs.getString('prefsPersonalData');
       print('vlas ${vlas}');
-          Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+          Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
           print('prefsPersonal ${prefPersonals}');
 
@@ -560,8 +559,8 @@ class AddClientProvider extends ChangeNotifier {
       };
 
         prefs.setString('prefsEmployment', jsonEncode(empsPrefs));
-        String lils =   prefs.getString('prefsEmployment');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsEmployment');
+        //  String?  prefsDee = jsonDecode(lils);
           print('prefsDee ${lils}');
 
       return result = {'status': false, 'message': 'Network_error','data':'No Internet connection'};
@@ -578,7 +577,7 @@ class AddClientProvider extends ChangeNotifier {
 
 
 
-  Future<Map<String, dynamic>> addResidential(var residentialData,String clientStatus) async {
+  Future<Map<String, dynamic>> addResidential(var residentialData,String?  clientStatus) async {
     var result;
 
     _addStatus = Status.Sending;
@@ -626,7 +625,7 @@ class AddClientProvider extends ChangeNotifier {
     var vClientID = residentialData['clientId'] == null ? prefs.getInt('clientId') : residentialData['clientId'];
 
 
-    String url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
+    String?  url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
 
     print('new Url ${url}');
 
@@ -694,9 +693,9 @@ class AddClientProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsEmployment');
+        String?  vlas =   prefs.getString('prefsEmployment');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal ${prefPersonals}');
 
@@ -763,8 +762,8 @@ class AddClientProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsResidentials', jsonEncode(resPrefs));
-        String lils =   prefs.getString('prefsResidentials');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsResidentials');
+        //  String?  prefsDee = jsonDecode(lils);
 
         print('prefsDee ${lils}');
 
@@ -782,7 +781,7 @@ class AddClientProvider extends ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>> addNextOfKin(var nextofKinData,String clientStatus) async {
+  Future<Map<String, dynamic>> addNextOfKin(var nextofKinData,String?  clientStatus) async {
     var result;
 
     _addStatus = Status.Sending;
@@ -827,7 +826,7 @@ class AddClientProvider extends ChangeNotifier {
    // prefs.setString('prefsNextofKinData', jsonEncode(clientData));
 
     var vClientID = nextofKinData['clientId'] == null ? prefs.getInt('clientId') : nextofKinData['clientId'];
-    String url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
+    String?  url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
     print('dd<< ${url}');
 
 
@@ -851,7 +850,7 @@ class AddClientProvider extends ChangeNotifier {
       // }
       // else {
         responsevv = await post(
-            AppUrl.addClient,
+           AppUrl.addClient,
           body: json.encode(clientData),
           headers: {
             'Content-Type': 'application/json',
@@ -895,9 +894,9 @@ class AddClientProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsResidentials');
+        String?  vlas =   prefs.getString('prefsResidentials');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal address ${prefPersonals['addresses']}');
 
@@ -980,8 +979,8 @@ class AddClientProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsNextOfKin', jsonEncode(nextOfKinsPrefs));
-        String lils =   prefs.getString('prefsNextOfKin');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsNextOfKin');
+        //  String?  prefsDee = jsonDecode(lils);
 
         print('prefsDee ${lils}');
 
@@ -1000,7 +999,7 @@ class AddClientProvider extends ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>> addBankDetails(var bankData,String clientStatus) async {
+  Future<Map<String, dynamic>> addBankDetails(var bankData,String?  clientStatus) async {
     var result;
 
     _addStatus = Status.Sending;
@@ -1039,7 +1038,7 @@ class AddClientProvider extends ChangeNotifier {
     prefs.setString('prefsbankDetailsData', jsonEncode(clientData));
 
     var vClientID = bankData['clientId'] == null ? prefs.getInt('clientId') : bankData['clientId'];
-    String url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
+    String?  url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
     print('dd<< ${url}');
 
 
@@ -1105,9 +1104,9 @@ class AddClientProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsNextOfKin');
+        String?  vlas =   prefs.getString('prefsNextOfKin');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal family ${prefPersonals['familyMembers']}');
 
@@ -1198,8 +1197,8 @@ class AddClientProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsBankAccountPrefs', jsonEncode(BankAccountPrefs));
-        String lils =   prefs.getString('prefsBankAccountPrefs');
-        //  String prefsDee = jsonDecode(lils);
+        String?  lils =   prefs.getString('prefsBankAccountPrefs');
+        //  String?  prefsDee = jsonDecode(lils);
 
         print('prefsDee plus bank ${lils}');
 
@@ -1218,11 +1217,11 @@ class AddClientProvider extends ChangeNotifier {
   }
 
 
-  Future<Map<String, dynamic>>  addDocumentUpload(String clientStatus,
+  Future<Map<String, dynamic>>  addDocumentUpload(String?  clientStatus,
       {var docData,
-      String passportLocation,
-      String passportFileType,
-      int ClientInt}) async {
+      String?  passportLocation,
+      String?  passportFileType,
+      int?  ClientInt}) async {
     var result;
 
     _addStatus = Status.Sending;
@@ -1269,7 +1268,7 @@ class AddClientProvider extends ChangeNotifier {
   //  prefs.setString('prefsDocumentUploadData', jsonEncode(clientData));
 
     var vClientID =  prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
-    String url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
+    String?  url = clientStatus == "Active" ? AppUrl.getResidentialClient + vClientID.toString() + '/kyc' :  AppUrl.addClient;
     print('dd<< ${url}');
 
     print(token);
@@ -1330,9 +1329,9 @@ class AddClientProvider extends ChangeNotifier {
           e.toString().contains('HandshakeException')) {
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-        String vlas =   prefs.getString('prefsBankAccountPrefs');
+        String?  vlas =   prefs.getString('prefsBankAccountPrefs');
         print('vlas ${vlas}');
-        Map<String,dynamic> prefPersonals = jsonDecode(vlas);
+        Map<String,dynamic> prefPersonals = jsonDecode(vlas!);
 
         print('prefsPersonal family ${prefPersonals['familyMembers']}');
 
@@ -1424,25 +1423,25 @@ class AddClientProvider extends ChangeNotifier {
         };
 
         prefs.setString('prefsDocUploadsPrefs', jsonEncode(DocuUploadPrefs));
-        String lils =   prefs.getString('prefsDocUploadsPrefs');
+        String?  lils =   prefs.getString('prefsDocUploadsPrefs');
         // Map<String,dynamic> vLils= jsonDecode(lils);
         //
         // var mVilils = vLils['clientIdentifiers'];
         //
-        // //  String prefsDee = jsonDecode(lils);
+        // //  String?  prefsDee = jsonDecode(lils);
         //
         // print('prefsDee plus doc Upload ${mVilils}');
 
 
 
 
-         List<String> listDraft =   prefs.getStringList('ListDraftClient');
+         List<String>? listDraft =   prefs.getStringList('ListDraftClient');
 
           if(listDraft ==  null){
             listDraft = [];
-            listDraft.add(lils);
+            listDraft.add(lils!);
           }else {
-            listDraft.add(lils);
+            listDraft.add(lils!);
           }
 
 

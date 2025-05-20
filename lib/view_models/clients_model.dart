@@ -14,7 +14,7 @@ class UserModel extends ChangeNotifier {
   ClientState _homeState = ClientState.Initial;
  // List<ClientsListData> users = [];
  List<Map<ClientsListData, dynamic>> users = [];
-  String message = '';
+  String?  message = '';
 
   UserModel() {
     _fetchUsers();

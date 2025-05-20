@@ -7,7 +7,7 @@ class NumericPad extends StatelessWidget {
 
   final Function(int) onNumberSelected;
 
-  NumericPad({@required this.onNumberSelected});
+  NumericPad({required this.onNumberSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +75,12 @@ class NumericPad extends StatelessWidget {
     );
   }
 
-  Widget buildNumber(int number) {
+  Widget buildNumber(int?  number) {
     return Expanded(
 
       child: GestureDetector(
         onTap: () {
-          onNumberSelected(number);
+          onNumberSelected(number!);
         },
         child: Padding(
           padding: EdgeInsets.all(15),

@@ -20,10 +20,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LeadBankDetails extends StatefulWidget {
-  final int ClientInt,bankId;
-  final String PassedbankName,PassedaccountNumber,PassedaccountName,comingFrom;
+  final int?  ClientInt,bankId;
+  final String?  PassedbankName,PassedaccountNumber,PassedaccountName,comingFrom;
 
-  const LeadBankDetails({Key key,this.PassedaccountName,this.PassedaccountNumber,this.PassedbankName,this.ClientInt,this.comingFrom,this.bankId}) : super(key: key);
+  const LeadBankDetails({Key? key,this.PassedaccountName,this.PassedaccountNumber,this.PassedbankName,this.ClientInt,this.comingFrom,this.bankId}) : super(key: key);
 
   @override
   _LeadBankDetailsState createState() => _LeadBankDetailsState(
@@ -41,9 +41,9 @@ class LeadBankDetails extends StatefulWidget {
 }
 
 class _LeadBankDetailsState extends State<LeadBankDetails> {
-  int ClientInt,bankId;
+  int?  ClientInt,bankId;
 
-  String PassedbankName,PassedaccountNumber,PassedaccountName,comingFrom;
+  String?  PassedbankName,PassedaccountNumber,PassedaccountName,comingFrom;
 
   _LeadBankDetailsState({this.PassedaccountName,this.PassedbankName,this.PassedaccountNumber,this.ClientInt,this.comingFrom,bankId});
 
@@ -69,9 +69,9 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
 
   bool isBankLoading = false;
   bool isRequestLoading = false;
-  String accountName = '';
-  String bankCode;
-  int bankInt,bankClassificationInt;
+  String?  accountName = '';
+  String?  bankCode;
+  int?  bankInt,bankClassificationInt;
 
   @override
   void initState() {
@@ -95,7 +95,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
     //     allBankAccount = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectBankAcount.add(newEmp[i]['name']);
     //   }
@@ -136,7 +136,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
             allBankAccount = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -168,7 +168,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
           allBankAccount = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -199,7 +199,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
         allBanksList = newEmp;
       });
 
-      for(int i = 0; i < newEmp.length;i++){
+      for(int?  i = 0; i < newEmp.length;i++){
         print(newEmp[i]['name']);
         collectBanksList.add(newEmp[i]['name']);
       }
@@ -242,7 +242,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
             allBanksList = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -274,7 +274,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
           allBanksList = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -302,7 +302,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
     //     allBankClassification = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectBankClassification.add(newEmp[i]['name']);
     //   }
@@ -344,7 +344,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
             allBankClassification = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -376,7 +376,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
           allBankClassification = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }
@@ -398,7 +398,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
@@ -433,7 +433,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
   AddClientProvider addClientProvider = AddClientProvider();
 
 
-  fetchBankInfo(String accountNumber,String sortCode) {
+  fetchBankInfo(String?  accountNumber,String?  sortCode) {
     setState(() {
       isRequestLoading = true;
     });
@@ -521,7 +521,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
 
       prefs.setInt('tempBankInfoInt', bankInfo.isEmpty ? null :  bankInfo[0]['id']);
 
-      int getBankInfo = prefs.getInt('tempBankInfoInt');
+      int?  getBankInfo = prefs.getInt('tempBankInfoInt');
 
       print('bankInfo this ${getBankInfo}');
 
@@ -638,7 +638,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: banksListArray,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
 
                                         List<dynamic> selectID =   allBanksList.where((element) => element['name'] == item).toList();
@@ -650,7 +650,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
                                     },
                                     label: "Bank * ",
                                     selectedItem: "---",
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
 
@@ -695,7 +695,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow}){
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(
@@ -716,7 +716,7 @@ class _LeadBankDetailsState extends State<LeadBankDetails> {
               style: TextStyle(fontFamily: 'Nunito SansRegular'),
               keyboardType: keyBoard,
 
-              onChanged: (String value){
+              onChanged: (String?  value){
                 if(value.isEmpty){
                   setState(() {
                     isBankLoading = false;

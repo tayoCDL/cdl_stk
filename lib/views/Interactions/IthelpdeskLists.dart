@@ -21,16 +21,16 @@ import 'package:sales_toolkit/widgets/shared/sequestCredential.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ItHelpDeskLists extends StatefulWidget {
-  // const ClientInteraction({Key key}) : super(key: key);
+  // const ClientInteraction({Key? key}) : super(key: key);
   //
   // @override
   // _ClientInteractionState createState() => _ClientInteractionState();
 
 
 
-  final int clientID,loanOfficerId;
-  final String clientName,ClientEmail;
-  const ItHelpDeskLists({Key key,this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId}) : super(key: key);
+  final int?  clientID,loanOfficerId;
+  final String?  clientName,ClientEmail;
+  const ItHelpDeskLists({Key? key,this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId}) : super(key: key);
   @override
   _ItHelpDeskListsState createState() => _ItHelpDeskListsState(
     clientID: this.clientID,
@@ -44,9 +44,9 @@ var interactionData = [];
 
 
 class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
-  int clientID,loanOfficerId;
+  int?  clientID,loanOfficerId;
   Timer _timerForInter;
-  final String clientName,ClientEmail;
+  final String?  clientName,ClientEmail;
   _ItHelpDeskListsState({this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId});
 
 
@@ -66,7 +66,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
 
   getInteracctionForClient() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword');
 
     final Map<String, String> sequestLoginData = {
       "username": "MobileUser",
@@ -91,7 +91,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
 
     var sequestTokenTaker = prefs.setString('sequestToken', sequestData['token']);
 
-    String localLoanOfficerId = prefs.getString('loanOfficerId');
+    String?  localLoanOfficerId = prefs.getString('loanOfficerId');
 
     print('clientID ${clientID}');
     //   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -212,7 +212,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
   }
 
 
-  Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped,String dueDate){
+  Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,String?  dueDate){
     return InkWell(
       onTap: onTicketTapped,
       child: Container(
@@ -315,8 +315,8 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
     );
   }
 
-  get10(String val_10){
-    String vals = val_10.substring(0,10);
+  get10(String?  val_10){
+    String?  vals = val_10.substring(0,10);
     return vals;
   }
 
@@ -348,7 +348,7 @@ Widget NoSearchResult(){
 class InteractionSearch extends SearchDelegate<String>{
 
   @override
-  String get searchFieldLabel => 'Client ID,Mobile No or BVN';
+  String?  get searchFieldLabel => 'Client ID,Mobile No or BVN';
 
 
   @override
@@ -388,7 +388,7 @@ class InteractionSearch extends SearchDelegate<String>{
     // TODO: implement buildSuggestions
     // throw UnimplementedError();
 
-    Widget recentInteractions(String ticketId,String title,String status,Function onTicketTapped,){
+    Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,){
       return InkWell(
         onTap: onTicketTapped,
         child: Container(
@@ -466,11 +466,9 @@ class InteractionSearch extends SearchDelegate<String>{
   }
 
 
-  Widget StatusColor (String value){
+  Widget StatusColor (String?  value){
     return Text('value',style: TextStyle(color: value == 'Pending' ? Colors.orangeAccent : Colors.red),);
   }
 
 
 }
-
-

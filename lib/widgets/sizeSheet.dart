@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-Future<void> showSizeSheet(BuildContext context, double leftMargin,
-    double rightMargin, double bottomMargin, Widget widget,{Color colors=Colors.white , bool dismissible = true}) {
+Future<void> showSizeSheet(BuildContext context, double? leftMargin,
+    double? rightMargin, double? bottomMargin, Widget widget,{Color colors=Colors.white , bool dismissible = true}) {
   final theme = Theme.of(context);
 
   return showModalBottomSheet<void>(

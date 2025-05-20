@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-InputDecoration buildInputDecoration(String hintText, IconData icon) {
+InputDecoration buildInputDecoration(String?  hintText, IconData icon) {
   return InputDecoration(
     prefixIcon: Icon(icon, color: Color.fromRGBO(50, 62, 72, 1.0)),
     hintText: hintText,
@@ -10,7 +10,7 @@ InputDecoration buildInputDecoration(String hintText, IconData icon) {
   );
 }
 
-MaterialButton longButtons(String title, Function fun,
+MaterialButton longButtons(String?  title, VoidCallback fun,
     {Color color: Colors.blue, Color textColor: Colors.white}) {
   return MaterialButton(
     onPressed: fun,

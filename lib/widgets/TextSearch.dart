@@ -5,17 +5,17 @@ class LocalTextFieldSearch extends StatefulWidget {
   /// A default list of values that can be used for an initial list of elements to select from
   final List initialList;
 
-  /// A string used for display of the selectable elements
-  final String label;
+  /// A String?  used for display of the selectable elements
+  final String?  label;
 
   /// A controller for an editable text field
   final TextEditingController controller;
 
   /// An optional future or async function that should return a list of selectable elements
-  final Function future;
+  final VoidCallback future;
 
   /// The value selected on tap of an element within the list
-  final Function getSelectedValue;
+  final VoidCallback getSelectedValue;
 
   /// Used for customizing the display of the TextField
   final InputDecoration decoration;
@@ -34,10 +34,10 @@ class LocalTextFieldSearch extends StatefulWidget {
 
   /// Creates a TextFieldSearch for displaying selected elements and retrieving a selected element
   const LocalTextFieldSearch(
-      {Key key,
+      {Key? key,
         this.initialList,
-        @required this.label,
-        @required this.controller,
+        required this.label,
+        required this.controller,
         this.textStyle,
         this.future,
         this.getSelectedValue,
@@ -108,7 +108,7 @@ class _LocalTextFieldSearchState extends State<LocalTextFieldSearch> {
         List tempList = <dynamic>[];
         // loop through each item in filtered items
         for (int i = 0; i < filteredList.length; i++) {
-          // lowercase the item and see if the item contains the string of text from the lowercase search
+          // lowercase the item and see if the item contains the String?  of text from the lowercase search
           if (widget.getSelectedValue != null) {
             if (this
                 .filteredList[i]
@@ -146,7 +146,7 @@ class _LocalTextFieldSearchState extends State<LocalTextFieldSearch> {
     List tempList = <dynamic>[];
     // loop through each item in filtered items
     for (int i = 0; i < filteredList.length; i++) {
-      // lowercase the item and see if the item contains the string of text from the lowercase search
+      // lowercase the item and see if the item contains the String?  of text from the lowercase search
       if (this
           .filteredList[i]
           .toLowerCase()
@@ -332,7 +332,7 @@ class _LocalTextFieldSearchState extends State<LocalTextFieldSearch> {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     Size overlaySize = renderBox.size;
     Size screenSize = MediaQuery.of(context).size;
-    double screenWidth = screenSize.width;
+    double? screenWidth = screenSize.width;
     return OverlayEntry(
         builder: (context) => Positioned(
           width: overlaySize.width,
@@ -368,7 +368,7 @@ class _LocalTextFieldSearchState extends State<LocalTextFieldSearch> {
             ? widget.decoration
             : InputDecoration(labelText: widget.label),
         style: widget.textStyle,
-        onChanged: (String value) {
+        onChanged: (String?  value) {
           // every time we make a change to the input, update the list
           _debouncer.run(() {
             setState(() {
@@ -408,8 +408,8 @@ class Debouncer {
 
 class ScrollbarDecoration {
   const ScrollbarDecoration({
-    @required this.controller,
-    @required this.theme,
+    required this.controller,
+    required this.theme,
   });
 
   /// {@macro flutter.widgets.Scrollbar.controller}

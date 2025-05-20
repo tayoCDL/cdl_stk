@@ -19,7 +19,7 @@ class Dialogs {
             children: <Widget>[
               SizedBox(height: 15.0),
               Text(
-                Constants.appName,
+                Constants.appName!,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0,

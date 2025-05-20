@@ -10,7 +10,7 @@ import 'package:sales_toolkit/views/orders/singleOrderView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderHistory extends StatefulWidget {
-  const OrderHistory({Key key}) : super(key: key);
+  const OrderHistory({Key? key}) : super(key: key);
 
   @override
   _OrderHistoryState createState() => _OrderHistoryState();
@@ -23,7 +23,7 @@ class _OrderHistoryState extends State<OrderHistory> {
   clickOrder() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-   bool isLoggedIn =  prefs.getBool('loginState');
+   bool? isLoggedIn =  prefs.getBool('loginState');
       print('isLogged ${isLoggedIn}');
    if(isLoggedIn == null || isLoggedIn == false){
      Flushbar(

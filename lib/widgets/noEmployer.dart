@@ -3,7 +3,7 @@ import 'package:sales_toolkit/util/router.dart';
 
 
 
-Widget noEmployerDialog({Function onTap}) {
+Widget noEmployerDialog({VoidCallback onTap}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Container(
@@ -82,7 +82,7 @@ Widget noEmployerDialog({Function onTap}) {
   );
 }
 
-Widget lafDownloadStatus({Function onTap,bool isSuccess =true}) {
+Widget lafDownloadStatus({VoidCallback onTap,bool isSuccess =true}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Container(
@@ -158,7 +158,7 @@ Widget lafDownloadStatus({Function onTap,bool isSuccess =true}) {
   );
 }
 
-Widget lafDownloadFailed({Function onTap,bool isSuccess =true}) {
+Widget lafDownloadFailed({VoidCallback onTap,bool isSuccess =true}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Container(

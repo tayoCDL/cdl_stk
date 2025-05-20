@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 
 class RecoveryOverview extends StatefulWidget {
- final int collectionID;
-  const RecoveryOverview({Key key,this.collectionID}) : super(key: key);
+ final int?  collectionID;
+  const RecoveryOverview({Key? key,this.collectionID}) : super(key: key);
 
   @override
   _RecoveryOverviewState createState() => _RecoveryOverviewState(
@@ -15,8 +15,8 @@ class RecoveryOverview extends StatefulWidget {
 
 
 class _RecoveryOverviewState extends State<RecoveryOverview> {
-  int collectionID;
-  String realMonth='';
+  int?  collectionID;
+  String?  realMonth='';
   Map<String,dynamic> recoveryLists = {};
 
   _RecoveryOverviewState({this.collectionID});
@@ -250,9 +250,9 @@ class _RecoveryOverviewState extends State<RecoveryOverview> {
     );
   }
 
-  retDOBfromBVN(String getDate){
+  retDOBfromBVN(String?  getDate){
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -316,15 +316,15 @@ class _RecoveryOverviewState extends State<RecoveryOverview> {
     }
 
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
     print('newOO ${newOO}');
 
-    String concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth + " " + o1   ;
 
     print("concatss new Date from edit ${concatss}");
 

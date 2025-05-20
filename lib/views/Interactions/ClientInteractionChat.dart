@@ -29,8 +29,8 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../util/enum/color_utils.dart';
 
 class ClientInteractionChat extends StatefulWidget {
-  final String ticketID;
-  const ClientInteractionChat({Key key, @required this.ticketID})
+  final String?  ticketID;
+  const ClientInteractionChat({Key? key, required this.ticketID})
       : super(key: key);
 
   @override
@@ -47,31 +47,31 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   File uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
+  String?  _fileName = '...';
   bool _isLoading = false;
-  String fileSize = '';
-  String baseimage = '';
-  int replyStatus = 0;
+  String?  fileSize = '';
+  String?  baseimage = '';
+  int?  replyStatus = 0;
   File chosenImage;
-  String agent_name, agent_email = '';
-  int agentId = 0;
-  String selectedStatus = '';
+  String?  agent_name, agent_email = '';
+  int?  agentId = 0;
+  String?  selectedStatus = '';
   List<dynamic> loggerStatus = [];
   List<dynamic> resolverStatus = [];
   List<dynamic> showTicketStatus = List.empty(growable: true);
   AddInteractionProvider _addInteractionProvider = AddInteractionProvider();
   TextEditingController chatSendController = TextEditingController();
-  String selectedFile = '';
-  String dummyAvatar =
+  String?  selectedFile = '';
+  String?  dummyAvatar =
       "data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a\r\nHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy\r\nMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACWAJYDASIA\r\nAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA\r\nAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3\r\nODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm\r\np6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA\r\nAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx\r\nBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK\r\nU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3\r\nuLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2Siii\r\ngAooooAKKWjFABRS4qvdX9pZDNxOiH+7nJ/Ic0AT0YrAn8WW6HEFvJJ7sQo/rVf/AIS5/wDnzX/v\r\n5/8AWoA6eisK28VWshC3ELw/7QO4f4/pW5FJHPEskTq6N0ZTkGgBcUlOxSUAJRRiigAooooAKKKK\r\nACiiigApaKUCgAApwFKBWfrtybTR53U4dhsU/X/62aAMLWfEMjyNbWT7I1OGlU8t9D2Fc6SWJJJJ\r\nPUmkooAKKKKACrllql3p+Rby7VY5KkAg1TooA7jQ9Z/tRXjlVUnTnC9GHqK1iK4PQJ/I1q2OTh22\r\nEDvngfriu/IoAixRTiKSgBtFLSUAFFFFABS0lKKAFAp4FIBT1FACgVg+MONJh/67j/0Fq6JRWJ4u\r\nhL6IHH/LOVWP6j+tAHB0UUUAFFFFABRRRQBd0hS2sWYAz++U/rXpBWuA8MqG8Q2gIzyx/wDHTXob\r\nLQBXIphFTMKjIoAjpKcRSUAJRRRQAtKKSnigByipFFNUVKooAcorJ8UzRw6BMr/elKog9TnP9DWy\r\nornPG6/8Sm3b0nA/8dP+FAHC0UUUAFFFFABRRRQBf0W8Sw1i2uZBlFYhvYEEZ/DOa9NIzXkdesWW\r\n46dbF/veUufrgUADComFWGFQsKAISKYakYUw0ANopaKAFFPWmCpFoAeoqZRUa1MtAD1FZXim0N1o\r\nE+0ZaLEoH06/pmtdaeKAPG6K6vxho9pYJb3FpAIhI7CQKTgnqMDoO/SuUoAKKKKACiiigCeztXvb\r\n2G2jBLSOF+nvXrW0KoUDAAwKy9B0W20yzikEQN06AySHk5PUD0FaxoAhYVCwqdqiagCBhUZqVqjN\r\nADKKKKAHCnrTBUi0ASrUy1CtTLQBItPFNFOFAHOeN42fQ42UEhJ1LewwR/MivPq9b1GWzh0+Vr8q\r\nLYja+4E5zx0HNeUXAiFzKIGZoQ58st1K54z+FAEdFFFABUkEElzcRwRLueRgqj3NR10XhS90zT7m\r\nae+k2S4CxEoWwO/Qden60AehKoVQo6AYpDTgQRkHIPQ000ARtULVM1RNQBC1RGpWqJqAGGig0UAK\r\nKkWoxUi0ATLUq1CtLLcw20fmTypGg/idsCgC0tPFcnfeNLaIFLGIzN2d/lX8up/Sucu/EmrXZIa7\r\neNSSQsXyAe2RyfxNAGr4z1YXNymnwtmOE5kI6F/T8Ofz9q5WjrRQAUUUUAFFFFAHofhLVhe6cLSR\r\nv9Itxjn+JOx/Dp+XrXQGvH4ppYJBJDI8bjoyNgj8a2rPxZqlqVEkouIwMbZRz+Y5z9c0AehNULVj\r\n2PizT7zCzE20h7Sfd/76/wAcVrFgyhlIIPIIPWgCNqjNSNURoAaaKKKAFFU7rWbGyyJZ1Lj+BPmP\r\n6dPxrmta1uW4ne3t3KQKSpKnl/8A61YdAHS3vi6ZwUsohEP778t+XQfrXP3FzPdSeZPK8j+rHNRU\r\nUAFFFFABRRRQAUUUUAFFFFABRRRQAVbs9SvLA5tp2Qd16qfwPFVKKAOstPFyPhbyAof78fI/I8/z\r\nrat761vFzbzpJ3wDyPqOtec0qsyMGRirDkEHBFAHpdFc9omu+cjQXrgOgysh/iHofeigDlnOZGPu\r\nabQTkk0UAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQBNbttkJzjiiolbac0UAJRRRQA\r\nUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB/9k=";
-  String passportFileName,
+  String?  passportFileName,
       passportFileSize,
       passportFiletype,
       passportFileLocation,
       newFileLocation;
-  String appendBase64 = '';
+  String?  appendBase64 = '';
 
-  String _path = '...';
+  String?  _path = '...';
   bool _pickFileInProgress = false;
   bool _iosPublicDataUTI = true;
   bool _checkByCustomExtension = false;
@@ -89,14 +89,14 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     text: 'application/pdf image/png',
   );
 
-  int _crossAxisCount = 2;
+  int?  _crossAxisCount = 2;
 
-  double _aspectRatio = 1.5;
+  double? _aspectRatio = 1.5;
 
-  retRealFile(String img) {
+  retRealFile(String?  img) {
     var Velo = img.split(',').first;
-    int chopOut = Velo.length + 1;
-    String realfile =
+    int?  chopOut = Velo.length + 1;
+    String?  realfile =
         img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
   }
@@ -127,7 +127,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     });
   }
 
-  getTicketStatus(String ticketId) async {
+  getTicketStatus(String?  ticketId) async {
     final Future<Map<String, dynamic>> respose =
         RetCodes().getTicketStatus(ticketId);
     respose.then((response) {
@@ -145,7 +145,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     Timer(Duration(seconds: 10), () {
       print("Yeah, this line is printed after 4 seconds");
     });
-    String createdBy = fullRequestData == null || fullRequestData.isEmpty
+    String?  createdBy = fullRequestData == null || fullRequestData.isEmpty
         ? ''
         : fullRequestData['ticketDetails']['createdBy'];
 
@@ -178,7 +178,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     return showTicketStatus;
   }
 
-  String ticketID;
+  String?  ticketID;
   _ClientInteractionChatState({this.ticketID});
 
   getDiscourseLists() async {
@@ -208,7 +208,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     getTicketStatus(ticketID);
   }
 
-  actionPopUpItemSelected(String value) {
+  actionPopUpItemSelected(String?  value) {
     if (value == "closed") {
       setState(() {
         replyStatus = 4;
@@ -418,18 +418,18 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     );
   }
 
-  retsNx360dates(String chatDate) {
+  retsNx360dates(String?  chatDate) {
     print('2022-03-11T10:03:18.7029365');
 
-    // String newdate = selectedDate.toString().substring(0,10);
+    // String?  newdate = selectedDate.toString().substring(0,10);
     // print(newdate);
 
     DateTime inputDate = DateTime.parse(chatDate);
-    String formattedDate = DateFormat.yMMMMd().format(inputDate);
+    String?  formattedDate = DateFormat.yMMMMd().format(inputDate);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -437,15 +437,15 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);
@@ -455,7 +455,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   }
 
   stripHtmlIfNeed(var html) {
-    String newParsed = Bidi.stripHtmlIfNeeded(html);
+    String?  newParsed = Bidi.stripHtmlIfNeeded(html);
     return newParsed;
   }
 
@@ -580,7 +580,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   //     final kb = bytes / 1024;
   //     final mb = kb / 1024;
   //     print('this is the MB ${mb}');
-  //     String filesizeAsString  = mb.toString();
+  //     String?  filesizeAsString?   = mb.toString();
   //     fileSize = filesizeAsString;
   //
   //     // end get file size
@@ -590,7 +590,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   //
   //
   //
-  //     String getPath  = choosedimage.toString();
+  //     String?  getPath  = choosedimage.toString();
   //     _fileName = getPath != null ? getPath.split('/').last.replaceAll("'", '') : '...';
   //      selectedFile = _fileName;
   //      print('real file Name ${selectedFile}');
@@ -620,20 +620,20 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
         base64.encode(result); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -646,7 +646,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -682,7 +682,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   void _openFileExplorer() async {
     MyRouter.popPage(context);
 
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';
@@ -755,7 +755,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       print('file extension ${_path.split('.').last}');
 
-      String filePath = _path.split('.').last;
+      String?  filePath = _path.split('.').last;
 
       var result;
 
@@ -778,13 +778,13 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(extensionChecker ? result : bytes);
+      String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -1002,7 +1002,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
                       itemCount: discussData == null || discussData.isEmpty
                           ? 0
                           : discussData.length,
-                      itemBuilder: (context, int index) {
+                      itemBuilder: (context, int?  index) {
                         print(discussData);
 
                         final message = discussData[index];
@@ -1182,7 +1182,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
                                       //
                                       //     ];
                                       //   },
-                                      //   onSelected: (String value) => actionPopUpItemSelected(value),
+                                      //   onSelected: (String?  value) => actionPopUpItemSelected(value),
                                       // ),
 
                                       SizedBox(

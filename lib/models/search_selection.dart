@@ -5,12 +5,12 @@ class SearchSelectionItem {
     this.value,
   });
 
-  final String label;
+  final String?  label;
   final dynamic value;
 
   SearchSelectionItem copyWith({
-    String label,
-    String value,
+    String?  label,
+    String?  value,
   }) =>
       SearchSelectionItem(
         label: label ?? this.label,

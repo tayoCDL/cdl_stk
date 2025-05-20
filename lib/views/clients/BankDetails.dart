@@ -21,14 +21,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_models/post_put_method.dart';
 
 class BankDetails extends StatefulWidget {
-  final int ClientInt, bankId;
-  final String PassedbankName,
+  final int?  ClientInt, bankId;
+  final String?  PassedbankName,
       PassedaccountNumber,
       PassedaccountName,
       comingFrom;
 
   const BankDetails(
-      {Key key,
+      {Key? key,
       this.PassedaccountName,
       this.PassedaccountNumber,
       this.PassedbankName,
@@ -48,9 +48,9 @@ class BankDetails extends StatefulWidget {
 }
 
 class _BankDetailsState extends State<BankDetails> {
-  int ClientInt, bankId;
+  int?  ClientInt, bankId;
 
-  String PassedbankName, PassedaccountNumber, PassedaccountName, comingFrom;
+  String?  PassedbankName, PassedaccountNumber, PassedaccountName, comingFrom;
 
   _BankDetailsState(
       {this.PassedaccountName,
@@ -83,10 +83,10 @@ class _BankDetailsState extends State<BankDetails> {
 
   bool isBankLoading = false;
   bool isRequestLoading = false;
-  String accountName = '';
-  String bankName = '';
-  String bankCode, accountTypeString;
-  int bankInt, bankClassificationInt, bankAccountTypeListInt;
+  String?  accountName = '';
+  String?  bankName = '';
+  String?  bankCode, accountTypeString;
+  int?  bankInt, bankClassificationInt, bankAccountTypeListInt;
 
   @override
   void initState() {
@@ -109,7 +109,7 @@ class _BankDetailsState extends State<BankDetails> {
     //     allBankAccount = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankAcount.add(newEmp[i]['name']);
     //   }
@@ -147,7 +147,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBankAccount = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -176,7 +176,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBankAccount = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -212,7 +212,7 @@ class _BankDetailsState extends State<BankDetails> {
   //       allBanksList = newEmp;
   //     });
   //
-  //     for(int i = 0; i < newEmp.length;i++){
+  //     for(int?  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectBanksList.add(newEmp[i]['name']);
   //     }
@@ -255,7 +255,7 @@ class _BankDetailsState extends State<BankDetails> {
   //           allBanksList = mtBool;
   //         });
   //
-  //         for(int i = 0; i < mtBool.length;i++){
+  //         for(int?  i = 0; i < mtBool.length;i++){
   //           //print(mtBool[i]['name']);
   //           collectBanksList.add(mtBool[i]['name']);
   //         }
@@ -287,7 +287,7 @@ class _BankDetailsState extends State<BankDetails> {
   //         allBanksList = newEmp;
   //       });
   //
-  //       for(int i = 0; i < newEmp.length;i++){
+  //       for(int?  i = 0; i < newEmp.length;i++){
   //         //print(newEmp[i]['name']);
   //         collectBanksList.add(newEmp[i]['name']);
   //       }
@@ -315,7 +315,7 @@ class _BankDetailsState extends State<BankDetails> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -353,7 +353,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBanksList = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -382,7 +382,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBanksList = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -406,7 +406,7 @@ class _BankDetailsState extends State<BankDetails> {
     //     allBankClassification = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankClassification.add(newEmp[i]['name']);
     //   }
@@ -445,7 +445,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBankClassification = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -474,7 +474,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBankClassification = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }
@@ -491,7 +491,7 @@ class _BankDetailsState extends State<BankDetails> {
   getBankInfoInformation() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int localclientID =
+    int?  localclientID =
         ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -523,7 +523,7 @@ class _BankDetailsState extends State<BankDetails> {
       bankAccountTypeListInt = bankInfo[0]['bankAccountType'] == null
           ? 0
           : bankInfo[0]['bankAccountType']['id'] ?? 0;
-      accountTypeString = bankInfo[0]['bankAccountType'] == null
+      accountTypeString?  = bankInfo[0]['bankAccountType'] == null
           ? ''
           : bankInfo[0]['bankAccountType']['name'] ?? '';
     });
@@ -539,7 +539,7 @@ class _BankDetailsState extends State<BankDetails> {
   @override
   AddClientProvider addClientProvider = AddClientProvider();
 
-  fetchBankInfo(String accountNumber, String sortCode) {
+  fetchBankInfo(String?  accountNumber, String?  sortCode) {
     setState(() {
       isRequestLoading = true;
       accountName = '';
@@ -616,10 +616,10 @@ class _BankDetailsState extends State<BankDetails> {
           // accountName = response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] ;
           //   accountName = response['data']['data']['lastName'] == null ? '' : response['data']['data']['lastName'] + ' ' + response['data']['data']['firstName'] == null ? '' : response['data']['data']['firstName'];
 
-          String LastName = response['data']['data']['lastName'] == null
+          String?  LastName = response['data']['data']['lastName'] == null
               ? ''
               : response['data']['data']['lastName'];
-          String FirstName = response['data']['data']['firstName'] == null
+          String?  FirstName = response['data']['data']['firstName'] == null
               ? ''
               : response['data']['data']['firstName'];
 
@@ -667,7 +667,7 @@ class _BankDetailsState extends State<BankDetails> {
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      int getBankInfo = prefs.getInt('tempBankInfoInt');
+      int?  getBankInfo = prefs.getInt('tempBankInfoInt');
 
       //print('bankInfo this ${getBankInfo}');
 
@@ -694,13 +694,13 @@ class _BankDetailsState extends State<BankDetails> {
         ).show(context);
       }
 
-      int localclientID =
+      int?  localclientID =
           ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
       PostAndPut postAndPut = new PostAndPut();
 
       postAndPut.isClientActive(localclientID).then((value) {
-        String client_status = value.toString();
+        String?  client_status = value.toString();
         final Future<Map<String, dynamic>> respose =
             addClientProvider.addBankDetails(colBankData, client_status);
         //print('start response from login');
@@ -830,7 +830,7 @@ class _BankDetailsState extends State<BankDetails> {
                                     horizontal: 20, vertical: 10),
                                 child: DropDownComponent(
                                     items: banksListArray,
-                                    onChange: (String item) {
+                                    onChange: (String?  item) {
                                       setState(() {
                                         List<dynamic> selectID = allBanksList
                                             .where((element) =>
@@ -845,14 +845,14 @@ class _BankDetailsState extends State<BankDetails> {
                                     },
                                     label: "Bank * ",
                                     selectedItem: bankName,
-                                    validator: (String item) {}),
+                                    validator: (String?  item) {}),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 child: DropDownComponent(
                                     items: bankAccountArray,
-                                    onChange: (String item) async {
+                                    onChange: (String?  item) async {
                                       setState(() {
                                         List<dynamic> selectID = allBankAccount
                                             .where((element) =>
@@ -867,7 +867,7 @@ class _BankDetailsState extends State<BankDetails> {
                                     },
                                     label: "Account Type * ",
                                     selectedItem: accountTypeString,
-                                    validator: (String item) {}),
+                                    validator: (String?  item) {}),
                               ),
                               Padding(
                                   padding: EdgeInsets.symmetric(
@@ -924,8 +924,8 @@ class _BankDetailsState extends State<BankDetails> {
     );
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText, var keyBoard,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText, var keyBoard,
       {bool isPassword = false, var maxLenghtAllow}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -944,7 +944,7 @@ class _BankDetailsState extends State<BankDetails> {
             style: TextStyle(fontFamily: 'Nunito SansRegular'),
             keyboardType: keyBoard,
 
-            onChanged: (String value) {
+            onChanged: (String?  value) {
               if (value.isEmpty) {
                 setState(() {
                   isBankLoading = false;

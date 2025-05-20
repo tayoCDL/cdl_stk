@@ -4,7 +4,7 @@ import '../models/user_model.dart';
 import '../widgets/widgets.dart';
 
 class ChatRoom extends StatefulWidget {
-  const ChatRoom({Key key, @required this.user}) : super(key: key);
+  const ChatRoom({Key? key, required this.user}) : super(key: key);
 
   @override
   _ChatRoomState createState() => _ChatRoomState();

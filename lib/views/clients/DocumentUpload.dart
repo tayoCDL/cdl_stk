@@ -41,9 +41,9 @@ import '../../palatte.dart';
 import '../../view_models/post_put_method.dart';
 
 class DocumentUpload extends StatefulWidget {
-  final int ClientInt;
-  final String comingFrom;
-  const DocumentUpload({Key key, this.ClientInt, this.comingFrom})
+  final int?  ClientInt;
+  final String?  comingFrom;
+  const DocumentUpload({Key? key, this.ClientInt, this.comingFrom})
       : super(key: key);
 
   @override
@@ -54,8 +54,8 @@ class DocumentUpload extends StatefulWidget {
 }
 
 class _DocumentUploadState extends State<DocumentUpload> {
-  int ClientInt;
-  String comingFrom;
+  int?  ClientInt;
+  String?  comingFrom;
   _DocumentUploadState({this.ClientInt, this.comingFrom});
   @override
   TextEditingController passport = TextEditingController();
@@ -65,7 +65,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
   TextEditingController proof_of_employment = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
-  // String fileName ='';
+  // String?  fileName ='';
   // final GlobalKey<SfSignaturePadState> signatureGlobalKey = GlobalKey();
 
   // void _handleClearButtonPressed() {
@@ -75,12 +75,12 @@ class _DocumentUploadState extends State<DocumentUpload> {
   File uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String _fileName = '...';
-  String _path = '...';
-  String _extension;
-  String signatureBase64;
+  String?  _fileName = '...';
+  String?  _path = '...';
+  String?  _extension;
+  String?  signatureBase64;
   bool _hasValidMime = false;
-  String appendBase64 = '';
+  String?  appendBase64 = '';
   bool value = false;
   FileType _pickingType;
   DateTime selectedDate = DateTime.now();
@@ -109,33 +109,33 @@ class _DocumentUploadState extends State<DocumentUpload> {
   List<String> UpdatecollectDocumentCategory = [];
   List<dynamic> UpdateallDocumentCategory = [];
 
-  int employmentInt, identityInt, documentTypeInt, updateDocumentInt;
+  int?  employmentInt, identityInt, documentTypeInt, updateDocumentInt;
 
-  String passportFileName,
+  String?  passportFileName,
       passportFileSize,
       passportFiletype,
       passportFileLocation,
       newFileLocation;
-  String documentFileName,
+  String?  documentFileName,
       residenceFileSize,
       documentFiletype,
       documentFileLocation;
-  String identityFileName,
+  String?  identityFileName,
       identityFileSize,
       identityFiletype,
       identityFileLocation;
-  String employmentFileName,
+  String?  employmentFileName,
       employmentFileSize,
       employmentFiletype,
       employmentFileLocation;
-  String passportPhotoGraph = '';
+  String?  passportPhotoGraph = '';
   bool _isLoading = false;
   bool isPassportAdded = false;
   List<dynamic> objectFetched = [];
   var _copying = false;
   var _lastPick = 'No file picked';
 
-  // String _path = '-';
+  // String?  _path = '-';
   bool _pickFileInProgress = false;
   bool _iosPublicDataUTI = true;
   bool _checkByCustomExtension = false;
@@ -213,7 +213,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //     allResidence = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectResidence.add(newEmp[i]['name']);
     //   }
@@ -253,7 +253,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             UpdateallDocumentType = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentType.add(mtBool[i]['name']);
           }
@@ -287,7 +287,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         List<dynamic> modifiedEmp =
             newEmp.where((element) => element['systemDefined']).toList();
 
-        for (int i = 0; i < modifiedEmp.length; i++) {
+        for (int?  i = 0; i < modifiedEmp.length; i++) {
           print(modifiedEmp[i]['name']);
           collectDocumentType.add(modifiedEmp[i]['name']);
         }
@@ -302,7 +302,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     });
   }
 
-  getSubCategoryForCOnfig(String codeID) {
+  getSubCategoryForCOnfig(String?  codeID) {
     final Future<Map<String, dynamic>> respose = RetCodes().getCodes(codeID);
 
     respose.then((response) async {
@@ -331,7 +331,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allDocumentCategory = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentCategory.add(mtBool[i]['name']);
           }
@@ -362,7 +362,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           UpdateallDocumentCategory = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectDocumentCategory.add(newEmp[i]['name']);
           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -379,7 +379,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     });
   }
 
-  getSubCategoryForCOnfigUpdate(String codeID) {
+  getSubCategoryForCOnfigUpdate(String?  codeID) {
     final Future<Map<String, dynamic>> respose = RetCodes().getCodes(codeID);
 
     respose.then((response) async {
@@ -408,7 +408,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allDocumentCategory = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentCategory.add(mtBool[i]['name']);
           }
@@ -439,7 +439,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           UpdateallDocumentCategory = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           //  collectDocumentCategory.add(newEmp[i]['name']);
           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -469,7 +469,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //     allIdentity = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectIdentity.add(newEmp[i]['name']);
     //   }
@@ -508,7 +508,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allIdentity = mtBool;
           });
 
-          for (int i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -537,7 +537,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           allIdentity = newEmp;
         });
 
-        for (int i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }
@@ -554,7 +554,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
   void _openFileExplorer() async {
     MyRouter.popPage(context);
 
-    String result;
+    String?  result;
     try {
       setState(() {
         _path = '-';
@@ -628,7 +628,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       print('file extension ${_path.split('.').last}');
 
-      String filePath = _path.split('.').last;
+      String?  filePath = _path.split('.').last;
 
       var result;
 
@@ -651,13 +651,13 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(extensionChecker ? result : bytes);
+      String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -698,7 +698,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
   getDocumentUploadInformation() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =
+    int?  localclientID =
         ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     print('localInt ${localclientID}');
@@ -734,7 +734,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
   getPassportPhotograph() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int localclientID =
+    int?  localclientID =
         ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     print('localInt ${localclientID}');
@@ -770,7 +770,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         isPassportAdded = true;
       });
 
-      final String responseData2 = responsevv.body;
+      final String?  responseData2 = responsevv.body;
       print('newClient Data ${responseData2}');
       print(responseData2);
       var newClientData = responseData2;
@@ -800,7 +800,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
   // }
 
   pickDocument() async {
-    String result;
+    String?  result;
 
 //  final filePath = await FlutterDocumentPicker.openDocument();
 
@@ -889,7 +889,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     });
 
     try {
-      String filePath = _path.split('.').last;
+      String?  filePath = _path.split('.').last;
 
       var result;
 
@@ -913,13 +913,13 @@ class _DocumentUploadState extends State<DocumentUpload> {
       final bytes = Io.File(_path).readAsBytesSync();
 
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(extensionChecker ? result : bytes);
+      String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb} ${kb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -981,7 +981,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //      print('newPath ${_newpath}');
     //       //_path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension,);
     //
-    //       String filePath = _path.split('.').last;
+    //       String?  filePath = _path.split('.').last;
     //
     //       var result;
     //
@@ -1004,7 +1004,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //       final bytes = Io.File(_path).readAsBytesSync();
     //
     //       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-    //       String img64 = base64Encode(extensionChecker ? result  : bytes);
+    //       String?  img64 = base64Encode(extensionChecker ? result  : bytes);
     //
     //
     //
@@ -1012,7 +1012,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //       final kb = byeInLength / 1024;
     //       final mb = kb / 1024;
     //       print('this is the MB ${mb} ${kb}');
-    //       String filesizeAsString  = mb.toString();
+    //       String?  filesizeAsString?   = mb.toString();
     //       print('this is file sizelenght ${filesizeAsString}');
     //       print('image base64 ${img64}');
     //
@@ -1064,16 +1064,16 @@ class _DocumentUploadState extends State<DocumentUpload> {
   }
 
   void _UpdateDocumentsExplorer(
-      int ID,
-      int documentTypeID,
-      String documentKey,
-      String attachmentName,
-      String attachmentLocation,
-      String description,
-      String filename,
-      String documentType,
-      int attachmentID) async {
-    String result;
+      int?  ID,
+      int?  documentTypeID,
+      String?  documentKey,
+      String?  attachmentName,
+      String?  attachmentLocation,
+      String?  description,
+      String?  filename,
+      String?  documentType,
+      int?  attachmentID) async {
+    String?  result;
 
     final filePath = await FlutterDocumentPicker.openDocument();
 
@@ -1145,13 +1145,13 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       final bytes = Io.File(_path).readAsBytesSync();
       final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String img64 = base64Encode(bytes);
+      String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String filesizeAsString = mb.toString();
+      String?  filesizeAsString?  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -1208,19 +1208,19 @@ class _DocumentUploadState extends State<DocumentUpload> {
             type: _pickingType, fileExtension: _extension);
 
         // List<int> imageBytes = _path.readAsBytesSync();
-        // String baseimage = base64Encode(imageBytes);
+        // String?  baseimage = base64Encode(imageBytes);
 
         print('file extension ${_path.split('.').last}');
 
         final bytes = Io.File(_path).readAsBytesSync();
         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-        String img64 = base64Encode(bytes);
+        String?  img64 = base64Encode(bytes);
 
         // get file size
         final kb = byeInLength / 1024;
         final mb = kb / 1024;
         print('this is the MB ${mb}');
-        String filesizeAsString = mb.toString();
+        String?  filesizeAsString?  = mb.toString();
         print('this is file sizelenght ${filesizeAsString}');
         print('image base64 ${img64}');
 
@@ -1250,19 +1250,19 @@ class _DocumentUploadState extends State<DocumentUpload> {
             type: _pickingType, fileExtension: _extension);
 
         // List<int> imageBytes = _path.readAsBytesSync();
-        // String baseimage = base64Encode(imageBytes);
+        // String?  baseimage = base64Encode(imageBytes);
 
         print('file extension ${_path.split('.').last}');
 
         final bytes = Io.File(_path).readAsBytesSync();
         final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-        String img64 = base64Encode(bytes);
+        String?  img64 = base64Encode(bytes);
 
         // get file size
         final kb = byeInLength / 1024;
         final mb = kb / 1024;
         print('this is the MB ${mb}');
-        String filesizeAsString = mb.toString();
+        String?  filesizeAsString?  = mb.toString();
         print('this is file sizelenght ${filesizeAsString}');
         print('image base64 ${img64}');
 
@@ -1308,20 +1308,20 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
         base64.encode(result); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -1334,7 +1334,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -1438,20 +1438,20 @@ class _DocumentUploadState extends State<DocumentUpload> {
     // image compressor
 
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String base64string =
+    String?  base64String?  =
         base64.encode(result); //convert bytes to base64 string
-    print('base64string ${base64string}');
+    print('base64String?  ${base64string}');
 
-    String _finalPath = choosedimage.toString();
+    String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
     //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String img64 = base64Encode(bytes);
+    // String?  img64 = base64Encode(bytes);
 
     // print(img64);
 
     setState(() {
       uploadimage = choosedimage;
-      String getPath = choosedimage.toString();
+      String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
@@ -1465,7 +1465,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     // final kb = byeInLength / 1024;
     // final mb = kb / 1024;
     // print('this is the MB ${mb}');
-    // String filesizeAsString  = mb.toString();
+    // String?  filesizeAsString?   = mb.toString();
     // print('this is file sizelenght ${filesizeAsString}');
     //  print('image base64 ${img64}');
 
@@ -1527,7 +1527,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     );
   }
 
-  void doDocumentAction(String value) {
+  void doDocumentAction(String?  value) {
     if (value == 'Edit_Documenta') {
       //  MyRouter.pushPage(context,EditDocumentUpload());
 
@@ -1538,7 +1538,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     // }
   }
 
-  int random(min, max) {
+  int?  random(min, max) {
     return min + Random.secure().nextInt(max - min);
   }
 
@@ -1749,13 +1749,13 @@ class _DocumentUploadState extends State<DocumentUpload> {
       // }
       print('passport Location ${passportFileLocation}');
 
-      String passportLocation = passportFileLocation;
+      String?  passportLocation = passportFileLocation;
 
-      int localclientID =
+      int?  localclientID =
           ClientInt == null ? prefs.getInt('clientId') : ClientInt;
       PostAndPut postAndPut = new PostAndPut();
       postAndPut.isClientActive(localclientID).then((value) {
-        String client_status = value.toString();
+        String?  client_status = value.toString();
 
         final Future<Map<String, dynamic>> respose =
             addClientProvider.addDocumentUpload(client_status,
@@ -1828,7 +1828,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
       });
     };
 
-    actionPopUpItemSelected(String value) {
+    actionPopUpItemSelected(String?  value) {
       if (value == 'update_photo') {
         print('update photo');
         showModalBottomSheet(
@@ -1964,7 +1964,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                                                     ),
                                                   ];
                                                 },
-                                                onSelected: (String value) =>
+                                                onSelected: (String?  value) =>
                                                     actionPopUpItemSelected(
                                                         value),
                                               )
@@ -2046,8 +2046,8 @@ class _DocumentUploadState extends State<DocumentUpload> {
     );
   }
 
-  Widget EntryField(BuildContext context, var editController, String labelText,
-      String hintText,
+  Widget EntryField(BuildContext context, var editController, String?  labelText,
+      String?  hintText,
       {bool isPassword = false}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -2092,7 +2092,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     );
   }
 
-  _smallInfo(String descriptions) {
+  _smallInfo(String?  descriptions) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
       child: Text(
@@ -2106,14 +2106,14 @@ class _DocumentUploadState extends State<DocumentUpload> {
   }
 
   retsNx360dates(DateTime selected) {
-    String newdate = selectedDate.toString().substring(0, 10);
+    String?  newdate = selectedDate.toString().substring(0, 10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -2121,15 +2121,15 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
     print(concatss);
 
     print(wordList);
@@ -2149,18 +2149,18 @@ class _DocumentUploadState extends State<DocumentUpload> {
   //       print(selected);
   //       //  date = selected.toString();
   //
-  //       String vasCoddd = retsNx360dates(selected);
+  //       String?  vasCoddd = retsNx360dates(selected);
   //
   //       dateController.text = vasCoddd;
   //
-  //       //    String newdate = selectedDate.toString().substring(0,10);
+  //       //    String?  newdate = selectedDate.toString().substring(0,10);
   //       //    print(newdate);
   //       //
-  //       // String formattedDate = DateFormat.yMMMMd().format(selected);
+  //       // String?  formattedDate = DateFormat.yMMMMd().format(selected);
   //       //
   //       // print(formattedDate);
   //       //
-  //       //  String removeComma = formattedDate.replaceAll(",", "");
+  //       //  String?  removeComma = formattedDate.replaceAll(",", "");
   //       //    print('removeComma');
   //       //    print(removeComma);
   //       //
@@ -2168,11 +2168,11 @@ class _DocumentUploadState extends State<DocumentUpload> {
   //       //  //14 December 2011
   //       //
   //       //  //[January, 18, 1991]
-  //       //  String o1 = wordList[0];
-  //       //  String o2 = wordList[1];
-  //       //  String o3 = wordList[2];
+  //       //  String?  o1 = wordList[0];
+  //       //  String?  o2 = wordList[1];
+  //       //  String?  o3 = wordList[2];
   //       //
-  //       //  String concatss = o2 + " " + o1 + " " + o3;
+  //       //  String?  concatss = o2 + " " + o1 + " " + o3;
   //       //  print("concatss");
   //       //  print(concatss);
   //       //
@@ -2201,7 +2201,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           print(CupertinoSelectedDate);
-                          String retDate =
+                          String?  retDate =
                               retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
                           dateController.text = retDate;
@@ -2261,7 +2261,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                   height: 70,
                   child: DropDownComponent(
                       items: DocumentTypeArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allDocumentType
                               .where((element) => element['name'] == item)
@@ -2275,7 +2275,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                       },
                       label: "Select Document Type * ",
                       selectedItem: "",
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                 ),
                 SizedBox(
                   height: 10,
@@ -2284,7 +2284,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                   height: 70,
                   child: DropDownComponent(
                       items: documentCategoryArray,
-                      onChange: (String item) {
+                      onChange: (String?  item) {
                         setState(() {
                           List<dynamic> selectID = allDocumentCategory
                               .where((element) => element['name'] == item)
@@ -2299,7 +2299,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                       },
                       label: "Select category * ",
                       selectedItem: "-----",
-                      validator: (String item) {}),
+                      validator: (String?  item) {}),
                 ),
                 SizedBox(
                   height: 10,
@@ -2513,10 +2513,10 @@ class _DocumentUploadState extends State<DocumentUpload> {
                             //
                             //
                             //         if(docsLists[position]['attachment']['type'] == 'application/pdf'){
-                            //           String pdf = docsLists[position]['attachment']['location'];
-                            //           String fileName = docsLists[position]['attachment']['fileName'];
+                            //           String?  pdf = docsLists[position]['attachment']['location'];
+                            //           String?  fileName = docsLists[position]['attachment']['fileName'];
                             //           var Velo =  pdf.split(',').first;
-                            //           int chopOut = Velo.length + 1;
+                            //           int?  chopOut = Velo.length + 1;
                             //           var bytes =  base64Decode(pdf.substring(chopOut).replaceAll("\n", "").replaceAll("\r", ""));
                             //           final output = await getTemporaryDirectory();
                             //           final file = File("${output.path}/${documentName}.pdf");
@@ -2542,7 +2542,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                             // ),
                           ];
                         },
-                        onSelected: (String value) => doDocumentAction(value),
+                        onSelected: (String?  value) => doDocumentAction(value),
                       ),
                     ),
                     Divider(),
@@ -2552,7 +2552,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     );
   }
 
-  errorMessage(String message) {
+  errorMessage(String?  message) {
     return Flushbar(
       flushbarPosition: FlushbarPosition.TOP,
       flushbarStyle: FlushbarStyle.GROUNDED,

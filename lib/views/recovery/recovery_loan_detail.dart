@@ -8,8 +8,8 @@ import 'package:sales_toolkit/widgets/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryLoanDetails extends StatefulWidget {
-  final int loanID;
-  const RecoveryLoanDetails({Key key,this.loanID}) : super(key: key);
+  final int?  loanID;
+  const RecoveryLoanDetails({Key? key,this.loanID}) : super(key: key);
 
   @override
   _RecoveryLoanDetailsState createState() => _RecoveryLoanDetailsState(
@@ -59,7 +59,7 @@ class _RecoveryLoanDetailsState extends State<RecoveryLoanDetails> {
 
 
 
-  int loanID;
+  int?  loanID;
 
   _RecoveryLoanDetailsState({this.loanID});
 
@@ -67,7 +67,7 @@ class _RecoveryLoanDetailsState extends State<RecoveryLoanDetails> {
   Widget build(BuildContext context) {
 
 
-    void actionPopUpItemSelected(String value) {
+    void actionPopUpItemSelected(String?  value) {
 
       if (value == 'customer_info') {
         print('got here');
@@ -123,7 +123,7 @@ class _RecoveryLoanDetailsState extends State<RecoveryLoanDetails> {
                   child: ListView.builder(
                       physics: ScrollPhysics(),
                       itemCount: loanDetail['repaymentSchedule'] == null || loanDetail.isEmpty ? 0 : loanDetail['repaymentSchedule']['periods'].length,
-                      itemBuilder: (context,int index){
+                      itemBuilder: (context,int?  index){
                         return  ReapymentSchedule('${loanDetail['repaymentSchedule']['periods'][index]['principalLoanBalanceOutstanding']}','open' ,'${loanDetail['repaymentSchedule']['periods'][index]['dueDate'][0]} - ${loanDetail['repaymentSchedule']['periods'][index]['dueDate'][1]} - ${loanDetail['repaymentSchedule']['periods'][index]['dueDate'][2]}');
                       })
 
@@ -213,7 +213,7 @@ class _RecoveryLoanDetailsState extends State<RecoveryLoanDetails> {
   }
 
 
-  Widget ReapymentSchedule(String title,String status,String duedate,){
+  Widget ReapymentSchedule(String?  title,String?  status,String?  duedate,){
     return Container(
       height: MediaQuery.of(context).size.height * 0.169,
 

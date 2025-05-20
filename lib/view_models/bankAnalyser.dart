@@ -9,11 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class BankAnalyser{
   //final List<String> bankResult;
-  final int clientId;
-  final String amountrequested;
-  final String productId;
-  final String tenure;
-  final int loanId;
+  final int?  clientId;
+  final String?  amountrequested;
+  final String?  productId;
+  final String?  tenure;
+  final int?  loanId;
 
   // var bankResult =[];
 
@@ -25,7 +25,7 @@ class BankAnalyser{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
-    int passedLoanID = prefs.getInt('loanCreatedId');
+    int?  passedLoanID = prefs.getInt('loanCreatedId');
 
     Map<String,String> bHeader =  {
       'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ class BankAnalyser{
       List<dynamic> selectSortCode =  bankResult.where((element) => element['sortCode'] == bankStatment['bankSortCode']).toList();
 
       //print('this is Clientx code ${selectSortCode}');
-      int mbsSortCode = selectSortCode[0]['id'];
+      int?  mbsSortCode = selectSortCode[0]['id'];
 
 
       // get mobile number
@@ -97,7 +97,7 @@ class BankAnalyser{
         headers: bHeader
       );
       final Map<String,dynamic> responseData2Personal = json.decode(responsevvPersonal.body);
-    String phonenumber = responseData2Personal['mobileNo'];
+    String?  phonenumber = responseData2Personal['mobileNo'];
       var loandData = {
         "amount_requested":newClientData['principal'],
         "productId":newClientData['loanProductId'],
@@ -115,8 +115,8 @@ class BankAnalyser{
         "loanId":newClientData['id'],
       };
 
-      int clientId = newClientData['clientId'];
-      int passLoanID = newClientData['id'];
+      int?  clientId = newClientData['clientId'];
+      int?  passLoanID = newClientData['id'];
 
 
       // run bank analyser
@@ -176,7 +176,7 @@ class BankAnalyser{
             result  = {"status": true,"message":response['data']['reason']};
 
           }
-          int tempLoanID =  prefs.getInt('loanCreatedId');
+          int?  tempLoanID =  prefs.getInt('loanCreatedId');
           bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
 
         }

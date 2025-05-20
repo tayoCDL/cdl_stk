@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 
 
 class AppSkeleton extends StatefulWidget {
-  const AppSkeleton({Key key}) : super(key: key);
+  const AppSkeleton({Key? key}) : super(key: key);
 
   @override
   _AppSkeletonState createState() => _AppSkeletonState();

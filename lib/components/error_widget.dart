@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MyErrorWidget extends StatelessWidget {
-  final Function refreshCallBack;
+  final VoidCallback refreshCallBack;
   final bool isConnection;
 
-  MyErrorWidget({@required this.refreshCallBack, this.isConnection = false});
+  MyErrorWidget({required this.refreshCallBack, this.isConnection = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MyErrorWidget extends StatelessWidget {
               getErrorText(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline6.color,
+                color: Theme.of(context).textTheme.titleLarge!.color,
                 fontSize: 17.0,
                 fontWeight: FontWeight.w700,
               ),
@@ -34,7 +34,7 @@ class MyErrorWidget extends StatelessWidget {
           ),
           Container(
             child: TextButton(
-              onPressed: refreshCallBack,
+              onPressed: null,
               // color: Theme.of(context).colorScheme.secondary,
               // shape: RoundedRectangleBorder(
               //   borderRadius: BorderRadius.circular(5.0),

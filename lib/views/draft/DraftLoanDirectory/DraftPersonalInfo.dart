@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DraftPersonalInfo extends StatefulWidget {
-  const DraftPersonalInfo({Key key}) : super(key: key);
+  const DraftPersonalInfo({Key? key}) : super(key: key);
 
   @override
   _DraftPersonalInfoState createState() => _DraftPersonalInfoState();

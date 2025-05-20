@@ -27,16 +27,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 class PersonalInfo extends StatefulWidget {
-  // const PersonalInfo({Key key}) : super(key: key);
+  // const PersonalInfo({Key? key}) : super(key: key);
   //
   // @override
   // _PersonalInfoState createState() => _PersonalInfoState();
 
   //title,gender,noOfDeps
   //passedNin
-  final int ClientInt,PassedtitleInt,PassedgenderInt,PassednoOfdepsInt,PassededucationInt,passedEmployerSector,passedEmployerCategory;
-  final String bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,dateOfBirth,Passedgender,PassedAccountNumber,PassedBankCode,PassedAccountName,passedBVN,passedNin ;
-  const PersonalInfo({Key key,this.ClientInt,this.bvnFirstName,
+  final int?  ClientInt,PassedtitleInt,PassedgenderInt,PassednoOfdepsInt,PassededucationInt,passedEmployerSector,passedEmployerCategory;
+  final String?  bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,dateOfBirth,Passedgender,PassedAccountNumber,PassedBankCode,PassedAccountName,passedBVN,passedNin ;
+  const PersonalInfo({Key? key,this.ClientInt,this.bvnFirstName,
     this.bvnMiddleName,this.bvnLastName,this.bvnEmail,
     this.bvnPhone1,this.bvnPhone2,
     this.comingFrom,this.PassedtitleInt,this.PassedgenderInt,
@@ -77,8 +77,8 @@ class PersonalInfo extends StatefulWidget {
 
 class _PersonalInfoState extends State<PersonalInfo> {
   // passedNin
-  int ClientInt,PassedtitleInt,PassedgenderInt,PassednoOfdepsInt,PassededucationInt,passedEmployerCategory,passedEmployerSector;
-  String bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,dateOfBirth,Passedgender,PassedAccountNumber,PassedBankCode,PassedAccountName,passedBVN,passedNin ;
+  int?  ClientInt,PassedtitleInt,PassedgenderInt,PassednoOfdepsInt,PassededucationInt,passedEmployerCategory,passedEmployerSector;
+  String?  bvnFirstName,bvnMiddleName,bvnLastName,bvnEmail,bvnPhone1,bvnPhone2,comingFrom,dateOfBirth,Passedgender,PassedAccountNumber,PassedBankCode,PassedAccountName,passedBVN,passedNin ;
   _PersonalInfoState({this.ClientInt,this.bvnFirstName,
     this.bvnMiddleName,this.bvnLastName,
     this.bvnEmail,this.bvnPhone1,this.bvnPhone2,
@@ -117,21 +117,21 @@ class _PersonalInfoState extends State<PersonalInfo> {
   List<dynamic> allEducation = [];
   bool _isLoading = false;
   bool isNewVerified = false;
-  String bvnGender = '';
-  String realMonth ='';
-  String _title = '';
-  String educationLevel = '';
+  String?  bvnGender = '';
+  String?  realMonth ='';
+  String?  _title = '';
+  String?  educationLevel = '';
   var personalInfo = {};
-  String isPersonalEmailVerified = '';
+  String?  isPersonalEmailVerified = '';
   Map<String,dynamic> emailGetter;
-  int localInt,newLocalClient;
+  int?  localInt,newLocalClient;
 
   // new
   bool _isOTPSent = false;
   //end new
   void initState() {
     // TODO: implement initState
-    print('>> client int << ${ClientInt}');
+    print('>> client int?  << ${ClientInt}');
     if(ClientInt != null){
       getPersonalInformation();
     }
@@ -162,7 +162,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
   getTemClientID() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int VlocalclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  VlocalclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     // print('localInt ${localclientID}');
 
       if(comingFrom == ''){
@@ -180,7 +180,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -276,7 +276,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allTitle = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectTitle.add(mtBool[i]['name']);
           }
@@ -309,7 +309,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allTitle = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectTitle.add(newEmp[i]['name']);
         }
@@ -338,7 +338,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //     allGender = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectGender.add(newEmp[i]['name']);
     //   }
@@ -379,7 +379,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allGender = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectGender.add(mtBool[i]['name']);
           }
@@ -412,7 +412,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allGender = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectGender.add(newEmp[i]['name']);
         }
@@ -444,7 +444,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -485,7 +485,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allMarital = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectMarital.add(mtBool[i]['name']);
           }
@@ -523,7 +523,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allMarital = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectMarital.add(newEmp[i]['name']);
         }
@@ -555,7 +555,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int i = 0; i < newEmp.length;i++){
+    //   for(int?  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -594,7 +594,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allEducation = mtBool;
           });
 
-          for(int i = 0; i < mtBool.length;i++){
+          for(int?  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectEducation.add(mtBool[i]['name']);
           }
@@ -626,7 +626,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allEducation = newEmp;
         });
 
-        for(int i = 0; i < newEmp.length;i++){
+        for(int?  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectEducation.add(newEmp[i]['name']);
         }
@@ -661,17 +661,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
   TextEditingController otpController = TextEditingController();
 
 
-  String date = "";
-  String title = '';
-  String gender ='';
+  String?  date = "";
+  String?  title = '';
+  String?  gender ='';
 
-  int dateInt,titleInt,genderInt,maritalInt,educationInt ;
+  int?  dateInt,titleInt,genderInt,maritalInt,educationInt ;
 
   bool isConnected = true;
-  String no_of_dependents = '';
-  String marital_status = '';
-  int client_dependent_number = 0;
-  String client_status='';
+  String?  no_of_dependents = '';
+  String?  marital_status = '';
+  int?  client_dependent_number = 0;
+  String?  client_status='';
   DateTime selectedDate = DateTime.now();
   DateTime CupertinoSelectedDate = DateTime.now();
   AddClientProvider addClientProvider = AddClientProvider();
@@ -684,7 +684,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   getEmailValStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int tempClientID =
+    int?  tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
 
     setState(() {
@@ -731,7 +731,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   postEmailValStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int tempClientID =
+    int?  tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
 
     // setState(() {
@@ -779,7 +779,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   sendOTPForEmployer() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int tempClientID =
+    int?  tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     if (emailaddress.text.isEmpty || emailaddress.text.length < 5) {
       return Flushbar(
@@ -803,7 +803,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       ).show(context);
     }
 
-    String real_workEmail = emailaddress.text;
+    String?  real_workEmail = emailaddress.text;
     setState(() {
       _isLoading = true;
     });
@@ -861,7 +861,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     // });
 
 
-    int tempClientID =
+    int?  tempClientID =
     prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     // //print('this is tempLoan ID ${tempClientID}');
     setState(() {
@@ -941,15 +941,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
       //  return  MyRouter.pushPage(context, EmploymentInfo());
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      String personals =   prefs.getString('prefsPersonalData');
+      String?  personals =   prefs.getString('prefsPersonalData');
 
-      int getClientID = prefs.getInt('tempClientInt');
-      int newClientID = prefs.getInt('clientId');
+      int?  getClientID = prefs.getInt('tempClientInt');
+      int?  newClientID = prefs.getInt('clientId');
 
 
-      String getBVN = prefs.getString('inputBvn');
-      int emptType = prefs.getInt('employment_type');
-      int getEmploymentsector = prefs.getInt('emp_category');
+      String?  getBVN = prefs.getString('inputBvn');
+      int?  emptType = prefs.getInt('employment_type');
+      int?  getEmploymentsector = prefs.getInt('emp_category');
 
       print('real tempCLient ID ${newClientID} ${getClientID} ${getBVN} ${emptType} ${getEmploymentsector}');
       final isValid = _form.currentState.validate();
@@ -1154,7 +1154,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: titleArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
                                         title = item;
                                         List<dynamic> selectID =   allTitle.where((element) => element['name'] == item).toList();
@@ -1167,7 +1167,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     },
                                     label: "Title",
                                     selectedItem: _title,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1196,7 +1196,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child:
                                 DropDownComponent(items: genderArray,
-                                    popUpDisabled: (String s) {
+                                    popUpDisabled: (String?  s) {
                                       if(isConnected == true){
                                         return  s.startsWith('Male') || s.startsWith('Female');
                                       }
@@ -1205,10 +1205,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                       }
 
                                     } ,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
 
-                                        String realGender =  bvnGender == '' ? item : bvnGender;
+                                        String?  realGender =  bvnGender == '' ? item : bvnGender;
 
                                         List<dynamic> selectID =   allGender.where((element) => element['name'] == realGender).toList();
                                         print('this is select ID');
@@ -1219,7 +1219,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     },
                                     label: "Gender",
                                     selectedItem: bvnGender == '' ? "Select Gender" : bvnGender,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1262,7 +1262,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                                     onChanged: (date) {
                                                       print('change $date');
                                                       setState(() {
-                                                        String retDate = retsNx360dates(date);
+                                                        String?  retDate = retsNx360dates(date);
                                                         dateController.text = retDate;
                                                       });
                                                     }, onConfirm: (date) {
@@ -1297,7 +1297,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: educationArray,
-                                    onChange: (String item) async{
+                                    onChange: (String?  item) async{
                                       setState(() {
                                         title = item;
                                         List<dynamic> selectID =   allEducation.where((element) => element['name'] == item).toList();
@@ -1310,7 +1310,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     },
                                     label: "Education level",
                                     selectedItem: educationLevel,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1319,7 +1319,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: maritalArray,
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
 
                                         List<dynamic> selectID =   allMarital.where((element) => element['name'] == item).toList();
@@ -1332,7 +1332,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     },
                                     label: "Marital Status",
                                     selectedItem: marital_status,
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1341,14 +1341,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                                 child: DropDownComponent(items: ["0","1","2",'3','4','5','6','7','8','9','10'],
-                                    onChange: (String item){
+                                    onChange: (String?  item){
                                       setState(() {
                                         no_of_dependents = item;
                                       });
                                     },
                                     label: "No. Of dependents",
                                     selectedItem: client_dependent_number.toString(),
-                                    validator: (String item){
+                                    validator: (String?  item){
 
                                     }
                                 ),
@@ -1513,7 +1513,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     );
   }
 
-  Widget EntryField(BuildContext context,var editController,String labelText,String hintText ,var keyBoard,{
+  Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{
     bool isPassword = false,
     var maxLenghtAllow,
     bool isRead = false,
@@ -1522,11 +1522,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
     bool isValidateEmployer = false,
     bool isSendOTP = false,
 
-    Function onBtnPressed,
+    VoidCallback onBtnPressed,
     bool isSuffix = false,
-    String extension,
+    String?  extension,
 
-    Function changeValidator
+    VoidCallback changeValidator
 
   }){
     var MediaSize = MediaQuery.of(context).size;
@@ -1701,7 +1701,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   //      print(selected);
   //       //  date = selected.toString();
   //
-  //       String vasCoddd = retsNx360dates(selected);
+  //       String?  vasCoddd = retsNx360dates(selected);
   //
   //       dateController.text = vasCoddd;
   //
@@ -1738,7 +1738,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           print(CupertinoSelectedDate);
-                          String retDate = retsNx360dates(CupertinoSelectedDate);
+                          String?  retDate = retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
 
                           //  retDOBfromBVN('2018-6-23');
@@ -1765,9 +1765,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
 
 
-  retDOBfromBVN(String getDate){
+  retDOBfromBVN(String?  getDate){
     print('getDate ${getDate}');
-    String removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -1829,15 +1829,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
     }
 
 
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
+    String?  newOO = o3.length == 1 ? '0' + '' + o3 :  o3;
 
     print('newOO ${newOO}');
 
-    String concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth + " " + o1   ;
 
     print("concatss new Date from edit ${concatss}");
 
@@ -1850,14 +1850,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
   retsNx360dates(DateTime selected){
 
     print(selected);
-    String newdate = selectedDate.toString().substring(0,10);
+    String?  newdate = selectedDate.toString().substring(0,10);
     print(newdate);
 
-    String formattedDate = DateFormat.yMMMMd().format(selected);
+    String?  formattedDate = DateFormat.yMMMMd().format(selected);
 
     print(formattedDate);
 
-    String removeComma = formattedDate.replaceAll(",", "");
+    String?  removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -1865,15 +1865,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String o1 = wordList[0];
-    String o2 = wordList[1];
-    String o3 = wordList[2];
+    String?  o1 = wordList[0];
+    String?  o2 = wordList[1];
+    String?  o3 = wordList[2];
 
-    String newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
+    String?  newOO = o2.length == 1 ? '0' + '' + o2 :  o2;
 
     print('newOO ${newOO}');
 
-    String concatss = newOO + " " + o1 + " " + o3;
+    String?  concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);
