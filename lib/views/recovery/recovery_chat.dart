@@ -14,7 +14,7 @@ import 'package:sales_toolkit/view_models/addInteraction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryChat extends StatefulWidget {
-  final String?  ticketID;
+  final String? ticketID;
   const RecoveryChat({Key? key, required this.ticketID}) : super(key: key);
 
   @override
@@ -31,10 +31,10 @@ class _RecoveryChatState extends State<RecoveryChat> {
   File? uploadimage; // Made nullable for null safety
   final ImagePicker _picker = ImagePicker();
 
-  String?  _fileName = '...';
+  String? _fileName = '...';
   bool _isLoading = false;
-  String?  fileSize = '';
-  String?  baseimage = '';
+  String? fileSize = '';
+  String? baseimage = '';
 
   File? chosenImage;
 
@@ -46,8 +46,9 @@ class _RecoveryChatState extends State<RecoveryChat> {
     super.initState();
   }
 
-  String?  ticketID;
-  _RecoveryChatState({this.ticketID}); // Constructor placed after field definitions for clarity
+  String? ticketID;
+  _RecoveryChatState(
+      {this.ticketID}); // Constructor placed after field definitions for clarity
 
   getDiscourseLists() async {
     print('ticketID ${ticketID}');
@@ -123,7 +124,6 @@ class _RecoveryChatState extends State<RecoveryChat> {
               message: response['message'],
               duration: Duration(seconds: 3),
             ).show(context);*/
-
         } else {
           setState(() {
             _isLoading = false;
@@ -205,7 +205,7 @@ class _RecoveryChatState extends State<RecoveryChat> {
                           itemCount: discussData == null || discussData.isEmpty
                               ? 0
                               : discussData.length,
-                          itemBuilder: (context, int?  index) {
+                          itemBuilder: (context, int? index) {
                             print(discussData);
 
                             final message = discussData[index];
@@ -381,18 +381,18 @@ class _RecoveryChatState extends State<RecoveryChat> {
     );
   }
 
-  retsNx360dates(String?  chatDate) {
+  retsNx360dates(String? chatDate) {
     print('2022-03-11T10:03:18.7029365');
 
     // String?  newdate = selectedDate.toString().substring(0,10);
     // print(newdate);
 
     DateTime inputDate = DateTime.parse(chatDate!);
-    String?  formattedDate = DateFormat.yMMMMd().format(inputDate);
+    String? formattedDate = DateFormat.yMMMMd().format(inputDate);
 
     print(formattedDate);
 
-    String?  removeComma = formattedDate.replaceAll(",", "");
+    String? removeComma = formattedDate.replaceAll(",", "");
     print('removeComma');
     print(removeComma);
 
@@ -400,15 +400,15 @@ class _RecoveryChatState extends State<RecoveryChat> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String?  o1 = wordList[0];
-    String?  o2 = wordList[1];
-    String?  o3 = wordList[2];
+    String? o1 = wordList[0];
+    String? o2 = wordList[1];
+    String? o3 = wordList[2];
 
-    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String? newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + o1 + " " + o3;
+    String? concatss = newOO + " " + o1 + " " + o3;
 
     print("concatss");
     print(concatss);
@@ -520,35 +520,34 @@ class _RecoveryChatState extends State<RecoveryChat> {
   }
 
   void takePhoto(ImageSource source) async {
-    // final pickedFile = await _picker.getImage(
-    //   source: source,
-    // );
-    // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+    final choosedImage = await ImagePicker.platform.pickImage(source: source);
+    print(choosedImage);
 
-   // var choosedimage = await ImagePicker.pickImage(source: source);
-    var choosedimage = await ImagePicker.platform.pickImage(source: source);
-    print(choosedimage);
+    if (choosedImage == null) {
+      setState(() {
+        uploadimage = null;
+        fileSize = null;
+        baseimage = null;
+        _fileName = null;
+      });
+      return;
+    }
+
+    final file = File(choosedImage.path);
+    final bytes = await file.readAsBytes();
+    final kb = bytes.length / 1024;
+    final mb = kb / 1024;
+    print('this is the MB \$mb');
+    String filesizeAsString = mb.toString();
+    String base64Img = base64Encode(bytes);
+    String? getPath = choosedImage.path;
+    String fileName = getPath.split('/').last;
 
     setState(() {
-      uploadimage = choosedimage?.path != null ? File(choosedImage!.path) : null;
-
-      final bytes = choosedimage.readAsBytesSync().lengthInBytes;
-
-      // get file size
-      final kb = bytes / 1024;
-      final mb = kb / 1024;
-      print('this is the MB ${mb}');
-      String  filesizeAsString  = mb.toString();
+      uploadimage = file;
       fileSize = filesizeAsString;
-
-      // end get file size
-      //convert image to base64
-      List<int> imageBytes = uploadimage.readAsBytesSync();
-      baseimage = base64Encode(imageBytes);
-
-      String?  getPath = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      // passport.text = _fileName;
+      baseimage = base64Img;
+      _fileName = fileName;
     });
   }
 }
