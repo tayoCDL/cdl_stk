@@ -8,13 +8,13 @@ class TextInput extends StatelessWidget {
     required this.icon,
     required this.isIconAvailable,
     required this.hint,
-    this.isObsure,
-    this.onSave,
-    this.eyeOpen,
-    this.controls,
-    this.inputType,
-    this.inputAction,
-    this.onButtonPressed,
+    required this.isObsure,
+    required this.onSave,
+    required  this.eyeOpen,
+    required   this.controls,
+    required  this.inputType,
+    required   this.inputAction,
+    required  this.onButtonPressed,
     this.validate,
   }) : super(key: key);
 
@@ -25,9 +25,9 @@ class TextInput extends StatelessWidget {
   final String?  hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  final VoidCallback onSave;
+  final Function(String?) onSave;
   final VoidCallback onButtonPressed;
-  final VoidCallback validate;
+  final FormFieldValidator<String>? validate;
   final TextEditingController controls;
   @override
   Widget build(BuildContext context) {
@@ -43,12 +43,12 @@ class TextInput extends StatelessWidget {
         child: TextFormField(
           controller: controls,
           autofocus: false,
-          onSaved: onSave,
+          onSaved: onSave!,
           validator: validate,
           obscureText: isObsure,
           decoration: InputDecoration(
             suffixIcon: isIconAvailable  == true ?
-                IconButton(onPressed: onButtonPressed, icon:  eyeOpen? Icon(Icons.visibility,color: Colors.black38
+                IconButton(onPressed: onButtonPressed!, icon:  eyeOpen? Icon(Icons.visibility,color: Colors.black38
                   ,)  : Icon(Icons.visibility_off,color: Colors.black38
                   ,)
                 ) : null ,

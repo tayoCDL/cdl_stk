@@ -6,19 +6,19 @@ import '../palatte.dart';
 class TextInputWithBorder extends StatelessWidget {
   const TextInputWithBorder({
     Key? key,
-    this.icon,
+    required this.icon,
     required this.isIconAvailable,
     required this.hint,
-    this.controls,
+    required this.controls,
     this.maxLenght,
-    this.onButtonPressed,
-    this.isObscure,
-    this.eyeOpen,
-    this.inputType,
-    this.inputAction,
-    this.onSave,
-    this.validate,
-    this.suffixWidget
+    required this.onButtonPressed,
+    required this.isObscure,
+    required this.eyeOpen,
+    required this.inputType,
+    required this.inputAction,
+    required this.onSave,
+    required this.validate,
+    required this.suffixWidget
   }) : super(key: key);
 
   final IconData icon;
@@ -30,8 +30,8 @@ class TextInputWithBorder extends StatelessWidget {
   final TextInputType inputType;
   final TextInputAction inputAction;
   final Widget suffixWidget;
-  final VoidCallback onSave;
-  final VoidCallback validate;
+  final FormFieldSetter<String>? onSave;
+  final FormFieldValidator<String>? validate;
   final TextEditingController controls;
   final int?  maxLenght;
   @override

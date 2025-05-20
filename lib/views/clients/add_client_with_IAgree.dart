@@ -187,10 +187,10 @@ class _AddClientState extends State<AddClient> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpSector'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpSector')!);
 
         //
-        if (prefs.getString('prefsEmpSector').isEmpty) {
+        if (prefs.getString('prefsEmpSector')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -282,10 +282,10 @@ class _AddClientState extends State<AddClient> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpCategory'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpCategory')!);
 
         //
-        if (prefs.getString('prefsEmpCategory').isEmpty) {
+        if (prefs.getString('prefsEmpCategory')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -301,7 +301,7 @@ class _AddClientState extends State<AddClient> {
             allCategory = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectCategory.add(mtBool[i]['name']);
           }
@@ -1198,9 +1198,9 @@ class _AddClientState extends State<AddClient> {
           duration: Duration(seconds: 3),
         ).show(context);
       } else {
-        var bvnData = prefs.setString('inputBvn', _lights ? bvn.text : act_bvn);
-        var emplyment = prefs.setInt('employment_type', empInt);
-        var catEmp = prefs.setInt('emp_category', catInt);
+        var bvnData = prefs.setString('inputBvn', _lights! ? bvn.text : act_bvn!);
+        var emplyment = prefs.setInt('employment_type', empInt!);
+        var catEmp = prefs.setInt('emp_category', catInt!);
 
         // if(accountName.length < 2  && response['message'] != 'Network_error'){
         //       Flushbar(

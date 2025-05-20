@@ -7,8 +7,8 @@ class TextInputWithFLoating extends StatelessWidget {
     Key? key,
     required this.hint,
     required this.label,
-    this.inputType,
-    this.inputAction,
+    required this.inputType,
+    required this.inputAction,
     required this.nameController,
   }) : super(key: key);
 
@@ -48,7 +48,7 @@ class TextInputWithFLoating extends StatelessWidget {
                 ),
                 labelText: label,
                 hintText: hint,
-                labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+                labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.displayMedium?.color)
 
             ),
             textInputAction: TextInputAction.done,

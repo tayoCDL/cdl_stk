@@ -8,8 +8,8 @@ class EntryField extends StatelessWidget {
     required this.editController,
     required this.labelText,
     required this.hintText,
-     this.suffixWidget,
-      this.keyBoard,
+     required this.suffixWidget,
+      required this.keyBoard,
       this.minLines,
   }) : super(key: key);
 

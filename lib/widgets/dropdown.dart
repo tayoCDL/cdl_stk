@@ -18,9 +18,12 @@ class DropDownComponent extends StatelessWidget {
   final List<String> items;
   final String?  label;
   final String?  selectedItem;
-  final VoidCallback validator;
-  final VoidCallback onChange;
-  final VoidCallback popUpDisabled;
+  // final VoidCallback validator;
+  // final VoidCallback onChange;
+  // final VoidCallback popUpDisabled;
+  final String? Function(String?)? validator; // ✅ Fix
+  final void Function(String?)? onChange;     // ✅ Fix
+  final bool Function(String?)? popUpDisabled;
   @override
   Widget build(BuildContext context) {
 

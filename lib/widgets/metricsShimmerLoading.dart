@@ -16,8 +16,8 @@ class ShimmerMetricsLoading extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Shimmer.fromColors(
-              baseColor: Colors.grey[300],
-              highlightColor: Colors.grey[100],
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
               enabled: _enabled,
               child: ListView.builder(
                 itemBuilder: (_, __) => Padding(

@@ -36,14 +36,14 @@ class RecentChats extends StatelessWidget {
             physics: ScrollPhysics(),
             itemCount: recentChats.length,
             itemBuilder: (context, int?  index) {
-              final recentChat = recentChats[index];
+              final recentChat = recentChats[index!];
               return Container(
                   margin: const EdgeInsets.only(top: 20),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: 28,
-                        backgroundImage: AssetImage(recentChat.avatar),
+                        backgroundImage: AssetImage(recentChat.avatar!),
                       ),
                       SizedBox(
                         width: 20,
@@ -62,13 +62,13 @@ class RecentChats extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              recentChat.sender.name,
+                              recentChat!.sender.name!,
                               style: MyTheme.heading2.copyWith(
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              recentChat.text,
+                              recentChat!.text!,
                               style: MyTheme.bodyText1,
                             ),
                           ],
@@ -93,7 +93,7 @@ class RecentChats extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            recentChat.time,
+                            recentChat!.time!,
                             style: MyTheme.bodyTextTime,
                           )
                         ],

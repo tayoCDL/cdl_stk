@@ -7,7 +7,7 @@ class PasswordInput extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.hint,
-    this.inputAction,
+    required this.inputAction,
   }) : super(key: key);
 
   final IconData icon;
@@ -20,7 +20,7 @@ class PasswordInput extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey[600].withOpacity(0.5),
+          color: Colors.grey[600]?.withOpacity(0.5),
           borderRadius: BorderRadius.circular(16),
         ),
         child: TextField(

@@ -15,7 +15,7 @@ Future<void> showSizeSheet(BuildContext context, double? leftMargin,
             return Wrap(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: leftMargin, right: rightMargin, bottom: bottomMargin),
+                  margin: EdgeInsets.only(left: leftMargin!, right: rightMargin!, bottom: bottomMargin!),
                   padding: MediaQuery.of(context).viewInsets,
                   decoration: BoxDecoration(
                     color: colors,

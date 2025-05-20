@@ -15,10 +15,10 @@ class MetricsFilterModal extends StatelessWidget {
 
 
   const MetricsFilterModal(
-      {Key? key, this.onChanged,
-        this.controller1,
-        this.controller2,
-        this.onPress
+      {Key? key, required this.onChanged,
+        required this.controller1,
+        required this.controller2,
+        required this.onPress
       })
       : super(key: key);
 
@@ -139,7 +139,7 @@ class MetricsFilterModal extends StatelessWidget {
                   //   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: dateText,
                   hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.displayMedium?.color)
 
               ),
               textInputAction: TextInputAction.done,

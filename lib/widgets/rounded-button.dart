@@ -4,12 +4,12 @@ import '../palatte.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
-    Key key,
-    @required this.buttonText,
-    @required this.onbuttonPressed,
-     this.bgColor, this.borderColor,
-    this.textColor,
-    this.isPrimaryColor
+    Key? key,
+    required this.buttonText,
+    required this.onbuttonPressed,
+     required this.bgColor, required this.borderColor,
+    required this.textColor,
+    required this.isPrimaryColor
   }) : super(key: key);
 
   final String buttonText;

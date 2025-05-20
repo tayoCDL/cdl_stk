@@ -42,7 +42,7 @@ class ProgressStepper extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 50,),
-                      Text(title,style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xff077DBB),fontSize: 20,fontFamily: 'Nunito SansRegular'),),
+                      Text(title!,style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xff077DBB),fontSize: 20,fontFamily: 'Nunito SansRegular'),),
                       Text('Next : ${subtitle}')
                     ],
                   ),
@@ -54,7 +54,7 @@ class ProgressStepper extends StatelessWidget {
               child: LinearPercentIndicator(
                 width: 160.0,
                 lineHeight: 7.0,
-                percent: stepper,
+                percent: stepper!,
                 progressColor: Color(0XFF56C596),
               ),
             )

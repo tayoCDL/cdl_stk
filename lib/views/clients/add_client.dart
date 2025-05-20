@@ -276,7 +276,7 @@ class _AddClientState extends State<AddClient> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpCategory'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpCategory')!);
 
         //
         if (prefs.getString('prefsEmpCategory')!.isEmpty) {
@@ -387,7 +387,7 @@ class _AddClientState extends State<AddClient> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList')!);
 
         //
         if (prefs.getString('prefsBanksList')!.isEmpty) {
@@ -557,7 +557,7 @@ class _AddClientState extends State<AddClient> {
               ? ''
               : response['data']['data']['firstName'];
 
-          accountName = LastName + ' ' + FirstName;
+          accountName = LastName! + ' ' + FirstName!;
 
           act_bvn = response['data']['data']['bvn'];
 
@@ -910,7 +910,7 @@ class _AddClientState extends State<AddClient> {
                                 String?  compA = retDOBfromBVN(TempdateOfBirth);
                                 String?  compB = dobController.text;
 
-                                if (compA.compareTo(compB) == 0) {
+                                if (compA?.compareTo(compB) == 0) {
                                   // //print('correct');
                                   setState(() {
                                     dobController.text = '';
@@ -1139,7 +1139,7 @@ class _AddClientState extends State<AddClient> {
       ),
       child: Scaffold(
           key: _scaffoldKey,
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             leading: IconButton(
@@ -1227,7 +1227,7 @@ class _AddClientState extends State<AddClient> {
                   Text(
                     'What Employment Sector do you work in ?  ',
                     style: TextStyle(
-                        color: Theme.of(context).textTheme.headline6.color,
+                        color: Theme.of(context).textTheme.titleLarge?.color,
                         fontFamily: 'Nunito SansRegular',
                         fontSize: 16,
                         fontWeight: FontWeight.w600),
@@ -1264,11 +1264,11 @@ class _AddClientState extends State<AddClient> {
                       items: empCategory,
                       popUpDisabled: (String?  s) {
                         if (empInt == 17) {
-                          return s.startsWith('Federal') ||
+                          return s!.startsWith('Federal') ||
                               s.startsWith('State') ||
                               s.startsWith('NYSC');
                         } else {
-                          return s.startsWith('Private');
+                          return s!.startsWith('Private');
                         }
                       },
                       onChange: (String?  item) {
@@ -1374,7 +1374,7 @@ class _AddClientState extends State<AddClient> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).primaryColor,
             // set border width
             borderRadius: BorderRadius.all(
                 Radius.circular(5.0)), // set rounded corner radius
@@ -1387,7 +1387,7 @@ class _AddClientState extends State<AddClient> {
             keyboardType: TextInputType.number,
             controller: editController,
             onChanged: (String?  value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 setState(() {
                   isBVNLoading = false;
                 });
@@ -1437,7 +1437,7 @@ class _AddClientState extends State<AddClient> {
                             print('change $date');
                             setState(() {
                               String?  retDate = retsNx360dates(date);
-                              dobController.text = retDate;
+                              dobController.text = retDate!;
                             });
                           }, onConfirm: (date) {
                             print('confirm $date');
@@ -1469,7 +1469,8 @@ class _AddClientState extends State<AddClient> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+
+            color: Theme.of(context).primaryColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1494,7 +1495,7 @@ class _AddClientState extends State<AddClient> {
                 hintText: hintText,
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.displayMedium?.color),
                 counter: SizedBox.shrink(),
             ),
             textInputAction: TextInputAction.done,
@@ -1597,7 +1598,7 @@ class _AddClientState extends State<AddClient> {
 
                           //  retDOBfromBVN('2018-6-23');
 
-                          dobController.text = retDate;
+                          dobController.text = retDate!;
                         });
                     },
                     initialDateTime:
@@ -1653,10 +1654,10 @@ class _AddClientState extends State<AddClient> {
 
   retDOBfromBVN(String?  getDate) {
     //print('getDate ${getDate}');
-    String?  newGetDate = getDate.substring(0, 10);
-    String?  removeComma = newGetDate.replaceAll("-", " ");
+    String?  newGetDate = getDate?.substring(0, 10);
+    String?  removeComma = newGetDate?.replaceAll("-", " ");
     //print('new Rems ${removeComma}');
-    List<String> wordList = removeComma.split(" ");
+    List<String> wordList = removeComma!.split(" ");
     //print(wordList[1]);
 
     if (wordList[1] == '01') {
@@ -1728,7 +1729,7 @@ class _AddClientState extends State<AddClient> {
 
     //print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     //print("concatss new Date from edit ${concatss}");
 
