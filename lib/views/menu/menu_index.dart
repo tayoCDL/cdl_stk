@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 // import 'package:flutter_icons/flutter_icons.dart';
-import 'package:sales_toolkit/views/Interactions/ItHelpDesk.dart';
-import 'package:sales_toolkit/views/Interactions/IthelpdeskLists.dart';
-import 'package:sales_toolkit/views/attendance/Attendance_Index.dart';
-import 'package:sales_toolkit/views/draft/DraftOverview.dart';
-import 'package:sales_toolkit/views/product_description/productIndex.dart';
+// import 'package:sales_toolkit/views/Interactions/ItHelpDesk.dart';
+// import 'package:sales_toolkit/views/Interactions/IthelpdeskLists.dart';
+// import 'package:sales_toolkit/views/attendance/Attendance_Index.dart';
+// import 'package:sales_toolkit/views/draft/DraftOverview.dart';
+// import 'package:sales_toolkit/views/product_description/productIndex.dart';
 import 'package:sales_toolkit/views/referrals/referralIndex.dart';
 import 'package:sales_toolkit/widgets/testLocation.dart';
 
@@ -49,14 +49,14 @@ class _MenuIndexState extends State<MenuIndex> {
           child: Column(
             children: [
               menuItemList('Draft', FeatherIcons.bookOpen,onTap: (){
-                MyRouter.pushPage(context, DraftOverview());
+              //  MyRouter.pushPage(context, DraftOverview());
               }),
              menuItemList('Referrals', Icons.share,onTap: (){
                  MyRouter.pushPage(context, ReferralIndex());
               }),
               menuItemList('IT Help Desk', FeatherIcons.phoneCall,
               onTap: (){
-                MyRouter.pushPage(context, ItHelpDeskLists());
+               // MyRouter.pushPage(context, ItHelpDeskLists());
               }
               ),
             //  menuItemList('Support', Icons.info),

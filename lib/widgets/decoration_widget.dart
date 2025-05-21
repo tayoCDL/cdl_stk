@@ -11,7 +11,7 @@ InputDecoration buildInputDecoration(String?  hintText, IconData icon) {
 }
 
 MaterialButton longButtons(String?  title, VoidCallback fun,
-    {Color color: Colors.blue, Color textColor: Colors.white}) {
+    {Color color = Colors.blue, Color textColor = Colors.white}) {
   return MaterialButton(
     onPressed: fun,
     textColor: textColor,
@@ -19,7 +19,7 @@ MaterialButton longButtons(String?  title, VoidCallback fun,
     child: SizedBox(
       width: double.infinity,
       child: Text(
-        title,
+        title!,
         textAlign: TextAlign.center,
       ),
     ),

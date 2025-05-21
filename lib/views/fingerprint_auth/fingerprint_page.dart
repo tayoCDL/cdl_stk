@@ -180,7 +180,7 @@ getLoanOfficerId() async{
                 ),
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    primary: Colors.white,
+                    foregroundColor: Colors.white,
                     backgroundColor: Colors.white,
                   ),
                   onPressed: (){
@@ -238,10 +238,10 @@ getLoanOfficerId() async{
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
 
-                        buildCodeNumberBox(code.length > 0 ? "•" : ""),
-                        buildCodeNumberBox(code.length > 1 ? "•" : ""),
-                        buildCodeNumberBox(code.length > 2 ? "•" : ""),
-                        buildCodeNumberBox(code.length > 3 ? "•" : ""),
+                        buildCodeNumberBox(code!.length > 0 ? "•" : ""),
+                        buildCodeNumberBox(code!.length > 1 ? "•" : ""),
+                        buildCodeNumberBox(code!.length > 2 ? "•" : ""),
+                        buildCodeNumberBox(code!.length > 3 ? "•" : ""),
 
                       ],
                     ),
@@ -264,18 +264,18 @@ getLoanOfficerId() async{
                           setState(() {
                             if(value != -1){
 
-                              if(code.length < 4){
-                                code = code + value.toString();
+                              if(code!.length < 4){
+                                code = (code! + value.toString())!;
                               }
 
                             }
                             else{
-                              code = code.substring(0, code.length - 1);
+                              code = code?.substring(0, code!.length - 1);
                             }
                             print('this is code ${code}');
                           });
 
-                          if(code.length == 4){
+                          if(code?.length == 4){
                           checkPass(code);
                           }
                         },
@@ -423,7 +423,7 @@ getLoanOfficerId() async{
           ),
           child: Center(
             child: Text(
-              codeNumber,
+              codeNumber!,
               style: TextStyle(
                 fontSize: 22,
                 fontFamily: 'Montserrat Medium',

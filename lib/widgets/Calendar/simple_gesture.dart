@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 class SimpleGestureDetector extends StatefulWidget {
   final Widget child;
   final SimpleSwipeConfig swipeConfig;
-  final HitTestBehavior behavior;
-  final VoidCallback onSwipeUp;
-  final VoidCallback onSwipeDown;
-  final VoidCallback onSwipeLeft;
-  final VoidCallback onSwipeRight;
+  final HitTestBehavior? behavior;
+  final VoidCallback? onSwipeUp;
+  final VoidCallback? onSwipeDown;
+  final VoidCallback? onSwipeLeft;
+  final VoidCallback? onSwipeRight;
 
   const SimpleGestureDetector({
     Key? key,

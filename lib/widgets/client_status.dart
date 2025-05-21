@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:sales_toolkit/util/enum/color_utils.dart';
 
-Widget clientStatus(Color statusColor,String?  status,{Color fontColor,double? fontSize,double? containerSIze,double? brdradius,VoidCallback ontaPP,double? containerHeight}) {
+Widget clientStatus(Color statusColor,String?  status,{required Color fontColor,double? fontSize,double? containerSIze,double? brdradius,VoidCallback? ontaPP,double? containerHeight}) {
   return InkWell(
     onTap: ontaPP,
     child: Container(
@@ -16,7 +16,7 @@ Widget clientStatus(Color statusColor,String?  status,{Color fontColor,double? f
           BoxShadow(color: statusColor, spreadRadius: 0.1),
         ],
       ),
-      child: Center(child: Text(status,style: TextStyle(color: fontColor ?? Colors.white,fontSize: fontSize ?? 15),)),
+      child: Center(child: Text(status!,style: TextStyle(color: fontColor ?? Colors.white,fontSize: fontSize ?? 15),)),
     ),
   );
 }
@@ -244,17 +244,17 @@ colorChoser(var vals){
 }
 
 get10(String?  val_10){
-  String?  vals = val_10.substring(0,10);
+  String?  vals = val_10?.substring(0,10);
   return vals;
 }
 
 
 String?  capit_alize(String?  cpText) {
-  return "${cpText[0].toUpperCase()}${cpText.substring(1)}";
+  return "${cpText?[0].toUpperCase()}${cpText?.substring(1)}";
 }
 
 getHumanReadable(String?  hmReads){
- return hmReads.replaceAll('_', ' ').toUpperCase();
+ return hmReads?.replaceAll('_', ' ').toUpperCase();
 }
 
 

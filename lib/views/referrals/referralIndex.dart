@@ -33,21 +33,21 @@ class _ReferralIndexState extends State<ReferralIndex> {
   int?  countUncompleted = 0;
   List<dynamic> totalReferrals = [];
   getStaffID() async{
-    final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData();
-    respose.then(
-            (response) {
-
-           print('this is referal ${response}');
-          setState(() {
-            referalCount = response['referralCount'];
-            totalReferrals = response['totalReferral'];
-            uncompleted = totalReferrals.where((element) => element['status']['value'] == 'InComplete').toList();
-            countUncompleted = uncompleted.length;
-            staffRefId = response['data']['id'];
-          });
-
-        }
-    );
+    // final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData();
+    // respose.then(
+    //         (response) {
+    //
+    //        print('this is referal ${response}');
+    //       setState(() {
+    //         referalCount = response['referralCount'];
+    //         totalReferrals = response['totalReferral'];
+    //         uncompleted = totalReferrals.where((element) => element['status']['value'] == 'InComplete').toList();
+    //         countUncompleted = uncompleted.length;
+    //         staffRefId = response['data']['id'];
+    //       });
+    //
+    //     }
+    // );
 
   }
 

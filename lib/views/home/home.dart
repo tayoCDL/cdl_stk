@@ -25,16 +25,16 @@ import 'package:sales_toolkit/util/helper_class.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:sales_toolkit/view_models/user_provider.dart';
-import 'package:sales_toolkit/views/Interactions/getInteractionLoggedByAgent.dart';
-import 'package:sales_toolkit/views/Interactions/getOpportunityLoggedByAgent.dart';
-import 'package:sales_toolkit/views/Loans/TestUpdate.dart';
+// import 'package:sales_toolkit/views/Interactions/getInteractionLoggedByAgent.dart';
+// import 'package:sales_toolkit/views/Interactions/getOpportunityLoggedByAgent.dart';
+// import 'package:sales_toolkit/views/Loans/TestUpdate.dart';
 import 'package:sales_toolkit/views/Login/login.dart';
 import 'package:sales_toolkit/views/Sales_type.dart';
-import 'package:sales_toolkit/views/clients/ViewClient.dart';
-import 'package:sales_toolkit/views/clients/add_client.dart';
-import 'package:sales_toolkit/views/leads/LeadsList.dart';
-import 'package:sales_toolkit/views/metrics/allProductsMetrics.dart';
-import 'package:sales_toolkit/views/metrics/metricsIndex.dart';
+// import 'package:sales_toolkit/views/clients/ViewClient.dart';
+// import 'package:sales_toolkit/views/clients/add_client.dart';
+// import 'package:sales_toolkit/views/leads/LeadsList.dart';
+// import 'package:sales_toolkit/views/metrics/allProductsMetrics.dart';
+// import 'package:sales_toolkit/views/metrics/metricsIndex.dart';
 import 'package:sales_toolkit/views/referrals/referralIndex.dart';
 import 'package:sales_toolkit/views/staging_version/index_staging.dart';
 import 'package:sales_toolkit/widgets/ShimmerListLoading.dart';
@@ -45,8 +45,8 @@ import 'package:sales_toolkit/widgets/rounded-button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:showcaseview/showcaseview.dart';
 
-import '../Loans/loan_sold_view.dart';
-import '../clients/client_lists.dart';
+// import '../Loans/loan_sold_view.dart';
+// import '../clients/client_lists.dart';
 import 'checkAppUpdatee.dart';
 
 
@@ -187,11 +187,11 @@ class _HomeContentState extends State<HomeContent> {
   void initState() {
     // TODO: implement initState
    // checkTour();
-    getStaffID();
+  //  getStaffID();
   //  getCLientsList();
     getSalesUsername();
-    calculateCommision();
-    getProductCycle();
+    // calculateCommision();
+    // getProductCycle();
     // _verifyVersion();
    // getCycleStatus();
     getDateTime();
@@ -210,7 +210,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   getDateStringAndReturnMonthInWord(String?  dateString){
-    DateTime date = DateTime.parse(dateString);
+    DateTime date = DateTime.parse(dateString!);
     String?  monthInWord = DateFormat.MMMM().format(date);
     print(monthInWord); // Output: May
       return monthInWord;
@@ -241,110 +241,110 @@ class _HomeContentState extends State<HomeContent> {
   }
 
 
-  getProductCycle(){
-    final Future<Map<String,dynamic>> respose =   RetCodes().getProductCycle();
-    respose.then(
-            (response) {
-          print('this is product cycle ${response['data']['content']}');
-          setState(() {
-            cycleListData = response['data']['content'];
+  // getProductCycle(){
+  //   final Future<Map<String,dynamic>> respose =   RetCodes().getProductCycle();
+  //   respose.then(
+  //           (response) {
+  //         print('this is product cycle ${response['data']['content']}');
+  //         setState(() {
+  //           cycleListData = response['data']['content'];
+  //
+  //          int?  currentCycleId = cycleListData[0]['id'];
+  //           print('cycleList Data ${currentCycleId}');
+  //
+  //             getMetricsForCycle(currentCycleId.toString());
+  //
+  //
+  //           setState(() {
+  //            cycleName = '${getDateStringAndReturnMonthInWord(cycleListData[0]['endDate'])}: ${cycleListData[0]['startDate']} - ${cycleListData[0]['endDate']}';
+  //             cycleId = cycleListData[0]['id'].toString();
+  //           });
+  //
+  //         });
+  //       }
+  //   );
+  //
+  // }
 
-           int?  currentCycleId = cycleListData[0]['id'];
-            print('cycleList Data ${currentCycleId}');
-
-              getMetricsForCycle(currentCycleId.toString());
-
-
-            setState(() {
-             cycleName = '${getDateStringAndReturnMonthInWord(cycleListData[0]['endDate'])}: ${cycleListData[0]['startDate']} - ${cycleListData[0]['endDate']}';
-              cycleId = cycleListData[0]['id'].toString();
-            });
-
-          });
-        }
-    );
-
-  }
-
-  calculateCommision(){
-
-    String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-     var ComparestartPeriod =  Jiffy().startOf(Units.MONTH).dateTime;
-
-    String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
-    Jiffy now = Jiffy();
-    var todaySdate = Jiffy(now).format("dd MMMM yyyy");
-    var ComparetodaySdate = Jiffy(now).dateTime;
-
-    int?  daysInMonth = Jiffy(now).daysInMonth;
-    var halfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).format("dd MMMM yyyy");
-    var ComparehalfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).dateTime;
-
-    // Jiffy halfMonth = now.add(days: (daysInMonth ~/ 2));
-    //DateTime halfMonthDate = halfMonth.dateTime;
-
-    print('half >> ${halfOfthisMonth} ${todaySdate}');
-    print('halfie >> ${ComparetodaySdate} ${ComparehalfOfthisMonth}');
-
-    var dateFormat = "dd MMMM yyyy";
-
-    int?  activationChannelId = 77;
-
-    if(ComparetodaySdate.isAfter(ComparehalfOfthisMonth)){
-    //  print('today date >>');
-      setState(() {
-        cycle = 'Second Cycle';
-        startPeriod = halfOfthisMonth;
-      });
-    }
-    else {
-    //  print('today date << ');
-      setState(() {
-        cycle = 'First Cycle';
-        endPeriod = halfOfthisMonth;
-      });
-
-    }
-
-   //  int?  staffId = 428;
-    // String?  mstartPeriod =  '10 January 2022';
-    // String?  mendPeriod = '10 April 2023';
-    //
-
-    String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
-  //  String?  params = '?startPeriod=${mstartPeriod}&endPeriod=${mendPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}';
-
-    final Future<Map<String,dynamic>> respose =   RetCodes().getLoanMetrics(params);
-
-    respose.then((response) {
-      setState(() {
-     //   _isLoading =  false;
-      });
-      print(response['data']);
-      setState(() {
-       metricsDataList = response['data'];
-      });
-     print('metrics Data ${metricsDataList}');
-     var caluclatedCommision = 0;
-     List<dynamic> accumulated_commision = [];
-     for(int?  i=0; i < metricsDataList.length;i++){
-       var singleMetric = metricsDataList[i];
-    int?  amts =  int.tryParse(singleMetric['level']['value']);
-       // print('calc commission ${caluclatedCommision}');
-       accumulated_commision.add(amts);
-     }
-      print('accumulated commision');
-      int?  total = accumulated_commision.fold(0, (previousValue, element) => previousValue + element);
-      print('accumulated ${accumulated_commision} total ${total}');
-
-      setState(() {
-        totalCommision = total;
-      });
-
-    });
-
-
-  }
+  // calculateCommision(){
+  //
+  //   String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+  //    var ComparestartPeriod =  Jiffy().startOf(Units.MONTH).dateTime;
+  //
+  //   String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+  //   Jiffy now = Jiffy();
+  //   var todaySdate = Jiffy(now).format("dd MMMM yyyy");
+  //   var ComparetodaySdate = Jiffy(now).dateTime;
+  //
+  //   int?  daysInMonth = Jiffy(now).daysInMonth;
+  //   var halfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).format("dd MMMM yyyy");
+  //   var ComparehalfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).dateTime;
+  //
+  //   // Jiffy halfMonth = now.add(days: (daysInMonth ~/ 2));
+  //   //DateTime halfMonthDate = halfMonth.dateTime;
+  //
+  //   print('half >> ${halfOfthisMonth} ${todaySdate}');
+  //   print('halfie >> ${ComparetodaySdate} ${ComparehalfOfthisMonth}');
+  //
+  //   var dateFormat = "dd MMMM yyyy";
+  //
+  //   int?  activationChannelId = 77;
+  //
+  //   if(ComparetodaySdate.isAfter(ComparehalfOfthisMonth)){
+  //   //  print('today date >>');
+  //     setState(() {
+  //       cycle = 'Second Cycle';
+  //       startPeriod = halfOfthisMonth;
+  //     });
+  //   }
+  //   else {
+  //   //  print('today date << ');
+  //     setState(() {
+  //       cycle = 'First Cycle';
+  //       endPeriod = halfOfthisMonth;
+  //     });
+  //
+  //   }
+  //
+  //  //  int?  staffId = 428;
+  //   // String?  mstartPeriod =  '10 January 2022';
+  //   // String?  mendPeriod = '10 April 2023';
+  //   //
+  //
+  //   String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
+  // //  String?  params = '?startPeriod=${mstartPeriod}&endPeriod=${mendPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}';
+  //
+  //   final Future<Map<String,dynamic>> respose =   RetCodes().getLoanMetrics(params);
+  //
+  //   respose.then((response) {
+  //     setState(() {
+  //    //   _isLoading =  false;
+  //     });
+  //     print(response['data']);
+  //     setState(() {
+  //      metricsDataList = response['data'];
+  //     });
+  //    print('metrics Data ${metricsDataList}');
+  //    var caluclatedCommision = 0;
+  //    List<dynamic> accumulated_commision = [];
+  //    for(int?  i=0; i! < metricsDataList.length;i++){
+  //      var singleMetric = metricsDataList[i];
+  //   int?  amts =  int.tryParse(singleMetric['level']['value']);
+  //      // print('calc commission ${caluclatedCommision}');
+  //      accumulated_commision.add(amts);
+  //    }
+  //     print('accumulated commision');
+  //     num?  total = accumulated_commision.fold(0, (previousValue, element) => previousValue! + element);
+  //     print('accumulated ${accumulated_commision} total ${total}');
+  //
+  //     setState(() {
+  //       totalCommision = total?.toInt();
+  //     });
+  //
+  //   });
+  //
+  //
+  // }
 
   var clientsData = [];
   var   totalRefered = [];
@@ -392,7 +392,7 @@ class _HomeContentState extends State<HomeContent> {
         setState(() {
           currentDateTimey =  retsNx360dates() + ' ' + currentTime;
         });
-        prefs.setString('currentDateTime', currentDateTimey);
+        prefs.setString('currentDateTime', currentDateTimey!);
         int?  staffId = prefs.getInt('staffId');
         // setState(() {
         //
@@ -507,100 +507,100 @@ class _HomeContentState extends State<HomeContent> {
   //
   // }
 
-  getStaffID() async{
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData( context: context);
-    respose.then(
-            (response) {
-          print('this is referal ${response['data']}');
-              if(response['data'] == null && response['message'] == 'Unauthenticated'){
-                MyRouter.pushPageReplacement(context, LoginScreen(login_type: 'Loan Management',));
-              }
-            //  print('this is referal ${response['data']}');
-          setState(() {
-            loanOfficerId = response['data']['id'];
-            agentFirstName = response['data']['firstname'];
-            referalCount = response['referralCount'] ?? 0;
-            supervisor = response['data']['organisationalRoleParentStaff'] == null ? 'N/A' : response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
-            agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
+  // getStaffID() async{
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData( context: context);
+  //   respose.then(
+  //           (response) {
+  //         print('this is referal ${response['data']}');
+  //             if(response['data'] == null && response['message'] == 'Unauthenticated'){
+  //               MyRouter.pushPageReplacement(context, LoginScreen(login_type: 'Loan Management',));
+  //             }
+  //           //  print('this is referal ${response['data']}');
+  //         setState(() {
+  //           loanOfficerId = response['data']['id'];
+  //           agentFirstName = response['data']['firstname'];
+  //           referalCount = response['referralCount'] ?? 0;
+  //           supervisor = response['data']['organisationalRoleParentStaff'] == null ? 'N/A' : response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
+  //           agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
+  //
+  //         });
+  //
+  //         prefs.setString('loanOfficerId', loanOfficerId.toString());
+  //
+  //       }
+  //   );
+  //
+  // }
 
-          });
-
-          prefs.setString('loanOfficerId', loanOfficerId.toString());
-
-        }
-    );
-
-  }
-
-  getMetricsForCycle(String?  cycleId) async{
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String?  local_loanOfficerId =  prefs.getString('loanOfficerId');
-
-      setState(() {
-        isLoading = true;
-      });
-
-
-
-          final Future<Map<String,dynamic>> respose =   RetCodes().getProductMetrics(local_loanOfficerId == null ? passLoanOfficer.toString() : local_loanOfficerId,cycleId);
-          respose.then(
-                  (response) {
-                setState(() {
-                  isLoading = false;
-                });
-                print('this is metrics cycle ${response['data']}');
-                var singleMetricsData = response['data'];
-                setState(() {
-                  salesTarget = singleMetricsData['salesTarget'];
-                  targetArchieved = singleMetricsData['targetAchieved'];
-                  grade = singleMetricsData['agentGrade'];
-                  commissionPercent = singleMetricsData['commissionPercentage'];
-                  commissionEarned = singleMetricsData['commissionEarned'];
-                  performanceEarned = singleMetricsData['performancePayable'];
-                  totalEarned = singleMetricsData['totalPay'];
-                  percentageOfSales = singleMetricsData['percentageOfSales'];
-                 // percentageOfSales = '90';
-                  performancePayEarn = singleMetricsData['performancePayable'];
-
-                  totalLoanCount = singleMetricsData['totalLoanCount'];
-                  totalLoanAmount = singleMetricsData['totalLoanAmount'];
-
-                  totalUnDisbursedLoanCount = singleMetricsData['totalUnDisbursedLoanCount'];
-                  totalUnDisbursedLoanAmount = singleMetricsData['totalUnDisbursedLoanAmount'];
-
-                  totalFailedDisbursedLoanCount = singleMetricsData['totalFailedDisbursedLoanCount'];
-                  totalFailedDisbursedLoanAmount = singleMetricsData['totalFailedDisbursedLoanAmount'];
-
-                  totalDisbursedLoanCount = singleMetricsData['totalDisbursedLoanCount'];
-                  totalDisbursedLoanAmount = singleMetricsData['totalDisbursedLoanAmount'];
-
-
-                  // totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanCount'];
-                  // totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanDisbursedAmount'];
-
-                  totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] ?? 0;
-                  totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] ?? 0.00;
-
-
-
-                  // referalCount = response['referralCount'];
-                  // supervisor = response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
-                  // agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
-                  // loanOfficerId = response['data']['id'];
-                  // agentFirstName = response['data']['firstname'];
-                });
-
-              //  prefs.setString('loanOfficerId', loanOfficerId.toString());
-
-              }
-          );
-
-        // }
-
-
-
-  }
+  // getMetricsForCycle(String?  cycleId) async{
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String?  local_loanOfficerId =  prefs.getString('loanOfficerId');
+  //
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //
+  //
+  //
+  //         final Future<Map<String,dynamic>> respose =   RetCodes().getProductMetrics(local_loanOfficerId == null ? passLoanOfficer.toString() : local_loanOfficerId,cycleId);
+  //         respose.then(
+  //                 (response) {
+  //               setState(() {
+  //                 isLoading = false;
+  //               });
+  //               print('this is metrics cycle ${response['data']}');
+  //               var singleMetricsData = response['data'];
+  //               setState(() {
+  //                 salesTarget = singleMetricsData['salesTarget'];
+  //                 targetArchieved = singleMetricsData['targetAchieved'];
+  //                 grade = singleMetricsData['agentGrade'];
+  //                 commissionPercent = singleMetricsData['commissionPercentage'];
+  //                 commissionEarned = singleMetricsData['commissionEarned'];
+  //                 performanceEarned = singleMetricsData['performancePayable'];
+  //                 totalEarned = singleMetricsData['totalPay'];
+  //                 percentageOfSales = singleMetricsData['percentageOfSales'];
+  //                // percentageOfSales = '90';
+  //                 performancePayEarn = singleMetricsData['performancePayable'];
+  //
+  //                 totalLoanCount = singleMetricsData['totalLoanCount'];
+  //                 totalLoanAmount = singleMetricsData['totalLoanAmount'];
+  //
+  //                 totalUnDisbursedLoanCount = singleMetricsData['totalUnDisbursedLoanCount'];
+  //                 totalUnDisbursedLoanAmount = singleMetricsData['totalUnDisbursedLoanAmount'];
+  //
+  //                 totalFailedDisbursedLoanCount = singleMetricsData['totalFailedDisbursedLoanCount'];
+  //                 totalFailedDisbursedLoanAmount = singleMetricsData['totalFailedDisbursedLoanAmount'];
+  //
+  //                 totalDisbursedLoanCount = singleMetricsData['totalDisbursedLoanCount'];
+  //                 totalDisbursedLoanAmount = singleMetricsData['totalDisbursedLoanAmount'];
+  //
+  //
+  //                 // totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanCount'];
+  //                 // totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanDisbursedAmount'];
+  //
+  //                 totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] ?? 0;
+  //                 totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] ?? 0.00;
+  //
+  //
+  //
+  //                 // referalCount = response['referralCount'];
+  //                 // supervisor = response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
+  //                 // agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
+  //                 // loanOfficerId = response['data']['id'];
+  //                 // agentFirstName = response['data']['firstname'];
+  //               });
+  //
+  //             //  prefs.setString('loanOfficerId', loanOfficerId.toString());
+  //
+  //             }
+  //         );
+  //
+  //       // }
+  //
+  //
+  //
+  // }
 
   returnDialog(){
     return alert(
@@ -700,7 +700,7 @@ class _HomeContentState extends State<HomeContent> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: SizedBox(
-              height: AppHelper().pageHeight(context) * 0.21, // Adjust height as needed
+              height: AppHelper().pageHeight(context)! * 0.21, // Adjust height as needed
               child: PageView(
                 controller: PageController(viewportFraction: 0.94),
                 children: [
@@ -880,12 +880,12 @@ class _HomeContentState extends State<HomeContent> {
 
                                         cycleId = value.toString();
                                         print('cycleId ${cycleId}');
-                                        getMetricsForCycle(cycleId);
+                                    //    getMetricsForCycle(cycleId);
 
                                         cycleName = '${getDateStringAndReturnMonthInWord(singleCycle['endDate'])}: ${singleCycle['startDate']} - ${singleCycle['endDate']}';
                                         print('cycle name ${cycleName}' );
-                                        prefs.setString('cycleName', cycleName);
-                                        prefs.setInt('cycleId', int.tryParse(cycleId));
+                                        prefs.setString('cycleName', cycleName!);
+                                        prefs.setInt('cycleId', int.tryParse(cycleId!)!);
                                       });
                                       MyRouter.popPage(context);
                                     },
@@ -933,7 +933,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget AppStats({
-     Color backgroundColor,
+     required Color backgroundColor,
     Color textColor = Colors.white,
   }) {
     return Container(
@@ -969,7 +969,7 @@ class _HomeContentState extends State<HomeContent> {
               ),
             ],
           ),
-          SizedBox(height: AppHelper().pageHeight(context) * 0.031),
+          SizedBox(height: AppHelper().pageHeight(context)! * 0.031),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -979,9 +979,9 @@ class _HomeContentState extends State<HomeContent> {
                 child: CircularPercentIndicator(
                   radius: 44.0,
                   lineWidth: 3.0,
-                  percent: int.parse(percentageOfSales.replaceAll("%", "")) >= 100
+                  percent: int.parse(percentageOfSales!.replaceAll("%", "")) >= 100
                       ? 1
-                      : int.parse(percentageOfSales.replaceAll("%", "")) / 100,
+                      : int.parse(percentageOfSales!.replaceAll("%", "")) / 100,
                   startAngle: 310,
                   center: Text(
                     "${percentageOfSales}%",
@@ -1001,7 +1001,7 @@ class _HomeContentState extends State<HomeContent> {
 
 
   Widget SecondAppStats({
-     Color backgroundColor,
+     required Color backgroundColor,
     Color textColor = Colors.white,
   }) {
     return Container(
@@ -1106,24 +1106,24 @@ class _HomeContentState extends State<HomeContent> {
   }
 
 
-  Widget  appText(String?  title,String?  subtitle,{String?  extension,Color textColor,Color subtitleColor}){
+  Widget  appText(String?  title,String?  subtitle,{String?  extension,Color? textColor,Color? subtitleColor}){
     return    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,style: TextStyle(color: textColor ?? Color(0xffE1E2E7),fontSize: 12,fontFamily: 'Nunito SemiBold'),),
+        Text(title!,style: TextStyle(color: textColor ?? Color(0xffE1E2E7),fontSize: 12,fontFamily: 'Nunito SemiBold'),),
         Text(extension ?? 'N/A',style: TextStyle(color: subtitleColor ?? Colors.orange,fontSize: 16,fontFamily: 'Nunito SemiBold'),),
-        Text(subtitle,style: TextStyle(color: Colors.white,fontSize: 16,fontFamily: 'Nunito SemiBold'),),
+        Text(subtitle!,style: TextStyle(color: Colors.white,fontSize: 16,fontFamily: 'Nunito SemiBold'),),
       ],
     );
   }
 
 
-  Widget reverseappText(String?  title,String?  subtitle,{double? fontSize,Color textColor,Color subtitleColor}){
+  Widget reverseappText(String?  title,String?  subtitle,{double? fontSize,Color? textColor,Color? subtitleColor}){
     return    Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(title,style: TextStyle(color: textColor ?? Color(0xffE1E2E7),fontSize: 12,fontFamily: 'Nunito SemiBold'),),
-        Text(subtitle,style: TextStyle(color: subtitleColor ?? Colors.white,fontSize: fontSize ?? 16,fontFamily: 'Nunito SemiBold'),),
+        Text(title!,style: TextStyle(color: textColor ?? Color(0xffE1E2E7),fontSize: 12,fontFamily: 'Nunito SemiBold'),),
+        Text(subtitle!,style: TextStyle(color: subtitleColor ?? Colors.white,fontSize: fontSize ?? 16,fontFamily: 'Nunito SemiBold'),),
       ],
     );
   }
@@ -1136,12 +1136,12 @@ class _HomeContentState extends State<HomeContent> {
       children: [
         Row(
           children: [
-            Text(title,style: TextStyle(color: Color(0xffE1E2E7),fontSize: 10),),
+            Text(title!,style: TextStyle(color: Color(0xffE1E2E7),fontSize: 10),),
             Text(extension ?? '',style: TextStyle(color: Colors.orange,fontSize: 10),),
 
           ],
         ),
-        Text(subtitle,style: TextStyle(color: Colors.white,fontSize: 16),),
+        Text(subtitle!,style: TextStyle(color: Colors.white,fontSize: 16),),
 
       ],
     );
@@ -1168,7 +1168,7 @@ class _HomeContentState extends State<HomeContent> {
             children: [
               SvgPicture.asset('assets/images/${appIcon}',height: 26,width: 26,),
               SizedBox(width: 4,),
-              Text(appName,style: TextStyle(fontSize: 11,fontWeight: FontWeight.bold),)
+              Text(appName!,style: TextStyle(fontSize: 11,fontWeight: FontWeight.bold),)
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
@@ -1176,7 +1176,7 @@ class _HomeContentState extends State<HomeContent> {
          //   mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(loancounts,style: TextStyle(color: Color(0xffA3AED0),fontSize: 11,fontWeight: FontWeight.w300),),
+            Text(loancounts!,style: TextStyle(color: Color(0xffA3AED0),fontSize: 11,fontWeight: FontWeight.w300),),
               Text('${loanCount}',style: TextStyle(color: Color(0xff2B3674),fontSize: 16,fontWeight: FontWeight.w700),)
             ],
           ),
@@ -1217,7 +1217,7 @@ class _HomeContentState extends State<HomeContent> {
 
         return InkWell(
           onTap: (){
-            MyRouter.pushPage(context, ViewClient(clientID: clientsData[position]['id'],));
+         //   MyRouter.pushPage(context, ViewClient(clientID: clientsData[position]['id'],));
           },
           child:    _leadsContactView(ColorReturn().retStatus(clientsData[position]['status']['value']),
               toBeginningOfSentenceCase(clientsData[position]['displayName']),
@@ -1234,114 +1234,114 @@ class _HomeContentState extends State<HomeContent> {
 
   }
 
-  _buildSmallCardLists(){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: Column(
-        children: [
-          Row(
-            children: [
-            //  _singleCard('assets/images/kpi.png','N0','Unpaid Loans',(){}),
-              _singleCard('assets/images/kpi.png','My Metrics ','Click to view',(){
-
-                // MyRouter.pushPage(context, MetricsIndex());
-                MyRouter.pushPage(context, AllProductsMetrics());
-
-              },MyLoanFontsize: 11),
-              _singleCard('assets/images/leads.png','₦${formatCurrency.format(totalCommision)}','Total Commission',(){
-            //   MyRouter.pushPage(context, TestUpdate());
-              },MyLoanFontsize: 12),
-              // _singleCard('assets/images/mail.png','0','Total Open Cases',(){
-              // //  MyRouter.pushPage(context, NewTestUpdate());
-              // }),
-
-              _singleCard('assets/images/customers.png',referalCount.toString(),'Referrals',(){
-                MyRouter.pushPage(context, ReferralIndex());
-              }),
-            ],
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.013,),
-          // Row(
-          //   children: [
-          //     _singleCard('assets/images/overdue.png','0','Referrals',(){
-          //       // LoanSoldView();
-          //     //   MyRouter.pushPage(context, AppUpdateCheck());
-          //     //  MyRouter.pushPage(context, VersionCheckScreen());
-          //     }),
-          //     _singleCard('assets/images/kpi.png','My Metrics ','Click to view',(){
-          //
-          //       // MyRouter.pushPage(context, MetricsIndex());
-          //       MyRouter.pushPage(context, AllProductsMetrics());
-          //
-          //     },MyLoanFontsize: 11),
-          //     _singleCard('assets/images/customers.png',referalCount.toString(),'Referrals',(){
-          //       MyRouter.pushPage(context, ReferralIndex());
-          //     }),
-          //
-          //
-          //   ],
-          // ),
-          Row(
-            children: [
-           //   _singleCard('assets/images/overdue.png','N0','Overdue Payments',(){}),
-              _singleCard('','My Interactions ','Click to view',(){
-                if(loanOfficerId == 0){
-                  Flushbar(
-                flushbarPosition: FlushbarPosition.TOP,
-                flushbarStyle: FlushbarStyle.GROUNDED,
-                    backgroundColor: Colors.blue,
-                    title: "Hold",
-                    message: 'Loan officer details still loading...',
-                    duration: Duration(seconds: 3),
-                  ).show(context);
-                }else {
-                  MyRouter.pushPage(context, GetInteractionLoggedByAgent(loanOfficerId: loanOfficerId,));
-
-                }
-
-                },
-                  singleCardColor: Color(0xff98c4eb),MyLoanFontsize: 11,
-                singleCardTextColor: Colors.white
-              ),
-              _singleCard('','My Leads','Click to view',(){
-                if(loanOfficerId == 0){
-                  Flushbar(
-                flushbarPosition: FlushbarPosition.TOP,
-                flushbarStyle: FlushbarStyle.GROUNDED,
-                    backgroundColor: Colors.blue,
-                    title: "Hold",
-                    message: 'Loan officer details still loading...',
-                    duration: Duration(seconds: 3),
-                  ).show(context);
-                }else {
-                  MyRouter.pushPage(context, GetOpportunityLoggedByMe(loanOfficerId: loanOfficerId,));
-
-                }
-
-              },
-                  singleCardColor: Color(0xff58acf5),MyLoanFontsize: 11,
-                  singleCardTextColor: Colors.white
-              ),
-              _singleCard('','My Loans','Click to track',(){
-                if(loanOfficerId == 0){
-                }else {
-                  MyRouter.pushPage(context, LoanSoldView(loanOfficerId: loanOfficerId,));
-
-                }
-
-              },
-                  singleCardColor: Colors.lightBlueAccent,MyLoanFontsize: 12,
-                  singleCardTextColor: Colors.white
-
-              ),
-
-
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // _buildSmallCardLists(){
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 18),
+  //     child: Column(
+  //       children: [
+  //         Row(
+  //           children: [
+  //           //  _singleCard('assets/images/kpi.png','N0','Unpaid Loans',(){}),
+  //             _singleCard('assets/images/kpi.png','My Metrics ','Click to view',(){
+  //
+  //               // MyRouter.pushPage(context, MetricsIndex());
+  //               MyRouter.pushPage(context, AllProductsMetrics());
+  //
+  //             },MyLoanFontsize: 11),
+  //             _singleCard('assets/images/leads.png','₦${formatCurrency.format(totalCommision)}','Total Commission',(){
+  //           //   MyRouter.pushPage(context, TestUpdate());
+  //             },MyLoanFontsize: 12),
+  //             // _singleCard('assets/images/mail.png','0','Total Open Cases',(){
+  //             // //  MyRouter.pushPage(context, NewTestUpdate());
+  //             // }),
+  //
+  //             _singleCard('assets/images/customers.png',referalCount.toString(),'Referrals',(){
+  //               MyRouter.pushPage(context, ReferralIndex());
+  //             }),
+  //           ],
+  //         ),
+  //         SizedBox(height: MediaQuery.of(context).size.height * 0.013,),
+  //         // Row(
+  //         //   children: [
+  //         //     _singleCard('assets/images/overdue.png','0','Referrals',(){
+  //         //       // LoanSoldView();
+  //         //     //   MyRouter.pushPage(context, AppUpdateCheck());
+  //         //     //  MyRouter.pushPage(context, VersionCheckScreen());
+  //         //     }),
+  //         //     _singleCard('assets/images/kpi.png','My Metrics ','Click to view',(){
+  //         //
+  //         //       // MyRouter.pushPage(context, MetricsIndex());
+  //         //       MyRouter.pushPage(context, AllProductsMetrics());
+  //         //
+  //         //     },MyLoanFontsize: 11),
+  //         //     _singleCard('assets/images/customers.png',referalCount.toString(),'Referrals',(){
+  //         //       MyRouter.pushPage(context, ReferralIndex());
+  //         //     }),
+  //         //
+  //         //
+  //         //   ],
+  //         // ),
+  //         Row(
+  //           children: [
+  //          //   _singleCard('assets/images/overdue.png','N0','Overdue Payments',(){}),
+  //             _singleCard('','My Interactions ','Click to view',(){
+  //               if(loanOfficerId == 0){
+  //                 Flushbar(
+  //               flushbarPosition: FlushbarPosition.TOP,
+  //               flushbarStyle: FlushbarStyle.GROUNDED,
+  //                   backgroundColor: Colors.blue,
+  //                   title: "Hold",
+  //                   message: 'Loan officer details still loading...',
+  //                   duration: Duration(seconds: 3),
+  //                 ).show(context);
+  //               }else {
+  //                 MyRouter.pushPage(context, GetInteractionLoggedByAgent(loanOfficerId: loanOfficerId,));
+  //
+  //               }
+  //
+  //               },
+  //                 singleCardColor: Color(0xff98c4eb),MyLoanFontsize: 11,
+  //               singleCardTextColor: Colors.white
+  //             ),
+  //             _singleCard('','My Leads','Click to view',(){
+  //               if(loanOfficerId == 0){
+  //                 Flushbar(
+  //               flushbarPosition: FlushbarPosition.TOP,
+  //               flushbarStyle: FlushbarStyle.GROUNDED,
+  //                   backgroundColor: Colors.blue,
+  //                   title: "Hold",
+  //                   message: 'Loan officer details still loading...',
+  //                   duration: Duration(seconds: 3),
+  //                 ).show(context);
+  //               }else {
+  //                 MyRouter.pushPage(context, GetOpportunityLoggedByMe(loanOfficerId: loanOfficerId,));
+  //
+  //               }
+  //
+  //             },
+  //                 singleCardColor: Color(0xff58acf5),MyLoanFontsize: 11,
+  //                 singleCardTextColor: Colors.white
+  //             ),
+  //             _singleCard('','My Loans','Click to track',(){
+  //               if(loanOfficerId == 0){
+  //               }else {
+  //                 MyRouter.pushPage(context, LoanSoldView(loanOfficerId: loanOfficerId,));
+  //
+  //               }
+  //
+  //             },
+  //                 singleCardColor: Colors.lightBlueAccent,MyLoanFontsize: 12,
+  //                 singleCardTextColor: Colors.white
+  //
+  //             ),
+  //
+  //
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   _buildSectionTitle(String?  title) {
     return Padding(
@@ -1373,7 +1373,7 @@ class _HomeContentState extends State<HomeContent> {
               width: MediaQuery.of(context).size.width * 0.92,
               height: MediaQuery.of(context).size.width * 0.42,
               decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   image: DecorationImage(
                     image: AssetImage('assets/images/userBanner.png'),
@@ -1450,9 +1450,9 @@ class _HomeContentState extends State<HomeContent> {
 
         height: 80,
         child: ListTile(
-            leading: _LeadingUserTile(colm,nameLogo.toUpperCase()),
-            title: Text(title,style: TextStyle(color:Theme.of(context).textTheme.headline6.color,fontFamily: 'Nunito SansRegular',fontSize: 12,fontWeight: FontWeight.w600),),
-            subtitle: Text(employer),
+            leading: _LeadingUserTile(colm,nameLogo?.toUpperCase()),
+            title: Text(title!,style: TextStyle(color:Theme.of(context).textTheme.titleLarge?.color,fontFamily: 'Nunito SansRegular',fontSize: 12,fontWeight: FontWeight.w600),),
+            subtitle: Text(employer!),
             trailing:  Icon(Icons.arrow_forward_ios_rounded,size: 20,color: Colors.blueGrey,)
         ),
       ),
@@ -1470,91 +1470,91 @@ class _HomeContentState extends State<HomeContent> {
         borderRadius: BorderRadius.all(Radius.circular(60)),
 
       ),
-      child: Center(child: Text(nameLogo,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
+      child: Center(child: Text(nameLogo!,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
     );
   }
 
 
 
-  _LeadingProfileTile(Color cols,String?  nameLogo){
-    return Padding(
-      padding: const EdgeInsets.only(top: 15),
-      child: Container(
-        padding: EdgeInsets.only(top: 2),
-        width: 10,
-        height: 10,
-        decoration: BoxDecoration(
-          color: cols,
-          borderRadius: BorderRadius.all(Radius.circular(23)),
+  // _LeadingProfileTile(Color cols,String?  nameLogo){
+  //   return Padding(
+  //     padding: const EdgeInsets.only(top: 15),
+  //     child: Container(
+  //       padding: EdgeInsets.only(top: 2),
+  //       width: 10,
+  //       height: 10,
+  //       decoration: BoxDecoration(
+  //         color: cols,
+  //         borderRadius: BorderRadius.all(Radius.circular(23)),
+  //
+  //       ),
+  //       child: Center(child: Text(nameLogo!,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
+  //     ),
+  //   );
+  // }
 
-        ),
-        child: Center(child: Text(nameLogo,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
-      ),
-    );
-  }
 
 
-
-  _singleCard(String?  image,String?  numbers,String?  title,VoidCallback onTap,{Color singleCardColor,double? MyLoanFontsize,Color singleCardTextColor}){
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        elevation: 0.3,
-        child: Container(
-          color: singleCardColor ?? Colors.white,
-          width: MediaQuery.of(context).size.width * 0.28 ,
-          height: MediaQuery.of(context).size.height * 0.135,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 11,vertical: 11),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(''),
-
-                    Container(
-                      height: 22,
-                      width: 22,
-                      decoration: BoxDecoration(
-
-                          image: DecorationImage(
-                            image: AssetImage(image),
-                            fit: BoxFit.contain,
-                          )
-                      ),
-                    )
-
-                    // ImageIcon(
-                    //   AssetImage(image),
-                    //   size: 22,
-                    // ),
-
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(numbers,style: TextStyle(fontSize: MyLoanFontsize ?? 18,fontWeight: FontWeight.bold,color: singleCardTextColor ?? Colors.black),),
-                    Text('')
-                  ],
-
-                ),
-
-                SizedBox(height: 7,),
-                Row(
-                  children: [
-                    Text(title,style: TextStyle(fontSize: 10,color: singleCardTextColor ?? Colors.black),),
-                  ],
-                )
-
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // _singleCard(String?  image,String?  numbers,String?  title,VoidCallback onTap,{required Color singleCardColor,double? MyLoanFontsize,Color singleCardTextColor}){
+  //   return InkWell(
+  //     onTap: onTap,
+  //     child: Card(
+  //       elevation: 0.3,
+  //       child: Container(
+  //         color: singleCardColor ?? Colors.white,
+  //         width: MediaQuery.of(context).size.width * 0.28 ,
+  //         height: MediaQuery.of(context).size.height * 0.135,
+  //         child: Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: 11,vertical: 11),
+  //           child: Column(
+  //             children: [
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   Text(''),
+  //
+  //                   Container(
+  //                     height: 22,
+  //                     width: 22,
+  //                     decoration: BoxDecoration(
+  //
+  //                         image: DecorationImage(
+  //                           image: AssetImage(image),
+  //                           fit: BoxFit.contain,
+  //                         )
+  //                     ),
+  //                   )
+  //
+  //                   // ImageIcon(
+  //                   //   AssetImage(image),
+  //                   //   size: 22,
+  //                   // ),
+  //
+  //                 ],
+  //               ),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   Text(numbers,style: TextStyle(fontSize: MyLoanFontsize ?? 18,fontWeight: FontWeight.bold,color: singleCardTextColor ?? Colors.black),),
+  //                   Text('')
+  //                 ],
+  //
+  //               ),
+  //
+  //               SizedBox(height: 7,),
+  //               Row(
+  //                 children: [
+  //                   Text(title,style: TextStyle(fontSize: 10,color: singleCardTextColor ?? Colors.black),),
+  //                 ],
+  //               )
+  //
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   retsNx360dates(){
 
@@ -1614,7 +1614,7 @@ class _HomeContentState extends State<HomeContent> {
               ),
               child: TextButton(
                 onPressed: (){
-                  MyRouter.pushPage(context,AddClient());
+                //  MyRouter.pushPage(context,AddClient());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 0.0),

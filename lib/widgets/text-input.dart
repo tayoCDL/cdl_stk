@@ -9,7 +9,7 @@ class TextInput extends StatelessWidget {
     required this.isIconAvailable,
     required this.hint,
     required this.isObsure,
-    required this.onSave,
+     this.onSave,
     required  this.eyeOpen,
     required   this.controls,
     required  this.inputType,
@@ -25,7 +25,7 @@ class TextInput extends StatelessWidget {
   final String?  hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  final Function(String?) onSave;
+  final Function(String?)? onSave;
   final VoidCallback onButtonPressed;
   final FormFieldValidator<String>? validate;
   final TextEditingController controls;
@@ -43,7 +43,7 @@ class TextInput extends StatelessWidget {
         child: TextFormField(
           controller: controls,
           autofocus: false,
-          onSaved: onSave!,
+        //  onSaved: onSave!,
           validator: validate,
           obscureText: isObsure,
           decoration: InputDecoration(

@@ -412,7 +412,7 @@ class AddLoanProvider extends ChangeNotifier {
                 headers: bHeader
               ).timeout(
                 Duration(seconds: 60),
-                onTimeout: () {
+                onTimeout: () async {
                   // Closing client here throwns an error
                   // client.close(); // Connection closed before full header was received
                   result = {'status': false, 'message': 'Connection timed out',};
@@ -420,9 +420,9 @@ class AddLoanProvider extends ChangeNotifier {
                 },);;
             }
             else {
-                print('salesToolkit ${ AppUrl.getLoanDetails + '${passedLoanData['id']}' + '/salestoolkit'}');
+              //  print('salesToolkit ${ AppUrl.getLoanDetails + '${passedLoanData['id']}' + '/salestoolkit'}');
               loanResponse = await put(
-                AppUrl.getLoanDetails + '${passedLoanData['id']}' + '/salestoolkit',
+               Uri.parse( AppUrl.getLoanDetails + '${passedLoanData['id']}' + '/salestoolkit'),
                 body: json.encode(EditloanData),
                 headers:bHeader,
               ).timeout(
@@ -430,7 +430,9 @@ class AddLoanProvider extends ChangeNotifier {
                 onTimeout: () {
                   result = {'status': false, 'message': 'Connection timed out',};
                   //
-                },);
+                },
+
+                );
 
             }
 
@@ -537,7 +539,7 @@ class AddLoanProvider extends ChangeNotifier {
 
     print(token);
     Response responsevv = await post(
-      AppUrl.bulkBase64 + 'loans/${prefs.getInt('loanCreatedId')}/documents/bulkbase64',
+      Uri.parse(AppUrl.bulkBase64 + 'loans/${prefs.getInt('loanCreatedId')}/documents/bulkbase64'),
       body: json.encode(docLoan),
       headers: {
         'Content-Type': 'application/json',

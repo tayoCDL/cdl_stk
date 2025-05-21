@@ -198,7 +198,7 @@ class AddClientProvider extends ChangeNotifier {
       //   );
       // }
       // else {
-        responsevv = await post(AppUrl.addClient,
+        responsevv = await post(Uri.parse(AppUrl.addClient),
           body: json.encode(prefs.getInt('clientId')  ==  null && personalData['id']  == null ? clientData : clientData2),
           headers: {
             'Content-Type': 'application/json',
@@ -458,7 +458,7 @@ class AddClientProvider extends ChangeNotifier {
     // else {
 
     responsevv = await post(
-        AppUrl.addClient,
+        Uri.parse(AppUrl.addClient),
        // body: json.encode( employmentData['payrollDob'] == null || employmentData['payrollDob'].isEmpty ? clientData : clientDataWithPayRollDOB),
         body: json.encode(decodeEMployer),
         headers: {
@@ -647,7 +647,7 @@ class AddClientProvider extends ChangeNotifier {
       // }
       // else {
         responsevv = await post(
-          AppUrl.addClient,
+         Uri.parse( AppUrl.addClient),
           body: json.encode(clientData),
           headers: {
             'Content-Type': 'application/json',
@@ -850,7 +850,7 @@ class AddClientProvider extends ChangeNotifier {
       // }
       // else {
         responsevv = await post(
-           AppUrl.addClient,
+           Uri.parse(AppUrl.addClient),
           body: json.encode(clientData),
           headers: {
             'Content-Type': 'application/json',
@@ -1063,7 +1063,7 @@ class AddClientProvider extends ChangeNotifier {
       // }
       // else {
         responsevv = await post(
-          AppUrl.addClient,
+         Uri.parse( AppUrl.addClient),
           body: json.encode(clientData),
           headers: {
             'Content-Type': 'application/json',
@@ -1289,7 +1289,7 @@ class AddClientProvider extends ChangeNotifier {
       // }
       // else {
         responsevv = await post(
-          AppUrl.addClient,
+         Uri.parse(AppUrl.addClient),
           body: json.encode(clientData),
           headers: {
             'Content-Type': 'application/json',
@@ -1488,7 +1488,7 @@ class AddClientProvider extends ChangeNotifier {
 
     print(token);
     Response responsevv = await post(
-      AppUrl.addClient,
+      Uri.parse(AppUrl.addClient),
       body: json.encode(docData),
       headers: {
         'Content-Type': 'application/json',

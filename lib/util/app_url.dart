@@ -69,14 +69,15 @@ class AppUrl {
      '${baseUrl}twofactor/validate?token=';
   static final Uri forgotPassword = Uri.parse('\${baseUrl}/forgot_password');
   static final Uri clientsList = Uri.parse('\${baseUrl}clients');
-  static final Uri clientAccount = Uri.parse('\${baseUrl}clients/accounts/');
+  static final String clients_List = '${baseUrl}clients';
+  static final String clientAccount = '${baseUrl}clients/accounts/';
 
 // http://40.113.169.208:9000/_/credit-direct-pay/177277t
   static final Uri getStaffCredential = Uri.parse('\${baseUrl}staff/');
   static final Uri clientSearch =
       Uri.parse('\${baseUrl}search?exactMatch=false');
   static final Uri leadsList = Uri.parse('\${baseUrl}leads');
-  static final Uri addClient = Uri.parse('\${baseUrl}clients/cdl');
+  static final String addClient = '${baseUrl}clients/cdl';
   static final Uri addLead = Uri.parse('\${baseUrl}leads');
   static final Uri loanMetrics = Uri.parse('\${baseUrl}loans/metrics');
   static final Uri newSendLafOtp = Uri.parse('\${baseUrl}laf/send-otp/');
@@ -96,7 +97,7 @@ class AppUrl {
   static final Uri newLoanRepaymentCalculator =
       Uri.parse('\${baseUrl}loans/calculator');
   static final Uri createLoan = Uri.parse('\${baseUrl}loans/cdl');
-  static final Uri getLoanDetails = Uri.parse('\${baseUrl}loans/');
+  static final String getLoanDetails = '${baseUrl}loans/';
   static final Uri newSendLoanForApproval =
       Uri.parse('\${baseUrl}loan-action/sales-approve/');
   static final Uri getLendersLists =
@@ -113,10 +114,10 @@ class AppUrl {
       Uri.parse('${baseUrl}loans/credit-direct/');
   static final Uri calclulateRepayment =
       Uri.parse('${baseUrl}loans?command=calculateLoanSchedule');
-  static final Uri bulkBase64 = Uri.parse('${baseUrl}');
+  static final String bulkBase64 = '${baseUrl}';
   static final Uri getCode = Uri.parse('${baseUrl}codes');
   static final Uri getBanks = Uri.parse('${baseUrl}banks');
-  static final Uri getCodeValue = Uri.parse('${baseUrl}codes/');
+  static final String getCodeValue = '${baseUrl}codes/';
   static final Uri productSummary = Uri.parse('${baseUrl}summary/products');
 
   static final Uri documentConfig =
@@ -136,7 +137,7 @@ class AppUrl {
 
   static final Uri getSingleClientForLoanReview =
       Uri.parse('${baseUrl}clients/cdl/');
-  static final Uri getResidentialClient = Uri.parse('${baseUrl}client/');
+  static final String getResidentialClient ='${baseUrl}client/';
 
   static final Uri getSingleClientPersonalInfo =
       Uri.parse('${baseUrl}clients/');
@@ -155,16 +156,16 @@ class AppUrl {
       Uri.parse('${baseUrl}loans/template?activeOnly=true&clientId=');
 
   static final Uri lafDownload = Uri.parse('${LoanbaseUrl}laf/');
-  static final Uri allEmployers = Uri.parse(
-      '${baseUrl}employers?active=true&selectOnlyParentEmployer=true');
-  static final Uri employerProduct = Uri.parse('${baseUrl}employers/');
+  static final String allEmployers =
+      '${baseUrl}employers?active=true&selectOnlyParentEmployer=true';
+  static final String employerProduct = '${baseUrl}employers/';
   static final Uri thirdpartyEmployerProduct =
       Uri.parse('${baseUrl}employers/thirdparty?employerId=');
 
   static final Uri searchClient =
       Uri.parse('${baseUrl}search?exactMatch=false&resource=clients&query=');
-  static final Uri newSeachClient =
-      Uri.parse('${baseUrl}clients/nx360?offset=0&limit=100&');
+  static final String newSeachClient =
+      '${baseUrl}clients/nx360?offset=0&limit=100&';
 
 // https://40.113.169.208:8443/fineract-provider/api/v1/clients/nx360?offset=0&limit=100&bvn=2231744
 
@@ -206,8 +207,8 @@ class AppUrl {
       Uri.parse('\${sequestbaseUrl}RequestLog/replyticket');
   static final Uri getAvailableStatusByTicket =
       Uri.parse('\${sequestbaseUrl}RequestLog/getAvailableStatusByTicketId/');
-  static final Uri getSequestTypePendingOnMe =
-      Uri.parse('\${sequestbaseUrl}RequestLog/getSequestTypePendingOnMe/8/');
+  static final String getSequestTypePendingOnMe =
+     '${sequestbaseUrl}RequestLog/getSequestTypePendingOnMe/8/';
   static final Uri getSequestTypeForClient =
       Uri.parse('\${sequestbaseUrl}RequestLog/getSequestTypeForClient/8/');
   static final Uri getRequestPendingOnUnit =

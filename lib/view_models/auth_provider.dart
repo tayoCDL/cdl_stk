@@ -74,14 +74,12 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> login(
-
-      String?  username, String?  password, String?  login_type,{bool? isAgent}) async {
-
-
+      String? username, String? password, String? login_type,
+      {bool? isAgent}) async {
     // app_cloak_login();
     print('>> isAgent ${isAgent}');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String?  seQuestPassword = prefs.getString('sequestpassword');
+    String? seQuestPassword = prefs.getString('sequestpassword');
 
     var result;
 
@@ -121,8 +119,10 @@ class AuthProvider extends ChangeNotifier {
     //     //
     //   },);
 
-    String?  url = username!.contains('salestoolkit@qa.team') || isAgent == true ? AppUrl.login : AppUrl.loginLdap;
-     //   print('login_url ${url}');
+    String? url = username!.contains('salestoolkit@qa.team') || isAgent == true
+        ? AppUrl.login
+        : AppUrl.loginLdap;
+    //   print('login_url ${url}');
 //   String?  url = AppUrl.login;
     try {
       Response response = await post(
@@ -141,11 +141,11 @@ class AuthProvider extends ChangeNotifier {
             'status': false,
             'message': 'Connection timed out',
           };
-          //
+          throw Exception('Connection timed out');
         },
       );
 
-    //  var appDynamic = AppService().post(url,data: loginData);;
+      //  var appDynamic = AppService().post(url,data: loginData);;
 
       // appDynamic.then((value) =>
       //     print('app value ${value.data}')
@@ -161,18 +161,20 @@ class AuthProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-     //   print('>> staffId ${responseData['staffId'].toString()}');
-        AppTracker().trackActivity('Login Attempt',payLoad: {"email": username,"userId": responseData['staffId']});
+        //   print('>> staffId ${responseData['staffId'].toString()}');
+        AppTracker().trackActivity('Login Attempt',
+            payLoad: {"email": username, "userId": responseData['staffId']});
         AppTracker().identifyUser(responseData['staffId'].toString());
-        AppTracker().getPeople_Set(props: "email",to: username);
-        AppTracker().getPeople_Append(props: "name",to: responseData['staffDisplayName']);
+        AppTracker().getPeople_Set(props: "email", to: username);
+        AppTracker().getPeople_Append(
+            props: "name", to: responseData['staffDisplayName']);
 
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         prefs.setString('base64EncodedAuthenticationKey',
             responseData['base64EncodedAuthenticationKey']);
 
-        String?  roleName = responseData['roles'][0]['name'];
+        String? roleName = responseData['roles'][0]['name'];
         prefs.setString('roleName', roleName!);
 
         prefs.setString('login_type', login_type!);
@@ -199,7 +201,7 @@ class AuthProvider extends ChangeNotifier {
 
         var userData = responseData;
         User authUser = User.fromJson(userData);
-      //  UserPreferences().saveUser(authUser);
+        //  UserPreferences().saveUser(authUser);
         _loggedInStatus = Status.LoggedIn;
         notifyListeners();
 
@@ -207,8 +209,7 @@ class AuthProvider extends ChangeNotifier {
         print(responseData2);
 
         result = {'status': true, 'message': 'Successful', 'user': authUser};
-      }
-      else {
+      } else {
         _loggedInStatus = Status.NotLoggedIn;
         notifyListeners();
         print('Json ${response.body}');
@@ -233,7 +234,10 @@ class AuthProvider extends ChangeNotifier {
           'data': 'No Internet connection'
         };
       }
+      throw e; // Re-throw the exception to avoid returning null
     }
+    throw Exception(
+        'Unexpected error in login'); // Add a throw statement at the end to ensure non-null return
   }
 
   static onError(error) {
@@ -245,69 +249,81 @@ class AuthProvider extends ChangeNotifier {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('n');
-      Map<String, dynamic> loginData = EncryptOrDecrypt().buildtwofactorData(authCode: token,requesPayload: null,extendedToken: '');
+      Map<String, dynamic> loginData = EncryptOrDecrypt().buildtwofactorData(
+          authCode: token, requesPayload: null, extendedToken: '');
       print('loginData >> ${loginData}');
       Map<String, dynamic> encData = EncryptOrDecrypt().buildEncData(loginData);
       _loggedInStatus = Status.Authenticating;
       notifyListeners();
-      String?  twoFactorUrl = AppUrl.encTwoFactor;
-      String?  accessToken = prefs.getString('cloak_access_token');
+      String? twoFactorUrl = AppUrl.encTwoFactor;
+      String? accessToken = prefs.getString('cloak_access_token');
 
       Response response = await _postWithTimeout(
         twoFactorUrl,
         json.encode(encData),
-        {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
+        {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken'
+        },
       );
 
- //     return _handleSuccessResponse(response, 'login');
+      //     return _handleSuccessResponse(response, 'login');
+      throw Exception('Unexpected error in encTwofactor');
     } catch (e) {
       return _handleError(e);
     }
   }
 
-  Future<Object> encValidatefactor(String?  two_factor_code) async {
+  Future<Object> encValidatefactor(String? two_factor_code) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('base64EncodedAuthenticationKey');
 
-      Map<String, dynamic> loginData = EncryptOrDecrypt().buildtwofactorData(authCode: token,requesPayload: null,extendedToken: '');
+      Map<String, dynamic> loginData = EncryptOrDecrypt().buildtwofactorData(
+          authCode: token, requesPayload: null, extendedToken: '');
       print('loginData >> ${loginData}');
       Map<String, dynamic> encData = EncryptOrDecrypt().buildEncData(loginData);
       _loggedInStatus = Status.Authenticating;
       notifyListeners();
 
-      String?  twoFactorUrl = AppUrl.encValdateTwoFactor + two_factor_code!;
-      String?  accessToken = prefs.getString('cloak_access_token');
+      String? twoFactorUrl = AppUrl.encValdateTwoFactor + two_factor_code!;
+      String? accessToken = prefs.getString('cloak_access_token');
 
       Response response = await _postWithTimeout(
         twoFactorUrl,
         json.encode(encData),
-        {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
+        {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken'
+        },
       );
 
-           return _handleTwoFactorResponse(response);
+      return _handleTwoFactorResponse(response);
     } catch (e) {
       return _handleError(e);
     }
   }
 
   Future<Map<String, dynamic>> encryptAndLogin(
-      String?  username, String?  password, String?  loginType) async {
+      String? username, String? password, String? loginType) async {
     try {
-     // appCloakLogin();
+      // appCloakLogin();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       Map<String, dynamic> loginData = _buildLoginData(username, password);
       Map<String, dynamic> encData = EncryptOrDecrypt().buildEncData(loginData);
       _loggedInStatus = Status.Authenticating;
       notifyListeners();
 
-      String?  loginUrl = AppUrl.encLogin;
-      String?  accessToken = prefs.getString('cloak_access_token');
+      String? loginUrl = AppUrl.encLogin;
+      String? accessToken = prefs.getString('cloak_access_token');
 
       Response response = await _postWithTimeout(
         loginUrl,
         json.encode(encData),
-        {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
+        {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken'
+        },
       );
 
       return _handleLoginResponse(response, loginType);
@@ -316,7 +332,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Map<String, dynamic> _buildLoginData(String?  username, String?  password) {
+  Map<String, dynamic> _buildLoginData(String? username, String? password) {
     return {
       "authorization": "",
       "extendedToken": "",
@@ -325,7 +341,8 @@ class AuthProvider extends ChangeNotifier {
     };
   }
 
-  Map<String, dynamic> _handleLoginResponse(Response response, String?  loginType) {
+  Map<String, dynamic> _handleLoginResponse(
+      Response response, String? loginType) {
     if (response == null) {
       _loggedInStatus = Status.NotLoggedIn;
       notifyListeners();
@@ -334,8 +351,7 @@ class AuthProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       return _handleSuccessfulLogin(response, loginType);
-    }
-    else {
+    } else {
       _loggedInStatus = Status.NotLoggedIn;
       notifyListeners();
 
@@ -352,8 +368,7 @@ class AuthProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       return _handleSuccessfulValidateTwoFA(response);
-    }
-    else {
+    } else {
       _loggedInStatus = Status.NotLoggedIn;
       notifyListeners();
 
@@ -361,10 +376,12 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Map<String, dynamic> _handleSuccessfulLogin(Response response, String?  loginType) {
-    final Map<String, dynamic> encryptedResponseData = json.decode(response.body);
-    String?  decryptResult = encryptedResponseData['result'];
-    String?  decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
+  Map<String, dynamic> _handleSuccessfulLogin(
+      Response response, String? loginType) {
+    final Map<String, dynamic> encryptedResponseData =
+        json.decode(response.body);
+    String? decryptResult = encryptedResponseData['result'];
+    String? decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
 
     Map<String, dynamic> responseData = jsonDecode(decryptedResponse!);
 
@@ -377,12 +394,13 @@ class AuthProvider extends ChangeNotifier {
     return {'status': true, 'message': 'Successful', 'user': authUser};
   }
 
-
-  Future<Map<String, dynamic>> _handleSuccessfulValidateTwoFA(Response response) async {
+  Future<Map<String, dynamic>> _handleSuccessfulValidateTwoFA(
+      Response response) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final Map<String, dynamic> encryptedResponseData = json.decode(response.body);
-    String?  decryptResult = encryptedResponseData['result'];
-    String?  decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
+    final Map<String, dynamic> encryptedResponseData =
+        json.decode(response.body);
+    String? decryptResult = encryptedResponseData['result'];
+    String? decryptedResponse = EncryptOrDecrypt().decryptText(decryptResult);
 
     Map<String, dynamic> responseData = jsonDecode(decryptedResponse!);
 
@@ -396,12 +414,14 @@ class AuthProvider extends ChangeNotifier {
 
     notifyListeners();
 
-    return {'status': true, 'message': 'Successful',};
-
+    return {
+      'status': true,
+      'message': 'Successful',
+    };
   }
 
-
-  Future<Response> _postWithTimeout(String?  url, String?  body, Map<String, String> headers) async {
+  Future<Response> _postWithTimeout(
+      String? url, String? body, Map<String, String> headers) async {
     try {
       return await post(
         Uri.parse(url!),
@@ -412,7 +432,8 @@ class AuthProvider extends ChangeNotifier {
         onTimeout: () {
           _loggedInStatus = Status.NotLoggedIn;
           notifyListeners();
-          return null;
+       //   return null;
+          throw Exception('Connection timed out');
         },
       );
     } catch (e) {
@@ -425,7 +446,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       Map<String, dynamic> cloakRequest = EncryptOrDecrypt().cloakCredentials();
-      String  url = AppUrl.loginCloak;
+      String url = AppUrl.loginCloak;
 
       Response response = await _postWithTimeout(
         url,
@@ -439,7 +460,7 @@ class AuthProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        String?  cloakAccessToken = responseData['accessToken'];
+        String? cloakAccessToken = responseData['accessToken'];
         print('cloak access token >> ${cloakAccessToken}');
         prefs.setString('cloak_access_token', cloakAccessToken!);
       }
@@ -452,10 +473,15 @@ class AuthProvider extends ChangeNotifier {
 
   Map<String, dynamic> _handleError(dynamic error) {
     print('Error: $error');
-    if (error.toString().contains('SocketException') || error.toString().contains('HandshakeException')) {
+    if (error.toString().contains('SocketException') ||
+        error.toString().contains('HandshakeException')) {
       _loggedInStatus = Status.NotLoggedIn;
       notifyListeners();
-      return {'status': false, 'message': 'Network error', 'data': 'No Internet connection'};
+      return {
+        'status': false,
+        'message': 'Network error',
+        'data': 'No Internet connection'
+      };
     }
 
     return {'status': false, 'message': 'An unexpected error occurred'};

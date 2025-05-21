@@ -36,7 +36,7 @@ return    Container(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: Text(
-              text,
+              text!,
               style: TextStyle(color: Colors.white),
             ),
           ),

@@ -40,9 +40,9 @@ import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_analytics/observer.dart';
 
-const String?  onesignalId = "fbfb56c1-16aa-466a-8f6b-85ce4fa4883e";
+const String? onesignalId = "fbfb56c1-16aa-466a-8f6b-85ce4fa4883e";
 
-void main() async{
+void main() async {
 //  await dotenv.load(fileName: Environment.fileName);
 // bool kReleaseMode1 = false;
 //  await dotenv.load(fileName: ".env.development");
@@ -55,9 +55,7 @@ void main() async{
 //
 //   HiveMethods().createSequestCredential();
 
-
   HttpOverrides.global = new MyHttpOverrides();
-
 
   runApp(
     MultiProvider(
@@ -66,16 +64,14 @@ void main() async{
         ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => OneLoginProvider()),
         ChangeNotifierProvider(create: (_) => VerifyOtpProvider()),
-        ChangeNotifierProvider(create: (_)=> AuthProvider()),
-        ChangeNotifierProvider(create: (_)=>UserProvider()),
-        ChangeNotifierProvider(create: (_)=>ClientListProvider()),
-        ChangeNotifierProvider(create: (_)=>ManageLoginState()),
-
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => ClientListProvider()),
+        ChangeNotifierProvider(create: (_) => ManageLoginState()),
       ],
       child: MyApp(),
     ),
   );
-
 
   // await SentryFlutter.init(
   //       (options) {
@@ -105,9 +101,6 @@ void main() async{
   //   ),
   // );
 
-
-
-
   // OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   // OneSignal.shared.setAppId(onesignalId);
 
@@ -115,7 +108,6 @@ void main() async{
 //   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
 //     debugPrint("Accepted permission: $accepted");
 //   });
-
 
   // var status = await OneSignal.shared.getDeviceState();
   // String?  playerId = status.userId;
@@ -128,9 +120,6 @@ void main() async{
   //
   // // Pass all uncaught errors from the framework to Crashlytics.
   // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-
-
-
 }
 
 class MyApp extends StatefulWidget {
@@ -139,12 +128,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AuthProvider authProvider;
-  bool _jailbroken;
-  bool _developerMode;
+  AuthProvider? authProvider;
+  bool? _jailbroken;
+  bool? _developerMode;
 //  final FirebaseAnalytics _firebaseAnalytics = FirebaseAnalytics();
- // Mixpanel mixpanel;
-
+  // Mixpanel mixpanel;
 
   @override
   void initState() {
@@ -152,15 +140,13 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
     _logAppOpen();
     _setAnalyticsProperties();
-  //  initMixpanel();
-
+    //  initMixpanel();
   }
 
   // Future<void> initMixpanel() async {
   //   mixpanel = await Mixpanel.init("01bcb7ad255ab432c537f04276890aed", trackAutomaticEvents: true);
   //   mixpanel.track('App Started');
   // }
-
 
   void _logAppOpen() async {
 //    await _firebaseAnalytics.logAppOpen();
@@ -170,10 +156,9 @@ class _MyAppState extends State<MyApp> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // authProvider = Provider.of<AuthProvider>(context,listen: true);
-
-   //  AuthProvider authProvider = AuthProvider();
-   //   authProvider.appCloakLogin();
-   //  Provider.of<AuthProvider>(context, listen: false);
+    //  AuthProvider authProvider = AuthProvider();
+    //   authProvider.appCloakLogin();
+    //  Provider.of<AuthProvider>(context, listen: false);
     runCloak();
   }
 
@@ -202,13 +187,12 @@ class _MyAppState extends State<MyApp> {
   // }
 
   void _setAnalyticsProperties() async {
-  //  await _firebaseAnalytics.setUserId('000001');
-  //   await _firebaseAnalytics.setUserProperty(
-  //     name: 'open_app',
-  //     value: 'salestoolkit was opened',
-  //   );
+    //  await _firebaseAnalytics.setUserId('000001');
+    //   await _firebaseAnalytics.setUserProperty(
+    //     name: 'open_app',
+    //     value: 'salestoolkit was opened',
+    //   );
   }
-
 
   Future<void> initPlatformState() async {
     bool jailbroken;
@@ -234,36 +218,32 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget build(BuildContext context) {
-  //  Future<User> getUserData () => UserPreferences().getUser();
+    //  Future<User> getUserData () => UserPreferences().getUser();
     return Consumer<AppProvider>(
-      builder: (BuildContext context, AppProvider appProvider, Widget child) {
+      builder: (BuildContext context, AppProvider appProvider, Widget? child) {
         return OverlaySupport(
           child: WillPopScope(
             onWillPop: () => Dialogs().showExitDialog(context),
-              child:   MaterialApp(
-                  key: appProvider.key,
-                  debugShowCheckedModeBanner: false,
-                  navigatorKey: appProvider.navigatorKey,
-                  title: Constants.appName,
-                  theme: themeData(appProvider.theme),
-                  darkTheme: themeData(ThemeConfig.darkTheme),
-                  navigatorObservers: [
-                    //FirebaseAnalyticsObserver(analytics: _firebaseAnalytics),
-                  ],
-                  home:Splash()
-              //    home: _jailbroken == null ? Splash() : _jailbroken == true ? JailBroken() : Splash()
+            child: MaterialApp(
+                key: appProvider.key,
+                debugShowCheckedModeBanner: false,
+                navigatorKey: appProvider.navigatorKey,
+                title: Constants.appName,
+                theme: themeData(appProvider.theme),
+                darkTheme: themeData(ThemeConfig.darkTheme),
+                navigatorObservers: [
+                  //FirebaseAnalyticsObserver(analytics: _firebaseAnalytics),
+                ],
+                home: Splash()
+                //    home: _jailbroken == null ? Splash() : _jailbroken == true ? JailBroken() : Splash()
                 //    home: MyHomePage(),
-                //  Text('Jailbroken: ${_jailbroken == null ? "Unknown" : _jailbroken ? "YES" : "NO"}'),
-              ),
+                //  Text('Jailbroken: \${_jailbroken == null ? "Unknown" : _jailbroken ? "YES" : "NO"}'),
+                ),
           ),
-        )
-
-        ;
+        );
       },
     );
   }
-
-
 
   // Widget JailBroken(){
   //   return
@@ -317,7 +297,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
 class JailBroken extends StatelessWidget {
   const JailBroken({Key? key}) : super(key: key);
 
@@ -332,14 +311,35 @@ class JailBroken extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.17),
-              SvgPicture.asset("assets/images/no_loan.svg",
+              SvgPicture.asset(
+                "assets/images/no_loan.svg",
                 height: 90.0,
-                width: 90.0,),
-              SizedBox(height: 20,),
-              Text('Device Not Allowed.',style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
-              SizedBox(height: 6,),
-              Text('Sorry,Sales Toolkit detected that your phone is rooted, \nso it cannot be opened.',style: TextStyle(color: Colors.black,fontSize: 14,),textAlign: TextAlign.center,),
-              SizedBox(height: 20,),
+                width: 90.0,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Device Not Allowed.',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 6,
+              ),
+              Text(
+                'Sorry,Sales Toolkit detected that your phone is rooted, \nso it cannot be opened.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 width: 155,
                 height: 40,
@@ -348,17 +348,18 @@ class JailBroken extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: TextButton(
-                  onPressed: (){
+                  onPressed: () {
                     SystemNavigator.pop();
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0.0),
-                    child:   Text(
+                    child: Text(
                       'Close App',
-                      style: TextStyle( fontSize: 12,
-                        color: Colors.white,),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
                     ),
-
                   ),
                 ),
               )
@@ -370,15 +371,14 @@ class JailBroken extends StatelessWidget {
   }
 }
 
-
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String?  host, int?  port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String? host, int? port) => true;
   }
 }
-
 
 class MyHomePage extends StatelessWidget {
   void _causeCrash() {
@@ -386,7 +386,6 @@ class MyHomePage extends StatelessWidget {
     // int?  result = 10 ~/ 0;
     // print('Result: $result'); // This line won't be reached due to the crash.
     throw Error();
-
   }
 
   @override
@@ -404,7 +403,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
-
-
-

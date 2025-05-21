@@ -5,19 +5,20 @@ import '../palatte.dart';
 class RoundedButton extends StatelessWidget {
   const RoundedButton({
     Key? key,
-    required this.buttonText,
-    required this.onbuttonPressed,
-     required this.bgColor, required this.borderColor,
-    required this.textColor,
-    required this.isPrimaryColor
+     this.buttonText,
+     this.onbuttonPressed,
+      this.bgColor,
+    this.borderColor,
+     this.textColor,
+     this.isPrimaryColor
   }) : super(key: key);
 
-  final String buttonText;
-  final VoidCallback onbuttonPressed;
-  final Color bgColor;
-  final Color borderColor;
-  final Color textColor;
-  final bool isPrimaryColor ;
+  final String? buttonText;
+  final VoidCallback? onbuttonPressed;
+  final Color? bgColor;
+  final Color? borderColor;
+  final Color? textColor;
+  final bool? isPrimaryColor ;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +34,7 @@ class RoundedButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6.0),
           child: Text(
-            buttonText,
+            buttonText!,
             style: (isPrimaryColor == null || isPrimaryColor == false) ? kButtonText : kButtonTextBlue,
           ),
         ),

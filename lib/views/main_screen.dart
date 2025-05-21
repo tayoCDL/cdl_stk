@@ -6,23 +6,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sales_toolkit/util/dialogs.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/views/Sales_type.dart';
-import 'package:sales_toolkit/views/attendance/Attendance_Index.dart';
+// import 'package:sales_toolkit/views/attendance/Attendance_Index.dart';
 import 'package:sales_toolkit/views/calculator/repayment_calculator.dart';
-import 'package:sales_toolkit/views/clients/client_lists.dart';
-import 'package:sales_toolkit/views/draft/DraftOverview.dart';
+// import 'package:sales_toolkit/views/clients/client_lists.dart';
+// import 'package:sales_toolkit/views/draft/DraftOverview.dart';
 import 'package:sales_toolkit/views/home/device_financing.dart';
 
 import 'package:sales_toolkit/views/home/home.dart';
-import 'package:sales_toolkit/views/leads/LeadsList.dart';
+// import 'package:sales_toolkit/views/leads/LeadsList.dart';
 import 'package:sales_toolkit/views/menu/menu_index.dart';
-import 'package:sales_toolkit/views/orders/orderHistory.dart';
+// import 'package:sales_toolkit/views/orders/orderHistory.dart';
 import 'package:sales_toolkit/views/referrals/referralIndex.dart';
 // import 'package:flutter_icons/flutter_icons.dart';
-import 'package:sales_toolkit/views/trops/trops_issues_lists.dart';
+// import 'package:sales_toolkit/views/trops/trops_issues_lists.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/rounded-button.dart';
-import 'orders/createOrder.dart';
+// import 'orders/createOrder.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
 
   _MainScreenState({this.passedLoanOfficerId});
 
-  PageController _pageController;
+  PageController? _pageController;
   // AppUpdateInfo _updateInfo;
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
@@ -98,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
   void navigationTapped(int  page) {
    // updateDialog();
  //   _updateInfo.availableVersionCode != null &&  _updateInfo.updateAvailable == true  ? updateDialog() :  _pageController.jumpToPage(page);
-    _pageController.jumpToPage(page);
+    _pageController?.jumpToPage(page);
   }
 
   checkUserType() async{
@@ -123,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     super.dispose();
-    _pageController.dispose();
+    _pageController?.dispose();
   }
 
   void onPageChanged(int?  page) {
@@ -218,17 +218,19 @@ var routeWidgetsA = <Widget>[
 
   HomeContent(passLoanOfficer: passedLoanOfficerId,),
 
-  ClientList(),
+
  // LeadList(),
-  TropIssuesLists(),
-  RepaymentCalculator(),
+
+  // ClientList(),
+  // TropIssuesLists(),
+ // RepaymentCalculator(),
   MenuIndex()
 ];
 
 var routeWidgetsB = <Widget>[
-  DeviceHome(),
-  OrderHistory(),
-  RepaymentCalculator(),
+  // DeviceHome(),
+  // OrderHistory(),
+ // RepaymentCalculator(),
   MenuIndex(),
 ];
 
@@ -439,7 +441,7 @@ Widget noLoginType(){
               type: BottomNavigationBarType.fixed,
               items:  bottomItemA,
                       onTap: navigationTapped,
-              currentIndex: _page,
+              currentIndex: _page!,
             ),
           ),
         ),

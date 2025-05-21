@@ -8,7 +8,7 @@ class DoubleBottomNavComponent extends StatelessWidget {
     required this.text2,
     required this.callAction1,
     required this.callAction2,
-    this.compsender,
+    required this.compsender,
   }) : super(key: key);
 
   final String?  text1;
@@ -42,7 +42,7 @@ class DoubleBottomNavComponent extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Text(
-                  text1,
+                  text1!,
                   style: TextStyle(color: Color(0xff077DBB),fontFamily: 'Nunito SansRegular'),
 
                 ),
@@ -61,7 +61,7 @@ class DoubleBottomNavComponent extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Text(
-                  text2,
+                  text2!,
                   style: TextStyle(color: Colors.white,fontFamily: 'Nunito SansRegular'),
                 ),
               ) ,

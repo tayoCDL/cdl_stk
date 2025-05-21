@@ -28,12 +28,12 @@ class MyRouter{
     return val;
   }
 
-  static pushPageReplacement(BuildContext context, Widget page) {
+  static pushPageReplacement(BuildContext context, Widget? page) {
     Navigator.pushReplacement(
       context,
       CupertinoPageRoute(
         builder: (BuildContext context) {
-          return page;
+          return page!;
         },
       ),
     );

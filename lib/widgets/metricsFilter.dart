@@ -64,25 +64,25 @@ class MetricsFilterModal extends StatelessWidget {
                 'Filter With Date',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontFamily: 'Nunito SemiBold',fontSize: 21),
-            
+
               ),
             ),
             SizedBox(height: 25,),
             StartAndEndDate(context, controller1, 'Start Period'),
             StartAndEndDate(context, controller2, 'End Period'),
             SizedBox(height: 20,),
-            Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: RoundedButton(
-                    buttonText: 'Filter',
-                    // onbuttonPressed: (){
-                    //  // print('controller2 ${controller2.text}');
-                    //  // print('controller1 ${controller1.text}');
-                    //  // filterMetricsForSalesAgent();
-                    // }
-                  onbuttonPressed: onPress,
-
-                ))
+            // Container(
+            //     width: MediaQuery.of(context).size.width * 0.8,
+            //     child: RoundedButton(
+            //         buttonText: 'Filter',
+            //         // onbuttonPressed: (){
+            //         //  // print('controller2 ${controller2.text}');
+            //         //  // print('controller1 ${controller1.text}');
+            //         //  // filterMetricsForSalesAgent();
+            //         // }
+            //       onbuttonPressed: onPress,
+            //
+            //     ))
           ],
         ),
       ),

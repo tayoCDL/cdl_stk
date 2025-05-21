@@ -5,11 +5,11 @@ class EntryField extends StatelessWidget {
   const EntryField({Key? key,
     // required this.maxLenghtAllow,
     // required this.keyBoard,
-    required this.editController,
-    required this.labelText,
-    required this.hintText,
-     required this.suffixWidget,
-      required this.keyBoard,
+     required this.editController,
+     this.labelText,
+     this.hintText,
+      required this.suffixWidget,
+       required this.keyBoard,
       this.minLines,
   }) : super(key: key);
 

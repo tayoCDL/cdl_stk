@@ -267,7 +267,7 @@ class TypeAheadFormField<T> extends FormField<String> {
       AutovalidateMode autovalidateMode: AutovalidateMode.disabled,
       FormFieldSetter<String> onSaved,
       FormFieldValidator<String> validator,
-      ErrorBuilder errorBuilder,
+      required ErrorBuilder errorBuilder,
       WidgetBuilder noItemsFoundBuilder,
       WidgetBuilder loadingBuilder,
       Duration debounceDuration: const Duration(milliseconds: 300),

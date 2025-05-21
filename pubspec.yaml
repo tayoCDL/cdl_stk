@@ -43,7 +43,7 @@ dependencies:
   another_flushbar:
   percent_indicator:
   flutter_typeahead:
-  file_picker:
+#  file_picker:
   shimmer:
   loading_overlay:
   lottie:
@@ -106,6 +106,7 @@ dependencies:
 #  mixpanel_flutter:
   one_context:
   timelines:
+  url_launcher: ^6.1.12
 #  app_version_update:
 #  sentry_flutter: ^4.0.2
 #  flutter_js:

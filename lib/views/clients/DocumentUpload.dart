@@ -27,7 +27,7 @@ import 'package:sales_toolkit/views/clients/CustomerPreview.dart';
 import 'package:sales_toolkit/views/clients/DocumentPreview.dart';
 import 'package:sales_toolkit/views/clients/SingleCustomerScreen.dart';
 import 'package:sales_toolkit/views/clients/testDiscovers.dart';
-import 'package:sales_toolkit/views/draft/ClientDraft.dart';
+// import 'package:sales_toolkit/views/draft/ClientDraft.dart';
 import 'package:sales_toolkit/widgets/DoubleButtonBottomNav.dart';
 import 'package:sales_toolkit/widgets/Stepper.dart';
 import 'package:sales_toolkit/widgets/constants.dart';

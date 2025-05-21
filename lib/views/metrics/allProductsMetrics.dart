@@ -158,7 +158,7 @@ class _AllProductsMetricsState extends State<AllProductsMetrics> {
   Widget loanWidgetList({String?  channelName, String?  medalType, int?  loanCount,var reward,var targetSales,String?  channelIcon,int?  channelId}){
       return InkWell(
         onTap: (){
-          MyRouter.pushPage(context, MetricsIndex(activationChannel: channelId,));
+        //  MyRouter.pushPage(context, MetricsIndex(activationChannel: channelId,));
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15,vertical: 3),
