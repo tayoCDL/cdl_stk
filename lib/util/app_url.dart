@@ -79,15 +79,15 @@ class AppUrl {
   static final Uri leadsList = Uri.parse('\${baseUrl}leads');
   static final String addClient = '${baseUrl}clients/cdl';
   static final Uri addLead = Uri.parse('\${baseUrl}leads');
-  static final Uri loanMetrics = Uri.parse('\${baseUrl}loans/metrics');
+  static final String loanMetrics = '${baseUrl}loans/metrics';
   static final Uri newSendLafOtp = Uri.parse('\${baseUrl}laf/send-otp/');
-  static final Uri getApprovals =
-      Uri.parse('\${baseUrl}loan-action/approvals/');
+  static final String getApprovals =
+      '${baseUrl}loan-action/approvals/';
   static final Uri sendForReApprove =
       Uri.parse('\${baseUrl}loan-action/approve/');
-  static final Uri lafDocument = Uri.parse('\${baseUrl}laf/document/');
+  static final String lafDocument = '${baseUrl}laf/document/';
   // laf/send-otp/{loanId}?channelId={channelId}
-  static final Uri newVerifyOtp = Uri.parse('\${baseUrl}laf/validate-otp/');
+  static final String newVerifyOtp ='${baseUrl}laf/validate-otp/';
   // /laf/validate-otp/{loanId}/{otp}?channelId={channelId}
   static final Uri checkDsr = Uri.parse('\${baseUrl}loans/cdl/dsr');
   static final Uri loanSchedule =
@@ -106,12 +106,12 @@ class AppUrl {
       Uri.parse('\${productInfoUrl}product/information');
   static final Uri getProductCycle =
       Uri.parse('\${productInfoUrl}sales-cycle?page=0&size=12&sort=id,desc');
-  static final Uri getProductMetrics =
-      Uri.parse('\${productInfoUrl}sales-cycle/agent?loanOfficerId=');
+  static final String getProductMetrics =
+     '${productInfoUrl}sales-cycle/agent?loanOfficerId=';
 
   static final Uri externalApprove = Uri.parse('${baseUrl}external/loan/');
-  static final Uri getLoanPaymentLinkMethod =
-      Uri.parse('${baseUrl}loans/credit-direct/');
+  static final String getLoanPaymentLinkMethod =
+     '${baseUrl}loans/credit-direct/';
   static final Uri calclulateRepayment =
       Uri.parse('${baseUrl}loans?command=calculateLoanSchedule');
   static final String bulkBase64 = '${baseUrl}';
@@ -147,15 +147,15 @@ class AppUrl {
 
   static final Uri oldProductEngine =
       Uri.parse('${baseUrl}loans/template?activeOnly=true&clientId=');
-  static final Uri productEngine =
-      Uri.parse('${baseUrl}loans/stk-template?activeOnly=true&clientId=');
-  static final Uri repaymentProductEngine =
-      Uri.parse('${baseUrl}loans/stk-template?activeOnly=true');
+  static final String productEngine =
+      '${baseUrl}loans/stk-template?activeOnly=true&clientId=';
+  static final String repaymentProductEngine =
+      '${baseUrl}loans/stk-template?activeOnly=true';
 
   static final Uri newProductEngine =
       Uri.parse('${baseUrl}loans/template?activeOnly=true&clientId=');
 
-  static final Uri lafDownload = Uri.parse('${LoanbaseUrl}laf/');
+  static final String lafDownload = '${LoanbaseUrl}laf/';
   static final String allEmployers =
       '${baseUrl}employers?active=true&selectOnlyParentEmployer=true';
   static final String employerProduct = '${baseUrl}employers/';
@@ -179,11 +179,10 @@ class AppUrl {
   static final Uri sequestLogin = Uri.parse('\${sequestbaseUrl}Auth/login/');
   static final Uri affectedUsers =
       Uri.parse('\${sequestbaseUrl}RequestType/getaffectedtypes');
-  static final Uri deparmentUnit = Uri.parse('\${sequestbaseUrl}Unit/getunits');
-  static final Uri ticketType =
-      Uri.parse('\${sequestbaseUrl}RequestType/getrequesttypes/');
-  static final Uri categoryApi =
-      Uri.parse('\${sequestbaseUrl}Category/getCategoriesByTypes/');
+  static final String deparmentUnit = '${sequestbaseUrl}Unit/getunits';
+  static final String ticketType = '${sequestbaseUrl}RequestType/getrequesttypes/';
+  static final String categoryApi =
+      '${sequestbaseUrl}Category/getCategoriesByTypes/';
   static final Uri categoryApiForOpportunity =
       Uri.parse('\${sequestbaseUrl}Category/getCategoryBySequestType/');
   static final Uri createOpportunity =
@@ -242,8 +241,8 @@ class AppUrl {
       Uri.parse('\${NxWrapperBaseUrl}Channels/GetBankStatement');
   static final Uri retryFetchbankStatement =
       Uri.parse('\${NxWrapperBaseUrl}Channels/GetBankStatement?retry=yes');
-  static final Uri getRisksDetails =
-      Uri.parse('\${NxWrapperBaseUrl}Channels/RiskProfile/Details');
+  static final String getRisksDetails =
+      '${NxWrapperBaseUrl}Channels/RiskProfile/Details';
 
   // Sentinel Store
   static final Uri getDeviceCategory =

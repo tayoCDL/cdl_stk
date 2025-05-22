@@ -1239,7 +1239,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
 
 else if (no_of_repayments.text.isEmpty) {
-              return Flushbar(
+               Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                 backgroundColor: Colors.redAccent,
@@ -1249,7 +1249,7 @@ else if (no_of_repayments.text.isEmpty) {
               ).show(context);
             }
 else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
-            return Flushbar(
+             Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.redAccent,
