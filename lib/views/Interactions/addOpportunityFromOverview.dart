@@ -71,7 +71,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
   List<String> collectSubCategory = [];
   List<dynamic> allSubCategory  = [];
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -82,9 +82,9 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
   String?  baseimage = '';
   String?  _extension;
   bool _hasValidMime = false;
-  FileType _pickingType;
+  FileType? _pickingType;
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name,agent_email = '';
   int?  agentId = 0;
 
@@ -98,8 +98,8 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
      CategoryType();
     // getSubCategory(10);
 
-    email.text = ClientEmail;
-    name.text = clientName;
+    email.text = ClientEmail ?? "";
+    name.text = clientName ?? "";
     sequestClientID.text = ClientID.toString();
     getStaffID();
     super.initState();
@@ -344,7 +344,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
           "responsiblePersonId": agentId.toString()
         };
 
-        String?  url = AppUrl.createOpportunity;
+        String?  url = AppUrl.createOpportunity.path;
         final Future<Map<String,dynamic>> respose =  addInteractionProvider.addInteraction(interactionData,url);
 
         print('response from backend ${respose}');
@@ -777,31 +777,36 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
     // );
     // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
     print(choosedimage);
 
-    setState(() {
+    if (choosedimage == null) {
+      return;
+    }
+
+    setState(() async {
       uploadimage = choosedimage;
 
-      final bytes = choosedimage.readAsBytesSync().lengthInBytes;
+      // final bytes = choosedimage.readAsBytesSync().lengthInBytes;
+      final bytes = (await choosedimage.readAsBytes()).length;
 
       // get file size
       final kb = bytes / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?   = mb.toString();
+      String?  filesizeAsString   = mb.toString();
       fileSize = filesizeAsString;
 
       // end get file size
       //convert image to base64
-      List<int> imageBytes = uploadimage.readAsBytesSync();
+      List<int> imageBytes = await uploadimage!.readAsBytes();
       baseimage = base64Encode(imageBytes);
 
 
 
       String?  getPath  = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
-      passport.text = _fileName;
+      passport.text = _fileName!;
     });
   }
 
@@ -832,7 +837,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
 
               validator: (value) {
 
-                if(value.isEmpty){
+                if(value == null || value.isEmpty){
                   return 'Field cannot be empty';
 
                 }

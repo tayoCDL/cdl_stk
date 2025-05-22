@@ -66,10 +66,10 @@ class _AddInteractionState extends State<AddInteraction> {
   List<String> collectSubCategory = [];
   List<dynamic> allSubCategory = [];
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
-  String?  _fileName = '...';
+  String  _fileName = '...';
 
   String?  fileSize = '';
 
@@ -77,7 +77,7 @@ class _AddInteractionState extends State<AddInteraction> {
   String?  baseimage = '';
   String?  _extension;
   bool _hasValidMime = false;
-  FileType _pickingType;
+  FileType? _pickingType;
 
   String?  passportFileName,
       passportFileSize,
@@ -104,7 +104,7 @@ class _AddInteractionState extends State<AddInteraction> {
   );
 
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name, agent_email = '';
   int?  agentId = 0;
 
@@ -361,7 +361,7 @@ class _AddInteractionState extends State<AddInteraction> {
           //   "responsibleUnitId": departmentInt
           // }
         };
-        String?  url = AppUrl.raiseTicket;
+        String?  url = AppUrl.raiseTicket.path;
         final Future<Map<String, dynamic>> respose =
             addInteractionProvider.addInteraction(interactionData, url);
 
@@ -814,12 +814,17 @@ class _AddInteractionState extends State<AddInteraction> {
 
   void takePhoto(ImageSource source) async {
     MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
+
+    if (choosedimage == null) {
+      return;
+    }
+
     //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    XFile? imagefile = choosedimage; //convert Path to File
 
     var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
+      imagefile.path,
       minWidth: 330,
       minHeight: 250,
       quality: 100,
@@ -827,7 +832,7 @@ class _AddInteractionState extends State<AddInteraction> {
     );
 
     print('this is file sixe');
-    print(imagefile.lengthSync());
+    print(imagefile.length());
     print(result);
     //return result;
 
@@ -835,9 +840,9 @@ class _AddInteractionState extends State<AddInteraction> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
+    String?  base64String  =
+        base64.encode(result?.toList() ?? []); //convert bytes to base64 string
+    print('base64String?  ${base64String}');
 
     String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
@@ -852,7 +857,7 @@ class _AddInteractionState extends State<AddInteraction> {
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
-      File file = choosedimage;
+      XFile file = choosedimage;
       _fileName = file.path.split('/').last;
       print('filename ${_fileName}');
       passport.text = _fileName;
@@ -867,7 +872,7 @@ class _AddInteractionState extends State<AddInteraction> {
     //  print('image base64 ${img64}');
 
     setState(() {
-      passportFileLocation = base64string;
+      passportFileLocation = base64String;
       passportFileSize = '';
       passportFiletype = _fileName.split('.').last;
     });
@@ -884,7 +889,7 @@ class _AddInteractionState extends State<AddInteraction> {
       }
     });
 
-    newFileLocation = appendBase64 + passportFileLocation;
+    newFileLocation = appendBase64! + passportFileLocation!;
 
     if (!mounted) return;
 
@@ -922,6 +927,10 @@ class _AddInteractionState extends State<AddInteraction> {
       );
 
       result = await FlutterDocumentPicker.openDocument(params: params);
+
+      if (result == null) {
+        return;
+      }
 
       final file = File(result);
       final fileSize = await file.length();
@@ -969,9 +978,9 @@ class _AddInteractionState extends State<AddInteraction> {
 
       // print('this is Path ${_path}');
 
-      print('file extension ${_path.split('.').last}');
+      print('file extension ${_path!.split('.').last}');
 
-      String?  filePath = _path.split('.').last;
+      String?  filePath = _path!.split('.').last;
 
       var result;
 
@@ -982,7 +991,7 @@ class _AddInteractionState extends State<AddInteraction> {
 
       if (extensionChecker) {
         result = await FlutterImageCompress.compressWithFile(
-          _path,
+          _path!,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
@@ -992,22 +1001,22 @@ class _AddInteractionState extends State<AddInteraction> {
 
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         passportFileLocation = img64;
         passportFileSize = filesizeAsString;
-        passportFiletype = _path.split('.').last;
+        passportFiletype = _path?.split('.').last;
       });
 
       print('passport file location ${passportFiletype} ');
@@ -1022,7 +1031,7 @@ class _AddInteractionState extends State<AddInteraction> {
         }
       });
 
-      newFileLocation = appendBase64 + passportFileLocation;
+      newFileLocation = appendBase64! + passportFileLocation!;
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     }
@@ -1030,7 +1039,7 @@ class _AddInteractionState extends State<AddInteraction> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
+      _fileName = _path != null ? _path!.split('/').last : '...';
       //  selectedFile = _fileName;
       passportFileName = _fileName;
       passport.text = _fileName;
@@ -1065,7 +1074,7 @@ class _AddInteractionState extends State<AddInteraction> {
             controller: editController,
 
             validator: (value) {
-              if (value.isEmpty) {
+              if (value != null && value.isEmpty) {
                 return 'Field cannot be empty';
               }
             },

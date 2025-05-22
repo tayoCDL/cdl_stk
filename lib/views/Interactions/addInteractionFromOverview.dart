@@ -70,7 +70,7 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
   List<String> collectSubCategory = [];
   List<dynamic> allSubCategory  = [];
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -81,9 +81,9 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
   String?  baseimage = '';
   String?  _extension;
   bool _hasValidMime = false;
-  FileType _pickingType;
+  FileType? _pickingType;
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name,agent_email = '';
   int?  agentId = 0;
 
@@ -97,8 +97,8 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
     // CategoryType(6);
     // getSubCategory(10);
 
-    email.text = ClientEmail;
-    name.text = clientName;
+    email.text = ClientEmail ?? "";
+    name.text = clientName ?? "";
     sequestClientID.text = ClientID.toString();
     getStaffID();
     super.initState();
@@ -352,7 +352,7 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
             "responsibleUnitId": departmentInt
           }
         };
-        String?  url = AppUrl.raiseTicket;
+        String?  url = AppUrl.raiseTicket.path;
         final Future<Map<String,dynamic>> respose =  addInteractionProvider.addInteraction(interactionData,url);
 
         print('response from backend ${respose}');
@@ -785,7 +785,11 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
     // );
     // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
+
+    if (choosedimage == null) {
+      return;
+    }
     print(choosedimage);
 
     setState(() {
@@ -797,19 +801,19 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
       final kb = bytes / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?   = mb.toString();
+      String?  filesizeAsString   = mb.toString();
       fileSize = filesizeAsString;
 
       // end get file size
       //convert image to base64
-      List<int> imageBytes = uploadimage.readAsBytesSync();
+      List<int> imageBytes = uploadimage.readAsBytes();
       baseimage = base64Encode(imageBytes);
 
 
 
       String?  getPath  = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
-      passport.text = _fileName;
+      passport.text = _fileName ?? "";
     });
   }
 
@@ -840,7 +844,7 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
 
               validator: (value) {
 
-                if(value.isEmpty){
+                if(value == null || value.isEmpty){
                   return 'Field cannot be empty';
 
                 }
