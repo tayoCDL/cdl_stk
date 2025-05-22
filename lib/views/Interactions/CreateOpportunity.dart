@@ -139,7 +139,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
         _isLoading = false;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -164,7 +164,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -198,7 +198,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
         collectTicketType = [];
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -237,7 +237,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
         allCategory = newEmp;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectCategory.add(newEmp[i]['categoryName']);
       }
@@ -273,7 +273,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
         collectSubCategory = [];
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -451,7 +451,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
                         fillColor: Colors.white,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                        labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                        labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                         counter: SizedBox.shrink()
                     ),
                   ),
@@ -715,7 +715,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -761,7 +761,7 @@ class _CreateOpportunityState extends State<CreateOpportunity> {
                   fillColor: Colors.white,
                   filled: true,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

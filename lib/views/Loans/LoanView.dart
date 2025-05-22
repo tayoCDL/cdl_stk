@@ -46,7 +46,8 @@ class LoanView extends StatefulWidget {
 
 class _LoanViewState extends State<LoanView> {
   int?  clientID,parentEmployerId,parentEmployerSector;
-  List<dynamic> CustomerLists,filteredLoans = [];
+  List<dynamic> CustomerLists = [];
+  List<dynamic> filteredLoans = [];
   int?  employerID,sectorId,parentClient;
   bool _isLoading = false;
   bool employerLoaded = false;
@@ -105,7 +106,7 @@ class _LoanViewState extends State<LoanView> {
       _isLoading = true;
     });
     RetCodes rtCocdes = RetCodes();
-    rtCocdes.loanPermission(int.tryParse(passed_staff_id), clientID).then((value) {
+    rtCocdes.loanPermission(int.tryParse(passed_staff_id ?? ""), clientID).then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -217,8 +218,8 @@ class _LoanViewState extends State<LoanView> {
       employerLoaded = false;
     });
 
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -714,11 +715,12 @@ class _LoanViewState extends State<LoanView> {
           BoxShadow(color: statusColor, spreadRadius: 0.1),
         ],
       ),
-      child: Center(child: Text(status,style: TextStyle(color: Colors.white,fontSize: 11),)),
+      child: Center(child: Text(status ?? "",style: TextStyle(color: Colors.white,fontSize: 11),)),
     );
   }
 
   String?  chopPending(String?  pends){
+    pends = pends ?? '';
     if(pends.contains('Pending') || pends.contains('pending')){
       return "Team Lead Review";
     }
@@ -728,6 +730,7 @@ class _LoanViewState extends State<LoanView> {
   }
 
   String?  chopPendingApproval(String?  pends){
+    pends = pends ?? '';
     if(pends.contains('Pending')){
       return "Team Lead Review";
     }
@@ -817,6 +820,7 @@ class _LoanViewState extends State<LoanView> {
 
   retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
+    getDate = getDate ?? '';
     String?  removeComma = getDate.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
@@ -891,7 +895,7 @@ class _LoanViewState extends State<LoanView> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 

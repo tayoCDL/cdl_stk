@@ -574,7 +574,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -3886,7 +3886,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -3912,7 +3912,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),

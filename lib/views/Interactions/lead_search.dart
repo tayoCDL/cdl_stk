@@ -287,7 +287,7 @@ class _LeadSearchState extends State<LeadSearch> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -328,7 +328,7 @@ class _LeadSearchState extends State<LeadSearch> {
                   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

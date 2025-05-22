@@ -986,7 +986,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
                   topRight: Radius.circular(0),

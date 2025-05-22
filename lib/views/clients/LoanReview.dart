@@ -92,7 +92,7 @@ class _LoanReviewState extends State<LoanReview> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

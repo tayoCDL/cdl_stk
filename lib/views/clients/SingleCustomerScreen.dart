@@ -320,7 +320,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                   child: Lottie.asset('assets/images/newLoader.json'),
                 ),
                 child: Scaffold(
-                  backgroundColor: Theme.of(context).backgroundColor,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   body: NestedScrollView(
                     headerSliverBuilder:
                         (BuildContext context, bool innerBoxIsScrolled) {

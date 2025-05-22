@@ -326,7 +326,7 @@
 //      print('metrics Data ${metricsDataList}');
 //      var caluclatedCommision = 0;
 //      List<dynamic> accumulated_commision = [];
-//      for(int?  i=0; i < metricsDataList.length;i++){
+//      for(int  i=0; i < metricsDataList.length;i++){
 //        var singleMetric = metricsDataList[i];
 //     int?  amts =  int.tryParse(singleMetric['level']['value']);
 //        // print('calc commission ${caluclatedCommision}');
@@ -1174,7 +1174,7 @@
 //               width: MediaQuery.of(context).size.width * 0.92,
 //               height: MediaQuery.of(context).size.width * 0.42,
 //               decoration: BoxDecoration(
-//                   color: Theme.of(context).backgroundColor,
+//                   color: Theme.of(context).scaffoldBackgroundColor,
 //                   borderRadius: BorderRadius.all(Radius.circular(15)),
 //                   image: DecorationImage(
 //                     image: AssetImage('assets/images/userBanner.png'),

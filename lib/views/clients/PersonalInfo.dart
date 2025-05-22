@@ -276,7 +276,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allTitle = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectTitle.add(mtBool[i]['name']);
           }
@@ -309,7 +309,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allTitle = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectTitle.add(newEmp[i]['name']);
         }
@@ -338,7 +338,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //     allGender = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectGender.add(newEmp[i]['name']);
     //   }
@@ -379,7 +379,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allGender = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectGender.add(mtBool[i]['name']);
           }
@@ -412,7 +412,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allGender = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectGender.add(newEmp[i]['name']);
         }
@@ -444,7 +444,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -485,7 +485,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allMarital = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectMarital.add(mtBool[i]['name']);
           }
@@ -523,7 +523,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allMarital = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectMarital.add(newEmp[i]['name']);
         }
@@ -555,7 +555,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     //     allMarital = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectMarital.add(newEmp[i]['name']);
     //   }
@@ -594,7 +594,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             allEducation = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectEducation.add(mtBool[i]['name']);
           }
@@ -626,7 +626,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           allEducation = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectEducation.add(newEmp[i]['name']);
         }
@@ -1233,7 +1233,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     padding: const EdgeInsets.symmetric(horizontal: 0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).backgroundColor,
+                                        color: Theme.of(context).scaffoldBackgroundColor,
 
                                         // set border width
                                         borderRadius: BorderRadius.all(
@@ -1284,7 +1284,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                             //   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                                             hintText: 'Date Of Birth',
                                             hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-                                            labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+                                            labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color)
 
                                         ),
                                         textInputAction: TextInputAction.done,
@@ -1537,7 +1537,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -1645,7 +1645,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   //  floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

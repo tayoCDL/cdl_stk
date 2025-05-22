@@ -120,7 +120,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //     allResidential = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectResidential.add(newEmp[i]['name']);
     //   }
@@ -160,7 +160,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
             allResidential = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectResidential.add(mtBool[i]['name']);
           }
@@ -193,7 +193,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           allResidential = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectResidential.add(newEmp[i]['name']);
         }
@@ -233,7 +233,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //     collectLga = [];
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectLga.add(newEmp[i]['name']);
     //   }
@@ -282,7 +282,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
             allLga = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -316,7 +316,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           allLga = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }
@@ -351,7 +351,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
     //     allStates = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectState.add(newEmp[i]['name']);
     //   }
@@ -395,7 +395,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
             allStates = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -428,7 +428,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           _isLoading = false;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -779,7 +779,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                             padding: const EdgeInsets.symmetric(horizontal: 0),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Theme.of(context).backgroundColor,
+                                color: Theme.of(context).scaffoldBackgroundColor,
 
                                 // set border width
                                 borderRadius: BorderRadius.all(
@@ -826,7 +826,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                                     //    floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                                     hintText: 'Date Moved In',
                                     hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-                                    labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+                                    labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color)
 
                                 ),
                                 textInputAction: TextInputAction.done,
@@ -869,7 +869,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -917,7 +917,7 @@ class _ResidentialDetailsState extends State<ResidentialDetails> {
                   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.done,

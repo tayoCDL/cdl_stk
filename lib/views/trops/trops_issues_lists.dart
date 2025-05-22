@@ -142,7 +142,7 @@ class _TropIssuesListsState extends State<TropIssuesLists> {
       //       height: 70.0,
       //       width: 70.0,)
       // ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       // floatingActionButton: FloatingActionButton(
       //     onPressed: (){
       //       MyRouter.pushPage(context, ItHelpDesk());

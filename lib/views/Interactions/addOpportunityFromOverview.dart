@@ -144,7 +144,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         _isLoading = false;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -169,7 +169,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -203,7 +203,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         collectTicketType = [];
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -242,7 +242,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         allCategory = newEmp;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectCategory.add(newEmp[i]['categoryName']);
       }
@@ -278,7 +278,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         collectSubCategory = [];
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -478,7 +478,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                         fillColor: Colors.white,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                        labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                        labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                         counter: SizedBox.shrink()
                     ),
                   ),
@@ -624,7 +624,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   //       child: Container(
                   //
                   //         decoration: BoxDecoration(
-                  //           color: Theme.of(context).backgroundColor,
+                  //           color: Theme.of(context).scaffoldBackgroundColor,
                   //           borderRadius: BorderRadius.circular(5),
                   //         ),
                   //
@@ -814,7 +814,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -860,7 +860,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   fillColor: Colors.white,
                   filled: true,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

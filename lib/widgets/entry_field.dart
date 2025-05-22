@@ -62,7 +62,7 @@ class EntryField extends StatelessWidget {
                   hintText: hintText,
                   suffixIcon: suffixWidget,
                   hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-                  //  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  //  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               minLines: minLines, // any number you need (It works as the rows for the textarea)

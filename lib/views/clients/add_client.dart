@@ -368,7 +368,7 @@ class _AddClientState extends State<AddClient> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -1422,7 +1422,7 @@ class _AddClientState extends State<AddClient> {
                 hintText: hintText,
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink(),
                 suffixIcon: isDateAllowed
                     ? IconButton(

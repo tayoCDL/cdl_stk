@@ -374,7 +374,7 @@ class _AddClientState extends State<AddClient> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -1257,9 +1257,9 @@ class _AddClientState extends State<AddClient> {
       ),
       child: Scaffold(
           key: _scaffoldKey,
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             leading: IconButton(
               onPressed: () {
                 MyRouter.popPage(context);
@@ -1478,7 +1478,7 @@ class _AddClientState extends State<AddClient> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1536,7 +1536,7 @@ class _AddClientState extends State<AddClient> {
                 hintText: hintText,
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink(),
                 suffixIcon: isDateAllowed
                     ? IconButton(

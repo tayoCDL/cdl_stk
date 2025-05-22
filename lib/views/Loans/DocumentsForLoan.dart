@@ -236,7 +236,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //     allEmployment = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectEmployment.add(newEmp[i]['name']);
     //   }
@@ -329,7 +329,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //     allIdentity = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectIdentity.add(newEmp[i]['name']);
     //   }
@@ -2229,7 +2229,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                   //             child: Container(
                   //               height: 71,
                   //               decoration: BoxDecoration(
-                  //                 color: Theme.of(context).backgroundColor,
+                  //                 color: Theme.of(context).scaffoldBackgroundColor,
                   //                 borderRadius: BorderRadius.circular(5),
                   //               ),
                   //

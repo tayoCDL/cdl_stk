@@ -109,7 +109,7 @@ class _BankDetailsState extends State<BankDetails> {
     //     allBankAccount = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankAcount.add(newEmp[i]['name']);
     //   }
@@ -212,7 +212,7 @@ class _BankDetailsState extends State<BankDetails> {
   //       allBanksList = newEmp;
   //     });
   //
-  //     for(int?  i = 0; i < newEmp.length;i++){
+  //     for(int  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectBanksList.add(newEmp[i]['name']);
   //     }
@@ -255,7 +255,7 @@ class _BankDetailsState extends State<BankDetails> {
   //           allBanksList = mtBool;
   //         });
   //
-  //         for(int?  i = 0; i < mtBool.length;i++){
+  //         for(int  i = 0; i < mtBool.length;i++){
   //           //print(mtBool[i]['name']);
   //           collectBanksList.add(mtBool[i]['name']);
   //         }
@@ -287,7 +287,7 @@ class _BankDetailsState extends State<BankDetails> {
   //         allBanksList = newEmp;
   //       });
   //
-  //       for(int?  i = 0; i < newEmp.length;i++){
+  //       for(int  i = 0; i < newEmp.length;i++){
   //         //print(newEmp[i]['name']);
   //         collectBanksList.add(newEmp[i]['name']);
   //       }
@@ -315,7 +315,7 @@ class _BankDetailsState extends State<BankDetails> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -406,7 +406,7 @@ class _BankDetailsState extends State<BankDetails> {
     //     allBankClassification = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankClassification.add(newEmp[i]['name']);
     //   }
@@ -933,7 +933,7 @@ class _BankDetailsState extends State<BankDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -996,7 +996,7 @@ class _BankDetailsState extends State<BankDetails> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.done,
           ),

@@ -270,9 +270,9 @@
 //   Widget build(BuildContext context) {
 //     User user = Provider.of<UserProvider>(context).user;
 //     return Scaffold(
-//       backgroundColor: Theme.of(context).backgroundColor,
+//       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 //       appBar: AppBar(
-//         backgroundColor: Theme.of(context).backgroundColor,
+//         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 //         elevation: 0,
 //
 //         // leading: Container(
@@ -496,7 +496,7 @@
 //               width: MediaQuery.of(context).size.width * 0.92,
 //               height: MediaQuery.of(context).size.width * 0.39,
 //               decoration: BoxDecoration(
-//                   color: Theme.of(context).backgroundColor,
+//                   color: Theme.of(context).scaffoldBackgroundColor,
 //                   borderRadius: BorderRadius.all(Radius.circular(15)),
 //                   image: DecorationImage(
 //                     image: AssetImage('assets/images/userBanner.png'),

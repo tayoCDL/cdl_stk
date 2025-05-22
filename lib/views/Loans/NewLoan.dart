@@ -155,7 +155,7 @@ class _NewLoanState extends State<NewLoan> {
     prefs.remove('loanCreatedId');
     prefs.remove('canBookTopUp');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername ?? "";
     });
   }
 
@@ -169,8 +169,8 @@ class _NewLoanState extends State<NewLoan> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -339,8 +339,8 @@ class _NewLoanState extends State<NewLoan> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -472,7 +472,8 @@ class _NewLoanState extends State<NewLoan> {
             print('purpose Int ${purposeInt} ${isFedgoLoan}');
 
             if (purposeInt == null) {
-              return Flushbar(
+              // return 
+              Flushbar(
 
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -484,7 +485,8 @@ class _NewLoanState extends State<NewLoan> {
               ).show(context);
             }
             if (productInt == null) {
-              return Flushbar(
+              // return 
+              Flushbar(
 
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -495,7 +497,8 @@ class _NewLoanState extends State<NewLoan> {
               ).show(context);
             }
             if(employerID == null){
-              return   Flushbar(
+              // return   
+              Flushbar(
 
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -695,7 +698,7 @@ class _NewLoanState extends State<NewLoan> {
                 label: "Product Name *",
                 selectedItem: productName,
                 validator: (String?  item) {
-                  if (item.length == 0) {
+                  if (item?.length == 0) {
                     return "Loan product is mandatory";
                   }
                 }),
@@ -729,7 +732,7 @@ class _NewLoanState extends State<NewLoan> {
                 label: "Loan Purpose   *",
                 selectedItem: PassloanPurpose,
                 validator: (String?  item) {
-                  if (item.length == 0) {
+                  if (item?.length == 0) {
                     return "Loan purpose is mandatory ";
                   }
                 }),
@@ -747,7 +750,7 @@ class _NewLoanState extends State<NewLoan> {
   }
 
   _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
+    final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1930),
@@ -759,7 +762,7 @@ class _NewLoanState extends State<NewLoan> {
         print(selected);
         //  date = selected.toString();
         String?  vasCoddd = retsNx360dates(selected);
-        dateController.text = vasCoddd;
+        dateController.text = vasCoddd!;
       });
   }
 
@@ -794,7 +797,7 @@ class _NewLoanState extends State<NewLoan> {
     String?  hintText,
     var keyBoard, {
     bool isPassword = false,
-    isRealOnly: false,
+    isRealOnly = false,
   }) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -803,7 +806,7 @@ class _NewLoanState extends State<NewLoan> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -838,7 +841,7 @@ class _NewLoanState extends State<NewLoan> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -874,9 +877,9 @@ class _NewLoanState extends State<NewLoan> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value ?? false;
                     });
                   },
                 ),

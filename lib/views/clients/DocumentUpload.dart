@@ -213,7 +213,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //     allResidence = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectResidence.add(newEmp[i]['name']);
     //   }
@@ -469,7 +469,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     //     allIdentity = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectIdentity.add(newEmp[i]['name']);
     //   }
@@ -1929,7 +1929,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                                   onTap: () {},
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).backgroundColor,
+                                      color: Theme.of(context).scaffoldBackgroundColor,
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: TextFormField(
@@ -2056,7 +2056,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -2084,7 +2084,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -2315,7 +2315,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                             child: Container(
                               height: 70,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).backgroundColor,
+                                color: Theme.of(context).scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: TextFormField(

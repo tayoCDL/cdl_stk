@@ -135,7 +135,7 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
       //       height: 70.0,
       //       width: 70.0,)
       // ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(

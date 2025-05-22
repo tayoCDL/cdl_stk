@@ -472,7 +472,7 @@ class _AddInteractionState extends State<AddInteraction> {
                             fontFamily: 'Nunito SansRegular'),
                         labelStyle: TextStyle(
                             fontFamily: 'Nunito SansRegular',
-                            color: Theme.of(context).textTheme.headline2.color),
+                            color: Theme.of(context).textTheme.headlineMedium?.color),
                         counter: SizedBox.shrink()),
                   ),
 
@@ -1050,7 +1050,7 @@ class _AddInteractionState extends State<AddInteraction> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1092,7 +1092,7 @@ class _AddInteractionState extends State<AddInteraction> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),

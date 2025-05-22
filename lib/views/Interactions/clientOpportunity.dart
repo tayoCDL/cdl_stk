@@ -90,7 +90,7 @@ class _ClientOpportunityState extends State<ClientOpportunity> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(

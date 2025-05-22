@@ -219,7 +219,7 @@ class _ClientListsState extends State<ClientLists> {
         print('allClient ${allCLient}');
 
 
-        for(int?  i = 0; i < allCLient.length;i++){
+        for(int  i = 0; i < allCLient.length;i++){
           print(' new client ${allCLient[i]['entityName']}');
           collectClientName.add(allCLient[i]['entityName']);
 
@@ -239,7 +239,7 @@ class _ClientListsState extends State<ClientLists> {
     print('collect Client Name ${collectClientName}');
 
 
-    for(int?  i=0;i < allCLient.length;i++){
+    for(int  i=0;i < allCLient.length;i++){
       _list.add(new TestItem.fromJson(
           {'label': collectClientName[i], 'value': collectClientId[i]}
       ));

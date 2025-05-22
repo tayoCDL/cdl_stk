@@ -119,7 +119,7 @@ class _GetInteractionLoggedByAgentState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       // floatingActionButton: FloatingActionButton(
       //     onPressed: (){
       //       MyRouter.pushPage(context, AddInteractionFromOverView(

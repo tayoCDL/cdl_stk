@@ -174,7 +174,7 @@
 //     //     allResidence = newEmp;
 //     //   });
 //     //
-//     //   for(int?  i = 0; i < newEmp.length;i++){
+//     //   for(int  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectResidence.add(newEmp[i]['name']);
 //     //   }
@@ -216,7 +216,7 @@
 //             UpdateallDocumentType = mtBool;
 //           });
 //
-//           for(int?  i = 0; i < mtBool.length;i++){
+//           for(int  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectDocumentType.add(mtBool[i]['name']);
 //           }
@@ -250,7 +250,7 @@
 //           UpdateallDocumentType = newEmp;
 //         });
 //
-//         for(int?  i = 0; i < newEmp.length;i++){
+//         for(int  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectDocumentType.add(newEmp[i]['name']);
 //           UpdatecollectDocumentType.add(newEmp[i]['name']);
@@ -302,7 +302,7 @@
 //
 //           });
 //
-//           for(int?  i = 0; i < mtBool.length;i++){
+//           for(int  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectDocumentCategory.add(mtBool[i]['name']);
 //           }
@@ -336,7 +336,7 @@
 //           UpdateallDocumentCategory = newEmp;
 //         });
 //
-//         for(int?  i = 0; i < newEmp.length;i++){
+//         for(int  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectDocumentCategory.add(newEmp[i]['name']);
 //           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -390,7 +390,7 @@
 //
 //           });
 //
-//           for(int?  i = 0; i < mtBool.length;i++){
+//           for(int  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectDocumentCategory.add(mtBool[i]['name']);
 //           }
@@ -424,7 +424,7 @@
 //           UpdateallDocumentCategory = newEmp;
 //         });
 //
-//         for(int?  i = 0; i < newEmp.length;i++){
+//         for(int  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           //  collectDocumentCategory.add(newEmp[i]['name']);
 //           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -458,7 +458,7 @@
 //     //     allIdentity = newEmp;
 //     //   });
 //     //
-//     //   for(int?  i = 0; i < newEmp.length;i++){
+//     //   for(int  i = 0; i < newEmp.length;i++){
 //     //     print(newEmp[i]['name']);
 //     //     collectIdentity.add(newEmp[i]['name']);
 //     //   }
@@ -501,7 +501,7 @@
 //             allIdentity = mtBool;
 //           });
 //
-//           for(int?  i = 0; i < mtBool.length;i++){
+//           for(int  i = 0; i < mtBool.length;i++){
 //             print(mtBool[i]['name']);
 //             collectIdentity.add(mtBool[i]['name']);
 //           }
@@ -533,7 +533,7 @@
 //           allIdentity = newEmp;
 //         });
 //
-//         for(int?  i = 0; i < newEmp.length;i++){
+//         for(int  i = 0; i < newEmp.length;i++){
 //           print(newEmp[i]['name']);
 //           collectIdentity.add(newEmp[i]['name']);
 //         }
@@ -1289,7 +1289,7 @@
 //         padding: const EdgeInsets.symmetric(horizontal: 0),
 //         child: Container(
 //           decoration: BoxDecoration(
-//             color: Theme.of(context).backgroundColor,
+//             color: Theme.of(context).scaffoldBackgroundColor,
 //
 //             // set border width
 //             borderRadius: BorderRadius.all(
@@ -1318,7 +1318,7 @@
 //                 floatingLabelStyle: TextStyle(color:Color(0xff205072)),
 //                 hintText: hintText,
 //                 hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-//                 labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+//                 labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color)
 //
 //             ),
 //             textInputAction: TextInputAction.done,
@@ -1554,7 +1554,7 @@
 //                             child: Container(
 //                               height: 70,
 //                               decoration: BoxDecoration(
-//                                 color: Theme.of(context).backgroundColor,
+//                                 color: Theme.of(context).scaffoldBackgroundColor,
 //                                 borderRadius: BorderRadius.circular(5),
 //                               ),
 //
@@ -1689,7 +1689,7 @@
 //                             child: Container(
 //                               height: 70,
 //                               decoration: BoxDecoration(
-//                                 color: Theme.of(context).backgroundColor,
+//                                 color: Theme.of(context).scaffoldBackgroundColor,
 //                                 borderRadius: BorderRadius.circular(5),
 //                               ),
 //

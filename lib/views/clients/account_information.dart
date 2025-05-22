@@ -130,7 +130,7 @@ class _AccountInformationState extends State<AccountInformation> {
 
 
     return Scaffold(
-      //   backgroundColor: Theme.of(context).backgroundColor,
+      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       backgroundColor: Colors.white,
       body: clientProfile.isEmpty ? clientProfile == null ? Text('Unable to load'): ProfileShimmerLoading():
 

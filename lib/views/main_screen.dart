@@ -293,7 +293,7 @@ Widget noLoginType(){
           //         topRight: Radius.circular(1.0),
           //       ),
           //       child:    Container(
-          //         color: Theme.of(context).backgroundColor,
+          //         color: Theme.of(context).scaffoldBackgroundColor,
           //         height: 65,
           //         child: Row(
           //           mainAxisAlignment: MainAxisAlignment.spaceBetween,

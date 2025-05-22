@@ -113,7 +113,7 @@
 //     //     allSalary = newEmp;
 //     //   });
 //     //
-//     //   for(int?  i = 0; i < newEmp.length;i++){
+//     //   for(int  i = 0; i < newEmp.length;i++){
 //     //     //print(newEmp[i]['name']);
 //     //     collectSalary.add(newEmp[i]['name']);
 //     //   }
@@ -159,7 +159,7 @@
 //             allBranchEmployer = mtBool;
 //           });
 //
-//           for(int?  i = 0; i! < mtBool.length;i++){
+//           for(int  i = 0; i! < mtBool.length;i++){
 //             //print(mtBool[i]['name']);
 //             BranchEmployerArray.add(mtBool[i]['name']);
 //           }
@@ -201,7 +201,7 @@
 //
 //         //print('all Branch ${newEmp}');
 //
-//         for(int?  i = 0; i! < newEmp.length;i++){
+//         for(int  i = 0; i! < newEmp.length;i++){
 //           //print(newEmp[i]['name']);
 //           collectBranchEmployer.add(newEmp[i]['name']);
 //         }
@@ -256,7 +256,7 @@
 //             allEmp = mtBool;
 //           });
 //
-//           for(int?  i = 0; i < mtBool.length;i++){
+//           for(int  i = 0; i < mtBool.length;i++){
 //             //print(mtBool[i]['name']);
 //             collectData.add(mtBool[i]['name']);
 //           }
@@ -305,7 +305,7 @@
 //           allEmp = newEmp;
 //         });
 //
-//         for(int?  i = 0; i! < newEmp.length;i++){
+//         for(int  i = 0; i! < newEmp.length;i++){
 //           //print(newEmp[i]['name']);
 //           collectData.add(newEmp[i]['name']);
 //         }
@@ -370,7 +370,7 @@
 //             allCategory = mtBool;
 //           });
 //
-//           for(int?  i = 0; i < mtBool.length;i++){
+//           for(int  i = 0; i < mtBool.length;i++){
 //             //print(mtBool[i]['name']);
 //             collectCategory.add(mtBool[i]['name']);
 //           }
@@ -420,7 +420,7 @@
 //           allCategory = newEmp;
 //         });
 //
-//         for(int?  i = 0; i! < newEmp.length;i++){
+//         for(int  i = 0; i! < newEmp.length;i++){
 //           //print(newEmp[i]['name']);
 //           collectCategory.add(newEmp[i]['name']);
 //         }
@@ -678,7 +678,7 @@
 //             collectEmployer = [];
 //           });
 //
-//           for(int?  i = 0; i! < newEmp.length;i++){
+//           for(int  i = 0; i! < newEmp.length;i++){
 //             //print(newEmp[i]['name']);
 //             collectEmployer.add(newEmp[i]['name']);
 //           }

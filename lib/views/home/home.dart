@@ -327,7 +327,7 @@ class _HomeContentState extends State<HomeContent> {
   //    print('metrics Data ${metricsDataList}');
   //    var caluclatedCommision = 0;
   //    List<dynamic> accumulated_commision = [];
-  //    for(int?  i=0; i! < metricsDataList.length;i++){
+  //    for(int  i=0; i! < metricsDataList.length;i++){
   //      var singleMetric = metricsDataList[i];
   //   int?  amts =  int.tryParse(singleMetric['level']['value']);
   //      // print('calc commission ${caluclatedCommision}');

@@ -254,7 +254,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //       allCategory = newEmp;
   //     });
   //
-  //     for(int?  i = 0; i < newEmp.length;i++){
+  //     for(int  i = 0; i < newEmp.length;i++){
   //       //  print(newEmp[i].affectedTypeName);
   //       collectCategory.add(newEmp[i]['categoryName']);
   //     }
@@ -567,7 +567,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                             fontFamily: 'Nunito SansRegular'),
                         labelStyle: TextStyle(
                             fontFamily: 'Nunito SansRegular',
-                            color: Theme.of(context).textTheme.headline2.color),
+                            color: Theme.of(context).textTheme.headlineMedium?.color),
                         counter: SizedBox.shrink()),
                   ),
 
@@ -1126,7 +1126,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1168,7 +1168,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),

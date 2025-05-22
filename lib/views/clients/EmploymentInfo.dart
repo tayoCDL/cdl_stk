@@ -293,7 +293,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //       allBranchEmployer = [];
   //     });
   //
-  //     for(int?  i = 0; i < newEmp.length;i++){
+  //     for(int  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectEmployer.add(newEmp[i]['name']);
   //     }
@@ -429,7 +429,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allStates = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectState.add(newEmp[i]['name']);
     //   }
@@ -532,7 +532,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -635,7 +635,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -746,7 +746,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     allSalary = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectSalary.add(newEmp[i]['name']);
     //   }
@@ -1314,7 +1314,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     collectLga = [];
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectLga.add(newEmp[i]['name']);
     //   }
@@ -2886,7 +2886,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //         padding: const EdgeInsets.symmetric(horizontal: 0),
   //         child: Container(
   //           decoration: BoxDecoration(
-  //             color: Theme.of(context).backgroundColor,
+  //             color: Theme.of(context).scaffoldBackgroundColor,
   //
   //             // set border width
   //             borderRadius: BorderRadius.all(
@@ -2915,7 +2915,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //                 floatingLabelStyle: TextStyle(color:Color(0xff205072)),
   //                 hintText: hintText,
   //                 hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-  //                 labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+  //                 labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color)
   //
   //             ),
   //             textInputAction: TextInputAction.done,
@@ -2946,7 +2946,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -3020,7 +3020,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),
@@ -3053,7 +3053,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -3154,7 +3154,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                   //  floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

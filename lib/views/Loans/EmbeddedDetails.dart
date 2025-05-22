@@ -31,7 +31,7 @@ class EmbeddedDetails extends StatefulWidget {
   // _NewLoanState createState() => _NewLoanState();
 
   final int?  clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
-  final Map<String,dynamic> thirdParty_response;
+  final Map<String,dynamic>? thirdParty_response;
   final String?  staff_id;
   const EmbeddedDetails(
       {Key? key,
@@ -63,7 +63,7 @@ class EmbeddedDetails extends StatefulWidget {
 
 class _EmbeddedDetailsState extends State<EmbeddedDetails> {
   int?  clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
-  Map<String,dynamic> thirdParty_response;
+  Map<String,dynamic>? thirdParty_response;
   String?  staff_id;
  // TextEditingController staffId = TextEditingController(text: 'CDL00OP');
   bool isCustomerFound = false;
@@ -163,7 +163,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
        // "staffId": 12223,
        // "staffId": 62677,
         "staffId": staff_id.toString(),
-        "companyUUId": thirdParty_response['lenderEmployerId'],
+        "companyUUId": thirdParty_response?['lenderEmployerId'],
     };
     print(' user request >> ${userRequest}');
     final Future<Map<String,dynamic>> response =   RetCodes().get_encryptAndSend(userRequest);
@@ -199,7 +199,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername!;
     });
   }
 
@@ -213,8 +213,8 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -859,7 +859,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
       String?  hintText,
       var keyBoard, {
         bool isPassword = false,
-        isRealOnly: false,
+        isRealOnly = false,
       }) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -868,7 +868,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -903,7 +903,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),

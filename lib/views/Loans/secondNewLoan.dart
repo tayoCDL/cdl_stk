@@ -50,7 +50,8 @@ class SecondNewLoan extends StatefulWidget {
         this.comingFrom,
         this.customerID,
         this.clientBVN,
-        this.loadfedgoData})
+        this.loadfedgoData = const {},
+        })
       : super(key: key);
   @override
   _SecondNewLoanState createState() => _SecondNewLoanState(
@@ -82,7 +83,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         this.comingFrom,
         this.customerID,
         this.clientBVN,
-        this.loadfedgoData});
+        this.loadfedgoData = const {},
+      });
 
   List<String> frequencyArray = [];
   List<String> collectFrequency = [];
@@ -123,7 +125,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   double? interestRateForPrivate;
   List<dynamic> objectFetched = [];
   bool isCrcSaved = false;
-  Map<String, dynamic> load_fedgoData;
+  Map<String, dynamic> load_fedgoData = {};
   String?  submitOnLoan = '';
 
   bool isBankLoading = false;
@@ -304,7 +306,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBankAccount = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankAcount.add(newEmp[i]['name']);
     //   }
@@ -323,10 +325,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBankAccount'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBankAccount')!);
 
         //
-        if (prefs.getString('prefsBankAccount').isEmpty) {
+        if (prefs.getString('prefsBankAccount')!.isEmpty) {
           Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -407,7 +409,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //       allBanksList = newEmp;
   //     });
   //
-  //     for(int?  i = 0; i < newEmp.length;i++){
+  //     for(int  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectBanksList.add(newEmp[i]['name']);
   //     }
@@ -450,7 +452,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //           allBanksList = mtBool;
   //         });
   //
-  //         for(int?  i = 0; i < mtBool.length;i++){
+  //         for(int  i = 0; i < mtBool.length;i++){
   //           //print(mtBool[i]['name']);
   //           collectBanksList.add(mtBool[i]['name']);
   //         }
@@ -482,7 +484,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         allBanksList = newEmp;
   //       });
   //
-  //       for(int?  i = 0; i < newEmp.length;i++){
+  //       for(int  i = 0; i < newEmp.length;i++){
   //         //print(newEmp[i]['name']);
   //         collectBanksList.add(newEmp[i]['name']);
   //       }
@@ -510,7 +512,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -529,10 +531,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList')!);
 
         //
-        if (prefs.getString('prefsBanksList').isEmpty) {
+        if (prefs.getString('prefsBanksList')!.isEmpty) {
           Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -601,7 +603,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBankClassification = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankClassification.add(newEmp[i]['name']);
     //   }
@@ -621,10 +623,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-        jsonDecode(prefs.getString('prefsBankClassification'));
+        jsonDecode(prefs.getString('prefsBankClassification')!);
 
         //
-        if (prefs.getString('prefsBankClassification').isEmpty) {
+        if (prefs.getString('prefsBankClassification')!.isEmpty) {
           Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -899,9 +901,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   DateTime.now().add(Duration(days: 15, hours: 0));
   AddLoanProvider addLoanProvider = AddLoanProvider();
 
-  Map<String, dynamic> fullTemps;
-  Map<String, dynamic> vOverrides, vOverrides2;
-  List<dynamic> chargesData;
+  Map<String, dynamic> fullTemps = {};
+  Map<String, dynamic>  vOverrides= {};
+  Map<String, dynamic> vOverrides2 = {};
+  List<dynamic> chargesData = [];
   int?  ClientaccountLinkingOptions = 100;
   bool value = false;
   bool isBuyOver = false;
@@ -1200,10 +1203,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           loanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1239,7 +1242,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           isBuyOver = isBuyOvertopup == true ? false : true;
 
           isBuyOverTopUpAvailable = newClientData['canUseForTopup'];
-          lenderIndex =  maxLenderCount - lendersLists.length;
+          lenderIndex =  maxLenderCount! - lendersLists.length;
           print('lenders lists ${ lendersLists.length} ${lenderIndex} ${maxLenderCount}');
       }
          });
@@ -1352,7 +1355,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     String?  passed_staff_id = prefs.getString('loanOfficerId');
     RetCodes rtCocdes = RetCodes();
     rtCocdes
-        .loanPermission(int.tryParse(passed_staff_id), clientID)
+        .loanPermission(int.tryParse(passed_staff_id!), clientID)
         .then((value) {
       setState(() {
         //  canBookOtherLoans = false;
@@ -1581,10 +1584,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       var tfaToken = prefs.getString('tfa-token');
       int?  passedLoanID = prefs.getInt('loanCreatedId');
 
-      Response responsevv = await get(
+      Response responsevv = await get(Uri.parse(
         AppUrl.getLoanDetails +
             passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+            '?associations=all&exclude=guarantors,futureSchedule'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1605,7 +1608,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             geSingleLoanConfig(docConfigData);
           }
         } else {
-          return Flushbar(
+          // return 
+          Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
@@ -1877,7 +1881,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         ).show(context);
       }
 
-      if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
+      if (int.tryParse(no_of_repayments.text)! > int.tryParse(max_repayment!)!) {
         return Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1892,7 +1896,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         _isLoading = true;
       });
 
-      print('>> buyover state >>  ${(value == false || isBuyOvertopup == false) && (loanOptionInt == 0 || loanOptionInt > 0) == false  }');
+      print('>> buyover state >>  ${(value == false || isBuyOvertopup == false) && (loanOptionInt == 0 || loanOptionInt! > 0) == false  }');
       print(
           'app value value ${value} ${loanOptionInt} ${isBuyOvertopup} ${isBuyOvertopup || value ? true : false}');
 
@@ -2409,7 +2413,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             callAction2: () {
               //   submitLoanToCheckForDSR();
               if (netpay.text.length < 3 || netpay.text.isEmpty) {
-                return Flushbar(
+                // return 
+                Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.redAccent,
@@ -2419,7 +2424,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 ).show(context);
               }
               if (!_isFederalOrState && repaymentDate.text.isEmpty == true) {
-                return Flushbar(
+                // return 
+                Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.redAccent,
@@ -2429,7 +2435,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 ).show(context);
               } else if (load_fedgoData == null &&
                   (productID == FEDG0_LOAN_ID || productID == DPL_LOAN)) {
-                return Flushbar(
+                // return 
+                Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.blue,
@@ -2646,7 +2653,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
 
                       // set border width
                       borderRadius: BorderRadius.all(Radius.circular(
@@ -3110,7 +3117,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //       padding: const EdgeInsets.symmetric(horizontal: 0),
   //         //       child: Container(
   //         //         decoration: BoxDecoration(
-  //         //           color: Theme.of(context).backgroundColor,
+  //         //           color: Theme.of(context).scaffoldBackgroundColor,
   //         //
   //         //           // set border width
   //         //           borderRadius: BorderRadius.all(
@@ -3146,7 +3153,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //               floatingLabelStyle: TextStyle(color:Color(0xff205072)),
   //         //               hintText: '10 May 2022',
   //         //               hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-  //         //               labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+  //         //               labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color)
   //         //
   //         //           ),
   //         //           textInputAction: TextInputAction.done,
@@ -4822,7 +4829,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                         color: Colors.black, fontFamily: 'Nunito SansRegular'),
                     labelStyle: TextStyle(
                         fontFamily: 'Nunito SansRegular',
-                        color: Theme.of(context).textTheme.headline2.color)),
+                        color: Theme.of(context).textTheme.headlineMedium?.color)),
                 textInputAction: TextInputAction.done,
               ),
               SizedBox(
@@ -4848,7 +4855,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            //   color: Theme.of(context).backgroundColor,
+            //   color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -4911,7 +4918,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.done,
           ),
