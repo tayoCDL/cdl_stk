@@ -70,8 +70,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   List<String> collectLAF = [];
   List<dynamic> allLAF = [];
   String?  realMonth = '';
-  Timer _timerForInter;
-  File uploadimage;
+  Timer? _timerForInter;
+  XFile? uploadimage;
   var clientType = {};
   var employmentProfile = [];
   String?  documentFileName,
@@ -154,7 +154,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   @override
   void dispose() {
     if (_timerForInter != null) {
-      _timerForInter.cancel();
+      _timerForInter?.cancel();
       _timerForInter = null;
     }
 
@@ -204,7 +204,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   bool _hasValidMime = false;
   String?  appendBase64 = '';
   bool value = false;
-  FileType _pickingType;
+  FileType? _pickingType;
   int?  employerID, sectorId, parentClient, employerInt;
   int?  branchEmployerInt = 0;
   String?  employerDomain = '';
@@ -249,10 +249,10 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpSector'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpSector')!);
 
         //
-        if (prefs.getString('prefsEmpSector').isEmpty) {
+        if (prefs.getString('prefsEmpSector')!.isEmpty) {
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -341,8 +341,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientid.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientid.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -403,10 +403,10 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           loanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -471,10 +471,10 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           loanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -502,8 +502,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     var tfaToken = prefs.getString('tfa-token');
     //print(tfaToken);
     //print(token);
-    Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + localclientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -529,7 +529,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   Future<List> getSuggestions(String?  query) async {
-    if (query.length > 3) {
+    if (query!.length > 3) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       final Future<Map<String, dynamic>> result_response =
@@ -600,9 +600,9 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-        jsonDecode(prefs.getString('prefsBranchEmployer'));
+        jsonDecode(prefs.getString('prefsBranchEmployer')!);
 
-        if (prefs.getString('prefsBranchEmployer').isEmpty) {
+        if (prefs.getString('prefsBranchEmployer')!.isEmpty) {
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -829,10 +829,10 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-        jsonDecode(prefs.getString('prefsProofOfIdentity'));
+        jsonDecode(prefs.getString('prefsProofOfIdentity')!);
 
         //
-        if (prefs.getString('prefsProofOfIdentity').isEmpty) {
+        if (prefs.getString('prefsProofOfIdentity')!.isEmpty) {
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -997,8 +997,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     var tfaToken = prefs.getString('tfa-token');
     //print(tfaToken);
     //print(token);
-    Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + localclientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1210,7 +1210,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
       result = await FlutterDocumentPicker.openDocument(params: params);
 
-      final file = File(result);
+      final file = File(result!);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         setState(() {
@@ -1260,22 +1260,22 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
       //  print('file extension ${_path.split('.').last}');
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         documentFileLocation = img64;
         residenceFileSize = filesizeAsString;
-        documentFiletype = _path.split('.').last;
+        documentFiletype = _path!.split('.').last;
       });
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
@@ -1284,8 +1284,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
+      _fileName = _path != null ? _path!.split('/').last : '...';
+      proof_of_residence.text = _fileName!;
       //documentFileName = _fileName;
       value = true;
     });
@@ -1332,27 +1332,27 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       MyRouter.pushPageReplacement(context, LoanView(clientID: clientID,));
       // MyRouter.pushPageReplacement(context, ViewClient(clientID: clientID,));
       setState(() {
-        _timerForInter.cancel();
+        _timerForInter?.cancel();
       });
     } else if (value == 'go_home') {
       MyRouter.pushPageReplacement(context, MainScreen());
       setState(() {
-        _timerForInter.cancel();
+        _timerForInter?.cancel();
       });
     }
   }
 
   void takePhotoForDocument(ImageSource source) async {
     MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
     //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    XFile? imagefile = choosedimage; //convert Path to File
 
     print('image File ${imagefile}');
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
+    Uint8List imagebytes = await imagefile!.readAsBytes(); //convert to bytes
+    String?  base64String  =
     base64.encode(imagebytes); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
+    print('base64String?  ${base64String}');
 
     String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
@@ -1362,15 +1362,15 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     // print(img64);
 
     setState(() {
-      uploadimage = choosedimage;
+      uploadimage = choosedimage!;
       String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
-      File file = choosedimage;
+      XFile file = choosedimage;
       _fileName = file.path.split('/').last;
       print('filename ${_fileName}');
-      proof_of_residence.text = _fileName;
+      proof_of_residence.text = _fileName ?? "";
       // isPassportAdded = true;
     });
 
@@ -1382,9 +1382,9 @@ class _SingleLoanViewState extends State<SingleLoanView> {
     //  print('image base64 ${img64}');
 
     setState(() {
-      documentFileLocation = base64string;
+      documentFileLocation = base64String;
       //  passportFileSize = '';
-      documentFiletype = _fileName.split('.').last;
+      documentFiletype = _fileName?.split('.').last;
     });
 
     // print('passport file location ${passportFiletype} ');
@@ -1411,7 +1411,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
     setState(() {
       // _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
+      proof_of_residence.text = _fileName!;
       //  documentFileName = _fileName;
     });
 
@@ -1543,7 +1543,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   addNote(String?  methodType, String?  passedNote, int?  noteId) {
-    note.text = passedNote;
+    note.text = passedNote ?? "";
     return alert(
       context,
       title: Row(
@@ -1917,7 +1917,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           child: RoundedButton(
             buttonText: 'Generate',
             onbuttonPressed: () {
-              if (method.isEmpty || method.length == 0) {
+              method = method ?? "";
+              if (method!.isEmpty || method!.length == 0) {
                 setState(() {
                   method = 'Email';
                 });
@@ -2267,7 +2268,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                         Column(
                           children: [
                             Container(
-                              width: AppHelper().pageWidth(context) * 0.7,
+                              width: AppHelper().pageWidth(context)! * 0.7,
                               child: RoundedButton(
                                 onbuttonPressed: (){
                                  // doLogin();
@@ -2351,7 +2352,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                               itemBuilder: (context, int?  index) {
                                 var loanPeriod =
                                 loanDetail['repaymentSchedule']
-                                ['periods'][index + 1];
+                                ['periods'][index! + 1];
                                 var loanPeriodDue =
                                 loanDetail['repaymentSchedule']
                                 ['periods'][index + 1]['dueDate'];
@@ -2813,7 +2814,8 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                         onbuttonPressed: () {
                           print('employer ID >> ${employerID}');
                           if (employerID == null) {
-                            return Flushbar(
+                            // return 
+                            Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                               backgroundColor: Colors.blueAccent,
@@ -2832,7 +2834,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                                     sectorID: sectorId,
                                     parentClientType: parentClient));
                             setState(() {
-                              _timerForInter.cancel();
+                              _timerForInter?.cancel();
                             });
                           }
                         }),
@@ -2988,7 +2990,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                         Text(
                           loanDetail['status']['value'] != 'Active'
                               ? '---'
-                              : settlementBalance,
+                              : settlementBalance ?? "",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Nunito SansRegular',
@@ -3160,7 +3162,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                 itemCount: notesArray.length,
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (context, int?  index) {
+                itemBuilder: (context, int  index) {
                   return ListTile(
                     title: Text(
                       '${notesArray[index]['note']}',
@@ -3483,7 +3485,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         itemCount: documentsArray.length,
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
-        itemBuilder: (context, int?  index) {
+        itemBuilder: (context, int  index) {
           return
 
             ListTile(
@@ -3580,7 +3582,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                       ),
                       child: Center(
                           child: Text(
-                            status,
+                            status ?? "",
                             style: TextStyle(color: Colors.white),
                           )),
                     ),
@@ -3662,7 +3664,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                                       fontFamily: 'Nunito SansRegular',
                                       fontSize: 14)),
                               Text(
-                                dueDate,
+                                dueDate ?? "",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'Nunito SansRegular',
@@ -3875,11 +3877,11 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         bool isSendOTP = true,
         var maxLenghtAllow,
         int?  maxlines,
-        VoidCallback onBtnPressed,
+        VoidCallback? onBtnPressed,
         bool isSuffix = false,
         String?  extension,
         bool needsValidation = true,
-        VoidCallback changeValidator}) {
+        String? Function(String?)? changeValidator}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
       child: Padding(
@@ -4101,7 +4103,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       ),
       child: Center(
           child: Text(
-            status,
+            status ?? "",
             style: TextStyle(color: TextColor),
           )),
     );
@@ -4109,9 +4111,9 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
   retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate?.replaceAll("-", " ");
     print('new Rems ${removeComma}');
-    List<String> wordList = removeComma.split(" ");
+    List<String> wordList = removeComma?.split(" ") ?? [];
     print(wordList[1]);
 
     if (wordList[1] == '1') {
@@ -4183,7 +4185,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
@@ -4202,7 +4204,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
   }
 
   String?  subStr(String?  subs) {
-    subs.substring(0, 10);
+    subs?.substring(0, 10);
   }
 
   Widget _buildStatusCard(Status status) {
@@ -4212,7 +4214,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(status.date,
+            Text(status.date ?? "",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
             SizedBox(height: 8),
             Row(
@@ -4220,7 +4222,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                 Icon(status.statusIcon, color: status.statusColor),
                 SizedBox(width: 8),
                 Text(
-                  status.status,
+                  status.status ?? "",
                   style: TextStyle(
                       color: status.statusColor,
                       fontWeight: FontWeight.bold,
@@ -4229,7 +4231,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
               ],
             ),
             SizedBox(height: 8),
-            Text(status.assignee, style: TextStyle(fontSize: 14)),
+            Text(status.assignee ?? "", style: TextStyle(fontSize: 14)),
             // if (status.showReassignButton)
             //   TextButton(
             //     onPressed: () {},
@@ -4247,8 +4249,8 @@ class Status {
   final String?  date;
   final String?  status;
   final String?  assignee;
-  final IconData statusIcon;
-  final Color statusColor;
+  final IconData? statusIcon;
+  final Color? statusColor;
   final bool showReassignButton;
 
   Status({

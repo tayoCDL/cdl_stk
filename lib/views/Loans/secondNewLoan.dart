@@ -2609,7 +2609,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: EntryField(
                     context, netpay, 'Net Pay *', '', TextInputType.number,
-                    onChanged: (value) {})),
+                    // onChanged: (value) {})
+                    ),
             SizedBox(
               height: 6,
             ),
@@ -2693,8 +2694,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                               fontFamily: 'Nunito SansRegular',
                               color: Theme.of(context)
                                   .textTheme
-                                  .headline2
-                                  .color)),
+                                  .headlineMedium
+                                  ?.color)),
                       textInputAction: TextInputAction.done,
                     ),
                   ),
@@ -2847,9 +2848,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                       this.isBuyOvertopup = false;
                       this.isBuyOver = false;
                     });
@@ -2931,9 +2932,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.isBuyOver,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.isBuyOver = value;
+                      this.isBuyOver = value!;
                       this.isBuyOvertopup = false;
                       this.value = false;
                     });
@@ -2947,7 +2948,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   'IS THIS A BUY-OVER LOAN?',
                   style: TextStyle(fontSize: 11),
                 ),
-                SizedBox(width: AppHelper().pageWidth(context) * 0.34,),
+                SizedBox(width: AppHelper().pageWidth(context)! * 0.34,),
                 isBuyOver == true ?  IconButton(
                   onPressed: (){
                     // _scrollDown();
@@ -2973,10 +2974,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.isBuyOvertopup,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     print('vals topup >> ${value}');
                     setState(() {
-                      this.isBuyOvertopup = value;
+                      this.isBuyOvertopup = value!;
 
                       this.value = false;
                       this.isBuyOver = false;
@@ -3003,7 +3004,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   DropDownComponent(
                       items: loanOptionArray,
                       onChange: (String?  item) {
-                        String?  newItem = item.substring(item.length - 10);
+                        String?  newItem = item?.substring(item.length - 10);
                         print('newitem ${newItem}');
                         setState(() {
                           List<dynamic> selectID = allLoanOption
@@ -3508,13 +3509,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            title ?? "",
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            value,
+            value ?? "",
             style: TextStyle(
               fontWeight: FontWeight.w300, // Light text
             ),
@@ -3526,7 +3527,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   Widget buyOverWidget() {
     return Container(
-        height: AppHelper().pageHeight(context) * 0.32,
+        height: AppHelper().pageHeight(context)! * 0.32,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -3611,7 +3612,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  width: AppHelper().pageWidth(context) * 0.41,
+                  width: AppHelper().pageWidth(context)! * 0.41,
                   child: RoundedButton(
                     onbuttonPressed: () {
                       //  doLogin();
@@ -3674,9 +3675,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   // setState(() {
                   //   lenderIndex --;
                   // });
-                  print('>> lender Index >> ${lenderIndex - 1} ${maxLenderCount}');
+                  print('>> lender Index >> ${lenderIndex! - 1} ${maxLenderCount}');
 
-                  if (lenderIndex -1  >= maxLenderCount) {
+                  if (lenderIndex! -1  >= maxLenderCount!) {
                     print('max count reached');
                     Flushbar(
                 flushbarPosition: FlushbarPosition.BOTTOM,
@@ -3699,7 +3700,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 },
                 child: Text(
                   '+  Add Lender',
-                  style: TextStyle(color: lenderIndex -1  >= maxLenderCount ? ColorUtils.GREY_BG : ColorUtils.PRIMARY_COLOR),
+                  style: TextStyle(color: lenderIndex! -1  >= maxLenderCount! ? ColorUtils.GREY_BG : ColorUtils.PRIMARY_COLOR),
                 )),
           ],
         ));
@@ -4037,7 +4038,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
                                 lendersLists.removeAt(position);
                                 setState(() {
-                                  lenderIndex --;
+                                  lenderIndex = lenderIndex! - 1;
                                 });
                                 print('updated state >> ${lenderIndex}');
                               },
@@ -4231,7 +4232,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter modalSetState) {
             // Initialize Timer to periodically check for state changes
-            Timer timer;
+            Timer? timer;
             String?  previousAccountName = accountName;
 
             void startPeriodicCheck() {
@@ -4295,7 +4296,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                               });
                             },
                             label: "Lender's Name",
-                            selectedItem: singleLendersName,
+                            selectedItem: singleLendersName, validator: (v ) { },
                           ),
                         ),
                         SizedBox(height: 15),
@@ -4315,7 +4316,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                               });
                             },
                             label: "Bank * ",
-                            selectedItem: bankName,
+                            selectedItem: bankName, validator: (val ) {  },
                           ),
                         ),
                         Padding(
@@ -4336,7 +4337,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                             children: [
                               Text('Account Name: '),
                               Text(
-                                accountName,
+                                accountName ?? "",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -4482,7 +4483,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   alignment: Alignment.topRight,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    width: AppHelper().pageWidth(context) * 0.38,
+                    width: AppHelper().pageWidth(context)! * 0.38,
                     child: RoundedButton(
                       onbuttonPressed: () {
                         //  showUpdateLenderAccordion(context);
@@ -4523,7 +4524,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     if (accountNumber.text.isEmpty) {
       errorMessage = 'Account number is required.';
     }
-    else if (accountName.isEmpty) {
+    else if (accountName!.isEmpty) {
       errorMessage = 'Account name is required.';
     }
     else if (bankInt == null) {
@@ -4532,7 +4533,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       errorMessage = 'Lender ID is required.';
     } else if (buy_over_settlement_balance.text.isEmpty) {
       errorMessage = 'Settlement balance is required.';
-    } else if (lendersLists.length >= maxLenderCount) {
+    } else if (lendersLists.length >= maxLenderCount!) {
       errorMessage = 'You cannot add more than $maxLenderCount lender (s).';
     }
 
@@ -4574,7 +4575,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
 
     setState(() {
-      lenderIndex++;
+      lenderIndex = lenderIndex! + 1;
       showAddLender = false;
       accountNumber.text = '';
       accountName = '';
@@ -4611,7 +4612,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     if (accountNumber.text.isEmpty) {
       errorMessage = 'Account number is required.';
     }
-    else if (accountName.isEmpty) {
+    else if (accountName!.isEmpty) {
       errorMessage = 'Account name is required.';
     }
     else if (bankInt == null) {
@@ -4651,7 +4652,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     };
 
     setState(() {
-      lendersLists[dataPosition] = {...lendersLists[dataPosition], ...localLenders};
+      lendersLists[dataPosition!] = {...lendersLists[dataPosition], ...localLenders};
 
     });
 //   lendersLists.add(localLenders);
@@ -4706,7 +4707,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                           String?  retDate =
                           retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
-                          repaymentDate.text = retDate;
+                          repaymentDate.text = retDate!;
                         });
                     },
                     initialDateTime:
@@ -4725,7 +4726,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   onPressed: () {
                     String?  retDate = retsNx360dates(CupertinoSelectedDate);
                     print('ret Date ${retDate}');
-                    repaymentDate.text = retDate;
+                    repaymentDate.text = retDate!;
                     Navigator.of(context).pop();
                   },
                 )
@@ -4763,7 +4764,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   Widget EntryField(BuildContext context, var editController, String?  labelText,
       String?  hintText, var keyBoard,
       {bool isPassword = false,
-        VoidCallback onChanged,
+        VoidCallback? onChanged,
         bool isRead = false,
         var maxLenghtAllow}) {
     var MediaSize = MediaQuery.of(context).size;
@@ -4836,7 +4837,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 height: 5,
               ),
               Text(
-                hintText,
+                hintText ?? "",
                 style: TextStyle(color: Colors.black, fontSize: 9),
               )
             ],
@@ -4867,13 +4868,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             keyboardType: keyBoard,
 
             onChanged: (String?  value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 setState(() {
                   isBankLoading = false;
                 });
                 // //print('isLoading is ${isBVNLoading}');
 
-              } else if (value.length != 10) {
+              } else if (value!.length != 10) {
                 setState(() {
                   isBankLoading = true;
                 });
@@ -4890,7 +4891,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             controller: editController,
 
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Field cannot be empty';
               }
             },
@@ -4955,9 +4956,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                     });
                   },
                 ),
@@ -4975,7 +4976,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate!.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -5049,7 +5050,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
@@ -5058,7 +5059,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   getDateForNextRepayment(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate!.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -5132,7 +5133,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 

@@ -246,7 +246,7 @@ class _LoanViewState extends State<LoanView> {
 
   }
 
-  v_goBack(BuildContext context,String?  value,{VoidCallback newFn}){
+  v_goBack(BuildContext context,String?  value,{VoidCallback? newFn}){
     if(value == 'go_back'){
       // MyRouter.popPage(context);
       MyRouter.pushPageReplacement(context, ViewClient(clientID: clientID,));
