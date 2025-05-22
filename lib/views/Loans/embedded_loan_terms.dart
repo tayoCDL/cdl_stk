@@ -62,7 +62,8 @@ class EmbeddedLoanTerms extends StatefulWidget {
 
 class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
   int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
-   Map<String,dynamic> thirdPartyLoanResponse,otherInfo;
+   Map<String,dynamic> otherInfo;
+   Map<String,dynamic> thirdPartyLoanResponse;
 
   TextEditingController staffId = TextEditingController(text: 'CDL00OP');
   TextEditingController principal = TextEditingController();
@@ -86,8 +87,8 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         this.employerId,
         this.sectorID,
         this.parentClientType,
-        this.thirdPartyLoanResponse,
-        this.otherInfo
+        this.thirdPartyLoanResponse = const {},
+        this.otherInfo = const {},
       });
 
   @override
@@ -121,9 +122,10 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
 
 
-  Map<String, dynamic> fullTemps;
-  Map<String, dynamic> vOverrides, vOverrides2;
-  List<dynamic> chargesData;
+  Map<String, dynamic> fullTemps = {};
+  Map<String, dynamic> vOverrides = {};
+  Map<String, dynamic> vOverrides2 = {};
+  List<dynamic>? chargesData;
   int?  ClientaccountLinkingOptions = 100;
   bool value = false;
   String?  min_repayment = '';
@@ -251,7 +253,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int?  i = 0; i < valLenght.length; i++) {
+          for (int  i = 0; i < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -276,7 +278,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
           allLoanOption = productOptions;
         });
 
-        for (int?  i = 0; i < productOptions.length; i++) {
+        for (int  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -541,7 +543,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -586,7 +588,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i < filtered.length; i++) {
+      for (int  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -622,7 +624,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -867,7 +869,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
       print('modifed emp ${modifiedEmp}');
 
-      for (int?  i = 0; i < modifiedEmp.length; i++) {
+      for (int  i = 0; i < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 

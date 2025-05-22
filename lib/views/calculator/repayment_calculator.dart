@@ -497,7 +497,7 @@
 //
 //       print('all Products ${newEmp}');
 //
-//       for (int?  i = 0; i < newEmp.length; i++) {
+//       for (int  i = 0; i < newEmp.length; i++) {
 //         print(newEmp[i]['name']);
 //         collectProduct.add(newEmp[i]['name']);
 //       }
@@ -508,7 +508,7 @@
 //       var filtered = newEmp.toList();
 //
 //
-//       for (int?  i = 0; i! < filtered.length; i++) {
+//       for (int  i = 0; i! < filtered.length; i++) {
 //         print(filtered[i]['name']);
 //         collectProds.add(filtered[i]['name']);
 //         collectProduct.add(filtered[i]['name']);

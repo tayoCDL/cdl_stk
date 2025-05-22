@@ -253,7 +253,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             UpdateallDocumentType = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentType.add(mtBool[i]['name']);
           }
@@ -287,7 +287,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         List<dynamic> modifiedEmp =
             newEmp.where((element) => element['systemDefined']).toList();
 
-        for (int?  i = 0; i < modifiedEmp.length; i++) {
+        for (int  i = 0; i < modifiedEmp.length; i++) {
           print(modifiedEmp[i]['name']);
           collectDocumentType.add(modifiedEmp[i]['name']);
         }
@@ -331,7 +331,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allDocumentCategory = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentCategory.add(mtBool[i]['name']);
           }
@@ -362,7 +362,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           UpdateallDocumentCategory = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectDocumentCategory.add(newEmp[i]['name']);
           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -408,7 +408,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allDocumentCategory = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentCategory.add(mtBool[i]['name']);
           }
@@ -439,7 +439,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           UpdateallDocumentCategory = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           //  collectDocumentCategory.add(newEmp[i]['name']);
           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -508,7 +508,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allIdentity = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -537,7 +537,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           allIdentity = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }

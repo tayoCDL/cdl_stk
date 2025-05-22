@@ -512,7 +512,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -557,7 +557,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i < filtered.length; i++) {
+      for (int  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);

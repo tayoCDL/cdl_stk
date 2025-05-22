@@ -268,7 +268,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
             allEmp = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -311,7 +311,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           allEmp = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -543,7 +543,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           collectEmployer = [];
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -619,7 +619,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
             allBranchEmployer = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -657,7 +657,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
         //print('all Branch ${newEmp}');
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -701,7 +701,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
       newEmp.where((element) => element['systemDefined']).toList();
 
       print('modifed emp ${modifiedEmp}');
-      for (int?  i = 0; i < modifiedEmp.length; i++) {
+      for (int  i = 0; i < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 
@@ -798,12 +798,12 @@ class _SingleLoanViewState extends State<SingleLoanView> {
 
         print('checkisLaf ${checkisLaf.length}');
         if (checkisLaf.length < 4) {
-          for (int?  i = 0; i < newEmp.length; i++) {
+          for (int  i = 0; i < newEmp.length; i++) {
             print(newEmp[i]['name']);
             collectLAF.add(newEmp[i]['name']);
           }
         } else {
-          for (int?  i = 0; i < 2; i++) {
+          for (int  i = 0; i < 2; i++) {
             print(newEmp[i]['name']);
             collectLAF.add(newEmp[i]['name']);
           }
@@ -848,7 +848,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
             allIdentity = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -879,7 +879,7 @@ class _SingleLoanViewState extends State<SingleLoanView> {
           allIdentity = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }

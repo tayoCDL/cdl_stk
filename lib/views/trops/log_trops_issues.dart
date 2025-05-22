@@ -159,7 +159,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         _isLoading = false;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -183,7 +183,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -216,7 +216,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         collectTicketType = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -289,7 +289,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allCategory = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['categoryName']);
 
         collectCategory.add(newEmp[i]['categoryName']);
@@ -326,7 +326,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         collectSubCategory = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }

@@ -147,7 +147,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBankAccount = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -176,7 +176,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBankAccount = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -353,7 +353,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBanksList = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -382,7 +382,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBanksList = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -445,7 +445,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBankClassification = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -474,7 +474,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBankClassification = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }

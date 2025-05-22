@@ -336,7 +336,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           collectEmployer = [];
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -376,7 +376,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         // allBranchEmployer = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //print(newEmp[i]['name']);
         collectEmployer.add(newEmp[i]['name']);
         collectEmployerID.add(newEmp[i]['id']);
@@ -405,7 +405,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //   {'label': 'Text' + ' Item 3', 'value': 32},
     // ];
 
-    for (int?  i = 0; i < collectEmployer.length; i++) {
+    for (int  i = 0; i < collectEmployer.length; i++) {
       _list.add(new TestItem.fromJson(
           {'label': collectEmployer[i], 'value': collectEmployerID[i]}));
     }
@@ -472,7 +472,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allStates = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -503,7 +503,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           _isLoading = false;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -569,7 +569,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectSalary.add(mtBool[i]['name']);
           }
@@ -598,7 +598,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           allSalary = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectSalary.add(newEmp[i]['name']);
         }
@@ -682,7 +682,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectEmployer.add(mtBool[i]['name']);
           }
@@ -715,7 +715,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           collectEmployer = [];
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -791,7 +791,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allBranchEmployer = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -829,7 +829,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
         //print('all Branch ${newEmp}');
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -1355,7 +1355,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allLga = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -1387,7 +1387,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           allLga = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }

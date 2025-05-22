@@ -277,7 +277,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allLendersName = newLenders;
       });
 
-      for (int?  i = 0; i < newLenders.length; i++) {
+      for (int  i = 0; i < newLenders.length; i++) {
         //  print(newLenders[i]['displayName']);
         collectLendersName.add(newLenders[i]['displayName']);
       }
@@ -342,7 +342,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBankAccount = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -371,7 +371,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBankAccount = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -548,7 +548,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBanksList = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -577,7 +577,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBanksList = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -640,7 +640,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBankClassification = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -669,7 +669,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBankClassification = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }
@@ -941,7 +941,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allFrequency = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectFrequency.add(newEmp[i]['value']);
       }
@@ -965,7 +965,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allAmortization = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectAmortization.add(newEmp[i]['value']);
       }
@@ -989,7 +989,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allInterstType = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectInterestType.add(newEmp[i]['value']);
       }
@@ -1013,7 +1013,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allRepayment = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectRepayment.add(newEmp[i]['value']);
       }
@@ -1119,7 +1119,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int?  i = 0; i < valLenght.length; i++) {
+          for (int  i = 0; i < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -1144,7 +1144,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allLoanOption = productOptions;
         });
 
-        for (int?  i = 0; i < productOptions.length; i++) {
+        for (int  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -1498,7 +1498,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
         print('modifed emp ${modifiedEmp}');
 
-        for (int?  i = 0; i < modifiedEmp.length; i++) {
+        for (int  i = 0; i < modifiedEmp.length; i++) {
           collectDocumentType.add(modifiedEmp[i]['name']);
         }
 

@@ -1327,7 +1327,7 @@ class _TClientInteractionChatState extends State<TClientInteractionChat> {
     List<String> selectedDiscussions = [];
     Random random = Random();
 
-    for (int?  i = 0; i < min(count, discussionArray.length); i++) {
+    for (int  i = 0; i < min(count, discussionArray.length); i++) {
       int?  randomIndex = random.nextInt(discussionArray.length);
       selectedDiscussions.add(discussionArray[randomIndex]);
     }
@@ -1365,7 +1365,7 @@ class _TClientInteractionChatState extends State<TClientInteractionChat> {
     List<String> selectedPhrases = [];
     Random random = Random();
 
-    for (int?  i = 0; i < min(count, array.length); i++) {
+    for (int  i = 0; i < min(count, array.length); i++) {
       int?  randomIndex = random.nextInt(array.length);
       selectedPhrases.add(array[randomIndex]);
     }

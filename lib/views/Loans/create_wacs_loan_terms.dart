@@ -125,8 +125,9 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
 
 
-  Map<String, dynamic> fullTemps;
-  Map<String, dynamic> vOverrides, vOverrides2;
+  Map<String, dynamic> fullTemps = {};
+  Map<String, dynamic>? vOverrides;
+  Map<String, dynamic>? vOverrides2;
   List<dynamic>? chargesData;
   int?  ClientaccountLinkingOptions = 100;
   bool value = false;
@@ -264,7 +265,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int?  i = 0; i! < valLenght.length; i++) {
+          for (int  i = 0; i! < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -343,7 +344,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
   calculateReschedule() async {
     print('repayment << ${
-        chargesData.map((e) =>
+        chargesData?.map((e) =>
         {
           "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
           "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -375,17 +376,17 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           ? fullTemps['product']['interestRatePerPeriod'].toString()
           : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
           .toString(),
-      "amortizationType": vOverrides2['amortizationType']['id'],
+      "amortizationType": vOverrides2?['amortizationType']['id'],
       "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-      "interestType": vOverrides2['interestType']['id'],
+      "interestType": vOverrides2?['interestType']['id'],
       "interestCalculationPeriodType":
-      vOverrides2['interestCalculationPeriodType']['id'],
+      vOverrides2?['interestCalculationPeriodType']['id'],
       "allowPartialPeriodInterestCalcualtion":
       fullTemps['allowPartialPeriodInterestCalcualtion'],
-      "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-      "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+      "inArrearsTolerance": vOverrides?['inArrearsTolerance'] == true ? 1 : 0,
+      "graceOnArrearsAgeing": vOverrides2?['graceOnArrearsAgeing'],
       "transactionProcessingStrategyId":
-      vOverrides2['transactionProcessingStrategyId'],
+      vOverrides2?['transactionProcessingStrategyId'],
       "rates": [],
       // "charges":  [
       //   {
@@ -393,11 +394,11 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       //     "amount": chargesData[0]['amount']
       //   }
       // ],
-      "charges": chargesData.length == 0
+      "charges": chargesData?.length == 0
           ? []
           :
 
-      chargesData.map((e) =>
+      chargesData?.map((e) =>
       {
         "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -599,7 +600,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i! < filtered.length; i++) {
+      for (int  i = 0; i! < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -635,7 +636,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i! < newEmp.length; i++) {
+      for (int  i = 0; i! < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -711,7 +712,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       "locale": "en",
       "submittedOnDate": disburseNow,
       "activationChannelId": 77,
-      "charges": chargesData.length == 0
+      "charges": chargesData?.length == 0
           ? []
           :
       // [
@@ -724,7 +725,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       //             "id": loanID == null ? null : chargesData[0]['id']
       //           }
       //         ],
-      chargesData.map((e) =>
+      chargesData?.map((e) =>
       {
         "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -751,10 +752,10 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
           .toString(),
       "netpay": netpay.text,
-      "amortizationType": vOverrides2['amortizationType']['id'],
-      "interestType": vOverrides2['interestType']['id'],
-      "interestCalculationPeriodType":   vOverrides2['interestCalculationPeriodType']['id'],
-      "transactionProcessingStrategyId":  vOverrides2['transactionProcessingStrategyId'],
+      "amortizationType": vOverrides2?['amortizationType']['id'],
+      "interestType": vOverrides2?['interestType']['id'],
+      "interestCalculationPeriodType":   vOverrides2?['interestCalculationPeriodType']['id'],
+      "transactionProcessingStrategyId":  vOverrides2?['transactionProcessingStrategyId'],
       "commitment": 0,
       "employerId": employerID,
       "paymentMethodId": 5
@@ -896,7 +897,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
       print('modifed emp ${modifiedEmp}');
 
-      for (int?  i = 0; i! < modifiedEmp.length; i++) {
+      for (int  i = 0; i! < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 

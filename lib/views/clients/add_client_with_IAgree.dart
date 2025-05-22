@@ -206,7 +206,7 @@ class _AddClientState extends State<AddClient> {
             allEmp = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -249,7 +249,7 @@ class _AddClientState extends State<AddClient> {
           allEmp = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -301,7 +301,7 @@ class _AddClientState extends State<AddClient> {
             allCategory = mtBool;
           });
 
-          for (int?  i = 0; i! < mtBool.length; i++) {
+          for (int  i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectCategory.add(mtBool[i]['name']);
           }
@@ -345,7 +345,7 @@ class _AddClientState extends State<AddClient> {
           allCategory = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectCategory.add(newEmp[i]['name']);
         }
@@ -412,7 +412,7 @@ class _AddClientState extends State<AddClient> {
             allBanksList = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -441,7 +441,7 @@ class _AddClientState extends State<AddClient> {
           allBanksList = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
