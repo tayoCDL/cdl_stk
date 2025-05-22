@@ -71,6 +71,8 @@ class _LeadSearchState extends State<LeadSearch> {
   Future<List> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    query = query ?? '';
+
     if(query.length < 3){
       Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,

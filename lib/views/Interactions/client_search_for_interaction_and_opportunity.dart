@@ -28,9 +28,9 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 });
   var allCLient = [];
   bool _isLoading = false;
-  String?  searchStatus = '';
+  String  searchStatus = '';
 
-  vchangeState(String?  newVals){
+  vchangeState(String  newVals){
     setState(() {
       searchStatus = newVals;
     });
@@ -65,6 +65,8 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 
   Future<List> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    query = query ?? '';
 
     if(query.length < 3){
       Flushbar(
@@ -293,8 +295,8 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        VoidCallback onBtnPressed,bool isSuffix = false,
-        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
+        VoidCallback? onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true, String? Function(String?)? changeValidator,Widget? prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

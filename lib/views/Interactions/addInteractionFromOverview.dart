@@ -792,10 +792,10 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
     }
     print(choosedimage);
 
-    setState(() {
+    setState(() async {
       uploadimage = choosedimage;
 
-      final bytes = choosedimage.readAsBytesSync().lengthInBytes;
+      final bytes = (await choosedimage.readAsBytes()).length;
 
       // get file size
       final kb = bytes / 1024;
@@ -806,7 +806,7 @@ class _AddInteractionFromOverViewState extends State<AddInteractionFromOverView>
 
       // end get file size
       //convert image to base64
-      List<int> imageBytes = uploadimage.readAsBytes();
+      List<int> imageBytes = await uploadimage!.readAsBytes();
       baseimage = base64Encode(imageBytes);
 
 
