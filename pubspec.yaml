@@ -43,7 +43,7 @@ dependencies:
   another_flushbar:
   percent_indicator:
   flutter_typeahead:
-#  file_picker:
+   bfile_picker:
   shimmer:
   loading_overlay:
   lottie:

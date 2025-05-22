@@ -8,14 +8,14 @@ class DoubleBottomNavComponent extends StatelessWidget {
     required this.text2,
     required this.callAction1,
     required this.callAction2,
-    required this.compsender,
+    this.compsender,
   }) : super(key: key);
 
   final String?  text1;
   final String?  text2;
   final VoidCallback callAction1;
    final VoidCallback callAction2;
-    final Widget compsender;
+    final Widget? compsender;
   @override
   Widget build(BuildContext context) {
     return    Container(
