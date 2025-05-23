@@ -47,7 +47,7 @@ var interactionData = [];
 
 class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
   int?  clientID, loanOfficerId;
-  Timer _timerForInter;
+  Timer? _timerForInter;
   final String?  clientName, ClientEmail;
   _GetOpportunityLoggedByMeState(
       {this.clientID, this.ClientEmail, this.clientName, this.loanOfficerId});
@@ -65,7 +65,7 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
 
   getInteracctionForClient() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String?  seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword') ?? '';
 
 
     final Map<String, String> sequestLoginData = {
@@ -75,7 +75,7 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
     };
 
     Response Sequestresponse = await post(
-      Uri.parse(AppUrl.sequestLogin),
+      Uri.parse(AppUrl.sequestLogin.path),
       body: json.encode(sequestLoginData),
       headers: <String, String>{
         'cache-control': 'no-cache',
@@ -95,11 +95,11 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
     //   final SharedPreferences prefs = await SharedPreferences.getInstance();
     var sequesttoken = prefs.getString('sequestToken');
     print(
-        'sequestToken ${sequesttoken} ${AppUrl.getInteractionLoggedByMe + '${loanOfficerId}'}');
+        "sequestToken ${sequesttoken} ${AppUrl.getInteractionLoggedByMe} ${loanOfficerId}");
 
     try {
-      Response responsevv = await get(
-        AppUrl.getOpportunityLoggedByMe + '${loanOfficerId}',
+      Response responsevv = await get(Uri.parse(
+        AppUrl.getOpportunityLoggedByMe.path + '${loanOfficerId}'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${sequesttoken}',
@@ -225,7 +225,7 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(ticketId),
+                      Text(ticketId ?? ''),
                       // Container(
                       //   width: MediaQuery.of(context).size.width * 0.3,
                       //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -245,7 +245,7 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
                 Container(
                   child: ListTile(
                     title: Text(
-                      title,
+                      title ?? "",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -344,7 +344,7 @@ class _GetOpportunityLoggedByMeState extends State<GetOpportunityLoggedByMe> {
   }
 
   get10(String?  val_10) {
-    String?  vals = val_10.substring(0, 10);
+    String?  vals = val_10?.substring(0, 10);
     return vals;
   }
 }
@@ -416,7 +416,7 @@ class InteractionSearch extends SearchDelegate<String> {
             progress: transitionAnimation,
           ),
           onPressed: () {
-            close(context, null);
+            close(context, "");
           },
         ));
   }
@@ -455,7 +455,7 @@ class InteractionSearch extends SearchDelegate<String> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(ticketId),
+                        Text(ticketId ?? ""),
                         // Container(
                         //   width: 65,
                         //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -475,7 +475,7 @@ class InteractionSearch extends SearchDelegate<String> {
                   Container(
                     child: ListTile(
                       title: Text(
-                        title,
+                        title ?? "",
                         style: TextStyle(
                             fontSize: 16,
                             color: Colors.black,
@@ -508,7 +508,7 @@ class InteractionSearch extends SearchDelegate<String> {
             .where((element) =>
                 toBeginningOfSentenceCase(element['ticketId'])
                     .toString()
-                    .contains(toBeginningOfSentenceCase(query)) ||
+                    .contains(toBeginningOfSentenceCase(query)!) ||
                 element['ticketId'].toString().contains(query) ||
                 element['ticketId']
                     .toString()

@@ -68,7 +68,7 @@ class _LeadSearchState extends State<LeadSearch> {
 
   }
 
-  Future<List> getSuggestions(String?  query) async{
+  Future<dynamic> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     query = query ?? '';
@@ -92,7 +92,7 @@ class _LeadSearchState extends State<LeadSearch> {
         });
 
         print('loan Officer Id ${loanOfficerId}');
-        String?  sendQuery = searchStatus + '${query}';
+        String?  sendQuery = "$searchStatus${query}";
 
         final Future<Map<String,dynamic>> respose =   RetCodes().leadSearch(loanOfficerId,sendQuery);
         respose.then((response) async {
@@ -279,8 +279,8 @@ class _LeadSearchState extends State<LeadSearch> {
   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        VoidCallback onBtnPressed,bool isSuffix = false,
-        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
+        VoidCallback? onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true, String? Function(String?)? changeValidator,Widget? prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(

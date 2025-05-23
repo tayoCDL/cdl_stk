@@ -45,7 +45,7 @@ var interactionData = [];
 
 class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
   int?  clientID,loanOfficerId;
-  Timer _timerForInter;
+  Timer? _timerForInter;
   final String?  clientName,ClientEmail;
   _ItHelpDeskListsState({this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId});
 
@@ -66,7 +66,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
 
   getInteracctionForClient() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String?  seQuestPassword = prefs.getString('sequestpassword');
+    String?  seQuestPassword = prefs.getString('sequestpassword') ?? "";
 
     final Map<String, String> sequestLoginData = {
       "username": "MobileUser",
@@ -75,7 +75,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
     };
 
     Response Sequestresponse = await post(
-      Uri.parse(AppUrl.sequestLogin),
+      AppUrl.sequestLogin,
       body: json.encode(sequestLoginData),
       headers:<String, String> {
         'cache-control': 'no-cache',
@@ -99,8 +99,8 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
 //    print('sequestToken ${sequesttoken} ${AppUrl.getInteractionLoggedByMe + '${loanOfficerId}'}');
 
     try{
-      Response responsevv = await get(
-        AppUrl.getInteractionLoggedByMe + '${localLoanOfficerId}?custonType=Staff',
+      Response responsevv = await get(Uri.parse(
+        AppUrl.getInteractionLoggedByMe.path + '${localLoanOfficerId}?custonType=Staff'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${sequesttoken}',
@@ -229,7 +229,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(ticketId),
+                      Text(ticketId ?? ""),
                       // Container(
                       //   width: MediaQuery.of(context).size.width * 0.3,
                       //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -249,7 +249,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
                 ),
                 Container(
                   child: ListTile(
-                    title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                    title:Text(title ?? "",style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                     subtitle: Text('Due Date: ${get10(dueDate)}',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                   ),
@@ -316,7 +316,7 @@ class _ItHelpDeskListsState extends State<ItHelpDeskLists> {
   }
 
   get10(String?  val_10){
-    String?  vals = val_10.substring(0,10);
+    String?  vals = val_10?.substring(0,10);
     return vals;
   }
 
@@ -371,7 +371,7 @@ class InteractionSearch extends SearchDelegate<String>{
 
       ),
       onPressed: (){
-        close(context, null);
+        close(context, "");
       },
     ));
   }
@@ -406,7 +406,7 @@ class InteractionSearch extends SearchDelegate<String>{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(ticketId),
+                        Text(ticketId ?? ""),
                         // Container(
                         //   width: 65,
                         //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -426,7 +426,7 @@ class InteractionSearch extends SearchDelegate<String>{
                   ),
                   Container(
                     child: ListTile(
-                      title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                      title:Text(title ?? "",style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                       trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                       subtitle: Text('',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                     ),
@@ -445,7 +445,7 @@ class InteractionSearch extends SearchDelegate<String>{
 
     final suggestionsList  = query.isEmpty ? interactionData.take(5).toList() :
     interactionData.where((element) =>
-    toBeginningOfSentenceCase(element['ticketId']).toString().contains(toBeginningOfSentenceCase(query)) ||
+    toBeginningOfSentenceCase(element['ticketId']).toString().contains(toBeginningOfSentenceCase(query)!) ||
         element['ticketId'].toString().contains(query)||
         element['ticketId'].toString().startsWith(query.toUpperCase()) ||
         element['ticketId'].startsWith(query.toUpperCase())).toList();

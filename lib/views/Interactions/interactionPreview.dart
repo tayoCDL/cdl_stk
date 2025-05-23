@@ -11,7 +11,7 @@ import 'package:sales_toolkit/util/router.dart';
 class InteractionImagePreview extends StatefulWidget {
   final String?  passedType,passedFileName;
   final Uint8List passedDocument;
-  const InteractionImagePreview({Key? key,this.passedDocument,this.passedType,this.passedFileName}) : super(key: key);
+  const InteractionImagePreview({Key? key, required this.passedDocument,this.passedType,this.passedFileName}) : super(key: key);
 
   @override
   _InteractionImagePreviewState createState() => _InteractionImagePreviewState(
@@ -42,12 +42,12 @@ class _InteractionImagePreviewState extends State<InteractionImagePreview> {
   //     .map((number) => int.parse(number));
 
 
-  _InteractionImagePreviewState({this.passedDocument,this.passedType,this.passedFileName});
+  _InteractionImagePreviewState({required this.passedDocument,this.passedType,this.passedFileName});
   @override
 
 
 
-  retRealFile(String?  img){
+  retRealFile(String  img){
     var Velo =  img.split(',').first;
     int?  chopOut = Velo.length + 1;
     String?  realfile =  img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
