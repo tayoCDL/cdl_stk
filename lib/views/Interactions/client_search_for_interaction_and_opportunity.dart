@@ -63,7 +63,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 
   }
 
-  Future<List> getSuggestions(String?  query) async{
+  Future<dynamic> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     query = query ?? '';

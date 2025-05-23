@@ -38,7 +38,7 @@ var interactionData = [];
 
 class _ClientInteractionState extends State<ClientInteraction> {
   int?  clientID;
-  Timer _timerForInter;
+  Timer? _timerForInter;
   final String?  clientName,ClientEmail;
   _ClientInteractionState({this.clientID,this.ClientEmail,this.clientName});
 
@@ -62,8 +62,8 @@ class _ClientInteractionState extends State<ClientInteraction> {
     print('sequestToken ${sequesttoken}');
 
     try{
-      Response responsevv = await get(
-        AppUrl.getRecentTicketByCLientId + '${clientID}',
+      Response responsevv = await get(Uri.parse(
+        AppUrl.getRecentTicketByCLientId.path + '${clientID}'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${sequesttoken}',
@@ -174,7 +174,7 @@ class _ClientInteractionState extends State<ClientInteraction> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
-                      Text(ticketId),
+                      Text(ticketId ?? ""),
                       // Container(
                       //   width: MediaQuery.of(context).size.width * 0.3,
                       //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -195,7 +195,7 @@ class _ClientInteractionState extends State<ClientInteraction> {
                 ),
                 Container(
                   child: ListTile(
-                    title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                    title:Text(title ?? "",style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                     subtitle: Text('Due Date: ${get10(duedate)}',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                   ),
@@ -310,7 +310,7 @@ class InteractionSearch extends SearchDelegate<String>{
 
       ),
       onPressed: (){
-        close(context, null);
+        close(context, "");
       },
     ));
   }
@@ -345,7 +345,7 @@ class InteractionSearch extends SearchDelegate<String>{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(ticketId),
+                        Text(ticketId ?? ""),
                         // Container(
                         //   width: 65,
                         //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -365,7 +365,7 @@ class InteractionSearch extends SearchDelegate<String>{
                   ),
                   Container(
                     child: ListTile(
-                      title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                      title:Text(title ?? "",style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                       trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                      // subtitle: Text('Last updated: 2022-01-20',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                     ),
@@ -384,7 +384,7 @@ class InteractionSearch extends SearchDelegate<String>{
 
     final suggestionsList  = query.isEmpty ? interactionData.take(5).toList() :
     interactionData.where((element) =>
-    toBeginningOfSentenceCase(element['ticketId']).toString().contains(toBeginningOfSentenceCase(query)) ||
+    toBeginningOfSentenceCase(element['ticketId']).toString().contains(toBeginningOfSentenceCase(query) ?? "") ||
         element['ticketId'].toString().contains(query)||
         element['ticketId'].toString().startsWith(query.toUpperCase()) ||
         element['ticketId'].startsWith(query.toUpperCase())).toList();

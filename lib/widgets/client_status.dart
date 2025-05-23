@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:sales_toolkit/util/enum/color_utils.dart';
 
-Widget clientStatus(Color statusColor,String?  status,{required Color fontColor,double? fontSize,double? containerSIze,double? brdradius,VoidCallback? ontaPP,double? containerHeight}) {
+Widget clientStatus(Color statusColor,String?  status,{Color? fontColor,double? fontSize,double? containerSIze,double? brdradius,VoidCallback? ontaPP,double? containerHeight}) {
   return InkWell(
     onTap: ontaPP,
     child: Container(

@@ -44,7 +44,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   var discussData = [];
   var fullRequestData = {};
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -52,7 +52,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   String?  fileSize = '';
   String?  baseimage = '';
   int?  replyStatus = 0;
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name, agent_email = '';
   int?  agentId = 0;
   String?  selectedStatus = '';
@@ -93,9 +93,9 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
   double? _aspectRatio = 1.5;
 
-  retRealFile(String?  img) {
+  retRealFile(String  img) {
     var Velo = img.split(',').first;
-    int?  chopOut = Velo.length + 1;
+    int  chopOut = Velo.length + 1;
     String?  realfile =
         img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
@@ -187,8 +187,8 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var sequesttoken = prefs.getString('sequestToken');
     print('sequest Token ${sequesttoken}');
-    Response responsevv = await get(
-      AppUrl.getFullDiscussWithTicketID + ticketID,
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getFullDiscussWithTicketID.path + ticketID!),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -418,7 +418,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     );
   }
 
-  retsNx360dates(String?  chatDate) {
+  retsNx360dates(String  chatDate) {
     print('2022-03-11T10:03:18.7029365');
 
     // String?  newdate = selectedDate.toString().substring(0,10);
@@ -599,12 +599,16 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
   void takePhoto(ImageSource source) async {
     MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
+
+    if (choosedimage == null) {
+      return;
+    }
     //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    XFile imagefile = choosedimage; //convert Path to File
 
     var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
+      imagefile.path,
       minWidth: 330,
       minHeight: 250,
       quality: 100,
@@ -612,7 +616,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     );
 
     print('this is file sixe');
-    print(imagefile.lengthSync());
+    print(imagefile.length());
     print(result);
     //return result;
 
@@ -620,9 +624,9 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
+    String?  base64String  =
+        base64.encode(result!); //convert bytes to base64 string
+    print('base64String?  ${base64String}');
 
     String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
@@ -637,7 +641,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
-      File file = choosedimage;
+      XFile file = choosedimage;
       _fileName = file.path.split('/').last;
       print('filename ${_fileName}');
       selectedFile = _fileName;
@@ -651,9 +655,9 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     //  print('image base64 ${img64}');
 
     setState(() {
-      passportFileLocation = base64string;
+      passportFileLocation = base64String;
       passportFileSize = '';
-      passportFiletype = _fileName.split('.').last;
+      passportFiletype = _fileName?.split('.').last;
     });
 
     print('passport file location ${passportFiletype} ');
@@ -668,7 +672,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
       }
     });
 
-    newFileLocation = appendBase64 + passportFileLocation;
+    newFileLocation = "$appendBase64$passportFileLocation";
 
     if (!mounted) return;
 
@@ -706,6 +710,10 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
       );
 
       result = await FlutterDocumentPicker.openDocument(params: params);
+
+      if (result == null) {
+        return;
+      }
 
       final file = File(result);
       final fileSize = await file.length();
@@ -753,9 +761,9 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       // print('this is Path ${_path}');
 
-      print('file extension ${_path.split('.').last}');
+      print('file extension ${_path?.split('.').last}');
 
-      String?  filePath = _path.split('.').last;
+      String?  filePath = _path?.split('.').last;
 
       var result;
 
@@ -766,7 +774,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       if (extensionChecker) {
         result = await FlutterImageCompress.compressWithFile(
-          _path,
+          _path!,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
@@ -776,22 +784,22 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         passportFileLocation = img64;
         passportFileSize = filesizeAsString;
-        passportFiletype = _path.split('.').last;
+        passportFiletype = _path?.split('.').last;
       });
 
       print('passport file location ${passportFiletype} ');
@@ -806,7 +814,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
         }
       });
 
-      newFileLocation = appendBase64 + passportFileLocation;
+      newFileLocation = "$appendBase64$passportFileLocation";
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     }
@@ -814,7 +822,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
+      _fileName = _path != null ? _path?.split('/').last : '...';
       selectedFile = _fileName;
       passportFileName = _fileName;
       //  isPassportAdded = true;
@@ -1002,7 +1010,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
                       itemCount: discussData == null || discussData.isEmpty
                           ? 0
                           : discussData.length,
-                      itemBuilder: (context, int?  index) {
+                      itemBuilder: (context, int  index) {
                         print(discussData);
 
                         final message = discussData[index];
@@ -1395,7 +1403,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
           print('single Image ${singleImageFile}');
 
-          final UriData data = Uri.parse(singleImageFile).data;
+          final UriData data = Uri.parse(singleImageFile).data!;
 
 // You can check if data is normal base64 - should return true
           print('isBase64');
