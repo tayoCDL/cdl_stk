@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -152,17 +152,17 @@ class MetricsFilterModal extends StatelessWidget {
 
 
   newDatePicker(BuildContext context,var controller){
-   return DatePicker.showDatePicker(context,
-        showTitleActions: true,
-        minTime: DateTime(1955, 3, 5),
-        maxTime:  DateTime.now().add(Duration(days: 0,hours: 2)),
-        onChanged: (date) {
-          print('change $date');
-          String?  retDate = retsNx360dates(date);
-          controller.text = retDate;
-        }, onConfirm: (date) {
-          print('confirm $date');
-        }, currentTime: DateTime.now(), locale: LocaleType.en);
+   // return DatePicker.showDatePicker(context,
+   //      showTitleActions: true,
+   //      minTime: DateTime(1955, 3, 5),
+   //      maxTime:  DateTime.now().add(Duration(days: 0,hours: 2)),
+   //      onChanged: (date) {
+   //        print('change $date');
+   //        String?  retDate = retsNx360dates(date);
+   //        controller.text = retDate;
+   //      }, onConfirm: (date) {
+   //        print('confirm $date');
+   //      }, currentTime: DateTime.now(), locale: LocaleType.en);
   }
 
   //

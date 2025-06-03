@@ -108,7 +108,7 @@ class _ClientListsState extends State<ClientLists> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  StreamSubscription subscription;
+  StreamSubscription? subscription;
 
   @override
   // void initState() {
@@ -158,7 +158,7 @@ class _ClientListsState extends State<ClientLists> {
 
     if(mounted){
 
-      if (query.length > 3){
+      if (query!.length > 3){
         // setState(() {
         //   isSearchLoading = true;
         // });
@@ -189,8 +189,7 @@ class _ClientListsState extends State<ClientLists> {
 
     }
 
-
-
+    throw Exception('Error fetching suggestions');
 
 
   }
@@ -219,7 +218,7 @@ class _ClientListsState extends State<ClientLists> {
         print('allClient ${allCLient}');
 
 
-        for(int?  i = 0; i < allCLient.length;i++){
+        for(int?  i = 0; i! < allCLient.length;i++){
           print(' new client ${allCLient[i]['entityName']}');
           collectClientName.add(allCLient[i]['entityName']);
 
@@ -239,7 +238,7 @@ class _ClientListsState extends State<ClientLists> {
     print('collect Client Name ${collectClientName}');
 
 
-    for(int?  i=0;i < allCLient.length;i++){
+    for(int?  i=0;i! < allCLient.length;i++){
       _list.add(new TestItem.fromJson(
           {'label': collectClientName[i], 'value': collectClientId[i]}
       ));
@@ -278,7 +277,7 @@ class _ClientListsState extends State<ClientLists> {
 
 
       Response responsevv = await get(
-        AppUrl.ClientsList+'/nx360?staffId=${staffId}&offset=0&limit=10',
+        Uri.parse(AppUrl.clientsList+'/nx360?staffId=${staffId}&offset=0&limit=10'),
        // AppUrl.ClientsList+'?staffId=${staffId}',
      //   AppUrl.enc_clients_lists,
      //   body: jsonEncode(encData_2),
@@ -330,7 +329,7 @@ class _ClientListsState extends State<ClientLists> {
 //   AppUrl.ClientsList+'?staffId=${staffId}',
     try{
       Response responsevv = await get(
-        AppUrl.ClientsList,
+        Uri.parse(AppUrl.clientsList),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -361,7 +360,7 @@ class _ClientListsState extends State<ClientLists> {
   int?  CLientID;
 
   allWordsCapitilize (String?  str) {
-    return str.toLowerCase().split(' ').map((word) {
+    return str!.toLowerCase().split(' ').map((word) {
       String?  leftText = (word.length > 1) ? word.substring(1, word.length) : '';
       return word[0].toUpperCase() + leftText;
     }).join(' ');
@@ -382,14 +381,14 @@ class _ClientListsState extends State<ClientLists> {
       key: _scaffoldKey,
         backgroundColor: Theme
             .of(context)
-            .backgroundColor,
+            .colorScheme.outline,
 
         appBar:
         AppBar(
           automaticallyImplyLeading: false,
           backgroundColor:  Theme
               .of(context)
-              .backgroundColor,
+              .colorScheme.outline,
           title:
           // Showcase(
           //             key: _two,
@@ -466,6 +465,7 @@ class _ClientListsState extends State<ClientLists> {
                 isScrolled = false;
               });
             }
+            return false;
           },
           child:  Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -603,9 +603,9 @@ class _ClientListsState extends State<ClientLists> {
 
         height: 80,
         child: ListTile(
-          leading: _LeadingUserTile(colm,nameLogo.toUpperCase()),
-          title: Text(title,style: TextStyle(color:Theme.of(context).textTheme.headline6.color,fontFamily: 'Nunito SansRegular',fontSize: 12,fontWeight: FontWeight.w600),),
-          subtitle: Text(employer,style: TextStyle(fontSize: 9,color: Colors.blueGrey),),
+          leading: _LeadingUserTile(colm,nameLogo?.toUpperCase()),
+          title: Text(title!,style: TextStyle(color:Theme.of(context).textTheme.titleLarge?.color,fontFamily: 'Nunito SansRegular',fontSize: 12,fontWeight: FontWeight.w600),),
+          subtitle: Text(employer!,style: TextStyle(fontSize: 9,color: Colors.blueGrey),),
           trailing:  Icon(Icons.arrow_forward_ios_rounded,size: 20,color: Colors.blueGrey,)
         ),
       ),
@@ -622,7 +622,7 @@ class _ClientListsState extends State<ClientLists> {
         borderRadius: BorderRadius.all(Radius.circular(60)),
 
       ),
-      child: Center(child: Text(nameLogo,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
+      child: Center(child: Text(nameLogo!,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
     );
   }
 
@@ -753,7 +753,7 @@ class ClientSearch extends SearchDelegate<String>{
 
       ),
       onPressed: (){
-        close(context, null);
+        close(context, 'close');
       },
     ));
   }
@@ -806,7 +806,7 @@ class ClientSearch extends SearchDelegate<String>{
           borderRadius: BorderRadius.all(Radius.circular(60)),
 
         ),
-        child: Center(child: Text(nameLogo,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
+        child: Center(child: Text(nameLogo!,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),)),
       );
     }
 
@@ -818,12 +818,12 @@ class ClientSearch extends SearchDelegate<String>{
 
           height: 80,
           child: ListTile(
-              leading: _LeadingUserTile(colm,nameLogo.toUpperCase()),
-              title: Text(title,style: TextStyle(color:Theme.of(context).textTheme.headline6.color,fontFamily: 'Nunito SansRegular',fontSize: 12,fontWeight: FontWeight.w600),),
+              leading: _LeadingUserTile(colm,nameLogo!.toUpperCase()),
+              title: Text(title!,style: TextStyle(color:Theme.of(context).textTheme.titleLarge?.color,fontFamily: 'Nunito SansRegular',fontSize: 12,fontWeight: FontWeight.w600),),
               subtitle: Row(
                 children: [
-                  Text(employer),
-                  Text(status,style: TextStyle(color: status == 'pending' ? Colors.orangeAccent : Colors.green),)
+                  Text(employer!),
+                  Text(status!,style: TextStyle(color: status == 'pending' ? Colors.orangeAccent : Colors.green),)
                 ],
               ),
               trailing:  Icon(Icons.arrow_forward_ios_rounded,size: 20,color: Colors.blueGrey,)

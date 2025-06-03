@@ -31,7 +31,7 @@ class EmbeddedDetails extends StatefulWidget {
   // _NewLoanState createState() => _NewLoanState();
 
   final int?  clientID, productId, loanId, employerId, sectorID, parentClientType,channelId;
-  final Map<String,dynamic> thirdParty_response;
+  final Map<String,dynamic>? thirdParty_response;
   final String?  staff_id;
   const EmbeddedDetails(
       {Key? key,
@@ -55,7 +55,7 @@ class EmbeddedDetails extends StatefulWidget {
       employerId: this.employerId,
       sectorID: this.sectorID,
       parentClientType: this.parentClientType,
-      thirdParty_response: this.thirdParty_response,
+      thirdParty_response: this.thirdParty_response ?? {},
       staff_id: this.staff_id,
       channelId: channelId
   );
@@ -75,7 +75,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         this.employerId,
         this.sectorID,
         this.parentClientType,
-        this.thirdParty_response,
+        this.thirdParty_response = const {},
         this.staff_id,
         this.channelId
       });
@@ -163,7 +163,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
        // "staffId": 12223,
        // "staffId": 62677,
         "staffId": staff_id.toString(),
-        "companyUUId": thirdParty_response['lenderEmployerId'],
+        "companyUUId": thirdParty_response?['lenderEmployerId'],
     };
     print(' user request >> ${userRequest}');
     final Future<Map<String,dynamic>> response =   RetCodes().get_encryptAndSend(userRequest);
@@ -199,7 +199,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername!;
     });
   }
 
@@ -213,8 +213,8 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -274,7 +274,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -319,7 +319,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i < filtered.length; i++) {
+      for (int  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -355,7 +355,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -380,7 +380,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -400,8 +400,8 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -581,7 +581,8 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
                       employerId: employerID,
                       sectorID: sectorID,
                       otherInfo:thirdParty_response,
-                      productId: thirdParty_response['is_federal_wacs'] == true ?  93 : 99,
+                      productId: thirdParty_response['is_federal_wacs'] == true ?  93 : 99, 
+                      thirdPartyLoanResponse: {},
                   )
 
               );
@@ -725,8 +726,8 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
   Widget WacsProductWidge() {
   //  Map<String,dynamic> resp_info = thirdParty_response['staff_info'];
    // Map<String,dynamic> staff_info = thirdParty_response['staffInfo'];
-    Map<String,dynamic> staff_info_customer = thirdParty_response['staffInfo']['customer'];
-    Map<String,dynamic> staff_info_customer_user = thirdParty_response['staffInfo']['customer']['user'];
+    Map<String,dynamic> staff_info_customer = thirdParty_response?['staffInfo']['customer'];
+    Map<String,dynamic> staff_info_customer_user = thirdParty_response?['staffInfo']['customer']['user'];
     return Container(
       height: MediaQuery.of(context).size.height * 0.49,
       padding: EdgeInsets.only(top: 15),
@@ -766,9 +767,9 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
           //
           // dummyDataPass('Current Eligibility', '₦${staff_info['currentEligibility']}'),
           SizedBox(height: 5),
-          dummyDataPass('Eligibility',thirdParty_response['eligibility'] == null ? 'N/A': '₦${AppHelper().formatCurrency(thirdParty_response['eligibility'].toString())}'),
+          dummyDataPass('Eligibility',thirdParty_response?['eligibility'] == null ? 'N/A': '₦${AppHelper().formatCurrency(thirdParty_response['eligibility'].toString())}'),
           SizedBox(height: 5),
-          dummyDataPass('Monthly Eligibility',thirdParty_response['monthlyEligibility'] == null ? 'N/A':  '₦${AppHelper().formatCurrency(thirdParty_response['monthlyEligibility'].toString())}'),
+          dummyDataPass('Monthly Eligibility',thirdParty_response?['monthlyEligibility'] == null ? 'N/A':  '₦${AppHelper().formatCurrency(thirdParty_response['monthlyEligibility'].toString())}'),
 
           SizedBox(
             height: 6,
@@ -812,7 +813,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
   }
 
   _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
+    final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1930),
@@ -824,7 +825,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         print(selected);
         //  date = selected.toString();
         String?  vasCoddd = retsNx360dates(selected);
-        dateController.text = vasCoddd;
+        dateController.text = vasCoddd ?? "";
       });
   }
 
@@ -859,7 +860,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
       String?  hintText,
       var keyBoard, {
         bool isPassword = false,
-        isRealOnly: false,
+        isRealOnly = false,
       }) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -868,7 +869,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -903,7 +904,7 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -940,9 +941,9 @@ class _EmbeddedDetailsState extends State<EmbeddedDetails> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                     });
                   },
                 ),

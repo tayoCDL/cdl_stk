@@ -37,7 +37,8 @@ class LoanSoldView extends StatefulWidget {
 
 class _LoanSoldViewState extends State<LoanSoldView> {
   int?  clientID,loanOfficerId,parentEmployerSector;
-  List<dynamic> CustomerLists,filteredLoans = [];
+  List<dynamic> CustomerLists = [];
+  List<dynamic> filteredLoans = [];
   int?  employerID,sectorId,parentClient;
   bool _isLoading = false;
 
@@ -107,8 +108,8 @@ class _LoanSoldViewState extends State<LoanSoldView> {
       _isLoading = true;
     });
 
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -409,12 +410,12 @@ class _LoanSoldViewState extends State<LoanSoldView> {
           BoxShadow(color: statusColor, spreadRadius: 0.1),
         ],
       ),
-      child: Center(child: Text(status,style: TextStyle(color: Colors.white,fontSize: 11),)),
+      child: Center(child: Text(status ?? "",style: TextStyle(color: Colors.white,fontSize: 11),)),
     );
   }
 
   String?  chopPending(String?  pends){
-    if(pends.contains('Pending')){
+    if(pends?.contains('Pending') ?? false){
       return "Team Lead Review";
     }
     else {
@@ -423,7 +424,7 @@ class _LoanSoldViewState extends State<LoanSoldView> {
   }
 
   String?  chopPendingApproval(String?  pends){
-    if(pends.contains('Pending')){
+    if(pends?.contains('Pending') ?? false){
       return "Team Lead Review";
     }
     else {
@@ -436,6 +437,7 @@ String?  getLoanStatus(int?  loanStatus){
     return loanstats;
   }
 String?  thirtyMax(String?  txt){
+  txt  = txt ?? "";
    return txt.length > 20 ? txt.substring(0,20) + '...' : txt;
 }
 

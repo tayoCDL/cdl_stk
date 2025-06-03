@@ -4,7 +4,9 @@ import 'dart:typed_data';
 import 'dart:io';
 import 'dart:math';
 import 'package:another_flushbar/flushbar.dart';
+// import 'package:camera_camera/camera_camera.dart';
 import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +20,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sales_toolkit/util/app_tracker.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/router.dart';
@@ -26,12 +29,13 @@ import 'package:sales_toolkit/view_models/addClient.dart';
 import 'package:sales_toolkit/views/clients/CustomerPreview.dart';
 import 'package:sales_toolkit/views/clients/DocumentPreview.dart';
 import 'package:sales_toolkit/views/clients/SingleCustomerScreen.dart';
-import 'package:sales_toolkit/views/clients/testDiscovers.dart';
+// import 'package:sales_toolkit/views/clients/testDiscovers.dart';
 // import 'package:sales_toolkit/views/draft/ClientDraft.dart';
 import 'package:sales_toolkit/widgets/DoubleButtonBottomNav.dart';
 import 'package:sales_toolkit/widgets/Stepper.dart';
 import 'package:sales_toolkit/widgets/constants.dart';
 import 'package:sales_toolkit/widgets/dropdown.dart';
+import 'package:sales_toolkit/widgets/photo_handler.dart';
 import 'package:sales_toolkit/widgets/rounded-button.dart';
 import 'package:sales_toolkit/widgets/shared/pickDocument.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,7 +76,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
   //   signatureGlobalKey.currentState.clear();
   // }
 
-  File uploadimage;
+  File? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -82,12 +86,12 @@ class _DocumentUploadState extends State<DocumentUpload> {
   bool _hasValidMime = false;
   String?  appendBase64 = '';
   bool value = false;
-  FileType _pickingType;
+  // FileType? _pickingType;
   DateTime selectedDate = DateTime.now();
   DateTime CupertinoSelectedDate = DateTime.now();
 
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
 
   List<String> DocumentTypeArray = [];
   List<String> collectDocumentType = [];
@@ -233,10 +237,10 @@ class _DocumentUploadState extends State<DocumentUpload> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfResidence'));
+            jsonDecode(prefs.getString('prefsProofOfResidence')!);
 
         //
-        if (prefs.getString('prefsProofOfResidence').isEmpty) {
+        if (prefs.getString('prefsProofOfResidence')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -253,7 +257,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             UpdateallDocumentType = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentType.add(mtBool[i]['name']);
           }
@@ -287,7 +291,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         List<dynamic> modifiedEmp =
             newEmp.where((element) => element['systemDefined']).toList();
 
-        for (int?  i = 0; i < modifiedEmp.length; i++) {
+        for (int?  i = 0; i! < modifiedEmp.length; i++) {
           print(modifiedEmp[i]['name']);
           collectDocumentType.add(modifiedEmp[i]['name']);
         }
@@ -312,10 +316,10 @@ class _DocumentUploadState extends State<DocumentUpload> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfEmployment'));
+            jsonDecode(prefs.getString('prefsProofOfEmployment')!);
 
         //
-        if (prefs.getString('prefsProofOfEmployment').isEmpty) {
+        if (prefs.getString('prefsProofOfEmployment')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -331,7 +335,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allDocumentCategory = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentCategory.add(mtBool[i]['name']);
           }
@@ -362,7 +366,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           UpdateallDocumentCategory = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i! < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectDocumentCategory.add(newEmp[i]['name']);
           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -389,10 +393,10 @@ class _DocumentUploadState extends State<DocumentUpload> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfEmployment'));
+            jsonDecode(prefs.getString('prefsProofOfEmployment')!);
 
         //
-        if (prefs.getString('prefsProofOfEmployment').isEmpty) {
+        if (prefs.getString('prefsProofOfEmployment')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -408,7 +412,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allDocumentCategory = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectDocumentCategory.add(mtBool[i]['name']);
           }
@@ -439,7 +443,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           UpdateallDocumentCategory = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i! < newEmp.length; i++) {
           print(newEmp[i]['name']);
           //  collectDocumentCategory.add(newEmp[i]['name']);
           UpdatecollectDocumentCategory.add(newEmp[i]['name']);
@@ -489,10 +493,10 @@ class _DocumentUploadState extends State<DocumentUpload> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfIdentity'));
+            jsonDecode(prefs.getString('prefsProofOfIdentity')!);
 
         //
-        if (prefs.getString('prefsProofOfIdentity').isEmpty) {
+        if (prefs.getString('prefsProofOfIdentity')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -508,7 +512,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
             allIdentity = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -537,7 +541,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
           allIdentity = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i! < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }
@@ -580,7 +584,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
       // result = await FlutterDocumentPicker.openDocument(params: params);
       result = await FlutterDocumentPicker.openDocument(params: params);
 
-      final file = File(result);
+      final file = File(result!);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         setState(() {
@@ -626,9 +630,9 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       // print('this is Path ${_path}');
 
-      print('file extension ${_path.split('.').last}');
+      print('file extension ${_path!.split('.').last}');
 
-      String?  filePath = _path.split('.').last;
+      String?  filePath = _path!.split('.').last;
 
       var result;
 
@@ -639,7 +643,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       if (extensionChecker) {
         result = await FlutterImageCompress.compressWithFile(
-          _path,
+          _path!,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
@@ -649,22 +653,22 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         passportFileLocation = img64;
         passportFileSize = filesizeAsString;
-        passportFiletype = _path.split('.').last;
+        passportFiletype = _path!.split('.').last;
       });
 
       print('passport file location ${passportFiletype} ');
@@ -679,7 +683,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         }
       });
 
-      newFileLocation = appendBase64 + passportFileLocation;
+      newFileLocation = (appendBase64! + passportFileLocation!)!;
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     }
@@ -687,8 +691,8 @@ class _DocumentUploadState extends State<DocumentUpload> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      passport.text = _fileName;
+      _fileName = _path != null ? _path?.split('/').last : '...';
+      passport.text = _fileName!;
       passportFileName = _fileName;
       isPassportAdded = true;
     });
@@ -708,9 +712,9 @@ class _DocumentUploadState extends State<DocumentUpload> {
     print(tfaToken);
     print(token);
     Response responsevv = await get(
-      AppUrl.getSingleClientPersonalInfo +
+      Uri.parse(AppUrl.getSingleClientPersonalInfo +
           localclientID.toString() +
-          '/identifiers/attachment',
+          '/identifiers/attachment'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -744,7 +748,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     print(tfaToken);
     print(token);
     Response responsevv = await get(
-      AppUrl.getSingleClientPersonalInfo + localclientID.toString() + '/images',
+     Uri.parse( AppUrl.getSingleClientPersonalInfo + localclientID.toString() + '/images'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -855,7 +859,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
       result = await FlutterDocumentPicker.openDocument(params: params);
       //  final filePath = await FlutterDocumentPicker.openDocument();
 
-      final file = File(result);
+      final file = File(result!);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         showDialog(
@@ -889,7 +893,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     });
 
     try {
-      String?  filePath = _path.split('.').last;
+      String?  filePath = _path?.split('.').last;
 
       var result;
 
@@ -900,7 +904,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       if (extensionChecker) {
         result = await FlutterImageCompress.compressWithFile(
-          _path,
+          _path!,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
@@ -910,16 +914,16 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
+      final bytes = Io.File(_path!).readAsBytesSync();
 
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb} ${kb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
@@ -927,7 +931,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
       setState(() {
         documentFileLocation = img64;
         residenceFileSize = filesizeAsString;
-        documentFiletype = _path.split('.').last;
+        documentFiletype = _path!.split('.').last;
       });
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
@@ -936,8 +940,8 @@ class _DocumentUploadState extends State<DocumentUpload> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
+      _fileName = _path != null ? _path?.split('/').last : '...';
+      proof_of_residence.text = _fileName!;
       // documentFileName = _fileName;
     });
 
@@ -1077,7 +1081,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
     final filePath = await FlutterDocumentPicker.openDocument();
 
-    final file = File(filePath);
+    final file = File(filePath!);
     final fileSize = await file.length();
     if (fileSize > 5 * 1024 * 1024) {
       showDialog(
@@ -1143,22 +1147,22 @@ class _DocumentUploadState extends State<DocumentUpload> {
     try {
       //   _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         documentFileLocation = img64;
         residenceFileSize = filesizeAsString;
-        documentFiletype = _path.split('.').last;
+        documentFiletype = _path!.split('.').last;
       });
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
@@ -1167,8 +1171,8 @@ class _DocumentUploadState extends State<DocumentUpload> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
+      _fileName = _path != null ? _path!.split('/').last : '...';
+      proof_of_residence.text = _fileName!;
       // documentFileName = _fileName;
     });
 
@@ -1201,171 +1205,236 @@ class _DocumentUploadState extends State<DocumentUpload> {
     print('objectFetched' + objectFetched.toString());
   }
 
-  void _openIdentityExplorer() async {
-    if (_pickingType != FileType.CUSTOM || _hasValidMime) {
-      try {
-        _path = await FilePicker.getFilePath(
-            type: _pickingType, fileExtension: _extension);
 
-        // List<int> imageBytes = _path.readAsBytesSync();
-        // String?  baseimage = base64Encode(imageBytes);
 
-        print('file extension ${_path.split('.').last}');
+  // void takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   var choosedimage = await ImagePicker.pickImage(source: source);
+  //   //  print('this ${choosedimage.toString()}');
+  //   File imagefile = choosedimage; //convert Path to File
+  //
+  //   var result = await FlutterImageCompress.compressWithFile(
+  //     imagefile.absolute.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 90,
+  //     // rotate: 90,
+  //   );
+  //
+  //   print('this is file sixe');
+  //   print(imagefile.lengthSync());
+  //   print(result);
+  //   //return result;
+  //
+  //   // image compressor
+  //
+  //   print('image File ${imagefile}');
+  //   Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
+  //   String?  base64String?  =
+  //       base64.encode(result); //convert bytes to base64 string
+  //   print('base64String?  ${base64string}');
+  //
+  //   String?  _finalPath = choosedimage.toString();
+  //   // final bytes = Io.File(_finalPath).readAsBytesSync();
+  //   //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
+  //   // String?  img64 = base64Encode(bytes);
+  //
+  //   // print(img64);
+  //
+  //   setState(() {
+  //     uploadimage = choosedimage;
+  //     String?  getPath = choosedimage.toString();
+  //     _fileName = getPath != null ? getPath.split('/').last : '...';
+  //     // _openFileExplorer(getPath);
+  //
+  //     File file = choosedimage;
+  //     _fileName = file.path.split('/').last;
+  //     print('filename ${_fileName}');
+  //     passport.text = _fileName;
+  //     isPassportAdded = true;
+  //   });
+  //   // final kb = byeInLength / 1024;
+  //   // final mb = kb / 1024;
+  //   // print('this is the MB ${mb}');
+  //   // String?  filesizeAsString?   = mb.toString();
+  //   // print('this is file sizelenght ${filesizeAsString}');
+  //   //  print('image base64 ${img64}');
+  //
+  //   setState(() {
+  //     passportFileLocation = base64string;
+  //     passportFileSize = '';
+  //     passportFiletype = _fileName.split('.').last;
+  //   });
+  //
+  //   print('passport file location ${passportFiletype} ');
+  //
+  //   setState(() {
+  //     if (passportFiletype == 'png') {
+  //       appendBase64 = 'data:image/png;base64,';
+  //     } else if (passportFiletype == 'jpg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     } else if (passportFiletype == 'jpeg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     }
+  //   });
+  //
+  //   newFileLocation = appendBase64 + passportFileLocation;
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     // _fileName = _path != null ? _path.split('/').last : '...';
+  //     passport.text = _fileName;
+  //     passportFileName = _fileName;
+  //   });
+  // }
 
-        final bytes = Io.File(_path).readAsBytesSync();
-        final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-        String?  img64 = base64Encode(bytes);
 
-        // get file size
-        final kb = byeInLength / 1024;
-        final mb = kb / 1024;
-        print('this is the MB ${mb}');
-        String?  filesizeAsString?  = mb.toString();
-        print('this is file sizelenght ${filesizeAsString}');
-        print('image base64 ${img64}');
+  // Future<void> takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+    // final pickedFile = await ImagePicker().pickImage(source: source);
+  //
+  //   if (pickedFile == null) return;
+  //
+  //   final imageFile = File(pickedFile.path);
+  //   final compressedBytes = await FlutterImageCompress.compressWithFile(
+  //     imageFile.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 90,
+  //   );
+  //
+  //   if (compressedBytes == null) return;
+  //
+  //   final base64String = base64Encode(compressedBytes);
+  //   final fileName = imageFile.path.split('/').last;
+  //   final fileType = fileName.split('.').last;
+  //
+  //   setState(() {
+  //     uploadimage = imageFile;
+  //     _fileName = fileName;
+  //     passport.text = fileName;
+  //     isPassportAdded = true;
+  //     passportFileLocation = base64String;
+  //     passportFileSize = '';
+  //     passportFiletype = fileType;
+  //     appendBase64 = fileType == 'png'
+  //         ? 'data:image/png;base64,'
+  //         : 'data:image/jpeg;base64,';
+  //     newFileLocation = appendBase64! + base64String;
+  //     passportFileName = fileName;
+  //   });
+  // }
+  //
 
-        setState(() {
-          identityFileLocation = img64;
-          identityFileSize = filesizeAsString;
-          identityFiletype = _path.split('.').last;
-        });
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
+
+
+
+
+  // Future<void> takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   final pickedFile = await ImagePicker().pickImage(source: source);
+  //
+  //   if (pickedFile == null) return;
+  //
+  //   final imageFile = File(pickedFile.path);
+  //   final compressedBytes = await FlutterImageCompress.compressWithFile(
+  //     imageFile.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 90,
+  //   );
+  //
+  //   if (compressedBytes == null) return;
+  //
+  //   final base64String = base64Encode(compressedBytes);
+  //   final fileName = imageFile.path.split('/').last;
+  //   final fileType = fileName.split('.').last;
+  //
+  //   setState(() {
+  //     uploadimage = imageFile;
+  //     _fileName = fileName;
+  //     passport.text = fileName;
+  //     isPassportAdded = true;
+  //     passportFileLocation = base64String;
+  //     passportFileSize = '';
+  //     passportFiletype = fileType;
+  //     appendBase64 = fileType == 'png'
+  //         ? 'data:image/png;base64,'
+  //         : 'data:image/jpeg;base64,';
+  //     newFileLocation = appendBase64! + base64String;
+  //     passportFileName = fileName;
+  //   });
+  // }
+
+  Future<void> takePhoto(ImageSource source) async {
+    try {
+      // Safely close modal/page before proceeding
+      MyRouter.popPage(context);
+
+      // Request camera permission (especially needed on Android)
+      if (Platform.isAndroid || Platform.isIOS) {
+        final status = await Permission.camera.request();
+        if (!status.isGranted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Camera permission denied')),
+          );
+          return;
+        }
       }
 
-      if (!mounted) return;
+      // Pick the image
+      final pickedFile = await ImagePicker().pickImage(source: source);
+      if (pickedFile == null) {
+        print('[takePhoto] No image selected.');
+        return;
+      }
+
+      final imageFile = File(pickedFile.path);
+
+      // Compress the image
+      final compressedBytes = await FlutterImageCompress.compressWithFile(
+        imageFile.path,
+        minWidth: 330,
+        minHeight: 250,
+        quality: 90,
+      );
+
+      if (compressedBytes == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Image compression failed')),
+        );
+        return;
+      }
+
+      final base64String = base64Encode(compressedBytes);
+      final fileName = imageFile.path.split('/').last;
+      final fileType = fileName.split('.').last;
 
       setState(() {
-        _fileName = _path != null ? _path.split('/').last : '...';
-        proof_of_identity.text = _fileName;
-        identityFileName = _fileName;
+        uploadimage = imageFile;
+        _fileName = fileName;
+        passport.text = fileName;
+        isPassportAdded = true;
+        passportFileLocation = base64String;
+        passportFileSize = '';
+        passportFiletype = fileType;
+        appendBase64 = fileType == 'png'
+            ? 'data:image/png;base64,'
+            : 'data:image/jpeg;base64,';
+        newFileLocation = appendBase64! + base64String;
+        passportFileName = fileName;
       });
+    } catch (e) {
+      print('[takePhoto] Error: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Something went wrong while taking the photo.')),
+        );
+      }
     }
   }
 
-  void _openEmploymentExplorer() async {
-    if (_pickingType != FileType.CUSTOM || _hasValidMime) {
-      try {
-        _path = await FilePicker.getFilePath(
-            type: _pickingType, fileExtension: _extension);
-
-        // List<int> imageBytes = _path.readAsBytesSync();
-        // String?  baseimage = base64Encode(imageBytes);
-
-        print('file extension ${_path.split('.').last}');
-
-        final bytes = Io.File(_path).readAsBytesSync();
-        final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-        String?  img64 = base64Encode(bytes);
-
-        // get file size
-        final kb = byeInLength / 1024;
-        final mb = kb / 1024;
-        print('this is the MB ${mb}');
-        String?  filesizeAsString?  = mb.toString();
-        print('this is file sizelenght ${filesizeAsString}');
-        print('image base64 ${img64}');
-
-        setState(() {
-          employmentFileLocation = img64;
-          employmentFileSize = filesizeAsString;
-          employmentFiletype = _path.split('.').last;
-        });
-      } on PlatformException catch (e) {
-        print("Unsupported operation" + e.toString());
-      }
-
-      if (!mounted) return;
-
-      setState(() {
-        _fileName = _path != null ? _path.split('/').last : '...';
-        proof_of_employment.text = _fileName;
-        employmentFileName = _fileName;
-      });
-    }
-  }
-
-  void takePhoto(ImageSource source) async {
-    MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
-    //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
-
-    var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
-      minWidth: 330,
-      minHeight: 250,
-      quality: 90,
-      // rotate: 90,
-    );
-
-    print('this is file sixe');
-    print(imagefile.lengthSync());
-    print(result);
-    //return result;
-
-    // image compressor
-
-    print('image File ${imagefile}');
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
-
-    String?  _finalPath = choosedimage.toString();
-    // final bytes = Io.File(_finalPath).readAsBytesSync();
-    //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String?  img64 = base64Encode(bytes);
-
-    // print(img64);
-
-    setState(() {
-      uploadimage = choosedimage;
-      String?  getPath = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      // _openFileExplorer(getPath);
-
-      File file = choosedimage;
-      _fileName = file.path.split('/').last;
-      print('filename ${_fileName}');
-      passport.text = _fileName;
-      isPassportAdded = true;
-    });
-    // final kb = byeInLength / 1024;
-    // final mb = kb / 1024;
-    // print('this is the MB ${mb}');
-    // String?  filesizeAsString?   = mb.toString();
-    // print('this is file sizelenght ${filesizeAsString}');
-    //  print('image base64 ${img64}');
-
-    setState(() {
-      passportFileLocation = base64string;
-      passportFileSize = '';
-      passportFiletype = _fileName.split('.').last;
-    });
-
-    print('passport file location ${passportFiletype} ');
-
-    setState(() {
-      if (passportFiletype == 'png') {
-        appendBase64 = 'data:image/png;base64,';
-      } else if (passportFiletype == 'jpg') {
-        appendBase64 = 'data:image/jpeg;base64,';
-      } else if (passportFiletype == 'jpeg') {
-        appendBase64 = 'data:image/jpeg;base64,';
-      }
-    });
-
-    newFileLocation = appendBase64 + passportFileLocation;
-
-    if (!mounted) return;
-
-    setState(() {
-      // _fileName = _path != null ? _path.split('/').last : '...';
-      passport.text = _fileName;
-      passportFileName = _fileName;
-    });
-  }
 
   Future<Uint8List> testCompressFile(File file) async {
     var result = await FlutterImageCompress.compressWithFile(
@@ -1377,7 +1446,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     );
     print('this is file sixe');
     print(file.lengthSync());
-    print(result.length);
+    print(result!.length);
     return result;
   }
 
@@ -1388,7 +1457,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
   //   return compressedFile;
   // }
 
-  Future<File> compressFile(File file) async {
+  Future<File?> compressFile(File file) async {
     final filePath = file.absolute.path;
 
     // Create output file path
@@ -1404,127 +1473,254 @@ class _DocumentUploadState extends State<DocumentUpload> {
 
     print('this is new result');
     print(file.lengthSync());
-    print(result.lengthSync());
+    print(result?.lengthSync());
 
     return result;
   }
 
-  void takePhotoForDocument(ImageSource source) async {
-    MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(
-      source: source,
-    );
-    //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
-    // var newimagebytes =  testCompressFile(imagefile);
+  // void takePhotoForDocument(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   var choosedimage = await ImagePicker.pickImage(
+  //     source: source,
+  //   );
+  //   //  print('this ${choosedimage.toString()}');
+  //   File imagefile = choosedimage; //convert Path to File
+  //   // var newimagebytes =  testCompressFile(imagefile);
+  //
+  //   //  File newFileM =    compressFile(imagefile);
+  //   print('image File ${imagefile}');
+  //
+  //   // image compressor
+  //
+  //   var result = await FlutterImageCompress.compressWithFile(
+  //     imagefile.absolute.path,
+  //     minWidth: 330,
+  //     minHeight: 350,
+  //     quality: 90,
+  //     // rotate: 90,
+  //   );
+  //   print('this is file sixe');
+  //   print(imagefile.lengthSync());
+  //   print(result);
+  //   //return result;
+  //
+  //   // image compressor
+  //
+  //   Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
+  //   String?  base64String  =
+  //       base64.encode(result); //convert bytes to base64 string
+  //   print('base64String?  ${base64string}');
+  //
+  //   String?  _finalPath = choosedimage.toString();
+  //   // final bytes = Io.File(_finalPath).readAsBytesSync();
+  //   //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
+  //   // String?  img64 = base64Encode(bytes);
+  //
+  //   // print(img64);
+  //
+  //   setState(() {
+  //     uploadimage = choosedimage;
+  //     String?  getPath = choosedimage.toString();
+  //     _fileName = getPath != null ? getPath.split('/').last : '...';
+  //     // _openFileExplorer(getPath);
+  //
+  //     File file = choosedimage;
+  //     _fileName = file.path.split('/').last;
+  //     print('filename ${_fileName}');
+  //     proof_of_residence.text = _fileName;
+  //     // isPassportAdded = true;
+  //   });
+  //
+  //   // final kb = byeInLength / 1024;
+  //   // final mb = kb / 1024;
+  //   // print('this is the MB ${mb}');
+  //   // String?  filesizeAsString?   = mb.toString();
+  //   // print('this is file sizelenght ${filesizeAsString}');
+  //   //  print('image base64 ${img64}');
+  //
+  //   setState(() {
+  //     documentFileLocation = base64string;
+  //     // passportFileSize = '';
+  //     documentFiletype = _fileName.split('.').last;
+  //   });
+  //
+  //   //  print('passport file location ${passportFiletype} ');
+  //
+  //   // setState(() {
+  //   //   if(documentFiletype == 'png'){
+  //   //     appendBase64 ='data:image/png;base64,';
+  //   //   }
+  //   //   else if(documentFiletype == 'jpg'){
+  //   //     appendBase64 = 'data:image/jpeg;base64,';
+  //   //   } else if(documentFiletype == 'jpeg'){
+  //   //     appendBase64 ='data:image/jpeg;base64,';
+  //   //   }
+  //   //   else if(documentFiletype == 'pdf'){
+  //   //     appendBase64 ='data:application/pdf;base64,';
+  //   //   }
+  //   //
+  //   //
+  //   // });
+  //
+  //   //   documentFileLocation = appendBase64 + documentFileLocation;
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     // _fileName = _path != null ? _path.split('/').last : '...';
+  //     proof_of_residence.text = _fileName;
+  //     //  documentFileName = _fileName;
+  //   });
+  //
+  //   objectFetched.add(
+  //     {
+  //       // "id":0,
+  //       "documentTypeId": documentTypeInt,
+  //       "status": "ACTIVE",
+  //       "documentKey": random(1000000, 9000000),
+  //       "attachment": {
+  //         "name": documentFileName,
+  //         "location": documentFileLocation,
+  //         //  "description" : "Proof Of Residence",
+  //         "fileName": documentFileName,
+  //         // "size" : int.parse(residenceFileSize),
+  //         "type": documentFiletype == 'png'
+  //             ? "image/png"
+  //             : documentFiletype == 'jpg'
+  //                 ? "image/jpeg"
+  //                 : documentFiletype == 'pdf'
+  //                     ? 'application/pdf'
+  //                     : ''
+  //       }
+  //     },
+  //   );
+  // }
 
-    //  File newFileM =    compressFile(imagefile);
-    print('image File ${imagefile}');
 
-    // image compressor
+  // Future<void> takePhotoForDocument(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   final pickedFile = await ImagePicker().pickImage(source: source);
+  //
+  //   if (pickedFile == null) return;
+  //
+  //   final imageFile = File(pickedFile.path);
+  //   final fileName = imageFile.path.split('/').last;
+  //   final fileType = fileName.split('.').last;
+  //
+  //   // Compress image
+  //   final compressedBytes = await FlutterImageCompress.compressWithFile(
+  //     imageFile.path,
+  //     minWidth: 330,
+  //     minHeight: 350,
+  //     quality: 90,
+  //   );
+  //
+  //   if (compressedBytes == null) return;
+  //
+  //   final base64String = base64Encode(compressedBytes);
+  //
+  //   setState(() {
+  //     uploadimage = imageFile;
+  //     _fileName = fileName;
+  //     proof_of_residence.text = fileName;
+  //     documentFiletype = fileType;
+  //     documentFileLocation = base64String;
+  //     documentFileName = fileName;
+  //   });
+  //
+  //   objectFetched.add({
+  //     "documentTypeId": documentTypeInt,
+  //     "status": "ACTIVE",
+  //     "documentKey": random(1000000, 9000000),
+  //     "attachment": {
+  //       "name": fileName,
+  //       "location": base64String,
+  //       "fileName": fileName,
+  //       "type": fileType == 'png'
+  //           ? "image/png"
+  //           : fileType == 'jpg' || fileType == 'jpeg'
+  //           ? "image/jpeg"
+  //           : '',
+  //     }
+  //   });
+  // }
 
-    var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
-      minWidth: 330,
-      minHeight: 350,
-      quality: 90,
-      // rotate: 90,
-    );
-    print('this is file sixe');
-    print(imagefile.lengthSync());
-    print(result);
-    //return result;
 
-    // image compressor
+  Future<void> takePhotoForDocument(ImageSource source) async {
+    try {
+      // Platform + permission check
+      if (Platform.isAndroid || Platform.isIOS) {
+        final status = await Permission.camera.request();
+        if (!status.isGranted) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Camera permission is required.')),
+            );
+          }
+          return;
+        }
+      }
 
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
+      MyRouter.popPage(context);
 
-    String?  _finalPath = choosedimage.toString();
-    // final bytes = Io.File(_finalPath).readAsBytesSync();
-    //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String?  img64 = base64Encode(bytes);
+      final pickedFile = await ImagePicker().pickImage(source: source);
 
-    // print(img64);
+      if (pickedFile == null) {
+        print('[takePhotoForDocument] No file selected.');
+        return;
+      }
 
-    setState(() {
-      uploadimage = choosedimage;
-      String?  getPath = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      // _openFileExplorer(getPath);
+      final imageFile = File(pickedFile.path);
+      final fileName = imageFile.path.split('/').last;
+      final fileType = fileName.split('.').last;
 
-      File file = choosedimage;
-      _fileName = file.path.split('/').last;
-      print('filename ${_fileName}');
-      proof_of_residence.text = _fileName;
-      // isPassportAdded = true;
-    });
+      final compressedBytes = await FlutterImageCompress.compressWithFile(
+        imageFile.path,
+        minWidth: 330,
+        minHeight: 350,
+        quality: 90,
+      );
 
-    // final kb = byeInLength / 1024;
-    // final mb = kb / 1024;
-    // print('this is the MB ${mb}');
-    // String?  filesizeAsString?   = mb.toString();
-    // print('this is file sizelenght ${filesizeAsString}');
-    //  print('image base64 ${img64}');
+      if (compressedBytes == null) {
+        print('[takePhotoForDocument] Compression failed.');
+        return;
+      }
 
-    setState(() {
-      documentFileLocation = base64string;
-      // passportFileSize = '';
-      documentFiletype = _fileName.split('.').last;
-    });
+      final base64String = base64Encode(compressedBytes);
 
-    //  print('passport file location ${passportFiletype} ');
+      if (!mounted) return;
+      setState(() {
+        uploadimage = imageFile;
+        _fileName = fileName;
+        proof_of_residence.text = fileName;
+        documentFiletype = fileType;
+        documentFileLocation = base64String;
+        documentFileName = fileName;
+      });
 
-    // setState(() {
-    //   if(documentFiletype == 'png'){
-    //     appendBase64 ='data:image/png;base64,';
-    //   }
-    //   else if(documentFiletype == 'jpg'){
-    //     appendBase64 = 'data:image/jpeg;base64,';
-    //   } else if(documentFiletype == 'jpeg'){
-    //     appendBase64 ='data:image/jpeg;base64,';
-    //   }
-    //   else if(documentFiletype == 'pdf'){
-    //     appendBase64 ='data:application/pdf;base64,';
-    //   }
-    //
-    //
-    // });
-
-    //   documentFileLocation = appendBase64 + documentFileLocation;
-
-    if (!mounted) return;
-
-    setState(() {
-      // _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
-      //  documentFileName = _fileName;
-    });
-
-    objectFetched.add(
-      {
-        // "id":0,
+      objectFetched.add({
         "documentTypeId": documentTypeInt,
         "status": "ACTIVE",
         "documentKey": random(1000000, 9000000),
         "attachment": {
-          "name": documentFileName,
-          "location": documentFileLocation,
-          //  "description" : "Proof Of Residence",
-          "fileName": documentFileName,
-          // "size" : int.parse(residenceFileSize),
-          "type": documentFiletype == 'png'
+          "name": fileName,
+          "location": base64String,
+          "fileName": fileName,
+          "type": fileType == 'png'
               ? "image/png"
-              : documentFiletype == 'jpg'
-                  ? "image/jpeg"
-                  : documentFiletype == 'pdf'
-                      ? 'application/pdf'
-                      : ''
+              : (fileType == 'jpg' || fileType == 'jpeg')
+              ? "image/jpeg"
+              : '',
         }
-      },
-    );
+      });
+    } catch (e) {
+      print('[takePhotoForDocument] Error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('An error occurred while processing the document.')),
+        );
+      }
+    }
   }
 
   void doDocumentAction(String?  value) {
@@ -1565,7 +1761,14 @@ class _DocumentUploadState extends State<DocumentUpload> {
             TextButton.icon(
               icon: Icon(Icons.camera),
               onPressed: () {
-                takePhoto(ImageSource.camera);
+                 takePhoto(ImageSource.camera);
+
+                // CameraCamera(
+                //   onFile: (File xfile) {
+                //      print('>> camera');
+                //     _handlePhoto(xfile);
+                //   },
+                // );
               },
               label: Text("Camera"),
             ),
@@ -1785,7 +1988,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                 duration: Duration(seconds: 3),
               ).show(context);
 
-              return MyRouter.pushPage(context, ClientDraftLists());
+             // return MyRouter.pushPage(context, ClientDraftLists());
             }
 
             Flushbar(
@@ -1850,7 +2053,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         });
 
         if (passportFiletype != null) {
-          newFileLocation = appendBase64 + passportFileLocation;
+          newFileLocation = (appendBase64! + passportFileLocation!)!;
         }
 
         print('passed sales ${newFileLocation}');
@@ -1929,7 +2132,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                                   onTap: () {},
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).backgroundColor,
+                                      color: Theme.of(context).colorScheme.outline,
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: TextFormField(
@@ -2056,7 +2259,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.outline,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -2084,7 +2287,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.displayMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -2096,7 +2299,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
       child: Text(
-        descriptions,
+        descriptions!,
         style: TextStyle(
             color: Color(0xff354052),
             fontFamily: 'Nunito SansRegular',
@@ -2204,7 +2407,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                           String?  retDate =
                               retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
-                          dateController.text = retDate;
+                          dateController.text = retDate!;
                         });
                     },
                     initialDateTime:
@@ -2315,7 +2518,7 @@ class _DocumentUploadState extends State<DocumentUpload> {
                             child: Container(
                               height: 70,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).backgroundColor,
+                                color: Theme.of(context).colorScheme.outline,
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: TextFormField(

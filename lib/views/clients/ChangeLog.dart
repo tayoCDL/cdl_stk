@@ -249,7 +249,7 @@ class _ChangeLogState extends State<ChangeLog> {
           BoxShadow(color: cols, spreadRadius: 0.1),
         ],
       ),
-      child: Center(child: Text(status,style: TextStyle(color: tColor,fontSize: 13),)),
+      child: Center(child: Text(status!,style: TextStyle(color: tColor,fontSize: 13),)),
     );
   }
 
@@ -282,8 +282,8 @@ class _ChangeLogState extends State<ChangeLog> {
       child:  Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(propertyName,style: TextStyle(color: ColorUtils.CHANGE_LOG_TITLE,fontWeight: FontWeight.w200,fontSize: 14),),
-          Text(valueName,style: TextStyle(color: ColorUtils.CHANGE_LOG_TITLE,fontWeight: FontWeight.w200,fontSize: 14),),
+          Text(propertyName!,style: TextStyle(color: ColorUtils.CHANGE_LOG_TITLE,fontWeight: FontWeight.w200,fontSize: 14),),
+          Text(valueName!,style: TextStyle(color: ColorUtils.CHANGE_LOG_TITLE,fontWeight: FontWeight.w200,fontSize: 14),),
 
         ],
       ),
@@ -292,7 +292,7 @@ class _ChangeLogState extends State<ChangeLog> {
   }
 
   String?  chopOff(String?  field){
-      if(field.contains(':')) {
+      if(field!.contains(':')) {
         String?  ob = field;
         String?  newOb = ob
             .split(':')

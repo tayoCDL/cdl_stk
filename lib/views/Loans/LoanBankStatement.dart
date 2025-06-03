@@ -87,8 +87,8 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
     var tfaToken = prefs.getString('tfa-token');
     print(tfaToken);
     print(token);
-    Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString() + '/banks',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + localclientID.toString() + '/banks'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -124,8 +124,8 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
     print(tfaToken);
     print(token);
     ///clients/{clientId}/familymembers
-    Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + localclientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -268,7 +268,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
         //    MyRouter.pushPageReplacement(context, ViewClient(clientID: clientId,));
         int?  tempLoanID =  prefs.getInt('loanCreatedId');
-        bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
+        bool isAutoDisbursed = prefs.getBool('isAutoDisburse') ?? false;
 
         // if(isAutoDisbursed == false){
         //
@@ -300,8 +300,8 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString() + '?associations=all&exclude=guarantors,futureSchedule',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString() + '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -661,7 +661,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
         bottomNavigationBar: DoubleBottomNavComponent(text1: 'Previous',text2: 'Next',
           callAction2: () async{
             final SharedPreferences prefs = await SharedPreferences.getInstance();
-            bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
+            bool isAutoDisbursed = prefs.getBool('isAutoDisburse') ?? false;
             if(isAutoDisbursed == false){
 
               bool isAllowedToSend =  loanDetail['isLafSigned'] &&  loanDetail['isDocumentComplete'] && (loanDetail['paymentMethod'] != null && loanDetail['paymentMethod']['id'] > 0);
@@ -695,7 +695,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -712,7 +712,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
 
               validator: (value) {
 
-                if(value.isEmpty){
+                if(value == null || value.isEmpty){
                   return 'Field cannot be empty';
 
                 }
@@ -738,7 +738,7 @@ class _LoanBankStatementState extends State<LoanBankStatement> {
                   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.done,

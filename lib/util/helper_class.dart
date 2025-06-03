@@ -4,11 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file_safe/open_file_safe.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+as picker;
 class AppHelper{
 
   Future<void> processPdfDocument(Map<String, dynamic> singleDoc) async {
@@ -189,5 +191,85 @@ class AppHelper{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
+
+
+
+  void datePickerFlutterPlus({
+    required BuildContext context,
+    required DateTime minTime,
+    required DateTime maxTime,
+    required Function(DateTime) onChanged,
+    Function(DateTime)? onConfirm,
+    DateTime? currentTime,
+  }) {
+    picker.DatePicker.showDatePicker(
+      context,
+      showTitleActions: true,
+      minTime: minTime,
+      maxTime: maxTime,
+      theme: picker.DatePickerTheme(
+        headerColor: Colors.white,
+        backgroundColor: Colors.white,
+        itemStyle: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.normal,
+          fontSize: 18,
+        ),
+        doneStyle: TextStyle(
+          color: Colors.blue,
+          fontSize: 16,
+        ),
+      ),
+      onChanged: onChanged,
+      onConfirm: onConfirm ?? (date) => print('confirm $date'),
+      currentTime: currentTime ?? DateTime.now(),
+      locale: picker.LocaleType.en,
+    );
+  }
+
+
+  Widget NoDataFound(BuildContext context, String title,String subtitle){
+    return Container(
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.27),
+            SvgPicture.asset("assets/images/no_loan.svg",
+              height: 90.0,
+              width: 90.0,),
+            SizedBox(height: 20,),
+            Text(title,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
+            SizedBox(height: 6,),
+            Text(subtitle,style: TextStyle(color: Colors.black,fontSize: 14,),),
+            SizedBox(height: 20,),
+            // Container(
+            //   width: 155,
+            //   height: 40,
+            //   decoration: BoxDecoration(
+            //     color: Color(0xff077DBB),
+            //     borderRadius: BorderRadius.circular(8),
+            //   ),
+            //   child: TextButton(
+            //     onPressed: (){
+            //       MyRouter.pushPage(context,AddClient());
+            //     },
+            //     child: Padding(
+            //       padding: const EdgeInsets.symmetric(vertical: 0.0),
+            //       child:   Text(
+            //         'Add Client',
+            //         style: TextStyle( fontSize: 12,
+            //           color: Colors.white,),
+            //       ),
+            //
+            //     ),
+            //   ),
+            // )
+          ],
+        ),
+      ),
+    );
+  }
+
+
 
 }

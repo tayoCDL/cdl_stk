@@ -187,13 +187,13 @@ class _HomeContentState extends State<HomeContent> {
   void initState() {
     // TODO: implement initState
    // checkTour();
-  //  getStaffID();
+   getStaffID();
   //  getCLientsList();
     getSalesUsername();
-    // calculateCommision();
-    // getProductCycle();
+    calculateCommision();
+    getProductCycle();
     // _verifyVersion();
-   // getCycleStatus();
+    // getCycleStatus();
     getDateTime();
   //  print('passgedd << ${passLoanOfficer}');
     identifyUser_MixPanel();
@@ -241,110 +241,110 @@ class _HomeContentState extends State<HomeContent> {
   }
 
 
-  // getProductCycle(){
-  //   final Future<Map<String,dynamic>> respose =   RetCodes().getProductCycle();
-  //   respose.then(
-  //           (response) {
-  //         print('this is product cycle ${response['data']['content']}');
-  //         setState(() {
-  //           cycleListData = response['data']['content'];
-  //
-  //          int?  currentCycleId = cycleListData[0]['id'];
-  //           print('cycleList Data ${currentCycleId}');
-  //
-  //             getMetricsForCycle(currentCycleId.toString());
-  //
-  //
-  //           setState(() {
-  //            cycleName = '${getDateStringAndReturnMonthInWord(cycleListData[0]['endDate'])}: ${cycleListData[0]['startDate']} - ${cycleListData[0]['endDate']}';
-  //             cycleId = cycleListData[0]['id'].toString();
-  //           });
-  //
-  //         });
-  //       }
-  //   );
-  //
-  // }
+  getProductCycle(){
+    final Future<Map<String,dynamic>> respose =   RetCodes().getProductCycle();
+    respose.then(
+            (response) {
+          print('this is product cycle ${response['data']['content']}');
+          setState(() {
+            cycleListData = response['data']['content'];
 
-  // calculateCommision(){
-  //
-  //   String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
-  //    var ComparestartPeriod =  Jiffy().startOf(Units.MONTH).dateTime;
-  //
-  //   String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
-  //   Jiffy now = Jiffy();
-  //   var todaySdate = Jiffy(now).format("dd MMMM yyyy");
-  //   var ComparetodaySdate = Jiffy(now).dateTime;
-  //
-  //   int?  daysInMonth = Jiffy(now).daysInMonth;
-  //   var halfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).format("dd MMMM yyyy");
-  //   var ComparehalfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).dateTime;
-  //
-  //   // Jiffy halfMonth = now.add(days: (daysInMonth ~/ 2));
-  //   //DateTime halfMonthDate = halfMonth.dateTime;
-  //
-  //   print('half >> ${halfOfthisMonth} ${todaySdate}');
-  //   print('halfie >> ${ComparetodaySdate} ${ComparehalfOfthisMonth}');
-  //
-  //   var dateFormat = "dd MMMM yyyy";
-  //
-  //   int?  activationChannelId = 77;
-  //
-  //   if(ComparetodaySdate.isAfter(ComparehalfOfthisMonth)){
-  //   //  print('today date >>');
-  //     setState(() {
-  //       cycle = 'Second Cycle';
-  //       startPeriod = halfOfthisMonth;
-  //     });
-  //   }
-  //   else {
-  //   //  print('today date << ');
-  //     setState(() {
-  //       cycle = 'First Cycle';
-  //       endPeriod = halfOfthisMonth;
-  //     });
-  //
-  //   }
-  //
-  //  //  int?  staffId = 428;
-  //   // String?  mstartPeriod =  '10 January 2022';
-  //   // String?  mendPeriod = '10 April 2023';
-  //   //
-  //
-  //   String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
-  // //  String?  params = '?startPeriod=${mstartPeriod}&endPeriod=${mendPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}';
-  //
-  //   final Future<Map<String,dynamic>> respose =   RetCodes().getLoanMetrics(params);
-  //
-  //   respose.then((response) {
-  //     setState(() {
-  //    //   _isLoading =  false;
-  //     });
-  //     print(response['data']);
-  //     setState(() {
-  //      metricsDataList = response['data'];
-  //     });
-  //    print('metrics Data ${metricsDataList}');
-  //    var caluclatedCommision = 0;
-  //    List<dynamic> accumulated_commision = [];
-  //    for(int?  i=0; i! < metricsDataList.length;i++){
-  //      var singleMetric = metricsDataList[i];
-  //   int?  amts =  int.tryParse(singleMetric['level']['value']);
-  //      // print('calc commission ${caluclatedCommision}');
-  //      accumulated_commision.add(amts);
-  //    }
-  //     print('accumulated commision');
-  //     num?  total = accumulated_commision.fold(0, (previousValue, element) => previousValue! + element);
-  //     print('accumulated ${accumulated_commision} total ${total}');
-  //
-  //     setState(() {
-  //       totalCommision = total?.toInt();
-  //     });
-  //
-  //   });
-  //
-  //
-  // }
+           int?  currentCycleId = cycleListData[0]['id'];
+            print('cycleList Data ${currentCycleId}');
+
+              getMetricsForCycle(currentCycleId.toString());
+
+
+            setState(() {
+             cycleName = '${getDateStringAndReturnMonthInWord(cycleListData[0]['endDate'])}: ${cycleListData[0]['startDate']} - ${cycleListData[0]['endDate']}';
+              cycleId = cycleListData[0]['id'].toString();
+            });
+
+          });
+        }
+    );
+
+  }
+
+  calculateCommision(){
+
+    String?  startPeriod =  Jiffy().startOf(Units.MONTH).format("dd MMMM yyyy");
+     var ComparestartPeriod =  Jiffy().startOf(Units.MONTH).dateTime;
+
+    String?  endPeriod = Jiffy().endOf(Units.MONTH).format("dd MMMM yyyy");
+    Jiffy now = Jiffy();
+    var todaySdate = Jiffy(now).format("dd MMMM yyyy");
+    var ComparetodaySdate = Jiffy(now).dateTime;
+
+    int?  daysInMonth = Jiffy(now).daysInMonth;
+    var halfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).format("dd MMMM yyyy");
+    var ComparehalfOfthisMonth = Jiffy().startOf(Units.MONTH).add(days: (daysInMonth ~/ 2)).dateTime;
+
+    // Jiffy halfMonth = now.add(days: (daysInMonth ~/ 2));
+    //DateTime halfMonthDate = halfMonth.dateTime;
+
+    print('half >> ${halfOfthisMonth} ${todaySdate}');
+    print('halfie >> ${ComparetodaySdate} ${ComparehalfOfthisMonth}');
+
+    var dateFormat = "dd MMMM yyyy";
+
+    int?  activationChannelId = 77;
+
+    if(ComparetodaySdate.isAfter(ComparehalfOfthisMonth)){
+    //  print('today date >>');
+      setState(() {
+        cycle = 'Second Cycle';
+        startPeriod = halfOfthisMonth;
+      });
+    }
+    else {
+    //  print('today date << ');
+      setState(() {
+        cycle = 'First Cycle';
+        endPeriod = halfOfthisMonth;
+      });
+
+    }
+
+   //  int?  staffId = 428;
+    // String?  mstartPeriod =  '10 January 2022';
+    // String?  mendPeriod = '10 April 2023';
+    //
+
+    String?  params = '?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}&activationChannelId=${activationChannelId}';
+  //  String?  params = '?startPeriod=${mstartPeriod}&endPeriod=${mendPeriod}&dateFormat=${dateFormat}&loanOfficerId=${staffId}';
+
+    final Future<Map<String,dynamic>> respose =   RetCodes().getLoanMetrics(params);
+
+    respose.then((response) {
+      setState(() {
+     //   _isLoading =  false;
+      });
+      print(response['data']);
+      setState(() {
+       metricsDataList = response['data'];
+      });
+     print('metrics Data ${metricsDataList}');
+     var caluclatedCommision = 0;
+     List<dynamic> accumulated_commision = [];
+     for(int?  i=0; i! < metricsDataList.length;i++){
+       var singleMetric = metricsDataList[i];
+    int?  amts =  int.tryParse(singleMetric['level']['value']);
+       // print('calc commission ${caluclatedCommision}');
+       accumulated_commision.add(amts);
+     }
+      print('accumulated commision');
+      num?  total = accumulated_commision.fold(0, (previousValue, element) => previousValue! + element);
+      print('accumulated ${accumulated_commision} total ${total}');
+
+      setState(() {
+        totalCommision = total?.toInt();
+      });
+
+    });
+
+
+  }
 
   var clientsData = [];
   var   totalRefered = [];
@@ -507,100 +507,100 @@ class _HomeContentState extends State<HomeContent> {
   //
   // }
 
-  // getStaffID() async{
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData( context: context);
-  //   respose.then(
-  //           (response) {
-  //         print('this is referal ${response['data']}');
-  //             if(response['data'] == null && response['message'] == 'Unauthenticated'){
-  //               MyRouter.pushPageReplacement(context, LoginScreen(login_type: 'Loan Management',));
-  //             }
-  //           //  print('this is referal ${response['data']}');
-  //         setState(() {
-  //           loanOfficerId = response['data']['id'];
-  //           agentFirstName = response['data']['firstname'];
-  //           referalCount = response['referralCount'] ?? 0;
-  //           supervisor = response['data']['organisationalRoleParentStaff'] == null ? 'N/A' : response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
-  //           agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
-  //
-  //         });
-  //
-  //         prefs.setString('loanOfficerId', loanOfficerId.toString());
-  //
-  //       }
-  //   );
-  //
-  // }
+  getStaffID() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData( context: context);
+    respose.then(
+            (response) {
+          print('this is referal ${response['data']}');
+              if(response['data'] == null && response['message'] == 'Unauthenticated'){
+                MyRouter.pushPageReplacement(context, LoginScreen(login_type: 'Loan Management',));
+              }
+            //  print('this is referal ${response['data']}');
+          setState(() {
+            loanOfficerId = response['data']['id'];
+            agentFirstName = response['data']['firstname'];
+            referalCount = response['referralCount'] ?? 0;
+            supervisor = response['data']['organisationalRoleParentStaff'] == null ? 'N/A' : response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
+            agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
 
-  // getMetricsForCycle(String?  cycleId) async{
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String?  local_loanOfficerId =  prefs.getString('loanOfficerId');
-  //
-  //     setState(() {
-  //       isLoading = true;
-  //     });
-  //
-  //
-  //
-  //         final Future<Map<String,dynamic>> respose =   RetCodes().getProductMetrics(local_loanOfficerId == null ? passLoanOfficer.toString() : local_loanOfficerId,cycleId);
-  //         respose.then(
-  //                 (response) {
-  //               setState(() {
-  //                 isLoading = false;
-  //               });
-  //               print('this is metrics cycle ${response['data']}');
-  //               var singleMetricsData = response['data'];
-  //               setState(() {
-  //                 salesTarget = singleMetricsData['salesTarget'];
-  //                 targetArchieved = singleMetricsData['targetAchieved'];
-  //                 grade = singleMetricsData['agentGrade'];
-  //                 commissionPercent = singleMetricsData['commissionPercentage'];
-  //                 commissionEarned = singleMetricsData['commissionEarned'];
-  //                 performanceEarned = singleMetricsData['performancePayable'];
-  //                 totalEarned = singleMetricsData['totalPay'];
-  //                 percentageOfSales = singleMetricsData['percentageOfSales'];
-  //                // percentageOfSales = '90';
-  //                 performancePayEarn = singleMetricsData['performancePayable'];
-  //
-  //                 totalLoanCount = singleMetricsData['totalLoanCount'];
-  //                 totalLoanAmount = singleMetricsData['totalLoanAmount'];
-  //
-  //                 totalUnDisbursedLoanCount = singleMetricsData['totalUnDisbursedLoanCount'];
-  //                 totalUnDisbursedLoanAmount = singleMetricsData['totalUnDisbursedLoanAmount'];
-  //
-  //                 totalFailedDisbursedLoanCount = singleMetricsData['totalFailedDisbursedLoanCount'];
-  //                 totalFailedDisbursedLoanAmount = singleMetricsData['totalFailedDisbursedLoanAmount'];
-  //
-  //                 totalDisbursedLoanCount = singleMetricsData['totalDisbursedLoanCount'];
-  //                 totalDisbursedLoanAmount = singleMetricsData['totalDisbursedLoanAmount'];
-  //
-  //
-  //                 // totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanCount'];
-  //                 // totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanDisbursedAmount'];
-  //
-  //                 totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] ?? 0;
-  //                 totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] ?? 0.00;
-  //
-  //
-  //
-  //                 // referalCount = response['referralCount'];
-  //                 // supervisor = response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
-  //                 // agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
-  //                 // loanOfficerId = response['data']['id'];
-  //                 // agentFirstName = response['data']['firstname'];
-  //               });
-  //
-  //             //  prefs.setString('loanOfficerId', loanOfficerId.toString());
-  //
-  //             }
-  //         );
-  //
-  //       // }
-  //
-  //
-  //
-  // }
+          });
+
+          prefs.setString('loanOfficerId', loanOfficerId.toString());
+
+        }
+    );
+
+  }
+
+  getMetricsForCycle(String?  cycleId) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String?  local_loanOfficerId =  prefs.getString('loanOfficerId');
+
+      setState(() {
+        isLoading = true;
+      });
+
+
+
+          final Future<Map<String,dynamic>> respose =   RetCodes().getProductMetrics(local_loanOfficerId == null ? passLoanOfficer.toString() : local_loanOfficerId,cycleId);
+          respose.then(
+                  (response) {
+                setState(() {
+                  isLoading = false;
+                });
+                print('this is metrics cycle ${response['data']}');
+                var singleMetricsData = response['data'];
+                setState(() {
+                  salesTarget = singleMetricsData['salesTarget'];
+                  targetArchieved = singleMetricsData['targetAchieved'];
+                  grade = singleMetricsData['agentGrade'];
+                  commissionPercent = singleMetricsData['commissionPercentage'];
+                  commissionEarned = singleMetricsData['commissionEarned'];
+                  performanceEarned = singleMetricsData['performancePayable'];
+                  totalEarned = singleMetricsData['totalPay'];
+                  percentageOfSales = singleMetricsData['percentageOfSales'];
+                 // percentageOfSales = '90';
+                  performancePayEarn = singleMetricsData['performancePayable'];
+
+                  totalLoanCount = singleMetricsData['totalLoanCount'];
+                  totalLoanAmount = singleMetricsData['totalLoanAmount'];
+
+                  totalUnDisbursedLoanCount = singleMetricsData['totalUnDisbursedLoanCount'];
+                  totalUnDisbursedLoanAmount = singleMetricsData['totalUnDisbursedLoanAmount'];
+
+                  totalFailedDisbursedLoanCount = singleMetricsData['totalFailedDisbursedLoanCount'];
+                  totalFailedDisbursedLoanAmount = singleMetricsData['totalFailedDisbursedLoanAmount'];
+
+                  totalDisbursedLoanCount = singleMetricsData['totalDisbursedLoanCount'];
+                  totalDisbursedLoanAmount = singleMetricsData['totalDisbursedLoanAmount'];
+
+
+                  // totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanCount'];
+                  // totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] == null ? 0.00 : singleMetricsData['totalDigitalLoanDisbursedAmount'];
+
+                  totalDigitalLoanCount = singleMetricsData['totalDigitalLoanCount'] ?? 0;
+                  totalDigitalLoanDisbursedAmount = singleMetricsData['totalDigitalLoanDisbursedAmount'] ?? 0.00;
+
+
+
+                  // referalCount = response['referralCount'];
+                  // supervisor = response['data']['organisationalRoleParentStaff']['displayName'] == null ? 'N/A': response['data']['organisationalRoleParentStaff']['displayName'];
+                  // agentCode = response['data']['agentCode']== null ? 'N/A': response['data']['agentCode'];
+                  // loanOfficerId = response['data']['id'];
+                  // agentFirstName = response['data']['firstname'];
+                });
+
+              //  prefs.setString('loanOfficerId', loanOfficerId.toString());
+
+              }
+          );
+
+        // }
+
+
+
+  }
 
   returnDialog(){
     return alert(
@@ -880,7 +880,7 @@ class _HomeContentState extends State<HomeContent> {
 
                                         cycleId = value.toString();
                                         print('cycleId ${cycleId}');
-                                    //    getMetricsForCycle(cycleId);
+                                        getMetricsForCycle(cycleId);
 
                                         cycleName = '${getDateStringAndReturnMonthInWord(singleCycle['endDate'])}: ${singleCycle['startDate']} - ${singleCycle['endDate']}';
                                         print('cycle name ${cycleName}' );
@@ -974,22 +974,41 @@ class _HomeContentState extends State<HomeContent> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               appSingleText('Target Achieved', '₦${formatCurrency.format(targetArchieved)}',),
-              Container(
-                width: 30,
-                child: CircularPercentIndicator(
-                  radius: 44.0,
-                  lineWidth: 3.0,
-                  percent: int.parse(percentageOfSales!.replaceAll("%", "")) >= 100
-                      ? 1
-                      : int.parse(percentageOfSales!.replaceAll("%", "")) / 100,
-                  startAngle: 310,
-                  center: Text(
-                    "${percentageOfSales}%",
-                    style: TextStyle(color: textColor, fontSize: 16),
+              // CircularPercentIndicator(
+              //   radius: 44.0,
+              //   lineWidth: 3.0,
+              //   percent: int.parse(percentageOfSales!.replaceAll("%", "")) >= 100
+              //       ? 1
+              //       : int.parse(percentageOfSales!.replaceAll("%", "")) / 100,
+              //   startAngle: 310,
+              //   center: Text(
+              //     "${percentageOfSales}%",
+              //     style: TextStyle(color: textColor, fontSize: 16),
+              //   ),
+              //   progressColor: Colors.orangeAccent,
+              // ),
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: FittedBox(
+                  child: CircularPercentIndicator(
+                    radius: 44.0,
+                    lineWidth: 3.0,
+                    percent: int.parse(percentageOfSales!.replaceAll("%", "")) >= 100
+                        ? 1
+                        : int.parse(percentageOfSales!.replaceAll("%", "")) / 100,
+                    startAngle: 310,
+                    center: FittedBox(
+                      child: Text(
+                        "${percentageOfSales}%",
+                        style: TextStyle(color: textColor, fontSize: 16),
+                      ),
+                    ),
+                    progressColor: Colors.orangeAccent,
                   ),
-                  progressColor: Colors.orangeAccent,
                 ),
-              ),
+              )
+
             ],
           ),
           SizedBox(height: 10),

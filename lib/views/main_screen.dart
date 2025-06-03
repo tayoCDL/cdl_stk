@@ -8,6 +8,7 @@ import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/views/Sales_type.dart';
 // import 'package:sales_toolkit/views/attendance/Attendance_Index.dart';
 import 'package:sales_toolkit/views/calculator/repayment_calculator.dart';
+import 'package:sales_toolkit/views/clients/client_lists.dart';
 // import 'package:sales_toolkit/views/clients/client_lists.dart';
 // import 'package:sales_toolkit/views/draft/DraftOverview.dart';
 import 'package:sales_toolkit/views/home/device_financing.dart';
@@ -17,6 +18,7 @@ import 'package:sales_toolkit/views/home/home.dart';
 import 'package:sales_toolkit/views/menu/menu_index.dart';
 // import 'package:sales_toolkit/views/orders/orderHistory.dart';
 import 'package:sales_toolkit/views/referrals/referralIndex.dart';
+import 'package:sales_toolkit/views/trops/trops_issues_lists.dart';
 // import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:sales_toolkit/views/trops/trops_issues_lists.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -221,9 +223,9 @@ var routeWidgetsA = <Widget>[
 
  // LeadList(),
 
-  // ClientList(),
-  // TropIssuesLists(),
- // RepaymentCalculator(),
+  ClientList(),
+  TropIssuesLists(),
+ RepaymentCalculator(),
   MenuIndex()
 ];
 

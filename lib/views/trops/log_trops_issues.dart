@@ -11,13 +11,14 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:sales_toolkit/view_models/addInteraction.dart';
-import 'package:sales_toolkit/views/Interactions/ClientInteraction.dart';
-import 'package:sales_toolkit/views/Interactions/IthelpdeskLists.dart';
-import 'package:sales_toolkit/views/Interactions/clientOpportunity.dart';
+// import 'package:sales_toolkit/views/Interactions/ClientInteraction.dart';
+// import 'package:sales_toolkit/views/Interactions/IthelpdeskLists.dart';
+// import 'package:sales_toolkit/views/Interactions/clientOpportunity.dart';
 import 'package:sales_toolkit/widgets/DoubleButtonBottomNav.dart';
 import 'package:sales_toolkit/widgets/dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,9 +26,9 @@ import 'dart:io' as Io;
 import '../../palatte.dart';
 
 class LogTropsIssues extends StatefulWidget {
-  final int  ClientID;
-  final String  clientName, ClientEmail;
-  const LogTropsIssues({Key? key, required this.ClientID, required this.ClientEmail, required this.clientName})
+  final int?  ClientID;
+  final String?  clientName, ClientEmail;
+  const LogTropsIssues({Key? key,  this.ClientID,  this.ClientEmail,  this.clientName})
       : super(key: key);
 
   @override
@@ -37,13 +38,12 @@ class LogTropsIssues extends StatefulWidget {
       clientName: this.clientName);
 }
 
-enum SingingCharacter { resolved, Open, Closed }
 
 class _LogTropsIssuesState extends State<LogTropsIssues> {
-  int  ClientID;
-  String  ClientEmail, clientName;
+  int?  ClientID;
+  String?  ClientEmail, clientName;
 
-  _LogTropsIssuesState({ required this.ClientID,  required this.clientName, required this.ClientEmail});
+  _LogTropsIssuesState({  this.ClientID,   this.clientName,  this.ClientEmail});
 
   @override
   List<String> affectedUserArray = [];
@@ -74,7 +74,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
       newFileLocation;
   String?  appendBase64 = '';
 
-  File uploadimage;
+  File? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -85,9 +85,9 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   String?  baseimage = '';
   String?  _extension;
   bool _hasValidMime = false;
-  FileType _pickingType;
+  FileType? _pickingType;
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name, agent_email = '';
   int?  agentId = 0;
   String?  agentCode = "";
@@ -113,14 +113,16 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
   void initState() {
     // TODO: implement initState
+    getStaffID();
     getAffectedType();
     deparmentUnit();
     TicketType(2);
     //   CategoryType();
-    getStaffID();
+
     // getSubCategory(10);
-    email.text = ClientEmail;
-    name.text = clientName;
+    print('client Id ${ClientID} ${ClientEmail} ${clientName}');
+    email.text = ClientEmail ?? '';
+    name.text = clientName ?? '';
     sequestClientID.text = ClientID.toString();
     super.initState();
   }
@@ -159,7 +161,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         _isLoading = false;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -183,7 +185,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -216,7 +218,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         collectTicketType = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -289,7 +291,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allCategory = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         print(newEmp[i]['categoryName']);
 
         collectCategory.add(newEmp[i]['categoryName']);
@@ -326,7 +328,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         collectSubCategory = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int?  i = 0; i! < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -392,9 +394,11 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
 
         Map<String, dynamic> interactionData = {
           "subject": title.text,
-          "description": description.text,
+          "description": description.text ,
           "affectedPartyName": name.text,
-          "clientId": agentCode.toString(),
+           "clientId": agentCode.toString(),
+
+
       //    "clientId": ClientID.toString(),
           //  "affectedPartyEmail": email.text,
           "requestingParty": 0,
@@ -567,7 +571,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                             fontFamily: 'Nunito SansRegular'),
                         labelStyle: TextStyle(
                             fontFamily: 'Nunito SansRegular',
-                            color: Theme.of(context).textTheme.headline2.color),
+                            color: Theme.of(context).textTheme.displayMedium?.color),
                         counter: SizedBox.shrink()),
                   ),
 
@@ -879,100 +883,360 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
   //   });
   // }
 
+
+  // old take photo and explorer
+  // void takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   var choosedimage = await ImagePicker.pickImage(source: source);
+  //   //  print('this ${choosedimage.toString()}');
+  //   File imagefile = choosedimage; //convert Path to File
+  //
+  //   var result = await FlutterImageCompress.compressWithFile(
+  //     imagefile.absolute.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 100,
+  //     // rotate: 90,
+  //   );
+  //
+  //   print('this is file sixe');
+  //   print(imagefile.lengthSync());
+  //   print(result);
+  //   //return result;
+  //
+  //   // image compressor
+  //
+  //   print('image File ${imagefile}');
+  //   Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
+  //   String?  base64String?  =
+  //   base64.encode(result); //convert bytes to base64 string
+  //   print('base64String?  ${base64string}');
+  //
+  //   String?  _finalPath = choosedimage.toString();
+  //   // final bytes = Io.File(_finalPath).readAsBytesSync();
+  //   //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
+  //   // String?  img64 = base64Encode(bytes);
+  //
+  //   // print(img64);
+  //
+  //   setState(() {
+  //     uploadimage = choosedimage;
+  //     String?  getPath = choosedimage.toString();
+  //     _fileName = getPath != null ? getPath.split('/').last : '...';
+  //     // _openFileExplorer(getPath);
+  //
+  //     File file = choosedimage;
+  //     _fileName = file.path.split('/').last;
+  //     print('filename ${_fileName}');
+  //     passport.text = _fileName;
+  //     //  selectedFile = _fileName;
+  //   });
+  //
+  //   // final kb = byeInLength / 1024;
+  //   // final mb = kb / 1024;
+  //   // print('this is the MB ${mb}');
+  //   // String?  filesizeAsString?   = mb.toString();
+  //   // print('this is file sizelenght ${filesizeAsString}');
+  //   //  print('image base64 ${img64}');
+  //
+  //   setState(() {
+  //     passportFileLocation = base64string;
+  //     passportFileSize = '';
+  //     passportFiletype = _fileName.split('.').last;
+  //   });
+  //
+  //   print('passport file location ${passportFiletype} ');
+  //
+  //   setState(() {
+  //     if (passportFiletype == 'png') {
+  //       appendBase64 = 'data:image/png;base64,';
+  //     } else if (passportFiletype == 'jpg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     } else if (passportFiletype == 'jpeg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     }
+  //   });
+  //
+  //   newFileLocation = appendBase64 + passportFileLocation;
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     // _fileName = _path != null ? _path.split('/').last : '...';
+  //     //   selectedFile = _fileName;
+  //     passportFileName = _fileName;
+  //   });
+  // }
+  //
+  // void _openFileExplorer() async {
+  //   MyRouter.popPage(context);
+  //
+  //   String?  result;
+  //   try {
+  //     setState(() {
+  //       _path = '-';
+  //       _pickFileInProgress = true;
+  //     });
+  //
+  //     FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
+  //       allowedFileExtensions: _checkByCustomExtension
+  //           ? _extensionController.text
+  //           .split(' ')
+  //           .where((x) => x.isNotEmpty)
+  //           .toList()
+  //           : null,
+  //       allowedUtiTypes: _iosPublicDataUTI
+  //           ? null
+  //           : _utiController.text
+  //           .split(' ')
+  //           .where((x) => x.isNotEmpty)
+  //           .toList(),
+  //       allowedMimeTypes: ["image/png", "image/jpeg", "image/jpg"],
+  //     );
+  //
+  //     result = await FlutterDocumentPicker.openDocument(params: params);
+  //
+  //     final file = File(result!);
+  //     final fileSize = await file.length();
+  //     if (fileSize > 5 * 1024 * 1024) {
+  //       setState(() {
+  //         passport.text = '';
+  //         passportFileLocation = '';
+  //         _path = '-';
+  //         // isPassportAdded = false;
+  //       });
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             title: Text('File Size Exceeded'),
+  //             content: Text('Please select a file with a maximum size of 2MB.'),
+  //             actions: [
+  //               TextButton(
+  //                 onPressed: () => Navigator.pop(context),
+  //                 child: Text('OK'),
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //       return;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     result = 'Error: $e';
+  //   } finally {
+  //     // setState(() {
+  //     //   _pickFileInProgress = false;
+  //     // });
+  //   }
+  //
+  //   setState(() {
+  //     _path = result;
+  //   });
+  //
+  //   try {
+  //     //  var newPath  = await FilePicker.getFile(type: _pickingType,fileExtension: _extension);
+  //     //  print('this is new Path ${newPath}');
+  //     // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+  //
+  //     // print('this is Path ${_path}');
+  //
+  //     print('file extension ${_path.split('.').last}');
+  //
+  //     String?  filePath = _path.split('.').last;
+  //
+  //     var result;
+  //
+  //     bool extensionChecker =
+  //     filePath == 'png' || filePath == 'jpg' || filePath == 'jpeg'
+  //         ? true
+  //         : false;
+  //
+  //     if (extensionChecker) {
+  //       result = await FlutterImageCompress.compressWithFile(
+  //         _path!,
+  //         minWidth: 330,
+  //         minHeight: 250,
+  //         quality: 90,
+  //         //  rotate: 180,
+  //       );
+  //       //    print('this is file sixe');
+  //
+  //     }
+  //
+  //     final bytes = Io.File(_path).readAsBytesSync();
+  //     final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+  //     String?  img64 = base64Encode(extensionChecker ? result : bytes);
+  //
+  //     // get file size
+  //     final kb = byeInLength / 1024;
+  //     final mb = kb / 1024;
+  //     print('this is the MB ${mb}');
+  //     String?  filesizeAsString?  = mb.toString();
+  //     print('this is file sizelenght ${filesizeAsString}');
+  //     print('image base64 ${img64}');
+  //
+  //     setState(() {
+  //       passportFileLocation = img64;
+  //       passportFileSize = filesizeAsString;
+  //       passportFiletype = _path.split('.').last;
+  //     });
+  //
+  //     print('passport file location ${passportFiletype} ');
+  //
+  //     setState(() {
+  //       if (passportFiletype == 'png') {
+  //         appendBase64 = 'data:image/png;base64,';
+  //       } else if (passportFiletype == 'jpg') {
+  //         appendBase64 = 'data:image/jpeg;base64,';
+  //       } else if (passportFiletype == 'jpeg') {
+  //         appendBase64 = 'data:image/jpeg;base64,';
+  //       }
+  //     });
+  //
+  //     newFileLocation = appendBase64! + passportFileLocation!;
+  //
+  //     print('newfileLocation ${newFileLocation}');
+  //   } on PlatformException catch (e) {
+  //     print("Unsupported operation" + e.toString());
+  //   }
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     _fileName = _path != null ? _path.split('/').last : '...';
+  //     //  selectedFile = _fileName;
+  //     passportFileName = _fileName;
+  //     passport.text = _fileName;
+  //     //  isPassportAdded = true;
+  //   });
+  //
+  //   // }
+  // }
+
+  // end old one ..
+  // void takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   final pickedImage = await ImagePicker().pickImage(source: source);
+  //
+  //   if (pickedImage == null) return;
+  //
+  //   final File imagefile = File(pickedImage.path);
+  //
+  //   final result = await FlutterImageCompress.compressWithFile(
+  //     imagefile.absolute.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 100,
+  //   );
+  //
+  //   print('This is file size: ${imagefile.lengthSync()}');
+  //   print('Compressed result: $result');
+  //
+  //   Uint8List imageBytes = await imagefile.readAsBytes();
+  //   String base64string = base64Encode(result ?? imageBytes);
+  //
+  //   String _fileName = imagefile.path.split('/').last;
+  //
+  //   setState(() {
+  //     uploadimage = imagefile;
+  //     passport.text = _fileName;
+  //     passportFileLocation = base64string;
+  //     passportFileSize = '';
+  //     passportFiletype = _fileName.split('.').last;
+  //   });
+  //
+  //   if (passportFiletype == 'png') {
+  //     appendBase64 = 'data:image/png;base64,';
+  //   } else if (passportFiletype == 'jpg' || passportFiletype == 'jpeg') {
+  //     appendBase64 = 'data:image/jpeg;base64,';
+  //   }
+  //
+  //   newFileLocation = appendBase64! + passportFileLocation!;
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     passportFileName = _fileName;
+  //   });
+  // }
+
+
   void takePhoto(ImageSource source) async {
-    MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
-    //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
-
-    var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
-      minWidth: 330,
-      minHeight: 250,
-      quality: 100,
-      // rotate: 90,
-    );
-
-    print('this is file sixe');
-    print(imagefile.lengthSync());
-    print(result);
-    //return result;
-
-    // image compressor
-
-    print('image File ${imagefile}');
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-    base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
-
-    String?  _finalPath = choosedimage.toString();
-    // final bytes = Io.File(_finalPath).readAsBytesSync();
-    //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String?  img64 = base64Encode(bytes);
-
-    // print(img64);
-
-    setState(() {
-      uploadimage = choosedimage;
-      String?  getPath = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      // _openFileExplorer(getPath);
-
-      File file = choosedimage;
-      _fileName = file.path.split('/').last;
-      print('filename ${_fileName}');
-      passport.text = _fileName;
-      //  selectedFile = _fileName;
-    });
-
-    // final kb = byeInLength / 1024;
-    // final mb = kb / 1024;
-    // print('this is the MB ${mb}');
-    // String?  filesizeAsString?   = mb.toString();
-    // print('this is file sizelenght ${filesizeAsString}');
-    //  print('image base64 ${img64}');
-
-    setState(() {
-      passportFileLocation = base64string;
-      passportFileSize = '';
-      passportFiletype = _fileName.split('.').last;
-    });
-
-    print('passport file location ${passportFiletype} ');
-
-    setState(() {
-      if (passportFiletype == 'png') {
-        appendBase64 = 'data:image/png;base64,';
-      } else if (passportFiletype == 'jpg') {
-        appendBase64 = 'data:image/jpeg;base64,';
-      } else if (passportFiletype == 'jpeg') {
-        appendBase64 = 'data:image/jpeg;base64,';
+    try {
+      // Platform + permission check
+      if (Platform.isAndroid || Platform.isIOS) {
+        final permissionStatus = await Permission.camera.request();
+        if (!permissionStatus.isGranted) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Camera permission is required.')),
+            );
+          }
+          return;
+        }
       }
-    });
 
-    newFileLocation = appendBase64 + passportFileLocation;
+      MyRouter.popPage(context);
+      final pickedImage = await ImagePicker().pickImage(source: source);
 
-    if (!mounted) return;
+      if (pickedImage == null) return;
 
-    setState(() {
-      // _fileName = _path != null ? _path.split('/').last : '...';
-      //   selectedFile = _fileName;
-      passportFileName = _fileName;
-    });
+      final File imagefile = File(pickedImage.path);
+
+      final result = await FlutterImageCompress.compressWithFile(
+        imagefile.absolute.path,
+        minWidth: 330,
+        minHeight: 250,
+        quality: 100,
+      );
+
+      print('This is file size: ${imagefile.lengthSync()}');
+      print('Compressed result: $result');
+
+      Uint8List imageBytes = await imagefile.readAsBytes();
+      String base64string = base64Encode(result ?? imageBytes);
+      String _fileName = imagefile.path.split('/').last;
+      String _fileType = _fileName.split('.').last;
+
+      if (!mounted) return;
+
+      setState(() {
+        uploadimage = imagefile;
+        passport.text = _fileName;
+        passportFileLocation = base64string;
+        passportFileSize = '';
+        passportFiletype = _fileType;
+        appendBase64 = (_fileType == 'png')
+            ? 'data:image/png;base64,'
+            : (_fileType == 'jpg' || _fileType == 'jpeg')
+            ? 'data:image/jpeg;base64,'
+            : '';
+        newFileLocation = appendBase64! + passportFileLocation!;
+        passportFileName = _fileName;
+      });
+    } catch (e) {
+      print('[takePhoto] Error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Something went wrong while taking photo.')),
+        );
+      }
+    }
   }
 
   void _openFileExplorer() async {
     MyRouter.popPage(context);
 
-    String?  result;
+    String? resultPath;
     try {
       setState(() {
         _path = '-';
         _pickFileInProgress = true;
       });
 
-      FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
+      final FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
         allowedFileExtensions: _checkByCustomExtension
             ? _extensionController.text
             .split(' ')
@@ -988,125 +1252,88 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         allowedMimeTypes: ["image/png", "image/jpeg", "image/jpg"],
       );
 
-      result = await FlutterDocumentPicker.openDocument(params: params);
+      resultPath = await FlutterDocumentPicker.openDocument(params: params);
 
-      final file = File(result);
+      if (resultPath == null) return;
+
+      final file = File(resultPath);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         setState(() {
           passport.text = '';
           passportFileLocation = '';
           _path = '-';
-          // isPassportAdded = false;
         });
         showDialog(
           context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('File Size Exceeded'),
-              content: Text('Please select a file with a maximum size of 2MB.'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
+          builder: (context) => AlertDialog(
+            title: Text('File Size Exceeded'),
+            content: Text('Please select a file with a maximum size of 2MB.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          ),
         );
         return;
       }
     } catch (e) {
-      print(e);
-      result = 'Error: $e';
-    } finally {
-      // setState(() {
-      //   _pickFileInProgress = false;
-      // });
+      print('Error: $e');
+      resultPath = 'Error: $e';
     }
 
     setState(() {
-      _path = result;
+      _path = resultPath;
     });
 
     try {
-      //  var newPath  = await FilePicker.getFile(type: _pickingType,fileExtension: _extension);
-      //  print('this is new Path ${newPath}');
-      // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+      final extension = _path!.split('.').last.toLowerCase();
+      final isImage = extension == 'png' || extension == 'jpg' || extension == 'jpeg';
 
-      // print('this is Path ${_path}');
-
-      print('file extension ${_path.split('.').last}');
-
-      String?  filePath = _path.split('.').last;
-
-      var result;
-
-      bool extensionChecker =
-      filePath == 'png' || filePath == 'jpg' || filePath == 'jpeg'
-          ? true
-          : false;
-
-      if (extensionChecker) {
+      Uint8List? result;
+      if (isImage) {
         result = await FlutterImageCompress.compressWithFile(
-          _path,
+          _path!,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
-          //  rotate: 180,
         );
-        //    print('this is file sixe');
-
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String?  img64 = base64Encode(extensionChecker ? result : bytes);
+      final bytes = File(_path!).readAsBytesSync();
+      final fileLength = bytes.lengthInBytes;
+      final base64String = base64Encode(result ?? bytes);
 
-      // get file size
-      final kb = byeInLength / 1024;
-      final mb = kb / 1024;
-      print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
-      print('this is file sizelenght ${filesizeAsString}');
-      print('image base64 ${img64}');
+      final mb = fileLength / (1024 * 1024);
+      final fileSizeAsString = mb.toStringAsFixed(2);
 
       setState(() {
-        passportFileLocation = img64;
-        passportFileSize = filesizeAsString;
-        passportFiletype = _path.split('.').last;
+        passportFileLocation = base64String;
+        passportFileSize = fileSizeAsString;
+        passportFiletype = extension;
       });
 
-      print('passport file location ${passportFiletype} ');
+      if (extension == 'png') {
+        appendBase64 = 'data:image/png;base64,';
+      } else if (extension == 'jpg' || extension == 'jpeg') {
+        appendBase64 = 'data:image/jpeg;base64,';
+      }
 
-      setState(() {
-        if (passportFiletype == 'png') {
-          appendBase64 = 'data:image/png;base64,';
-        } else if (passportFiletype == 'jpg') {
-          appendBase64 = 'data:image/jpeg;base64,';
-        } else if (passportFiletype == 'jpeg') {
-          appendBase64 = 'data:image/jpeg;base64,';
-        }
-      });
-
-      newFileLocation = appendBase64 + passportFileLocation;
-
-      print('newfileLocation ${newFileLocation}');
+      newFileLocation = appendBase64! + passportFileLocation!;
+      print('newFileLocation: $newFileLocation');
     } on PlatformException catch (e) {
-      print("Unsupported operation" + e.toString());
+      print("Unsupported operation: $e");
     }
 
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      //  selectedFile = _fileName;
+      _fileName = _path != null ? _path!.split('/').last : '...';
       passportFileName = _fileName;
-      passport.text = _fileName;
-      //  isPassportAdded = true;
+      passport.text = _fileName!;
     });
-
-    // }
   }
 
   Widget EntryField(
@@ -1126,7 +1353,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1141,7 +1368,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
             controller: editController,
 
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Field cannot be empty';
               }
             },
@@ -1168,7 +1395,7 @@ class _LogTropsIssuesState extends State<LogTropsIssues> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.displayMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),

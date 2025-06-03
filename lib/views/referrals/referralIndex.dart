@@ -59,6 +59,12 @@ class _ReferralIndexState extends State<ReferralIndex> {
     //     // linkUrl: 'https://flutter.dev/',
     //     // chooserTitle: 'Example Chooser Title'
     // );
+    await FlutterShare.share(
+      title: 'Share',
+      text: codeLink,
+      //  linkUrl: 'https://ussdcp.creditdirect.ng/',
+      chooserTitle: 'Share Offer',
+    );
   }
 
   sendReferrals(String?  shareType ) async{
@@ -84,6 +90,14 @@ class _ReferralIndexState extends State<ReferralIndex> {
         String?  shareLink = '*5120*2*${refId}#';
         String?  useLink = 'Use this referral link from ${staffName} to register on our mobile App \n\n ${shareLink}';
       // Share.share(useLink,);
+        share(useLink);
+        break;
+
+      case 'whatsapp' :
+      //  MyRouter.popPage(context);
+        String?  shareLink = '${refId}';
+        String?  useLink = 'Use this referral link from ${staffName} to book loan on whatsapp http://wa.me/2349070309430?text=Apply+for+loan+with+${shareLink}';
+        // Share.share(useLink,);
         share(useLink);
         break;
 
@@ -152,13 +166,13 @@ class _ReferralIndexState extends State<ReferralIndex> {
             SizedBox(height: 9,),
             InkWell(
                 onTap: (){
-                  sendReferrals('Mobile App');
+                  sendReferrals('whatsapp');
                 },
                 child:
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Mobile App'),
+                    Text('Share with whatsapp'),
                     Icon(Icons.arrow_forward_ios)
                   ],
                 )

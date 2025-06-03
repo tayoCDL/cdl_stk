@@ -57,6 +57,7 @@ class TextInputWithBorder extends StatelessWidget {
           onSaved: onSave,
           // obscureText: Obs,
           validator: validate,
+
           decoration: InputDecoration(
             hintText: hint,
               counterText: '',
@@ -65,11 +66,15 @@ class TextInputWithBorder extends StatelessWidget {
 
               contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 1),
+              ),
 
 
               labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Color(0xff205072))
 
           ),
+
           style: kBodyText,
 
           keyboardType: inputType,

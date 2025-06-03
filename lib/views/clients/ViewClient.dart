@@ -9,13 +9,15 @@ import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/helper_class.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
-import 'package:sales_toolkit/views/Interactions/ClientInteractionChat.dart';
-import 'package:sales_toolkit/views/Interactions/CreateOpportunity.dart';
-import 'package:sales_toolkit/views/Interactions/clientOpportunity.dart';
-import 'package:sales_toolkit/views/Loans/EmbeddedLoanView.dart';
-import 'package:sales_toolkit/views/Loans/LoanView.dart';
 import 'package:sales_toolkit/views/Interactions/AddInteraction.dart';
 import 'package:sales_toolkit/views/Interactions/ClientInteraction.dart';
+// import 'package:sales_toolkit/views/Interactions/ClientInteractionChat.dart';
+// import 'package:sales_toolkit/views/Interactions/CreateOpportunity.dart';
+// import 'package:sales_toolkit/views/Interactions/clientOpportunity.dart';
+import 'package:sales_toolkit/views/Loans/EmbeddedLoanView.dart';
+import 'package:sales_toolkit/views/Loans/LoanView.dart';
+// import 'package:sales_toolkit/views/Interactions/AddInteraction.dart';
+// import 'package:sales_toolkit/views/Interactions/ClientInteraction.dart';
 import 'package:sales_toolkit/views/Login/login.dart';
 import 'package:sales_toolkit/views/clients/PersonalInfo.dart';
 import 'package:sales_toolkit/views/clients/SingleCustomerScreen.dart';
@@ -64,7 +66,7 @@ class _ViewClientState extends State<ViewClient> {
 
 
   retRealFile(String?  img){
-    var Velo =  img.split(',').first;
+    var Velo =  img!.split(',').first;
     int?  chopOut = Velo.length + 1;
     String?  realfile =  img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
@@ -76,7 +78,7 @@ class _ViewClientState extends State<ViewClient> {
   @override
   void initState() {
     // TODO: implement initState
-    final recentChat = recentChats[0];
+  //  final recentChat = recentChats[0];
     getClientProfile();
     getClientAvatar();
   //    getaccountsList();
@@ -97,7 +99,7 @@ class _ViewClientState extends State<ViewClient> {
 
     try{
       Response responsevv = await get(
-        AppUrl.getRecentTicketByCLientId + '${clientID}',
+        Uri.parse(AppUrl.getRecentTicketByCLientId + '${clientID}'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${sequesttoken}',
@@ -178,7 +180,7 @@ class _ViewClientState extends State<ViewClient> {
     print(tfaToken);
     print(token);
     Response responsevv = await get(
-      AppUrl.getSingleClientForLoanReview + clientID.toString(),
+      Uri.parse(AppUrl.getSingleClientForLoanReview + clientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -192,8 +194,8 @@ class _ViewClientState extends State<ViewClient> {
     print(responseData2);
     var newClientData = responseData2;
     setState(() {
-      clientAcountNumber = newClientData['clients']['accountNo'];
-      clientAvatar = newClientData['avatar'];
+      clientAcountNumber = newClientData['clients']['accountNo'] ?? null;
+      clientAvatar = newClientData['avatar'] == null ? dummyAvatar : newClientData['avatar'];
     });
     print(clientAvatar);
   }
@@ -209,7 +211,7 @@ class _ViewClientState extends State<ViewClient> {
     Response responsevv = await get(
       // clients/cdl/{clientId}/stk
    //   AppUrl.getSingleClient + 'cdl/' +  clientID.toString() + '/stk',
-      AppUrl.getSingleClient + clientID.toString(),
+      Uri.parse(AppUrl.getSingleClient + clientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -232,7 +234,9 @@ class _ViewClientState extends State<ViewClient> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final Future<Map<String,dynamic>> respose =   RetCodes().clientAccount(clientID.toString() ,context: context);
     respose.then(
+
             (response) {
+              debugPrint('>> response ${response}');
            print('this is app data ${response['data']}');
           if(response['data'] == null && response['message'] == 'Unauthenticated'){
             MyRouter.pushPageReplacement(context, LoginScreen(login_type: 'Loan Management',));
@@ -260,27 +264,27 @@ class _ViewClientState extends State<ViewClient> {
 
     comingSoon(){
 
-      return alert(
-        context,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Pending Client Activation '),
-            InkWell(
-                onTap: (){
-                  MyRouter.popPage(context);
-                },
-                child: Icon(Icons.clear))
-          ],  ),
-        content: Text('Client activation is required \nbefore booking loan for this client,\n kindly reachout to your supervisor to \n activate this client on NX360,\n'),
-        textOK: Container(
-          width: MediaQuery.of(context).size.width * 0.3,
-          child: RoundedButton(buttonText: 'Okay',onbuttonPressed: (){
-            MyRouter.popPage(context);
-          },
-          ),
-        ),
-      );
+      // return alert(
+      //   context,
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+      //       Text('Pending Client Activation '),
+      //       InkWell(
+      //           onTap: (){
+      //             MyRouter.popPage(context);
+      //           },
+      //           child: Icon(Icons.clear))
+      //     ],  ),
+      //   content: Text('Client activation is required \nbefore booking loan for this client,\n kindly reachout to your supervisor to \n activate this client on NX360,\n'),
+      //   textOK: Container(
+      //     width: MediaQuery.of(context).size.width * 0.3,
+      //     child: RoundedButton(buttonText: 'Okay',onbuttonPressed: (){
+      //       MyRouter.popPage(context);
+      //     },
+      //     ),
+      //   ),
+      // );
     }
 
 
@@ -292,7 +296,7 @@ class _ViewClientState extends State<ViewClient> {
       }
       if (value == 'account_information') {
         print('got here');
-        MyRouter.pushPage(context, AccountInformation(clientID: clientID,));
+     //   MyRouter.pushPage(context, AccountInformation(clientID: clientID,));
       }
       // else if (value == 'interaction') {
       //   MyRouter.pushPage(context,
@@ -303,12 +307,12 @@ class _ViewClientState extends State<ViewClient> {
       //
       // }
       else if(value == 'create_opportunity') {
-     //   MyRouter.pushPage(context,
-            // ClientOpportunity(
-            //   clientID: clientID,
-            //   clientName: clientProfile['firstname'] + ' ' + clientProfile['lastname'],
-            //   ClientEmail: clientProfile['emailAddress'],  ));
-        MyRouter.pushPage(context,LogTropsIssues());
+       MyRouter.pushPage(context,
+           LogTropsIssues(
+              ClientID: clientID,
+              clientName: clientProfile['firstname'] + ' ' + clientProfile['lastname'],
+              ClientEmail: clientProfile['emailAddress'],  ));
+     //   MyRouter.pushPage(context,LogTropsIssues());
         //  TropIssuesLists(clientID: clientID,);
       }
       else if (value == 'loans' || value == 'embedded_loans') {
@@ -627,7 +631,7 @@ class _ViewClientState extends State<ViewClient> {
                   SizedBox():
 
                   Container(
-                    height: AppHelper().pageHeight(context) * 0.15,
+                    height: AppHelper().pageHeight(context)! * 0.15,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -635,7 +639,7 @@ class _ViewClientState extends State<ViewClient> {
 
                         Expanded(
                           child: Container(
-                            height: AppHelper().pageHeight(context) * 0.12,
+                            height: AppHelper().pageHeight(context)! * 0.12,
                             child: ListView.builder(
                               itemCount: clientAccounts.length,
                               itemBuilder: (context, index) {
@@ -978,7 +982,7 @@ class _ViewClientState extends State<ViewClient> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(imageAsset,
+                    SvgPicture.asset(imageAsset!,
                       height: 30.0,
                       width: 30.0,),
 
@@ -989,7 +993,7 @@ class _ViewClientState extends State<ViewClient> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(title,style: TextStyle(fontSize: 13,color: Colors.grey[500],fontWeight: FontWeight.bold),),
+                    Text(title!,style: TextStyle(fontSize: 13,color: Colors.grey[500],fontWeight: FontWeight.bold),),
                   ],
                 ),
                 SizedBox(height: 10,),
@@ -1032,7 +1036,7 @@ class _ViewClientState extends State<ViewClient> {
                           width: 40.0,
                         ) ,
                         title:Text('${activityList[position]['description']}',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold),),
-                        subtitle: Text(convertToAgo(time1),style: TextStyle(fontSize: 14,color: Colors.black,),),
+                        subtitle: Text(convertToAgo(time1)!,style: TextStyle(fontSize: 14,color: Colors.black,),),
                       ),
                     );
                   }),
@@ -1201,7 +1205,7 @@ class _ViewClientState extends State<ViewClient> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
-                      Text(ticketId),
+                      Text(ticketId!),
                       Container(
                         width: 65,
                         padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -1212,7 +1216,7 @@ class _ViewClientState extends State<ViewClient> {
                             BoxShadow(color:  Color(0xff9c9595), spreadRadius: 0.1),
                           ],
                         ),
-                        child: Center(child: Text(status,style: TextStyle(color: Colors.white),)),
+                        child: Center(child: Text(status!,style: TextStyle(color: Colors.white),)),
                       ),
 
                     ],
@@ -1221,7 +1225,7 @@ class _ViewClientState extends State<ViewClient> {
                 ),
                 Container(
                   child: ListTile(
-                    title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                    title:Text(title!,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                     subtitle: Text('Last updated: 2022-01-20',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                   ),
@@ -1262,11 +1266,11 @@ class _ViewClientState extends State<ViewClient> {
               ),
               child: TextButton(
                 onPressed: (){
-                  MyRouter.pushPage(context, AddInteraction(
-                    clientName: clientProfile['firstname'] + ' ' + clientProfile['lastname'],
-                    ClientEmail: clientProfile['emailAddress'],
-                    ClientID: clientProfile['id'],
-                  ));
+                  // MyRouter.pushPage(context, AddInteraction(
+                  //   clientName: clientProfile['firstname'] + ' ' + clientProfile['lastname'],
+                  //   ClientEmail: clientProfile['emailAddress'],
+                  //   ClientID: clientProfile['id'],
+                  // ));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 0.0),
@@ -1286,8 +1290,8 @@ class _ViewClientState extends State<ViewClient> {
   }
 
 
-  String?  convertToAgo(DateTime input){
-    Duration diff = DateTime.now().difference(input);
+  String?  convertToAgo(DateTime? input){
+    Duration diff = DateTime.now().difference(input!);
 
     if(diff.inDays >= 1){
       return '${diff.inDays} day(s) ago';
@@ -1304,9 +1308,9 @@ class _ViewClientState extends State<ViewClient> {
 
   retDOBfromBVN(String?  getDate){
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate?.replaceAll("-", " ");
     print('new Rems ${removeComma}');
-    List<String> wordList = removeComma.split(" ");
+    List<String> wordList = removeComma!.split(" ");
     print(wordList[1]);
 
 
@@ -1376,7 +1380,7 @@ class _ViewClientState extends State<ViewClient> {
 
     print('newOO ${newOO}');
 
-    String?  concatss =  newOO + " " + realMonth + " " + o1   ;
+    String?  concatss =  newOO + " " + realMonth! + " " + o1   ;
 
     print("concatss new Date from edit ${concatss}");
 

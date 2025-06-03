@@ -28,9 +28,9 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 });
   var allCLient = [];
   bool _isLoading = false;
-  String?  searchStatus = '';
+  String  searchStatus = '';
 
-  vchangeState(String?  newVals){
+  vchangeState(String  newVals){
     setState(() {
       searchStatus = newVals;
     });
@@ -63,8 +63,10 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
 
   }
 
-  Future<List> getSuggestions(String?  query) async{
+  Future<dynamic> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    query = query ?? '';
 
     if(query.length < 3){
       Flushbar(
@@ -293,8 +295,8 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        VoidCallback onBtnPressed,bool isSuffix = false,
-        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
+        VoidCallback? onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true, String? Function(String?)? changeValidator,Widget? prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(
@@ -303,7 +305,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -345,7 +347,7 @@ class _ClientSearchForInteractionState extends State<ClientSearchForInteraction>
                   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

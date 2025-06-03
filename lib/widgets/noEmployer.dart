@@ -158,7 +158,7 @@ Widget lafDownloadStatus({required VoidCallback onTap,bool isSuccess =true}) {
   );
 }
 
-Widget lafDownloadFailed({required VoidCallback onTap,bool isSuccess =true}) {
+Widget lafDownloadFailed({ VoidCallback? onTap,bool isSuccess =true}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
     child: Container(

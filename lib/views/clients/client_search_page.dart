@@ -83,7 +83,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
   Future<List> getSuggestions(String?  query) async{
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if(query.length < 3){
+    if(query!.length < 3){
       Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -94,8 +94,8 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
       ).show(context);
     }
 
-    if(searchStatus.length < 2){
-    return  Flushbar(
+    if(searchStatus!.length < 2){
+      Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
         backgroundColor: Colors.red,
@@ -113,7 +113,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
           _isLoading = true;
         });
 
-        String?  sendQuery = searchStatus + '=${query}';
+        String?  sendQuery = searchStatus! + '=${query}';
 
         final Future<Map<String,dynamic>> respose =   RetCodes().searchClient(sendQuery);
         respose.then((response) async {
@@ -145,7 +145,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
 
 
 
-
+    throw    "Unknown error";
 
   }
 
@@ -386,8 +386,8 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,
       {bool isValidateEmployer = false,bool isSendOTP = true,
         var maxLenghtAllow,
-        VoidCallback onBtnPressed,bool isSuffix = false,
-        String?  extension,bool needsValidation = true,VoidCallback changeValidator,Widget prefixIcon}){
+        VoidCallback? onBtnPressed,bool isSuffix = false,
+        String?  extension,bool needsValidation = true,FormFieldValidator<String>? changeValidator,Widget? prefixIcon}){
     var MediaSize = MediaQuery.of(context).size;
     return
       Container(
@@ -396,7 +396,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.outline,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -438,7 +438,7 @@ class _ClientSearchPagesState extends State<ClientSearchPages> {
                   floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                   hintText: hintText,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.displayMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

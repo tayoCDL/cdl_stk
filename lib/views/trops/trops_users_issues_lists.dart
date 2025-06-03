@@ -8,19 +8,19 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/router.dart';
-import 'package:sales_toolkit/views/Interactions/AddInteraction.dart';
-import 'package:sales_toolkit/views/Interactions/ClientInteractionChat.dart';
-import 'package:sales_toolkit/views/Interactions/ItHelpDesk.dart';
-import 'package:sales_toolkit/views/Interactions/addInteractionFromOverview.dart';
-import 'package:sales_toolkit/views/Interactions/addOpportunityFromOverview.dart';
-import 'package:sales_toolkit/views/Interactions/client_search_for_interaction_and_opportunity.dart';
-import 'package:sales_toolkit/views/Interactions/lead_search.dart';
+// import 'package:sales_toolkit/views/Interactions/AddInteraction.dart';
+// import 'package:sales_toolkit/views/Interactions/ClientInteractionChat.dart';
+// import 'package:sales_toolkit/views/Interactions/ItHelpDesk.dart';
+// import 'package:sales_toolkit/views/Interactions/addInteractionFromOverview.dart';
+// import 'package:sales_toolkit/views/Interactions/addOpportunityFromOverview.dart';
+// import 'package:sales_toolkit/views/Interactions/client_search_for_interaction_and_opportunity.dart';
+// import 'package:sales_toolkit/views/Interactions/lead_search.dart';
 import 'package:sales_toolkit/views/main_screen.dart';
 import 'package:sales_toolkit/widgets/client_status.dart';
 import 'package:sales_toolkit/widgets/shared/sequestCredential.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Interactions/t_client_chat.dart';
+// import '../Interactions/t_client_chat.dart';
 
 class TropUsersIssuesLists extends StatefulWidget {
   // const ClientInteraction({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ var interactionData = [];
 
 class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
   int?  clientID,loanOfficerId;
-  Timer _timerForInter;
+  // Timer _timerForInter;
   final String?  clientName,ClientEmail;
   _TropUsersIssuesListsState({this.clientID,this.ClientEmail,this.clientName,this.loanOfficerId});
 
@@ -73,11 +73,11 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
     final Map<String, String> sequestLoginData = {
       "username": "MobileUser",
       "email":  "mobuser@fcmb.com",
-      "password": seQuestPassword
+      "password": seQuestPassword!
     };
 
     Response Sequestresponse = await post(
-      Uri.parse(AppUrl.sequestLogin),
+      AppUrl.sequestLogin,
       body: json.encode(sequestLoginData),
       headers:<String, String> {
         'cache-control': 'no-cache',
@@ -102,7 +102,7 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
 
     try{
       Response responsevv = await get(
-        AppUrl.getInteractionLoggedByMe + '${localLoanOfficerId}?custonType=Staff',
+       Uri.parse( AppUrl.getInteractionLoggedByMe + '${localLoanOfficerId}?custonType=Staff'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${sequesttoken}',
@@ -142,10 +142,10 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
       //       height: 70.0,
       //       width: 70.0,)
       // ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       floatingActionButton: FloatingActionButton(
           onPressed: (){
-            MyRouter.pushPage(context, ItHelpDesk());
+        //    MyRouter.pushPage(context, ItHelpDesk());
           },
           child:     SvgPicture.asset("assets/images/new_plus.svg",
             height: 70.0,
@@ -202,7 +202,7 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
                       ,'Trops Request ${position + 1}',
                       changeStaticStatus(position + 1)
                       ,(){
-                        MyRouter.pushPage(context, TClientInteractionChat(ticketID: '000001',test_title: 'TROP-0000${position + 1}',));
+                    //    MyRouter.pushPage(context, TClientInteractionChat(ticketID: '000001',test_title: 'TROP-0000${position + 1}',));
 
                       },
                       '2021-09-10 12:00:00'
@@ -220,7 +220,7 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
   }
 
   String?  changeStaticStatus(int?  position){
-    return  position % 2 == 0 ? 'Pending' : 'Completed';
+    return  position! % 2 == 0 ? 'Pending' : 'Completed';
   }
 
   Widget recentInteractions(String?  ticketId,String?  title,String?  status,VoidCallback onTicketTapped,String?  dueDate){
@@ -240,7 +240,7 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(ticketId),
+                      Text(ticketId!),
                       // Container(
                       //   width: MediaQuery.of(context).size.width * 0.3,
                       //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -260,7 +260,7 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
                 ),
                 Container(
                   child: ListTile(
-                    title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                    title:Text(title!,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                     trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                     subtitle: Text('Due Date: ${get10(dueDate)}',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                   ),
@@ -327,7 +327,7 @@ class _TropUsersIssuesListsState extends State<TropUsersIssuesLists> {
   }
 
   get10(String?  val_10){
-    String?  vals = val_10.substring(0,10);
+    String?  vals = val_10?.substring(0,10);
     return vals;
   }
 
@@ -379,10 +379,9 @@ class InteractionSearch extends SearchDelegate<String>{
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
-
       ),
       onPressed: (){
-        close(context, null);
+        close(context,'');
       },
     ));
   }
@@ -417,7 +416,7 @@ class InteractionSearch extends SearchDelegate<String>{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(ticketId),
+                        Text(ticketId!),
                         // Container(
                         //   width: 65,
                         //   padding: EdgeInsets.symmetric(horizontal: 4,vertical: 3),
@@ -437,7 +436,7 @@ class InteractionSearch extends SearchDelegate<String>{
                   ),
                   Container(
                     child: ListTile(
-                      title:Text(title,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
+                      title:Text(title!,style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),),
                       trailing: Icon(Icons.arrow_forward_ios_rounded,color: Colors.blue,),
                       subtitle: Text('',style: TextStyle(fontSize: 11,color: Colors.grey,fontWeight: FontWeight.w200),),
                     ),
@@ -456,7 +455,7 @@ class InteractionSearch extends SearchDelegate<String>{
 
     final suggestionsList  = query.isEmpty ? interactionData.take(5).toList() :
     interactionData.where((element) =>
-    toBeginningOfSentenceCase(element['ticketId']).toString().contains(toBeginningOfSentenceCase(query)) ||
+    toBeginningOfSentenceCase(element['ticketId']).toString().contains(toBeginningOfSentenceCase(query)!) ||
         element['ticketId'].toString().contains(query)||
         element['ticketId'].toString().startsWith(query.toUpperCase()) ||
         element['ticketId'].startsWith(query.toUpperCase())).toList();
@@ -469,7 +468,7 @@ class InteractionSearch extends SearchDelegate<String>{
       scrollDirection: Axis.vertical,
       itemBuilder: (context,position){
         return recentInteractions(suggestionsList[position]['ticketId'],suggestionsList[position]['title'],suggestionsList[position]['status'],(){
-          MyRouter.pushPage(context, ClientInteractionChat(ticketID: suggestionsList[position]['ticketId'],));
+       //   MyRouter.pushPage(context, ClientInteractionChat(ticketID: suggestionsList[position]['ticketId'],));
 
         });
       },

@@ -50,7 +50,8 @@ class SecondNewLoan extends StatefulWidget {
         this.comingFrom,
         this.customerID,
         this.clientBVN,
-        this.loadfedgoData})
+        this.loadfedgoData = const {},
+      })
       : super(key: key);
   @override
   _SecondNewLoanState createState() => _SecondNewLoanState(
@@ -82,7 +83,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         this.comingFrom,
         this.customerID,
         this.clientBVN,
-        this.loadfedgoData});
+        this.loadfedgoData = const {},
+      });
 
   List<String> frequencyArray = [];
   List<String> collectFrequency = [];
@@ -123,7 +125,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   double? interestRateForPrivate;
   List<dynamic> objectFetched = [];
   bool isCrcSaved = false;
-  Map<String, dynamic> load_fedgoData;
+  Map<String, dynamic>? load_fedgoData;
   String?  submitOnLoan = '';
 
   bool isBankLoading = false;
@@ -157,6 +159,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   bool showUpdateLender = false;
   bool showAddLender = false;
+
+  TextEditingController unionFees = TextEditingController();
+  TextEditingController personalExpense = TextEditingController();
+  TextEditingController spoilageAmount = TextEditingController();
 
   List<TextEditingController> list_bankAccountControllers = [];
   ScrollController _scrollController = ScrollController(); // Step 1: Create a ScrollController
@@ -203,7 +209,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     }
 
     loadFullTemplate();
-    loadRepayment();
+    // loadRepayment();
 
     // buy over features
     getLendersLists();
@@ -277,7 +283,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allLendersName = newLenders;
       });
 
-      for (int?  i = 0; i < newLenders.length; i++) {
+      for (int  i = 0; i < newLenders.length; i++) {
         //  print(newLenders[i]['displayName']);
         collectLendersName.add(newLenders[i]['displayName']);
       }
@@ -304,7 +310,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBankAccount = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankAcount.add(newEmp[i]['name']);
     //   }
@@ -323,13 +329,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBankAccount'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBankAccount')!);
 
         //
-        if (prefs.getString('prefsBankAccount').isEmpty) {
+        if (prefs.getString('prefsBankAccount')!.isEmpty) {
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Offline mode',
             message: 'Unable to load data locally ',
@@ -342,7 +348,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBankAccount = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -352,8 +358,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           });
 
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.orange,
             title: 'Offline mode',
             message: 'Locally saved data loaded ',
@@ -371,7 +377,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBankAccount = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -407,7 +413,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //       allBanksList = newEmp;
   //     });
   //
-  //     for(int?  i = 0; i < newEmp.length;i++){
+  //     for(int  i = 0; i < newEmp.length;i++){
   //       //print(newEmp[i]['name']);
   //       collectBanksList.add(newEmp[i]['name']);
   //     }
@@ -433,7 +439,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //
   //       //
   //       if(prefs.getString('prefsBanksList').isEmpty){
- //       Flushbar(
+  //       Flushbar(
   //              flushbarPosition: FlushbarPosition.BOTTOM,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
   //           backgroundColor: Colors.red,
@@ -450,7 +456,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //           allBanksList = mtBool;
   //         });
   //
-  //         for(int?  i = 0; i < mtBool.length;i++){
+  //         for(int  i = 0; i < mtBool.length;i++){
   //           //print(mtBool[i]['name']);
   //           collectBanksList.add(mtBool[i]['name']);
   //         }
@@ -459,7 +465,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //           banksListArray = collectBanksList;
   //         });
   //
- //       Flushbar(
+  //       Flushbar(
   //              flushbarPosition: FlushbarPosition.BOTTOM,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
   //           backgroundColor: Colors.orange,
@@ -482,7 +488,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         allBanksList = newEmp;
   //       });
   //
-  //       for(int?  i = 0; i < newEmp.length;i++){
+  //       for(int  i = 0; i < newEmp.length;i++){
   //         //print(newEmp[i]['name']);
   //         collectBanksList.add(newEmp[i]['name']);
   //       }
@@ -510,7 +516,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBanksList = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBanksList.add(newEmp[i]['name']);
     //   }
@@ -529,13 +535,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList')!);
 
         //
-        if (prefs.getString('prefsBanksList').isEmpty) {
+        if (prefs.getString('prefsBanksList')!.isEmpty) {
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Offline mode',
             message: 'Unable to load data locally ',
@@ -548,7 +554,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBanksList = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -558,8 +564,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           });
 
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.orange,
             title: 'Offline mode',
             message: 'Locally saved data loaded ',
@@ -577,7 +583,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBanksList = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -601,7 +607,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     //     allBankClassification = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     //print(newEmp[i]['name']);
     //     collectBankClassification.add(newEmp[i]['name']);
     //   }
@@ -621,13 +627,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-        jsonDecode(prefs.getString('prefsBankClassification'));
+        jsonDecode(prefs.getString('prefsBankClassification')!);
 
         //
-        if (prefs.getString('prefsBankClassification').isEmpty) {
+        if (prefs.getString('prefsBankClassification')!.isEmpty) {
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Offline mode',
             message: 'Unable to load data locally ',
@@ -640,7 +646,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             allBankClassification = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -650,8 +656,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           });
 
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.orange,
             title: 'Offline mode',
             message: 'Locally saved data loaded ',
@@ -669,7 +675,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allBankClassification = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }
@@ -710,6 +716,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           ['base64Pdf'],
         };
         nominal_interest.text = new_interest.toString();
+
         print('isFedgofetched >> ${load_fedgoData}');
       });
 
@@ -762,6 +769,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             max_interest = nomsInterest.toString();
             showPrivateInterest = false;
           }
+
         });
       });
     }
@@ -794,8 +802,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           isBankLoading = false;
         });
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.orangeAccent,
           title: 'Network Error',
           message: 'Unable to connect to internet',
@@ -809,8 +817,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           isBankLoading = false;
         });
         Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.orangeAccent,
           title: 'Network Error',
           message: 'Proceed, data has been saved to draft',
@@ -826,8 +834,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           isBankLoading = false;
         });
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.red,
           title: "Error!",
           message: 'Account could not be validated',
@@ -858,8 +866,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
         setState(() {});
         Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.green,
           title: "Success",
           message: 'Account Validation Successful',
@@ -870,8 +878,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           isRequestLoading = false;
         });
         Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.red,
           title: "Error!",
           message: 'Account could not be validated',
@@ -899,9 +907,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   DateTime.now().add(Duration(days: 15, hours: 0));
   AddLoanProvider addLoanProvider = AddLoanProvider();
 
-  Map<String, dynamic> fullTemps;
-  Map<String, dynamic> vOverrides, vOverrides2;
-  List<dynamic> chargesData;
+  Map<String, dynamic>? fullTemps;
+  Map<String, dynamic>?  vOverrides;
+  Map<String, dynamic>? vOverrides2;
+  List<dynamic>? chargesData ;
   int?  ClientaccountLinkingOptions = 100;
   bool value = false;
   bool isBuyOver = false;
@@ -941,7 +950,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allFrequency = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectFrequency.add(newEmp[i]['value']);
       }
@@ -965,7 +974,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allAmortization = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectAmortization.add(newEmp[i]['value']);
       }
@@ -989,7 +998,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allInterstType = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectInterestType.add(newEmp[i]['value']);
       }
@@ -1013,7 +1022,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         allRepayment = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['value']);
         collectRepayment.add(newEmp[i]['value']);
       }
@@ -1041,102 +1050,102 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       setState(() {
         fullTemps = fullTemplate;
 
-        print('product other config ${fullTemps['product']['otherConfig']}');
+        print('product other config ${fullTemps!['product']['otherConfig']}');
 
-        //  print('hello >> ${fullTemps['employerLoanProductDataOptions'][0]['loanProductId']}');
+        //  print('hello >> ${fullTemps!['employerLoanProductDataOptions'][0]['loanProductId']}');
 // Employer charges should be checked
         ClientaccountLinkingOptions =
-        fullTemps['accountLinkingOptions'][0]['id'];
+        fullTemps!['accountLinkingOptions'][0]['id'];
         print(
-            'account Linking ID ${fullTemps['accountLinkingOptions'][0]['id']}');
-        vOverrides = fullTemps['product']['allowAttributeOverrides'];
+            'account Linking ID ${fullTemps!['accountLinkingOptions'][0]['id']}');
+        vOverrides = fullTemps!['product']['allowAttributeOverrides'];
         vOverrides2 = fullTemps;
         print('chargesData from full template --> ${chargesData}');
         if (chargesData == null) {
-          // chargesData = fullTemps['employerLoanProductDataOptions'] == null
-          //     ? fullTemps['charges']
-          //     : fullTemps['employerLoanProductDataOptions'] ??
-          //         fullTemps['charges'];
-          chargesData = fullTemps['employerLoanProductDataOptions'] == null
-              ? fullTemps['charges']
-              : fullTemps['employerLoanProductDataOptions'][0]['charges'] ??
-              fullTemps['charges'];
+          // chargesData = fullTemps!['employerLoanProductDataOptions'] == null
+          //     ? fullTemps!['charges']
+          //     : fullTemps!['employerLoanProductDataOptions'] ??
+          //         fullTemps!['charges'];
+          chargesData = fullTemps!['employerLoanProductDataOptions'] == null
+              ? fullTemps!['charges']
+              : fullTemps!['employerLoanProductDataOptions'][0]['charges'] ??
+              fullTemps!['charges'];
           print('NewchargesData from full template --> ${chargesData}');
         }
-        min_repayment = fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['minNumberOfRepayments'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]
+        min_repayment = fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['minNumberOfRepayments'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['minNumberOfRepayments']
             .toString() ??
-            fullTemps['product']['minNumberOfRepayments'].toString();
+            fullTemps!['product']['minNumberOfRepayments'].toString();
 
-        max_repayment = fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['maxNumberOfRepayments'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]
+        max_repayment = fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['maxNumberOfRepayments'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['maxNumberOfRepayments']
             .toString() ??
-            fullTemps['product']['maxNumberOfRepayments'].toString();
+            fullTemps!['product']['maxNumberOfRepayments'].toString();
         min_principal = formatCurrency
-            .format(fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['minPrincipal']
-            : fullTemps['employerLoanProductDataOptions'][0]
+            .format(fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['minPrincipal']
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['minPrincipal'] ??
-            fullTemps['product']['minPrincipal'])
+            fullTemps!['product']['minPrincipal'])
             .toString();
         max_principal = formatCurrency
-            .format(fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['maxPrincipal']
-            : fullTemps['employerLoanProductDataOptions'][0]
+            .format(fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['maxPrincipal']
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['maxPrincipal'] ??
-            fullTemps['product']['maxPrincipal'])
+            fullTemps!['product']['maxPrincipal'])
             .toString();
-        min_interest = fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['minInterestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
+        min_interest = fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['minInterestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]['interestRate']
             .toString() ??
-            fullTemps['product']['minInterestRatePerPeriod'].toString();
-        max_interest = fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['maxInterestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]
+            fullTemps!['product']['minInterestRatePerPeriod'].toString();
+        max_interest = fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['maxInterestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['maxNominalInterestRatePerPeriod']
             .toString() ??
-            fullTemps['product']['maxInterestRatePerPeriod'].toString();
+            fullTemps!['product']['maxInterestRatePerPeriod'].toString();
 
-        _canUseForTopUp = fullTemps['canUseForTopup'];
-        isBuyOverAvailable = fullTemps['product']['isBuyOver'];
-        isBuyOverTopUpAvailable = fullTemps['product']['isBuyOverTopUp'];
-        maxLenderCount = fullTemps['product']['maximumLenderCount'];
+        _canUseForTopUp = fullTemps!['canUseForTopup'];
+        isBuyOverAvailable = fullTemps!['product']['isBuyOver'];
+        isBuyOverTopUpAvailable = fullTemps!['product']['isBuyOverTopUp'];
+        maxLenderCount = fullTemps!['product']['maximumLenderCount'];
 
         // delete this
 
 
         // end delete this
 
-        if (fullTemps['product']['repaymentMethod'] != null) {
-          print('repayment method ${fullTemps['product']['repaymentMethod']}');
+        if (fullTemps!['product']['repaymentMethod'] != null) {
+          print('repayment method ${fullTemps!['product']['repaymentMethod']}');
 
           List<dynamic> allReps = [];
 
-          var valLenght = fullTemps['product']['repaymentMethod'];
+          var valLenght = fullTemps!['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int?  i = 0; i < valLenght.length; i++) {
+          for (int  i = 0; i < valLenght.length; i++) {
             print(
-                'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
-            //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
+                'test data ${fullTemps!['product']['repaymentMethod'][i]['description']}');
+            //var nTemps =  fullTemps!['product']['repaymentMethod']['name'];
             allReps
-                .add(fullTemps['product']['repaymentMethod'][i]['description']);
+                .add(fullTemps!['product']['repaymentMethod'][i]['description']);
           }
           if (allReps.contains('Deduction at Source')) {
             _isFederalOrState = true;
           }
-          //  _isFederal = fullTemps['repaymentMethod'] == null ? false : fullTemps['product']['repaymentMethod']['name'] != 'Deduction at Source' ? false : true;
+          //  _isFederal = fullTemps!['repaymentMethod'] == null ? false : fullTemps!['product']['repaymentMethod']['name'] != 'Deduction at Source' ? false : true;
 
           print('_sfederal ${_isFederalOrState}');
         }
 
         print('can use for top up ${_canUseForTopUp}');
         if (_canUseForTopUp) {
-          productOptions = fullTemps['clientActiveLoanOptions'];
+          productOptions = fullTemps!['clientActiveLoanOptions'];
         }
         print('product Options ${productOptions}');
         setState(() {
@@ -1144,7 +1153,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           allLoanOption = productOptions;
         });
 
-        for (int?  i = 0; i < productOptions.length; i++) {
+        for (int  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -1159,37 +1168,38 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         });
         prefs.setBool(
             'isAutoDisburse',
-            fullTemps['autoDisburse'] == null
+            fullTemps?['autoDisburse'] == null
                 ? false
-                : fullTemps['autoDisburse']);
+                : fullTemps?['autoDisburse']);
         prefs.setBool(
             'isBankStatement',
-            fullTemps['product']['otherConfig'] == null
+            fullTemps!['product']['otherConfig'] == null
                 ? false
-                : fullTemps['product']['otherConfig']['checkBankStatement']);
+                : fullTemps?['product']['otherConfig']['checkBankStatement']);
       });
 
       print('loan option array ${loanOptionArray}');
 
-      print('attribute overrides ${fullTemps['product']['no_of_repayments']}');
+      //  print('attribute overrides ${fullTemps!['product']['no_of_repayments']}');
       //  print('vOverried ${vOverrides['amortizationType']}');
       print(formatCurrency.format(100000));
-      repaidEvery.text = fullTemps['product']['repaymentEvery'].toString();
+      repaidEvery.text = fullTemps!['product']['repaymentEvery'].toString();
 
       if (loanID == null) {
         print(
-            'new<< ${interestRateForPrivate} ${load_fedgoData != null ? load_fedgoData['interestRate'].toString() : fullTemps['employerLoanProductDataOptions'] == null ? fullTemps['product']['interestRatePerPeriod'].toString() : fullTemps['employerLoanProductDataOptions'][0]['interestRate'].toString()}');
-        principal.text = fullTemps['product']['principal'].toString();
+            'new<< ${interestRateForPrivate} ${load_fedgoData != null ? load_fedgoData!['interestRate'].toString() : fullTemps!['employerLoanProductDataOptions'] == null ? fullTemps!['product']['interestRatePerPeriod'].toString() : fullTemps!['employerLoanProductDataOptions'][0]['interestRate'].toString()}');
+        principal.text = fullTemps!['product']['principal'].toString();
         nominal_interest.text = load_fedgoData != null
-            ? load_fedgoData['interestRate'].toString()
-            : fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['interestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
+            ? load_fedgoData!['interestRate'].toString()
+            : fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['interestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]['interestRate']
             .toString();
         no_of_repayments.text =
-            fullTemps['product']['numberOfRepayments'].toString();
+            fullTemps!['product']['numberOfRepayments'].toString();
       }
-      //     nominal_interest.text = fullTemps['product']['numberOfRepayments'].toString();
+      //     .toString()}');
+      //     nominal_interest.text = fullTemps!['product']['numberOfRepayments'].toString();
     });
   }
 
@@ -1200,10 +1210,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails +
-          loanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+    Response responsevv = await get(Uri.parse(
+        AppUrl.getLoanDetails +
+            loanID.toString() +
+            '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1226,36 +1236,49 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       no_of_repayments.text = newClientData['numberOfRepayments'].toString();
       nominal_interest.text = newClientData['interestRatePerPeriod'].toString();
       // repaymentDate.text =
+
       loanID = newClientData['id'];
       repaymentDate.text = retDOBfromBVN(
           '${newClientData['expectedFirstRepaymentOnDate'][0]}-${newClientData['expectedFirstRepaymentOnDate'][1]}-${newClientData['expectedFirstRepaymentOnDate'][2]}');
 
       if(newClientData['buyOverLoanDetail'] != null){
-          lendersLists = newClientData['buyOverLoanDetail'];
+        lendersLists = newClientData['buyOverLoanDetail'];
         //  maxLenderCount = lendersLists.length;
-       //   _canUseForTopUp = newClientData['buyOverLoanDetail'];
-          isBuyOverAvailable = true;
-          isBuyOvertopup = newClientData['isTopup'];
-          isBuyOver = isBuyOvertopup == true ? false : true;
+        //   _canUseForTopUp = newClientData['buyOverLoanDetail'];
+        isBuyOverAvailable = true;
+        isBuyOvertopup = newClientData['isTopup'];
+        isBuyOver = isBuyOvertopup == true ? false : true;
 
-          isBuyOverTopUpAvailable = newClientData['canUseForTopup'];
-          lenderIndex =  maxLenderCount - lendersLists.length;
-          print('lenders lists ${ lendersLists.length} ${lenderIndex} ${maxLenderCount}');
+        isBuyOverTopUpAvailable = newClientData['canUseForTopup'];
+        lenderIndex =  maxLenderCount! - lendersLists.length;
+        print('lenders lists ${ lendersLists.length} ${lenderIndex} ${maxLenderCount}');
       }
-         });
+
+      if ( FINANCIAL_INCLUSION.contains(productID)) {
+        print('>> is financial inclusion');
+
+        unionFees.text = newClientData['unionFees'].toString();
+        personalExpense.text = newClientData['personalExpense'].toString();
+        spoilageAmount.text = newClientData['spoilageAmount'].toString();
+      }
+
+
+
+    });
   }
 
   calculateReschedule() async {
-    print('repayment << ${chargesData.map((e) => {
-      "chargeId": e['chargeId'] == null ? e['id'] : e['chargeId'],
-      "amount": loanID == null
-          ? e['amount']
-          : (e['amountOrPercentage'] == null
-          ? e['amount']
-          : e['amountOrPercentage']),
-      "id": loanID == null ? null : e['id']
-    }).toList()}');
-    // print('charges Data << ${chargesData.toList()}');
+    // print('repayment << ${chargesData!.map((e) => {
+    //   "chargeId": e['chargeId'] == null ? e['id'] : e['chargeId'],
+    //   "amount": loanID == null
+    //       ? e['amount']
+    //       : (e['amountOrPercentage'] == null
+    //       ? e['amount']
+    //       : e['amountOrPercentage']),
+    //   "id": loanID == null ? null : e['id']
+    // }).toList()}');
+    // print('charges Data << ${chargesData!.toList()}');
+
 
     DateTime now = DateTime.now();
     String?  vasCoddd = retsNx360dates(now);
@@ -1265,32 +1288,34 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       "netpay": netpay.text,
       "clientId": clientID,
       "productId": productID,
+      //  "productId": 95,
       "principal": principal.text,
       "loanTermFrequency": no_of_repayments.text,
-      "loanTermFrequencyType": 2,
+      "loanTermFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
       "numberOfRepayments": no_of_repayments.text,
       "repaymentEvery": repaidEvery.text,
-      "repaymentFrequencyType": 2,
+      "repaymentFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
       "interestRatePerPeriod": load_fedgoData != null
-          ? load_fedgoData['interestRate']
+          ? load_fedgoData!['interestRate']
           : _isFederalOrState == false
           ? nominal_interest.text
-          : fullTemps['employerLoanProductDataOptions'] == null
-          ? fullTemps['product']['interestRatePerPeriod'].toString()
-          : fullTemps['employerLoanProductDataOptions'][0]
+          : fullTemps!['employerLoanProductDataOptions'] == null
+          ? fullTemps!['product']['interestRatePerPeriod'].toString()
+          : fullTemps!['employerLoanProductDataOptions'][0]
       ['interestRate']
           .toString(),
-      "amortizationType": vOverrides2['amortizationType']['id'],
-      "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-      "interestType": vOverrides2['interestType']['id'],
+
+      "amortizationType": vOverrides2!['amortizationType']['id'],
+      "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
+      "interestType": vOverrides2!['interestType']['id'],
       "interestCalculationPeriodType":
-      vOverrides2['interestCalculationPeriodType']['id'],
+      vOverrides2!['interestCalculationPeriodType']['id'],
       "allowPartialPeriodInterestCalcualtion":
-      fullTemps['allowPartialPeriodInterestCalcualtion'],
-      "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-      "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+      fullTemps!['allowPartialPeriodInterestCalcualtion'],
+      "inArrearsTolerance": vOverrides!['inArrearsTolerance'] == true ? 1 : 0,
+      "graceOnArrearsAgeing": vOverrides2!['graceOnArrearsAgeing'],
       "transactionProcessingStrategyId":
-      vOverrides2['transactionProcessingStrategyId'],
+      vOverrides2!['transactionProcessingStrategyId'],
       "rates": [],
       // "charges":  [
       //   {
@@ -1298,7 +1323,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       //     "amount": chargesData[0]['amount']
       //   }
       // ],
-      "charges": chargesData.length == 0
+      "charges": chargesData!.length == 0
           ? []
           :
       // [
@@ -1312,7 +1337,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       //           }
       //         ],
 
-      chargesData
+      chargesData!
           .map((e) => {
         "chargeId": e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanID == null
@@ -1329,6 +1354,19 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       "expectedDisbursementDate": vasCoddd,
       "submittedOnDate": vasCoddd,
     };
+
+
+    if ( FINANCIAL_INCLUSION.contains(productID)) {
+      // personalData.addAll({
+      //    "unionFees": unionFees.text,
+      //    "personalExpense": personalExpense.text,
+      //    "spoilageAmount": spoilageAmount.text,
+      //  });
+      repaymentSchedule["unionFees"] = unionFees.text;
+      repaymentSchedule["personalExpense"] = personalExpense.text;
+      repaymentSchedule["spoilageAmount"] = spoilageAmount.text;
+    }
+
 
     final Future<Map<String, dynamic>> respose =
     RetCodes().calculateRepayment(repaymentSchedule);
@@ -1352,7 +1390,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     String?  passed_staff_id = prefs.getString('loanOfficerId');
     RetCodes rtCocdes = RetCodes();
     rtCocdes
-        .loanPermission(int.tryParse(passed_staff_id), clientID)
+        .loanPermission(int.tryParse(passed_staff_id!), clientID)
         .then((value) {
       setState(() {
         //  canBookOtherLoans = false;
@@ -1389,7 +1427,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             "fileName": "First Central",
             //  "size": bankFileSize,
             "type": "application/pdf",
-            "location": load_fedgoData['firstCentralPdf'],
+            "location": load_fedgoData!['firstCentralPdf'],
             "description": "First Central"
           },
         );
@@ -1400,7 +1438,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             "fileName": "Credit Registry",
             //  "size": bankFileSize,
             "type": "application/pdf",
-            "location": load_fedgoData['creditRegistryPdf'],
+            "location": load_fedgoData!['creditRegistryPdf'],
             "description": "Credit Registry"
           },
         );
@@ -1462,8 +1500,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         //  getDocumentsForLoan();
         if (response['status'] == false) {
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Error',
             message: response['message'],
@@ -1498,7 +1536,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
         print('modifed emp ${modifiedEmp}');
 
-        for (int?  i = 0; i < modifiedEmp.length; i++) {
+        for (int  i = 0; i < modifiedEmp.length; i++) {
           collectDocumentType.add(modifiedEmp[i]['name']);
         }
 
@@ -1581,10 +1619,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       var tfaToken = prefs.getString('tfa-token');
       int?  passedLoanID = prefs.getInt('loanCreatedId');
 
-      Response responsevv = await get(
-        AppUrl.getLoanDetails +
-            passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+      Response responsevv = await get(Uri.parse(
+          AppUrl.getLoanDetails +
+              passedLoanID.toString() +
+              '?associations=all&exclude=guarantors,futureSchedule'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1605,9 +1643,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             geSingleLoanConfig(docConfigData);
           }
         } else {
-          return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          // return
+          Flushbar(
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Error',
             message: 'Loan Config not found',
@@ -1621,10 +1660,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     var submitWithoutDecider = () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      if (fullTemps == null || fullTemps.isEmpty) {
+      if (fullTemps == null || fullTemps!.isEmpty) {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.blueAccent,
           title: 'Hold ✊',
           message: 'Please hold, loan configuration still loading ',
@@ -1650,47 +1689,47 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "loanPurpose": loanPurpose,
         "linkAccountId": ClientaccountLinkingOptions,
         "loanTermFrequency": no_of_repayments.text,
-        "loanTermFrequencyType": 2,
+        "loanTermFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "numberOfRepayments": no_of_repayments.text,
         "repaymentEvery": repaidEvery.text,
-        "repaymentFrequencyType": 2,
+        "repaymentFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "loanIdToClose": loanOptionInt,
-                 "isTopup":  isBuyOvertopup || value ? true : false,
+        "isTopup":  isBuyOvertopup || value ? true : false,
         "interestRatePerPeriod": load_fedgoData != null
-            ? load_fedgoData['interestRate']
+            ? load_fedgoData!['interestRate']
             : _isFederalOrState == false
             ? nominal_interest.text
-            : fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['interestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]
+            : fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['interestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['interestRate']
             .toString(),
         // "amortizationType": vOverrides['amortizationType'] == true ? 1 : 0,
-        // "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
+        // "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
         // "interestType":  vOverrides['interestType'] == true ? 1 : 0,
         // "interestCalculationPeriodType": vOverrides['interestCalculationPeriodType'] == true ? 1 : 0,
-        // "allowPartialPeriodInterestCalcualtion": fullTemps['allowPartialPeriodInterestCalcualtion'],
+        // "allowPartialPeriodInterestCalcualtion": fullTemps!['allowPartialPeriodInterestCalcualtion'],
         // "inArrearsTolerance":  vOverrides['inArrearsTolerance'] == true ? 1 : 0,
         // "graceOnArrearsAgeing": vOverrides['graceOnArrearsAgeing'] == true ? 1 : 0,
         // "transactionProcessingStrategyId": vOverrides['transactionProcessingStrategyId'] == true ? 1 : 0,
         // // "graceOnPrinci palPayment": 1,
         // "graceOnInterestPayment": 1,
-        "amortizationType": vOverrides2['amortizationType']['id'],
-        "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-        "interestType": vOverrides2['interestType']['id'],
+        "amortizationType": vOverrides2!['amortizationType']['id'],
+        "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
+        "interestType": vOverrides2!['interestType']['id'],
         "interestCalculationPeriodType":
-        vOverrides2['interestCalculationPeriodType']['id'],
+        vOverrides2!['interestCalculationPeriodType']['id'],
         "allowPartialPeriodInterestCalcualtion":
-        fullTemps['allowPartialPeriodInterestCalcualtion'],
-        "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-        "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+        fullTemps!['allowPartialPeriodInterestCalcualtion'],
+        "inArrearsTolerance": vOverrides!['inArrearsTolerance'] == true ? 1 : 0,
+        "graceOnArrearsAgeing": vOverrides2!['graceOnArrearsAgeing'],
         "transactionProcessingStrategyId":
-        vOverrides2['transactionProcessingStrategyId'],
+        vOverrides2!['transactionProcessingStrategyId'],
         "NextRepaymentDate":
         !_isFederalOrState ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
-        "charges": chargesData.length == 0
+        "charges": chargesData!.length == 0
             ? []
             :
         //  [
@@ -1703,7 +1742,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         //   "id": loanID == null ? null : chargesData[0]['id']
         // }
         // ]
-        chargesData
+        chargesData!
             .map((e) => {
           "chargeId":
           e['chargeId'] == null ? e['id'] : e['chargeId'],
@@ -1742,8 +1781,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           });
 
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Error',
             message: response['message'],
@@ -1798,8 +1837,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           prefs.setBool('sendForManualReview', true);
 
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.green,
             title: "Success",
             message: 'Loan Originated',
@@ -1812,7 +1851,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     var submitLoanToCheckForDSR = () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      // if(chargesData.isEmpty){
+      // if(chargesData!.isEmpty){
       //   return   Flushbar(
       //           flushbarPosition: FlushbarPosition.BOTTOM,
       //           flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1823,10 +1862,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       //   ).show(context);
       // }
 
+
       if (nominal_interest.text == '0.0') {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.redAccent,
           title: 'Error',
           message: 'Client is not qualified to book this loan',
@@ -1834,10 +1874,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         ).show(context);
       }
 
-      if (fullTemps == null || fullTemps.isEmpty) {
+      if (fullTemps == null || fullTemps!.isEmpty) {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.blueAccent,
           title: 'Hold ✊',
           message: 'Please hold, loan configuration still loading ',
@@ -1847,19 +1887,19 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
       if (netpay.text.length < 3 || netpay.text.isEmpty) {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.redAccent,
           title: 'Validation Error',
-          message: 'Netpay is required ',
+          message: '${FINANCIAL_INCLUSION.contains(productID) ? 'Daily Profit' : 'Netpay'} is required ',
           duration: Duration(seconds: 3),
         ).show(context);
       }
 
       if (principal.text.isEmpty) {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.redAccent,
           title: 'Validation Error',
           message: 'Principal is required ',
@@ -1868,8 +1908,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       }
       if (no_of_repayments.text.isEmpty) {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.redAccent,
           title: 'Validation Error',
           message: 'Loan term is required ',
@@ -1877,10 +1917,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         ).show(context);
       }
 
-      if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
+      if (int.tryParse(no_of_repayments.text)! > int.tryParse(max_repayment!)!) {
         return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.redAccent,
           title: 'Validation Error',
           message: 'Max repayment is out of range ',
@@ -1892,13 +1932,15 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         _isLoading = true;
       });
 
-      print('>> buyover state >>  ${(value == false || isBuyOvertopup == false) && (loanOptionInt == 0 || loanOptionInt > 0) == false  }');
+      print('>> buyover state >>  ${(value == false || isBuyOvertopup == false) && (loanOptionInt == 0 || loanOptionInt! > 0) == false  }');
       print(
           'app value value ${value} ${loanOptionInt} ${isBuyOvertopup} ${isBuyOvertopup || value ? true : false}');
 
       int?  passedLoanID = prefs.getInt('loanCreatedId');
 
       print('passed Loan ID ${passedLoanID} ${loanID}');
+
+
 
       Map<String, dynamic> personalData = {
         "id": passedLoanID == null ? loanID : passedLoanID,
@@ -1911,41 +1953,41 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "linkAccountId": ClientaccountLinkingOptions,
         "loanIdToClose": loanOptionInt,
         "loanTermFrequency": no_of_repayments.text,
-        "loanTermFrequencyType": 2,
+        "loanTermFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "numberOfRepayments": no_of_repayments.text,
         "repaymentEvery": repaidEvery.text,
-        "repaymentFrequencyType": 2,
+        "repaymentFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "submittedOnNote": submitOnLoan,
-            "isTopup":  isBuyOvertopup || value ? true : false,
+        "isTopup":  isBuyOvertopup || value ? true : false,
         "interestRatePerPeriod": load_fedgoData != null
-            ? load_fedgoData['interestRate']
+            ? load_fedgoData!['interestRate']
             : _isFederalOrState == false
             ? nominal_interest.text
-            : fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['interestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]
+            : fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['interestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['interestRate']
             .toString(),
         //   "amortizationType": vOverrides['amortizationType'] == true ? 1 : 0,
-        //   "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
+        //   "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
         //   "interestType":  vOverrides['interestType'] == true ? 1 : 0,
         //   "interestCalculationPeriodType": vOverrides['interestCalculationPeriodType'] == true ? 1 : 0,
-        //   "allowPartialPeriodInterestCalcualtion": fullTemps['allowPartialPeriodInterestCalcualtion'],
+        //   "allowPartialPeriodInterestCalcualtion": fullTemps!['allowPartialPeriodInterestCalcualtion'],
         //   "inArrearsTolerance":  vOverrides['inArrearsTolerance'] == true ? 1 : 0,
         // "graceOnArrearsAgeing": vOverrides['graceOnArrearsAgeing'] == true ? 1 : 0,
         // "transactionProcessingStrategyId": vOverrides['transactionProcessingStrategyId'] == true ? 1 : 0,
 
-        "amortizationType": vOverrides2['amortizationType']['id'],
-        "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-        "interestType": vOverrides2['interestType']['id'],
+        "amortizationType": vOverrides2!['amortizationType']['id'],
+        "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
+        "interestType": vOverrides2!['interestType']['id'],
         "interestCalculationPeriodType":
-        vOverrides2['interestCalculationPeriodType']['id'],
+        vOverrides2!['interestCalculationPeriodType']['id'],
         "allowPartialPeriodInterestCalcualtion":
-        fullTemps['allowPartialPeriodInterestCalcualtion'],
-        "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-        "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+        fullTemps!['allowPartialPeriodInterestCalcualtion'],
+        "inArrearsTolerance": vOverrides!['inArrearsTolerance'] == true ? 1 : 0,
+        "graceOnArrearsAgeing": vOverrides2!['graceOnArrearsAgeing'],
         "transactionProcessingStrategyId":
-        vOverrides2['transactionProcessingStrategyId'],
+        vOverrides2!['transactionProcessingStrategyId'],
 
         // "graceOnPrincipalPayment": 1,
         // "graceOnInterestPayment": 1,
@@ -1953,7 +1995,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         !_isFederalOrState ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
-        "charges": chargesData.length == 0
+        "charges": chargesData!.length == 0
             ? []
             :
         // [
@@ -1966,7 +2008,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         //             "id": loanID == null ? null : chargesData[0]['id']
         //           }
         //         ],
-        chargesData
+        chargesData!
             .map((e) => {
           "chargeId":
           e['chargeId'] == null ? e['id'] : e['chargeId'],
@@ -1995,6 +2037,18 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "methodType": loanID == null && passedLoanID == null ? "post" : "put",
       };
 
+      if ( FINANCIAL_INCLUSION.contains(productID)) {
+        // personalData.addAll({
+        //    "unionFees": unionFees.text,
+        //    "personalExpense": personalExpense.text,
+        //    "spoilageAmount": spoilageAmount.text,
+        //  });
+        personalData["unionFees"] = unionFees.text;
+        personalData["personalExpense"] = personalExpense.text;
+        personalData["spoilageAmount"] = spoilageAmount.text;
+      }
+
+
       Map<String, dynamic> buyOverData = {
         "id": passedLoanID == null ? loanID : passedLoanID,
         "commitment": committment.text.isEmpty ? 0 : committment.text,
@@ -2006,41 +2060,41 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "linkAccountId": ClientaccountLinkingOptions,
         "loanIdToClose": loanOptionInt,
         "loanTermFrequency": no_of_repayments.text,
-        "loanTermFrequencyType": 2,
+        "loanTermFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "numberOfRepayments": no_of_repayments.text,
         "repaymentEvery": repaidEvery.text,
-        "repaymentFrequencyType": 2,
+        "repaymentFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "submittedOnNote": submitOnLoan,
         "isTopup":  isBuyOvertopup || value ? true : false,
         "interestRatePerPeriod": load_fedgoData != null
-            ? load_fedgoData['interestRate']
+            ? load_fedgoData!['interestRate']
             : _isFederalOrState == false
             ? nominal_interest.text
-            : fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['interestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]
+            : fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['interestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]
         ['interestRate']
             .toString(),
         //   "amortizationType": vOverrides['amortizationType'] == true ? 1 : 0,
-        //   "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
+        //   "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
         //   "interestType":  vOverrides['interestType'] == true ? 1 : 0,
         //   "interestCalculationPeriodType": vOverrides['interestCalculationPeriodType'] == true ? 1 : 0,
-        //   "allowPartialPeriodInterestCalcualtion": fullTemps['allowPartialPeriodInterestCalcualtion'],
+        //   "allowPartialPeriodInterestCalcualtion": fullTemps!['allowPartialPeriodInterestCalcualtion'],
         //   "inArrearsTolerance":  vOverrides['inArrearsTolerance'] == true ? 1 : 0,
         // "graceOnArrearsAgeing": vOverrides['graceOnArrearsAgeing'] == true ? 1 : 0,
         // "transactionProcessingStrategyId": vOverrides['transactionProcessingStrategyId'] == true ? 1 : 0,
 
-        "amortizationType": vOverrides2['amortizationType']['id'],
-        "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-        "interestType": vOverrides2['interestType']['id'],
+        "amortizationType": vOverrides2!['amortizationType']['id'],
+        "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
+        "interestType": vOverrides2!['interestType']['id'],
         "interestCalculationPeriodType":
-        vOverrides2['interestCalculationPeriodType']['id'],
+        vOverrides2!['interestCalculationPeriodType']['id'],
         "allowPartialPeriodInterestCalcualtion":
-        fullTemps['allowPartialPeriodInterestCalcualtion'],
-        "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-        "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+        fullTemps!['allowPartialPeriodInterestCalcualtion'],
+        "inArrearsTolerance": vOverrides!['inArrearsTolerance'] == true ? 1 : 0,
+        "graceOnArrearsAgeing": vOverrides2!['graceOnArrearsAgeing'],
         "transactionProcessingStrategyId":
-        vOverrides2['transactionProcessingStrategyId'],
+        vOverrides2!['transactionProcessingStrategyId'],
 
         // "graceOnPrincipalPayment": 1,
         // "graceOnInterestPayment": 1,
@@ -2048,7 +2102,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         !_isFederalOrState ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
-        "charges": chargesData.length == 0
+        "charges": chargesData!.length == 0
             ? []
             :
         // [
@@ -2061,7 +2115,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         //             "id": loanID == null ? null : chargesData[0]['id']
         //           }
         //         ],
-        chargesData
+        chargesData!
             .map((e) => {
           "chargeId":
           e['chargeId'] == null ? e['id'] : e['chargeId'],
@@ -2091,6 +2145,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       };
 
 
+
       Map<String, dynamic> personalData_2 = {
         "id": passedLoanID == null ? loanID : passedLoanID,
         "commitment": committment.text.isEmpty ? 0 : committment.text,
@@ -2102,37 +2157,37 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "linkAccountId": ClientaccountLinkingOptions,
         "loanIdToClose": loanOptionInt,
         "loanTermFrequency": no_of_repayments.text,
-        "loanTermFrequencyType": 2,
+        "loanTermFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
         "numberOfRepayments": no_of_repayments.text,
         "repaymentEvery": repaidEvery.text,
-        "repaymentFrequencyType": 2,
-                 "isTopup":  isBuyOvertopup || value ? true : false,
+        "repaymentFrequencyType": fullTemps!['repaymentFrequencyType']['id'],
+        "isTopup":  isBuyOvertopup || value ? true : false,
         "interestRatePerPeriod": _isFederalOrState == false
             ? nominal_interest.text
-            : fullTemps['employerLoanProductDataOptions'] == null
-            ? fullTemps['product']['interestRatePerPeriod'].toString()
-            : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
+            : fullTemps!['employerLoanProductDataOptions'] == null
+            ? fullTemps!['product']['interestRatePerPeriod'].toString()
+            : fullTemps!['employerLoanProductDataOptions'][0]['interestRate']
             .toString(),
         // "amortizationType": vOverrides['amortizationType'] == true ? 1 : 0,
-        // "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
+        // "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
         // "interestType":  vOverrides['interestType'] == true ? 1 : 0,
         // "interestCalculationPeriodType": vOverrides['interestCalculationPeriodType'] == true ? 1 : 0,
-        // "allowPartialPeriodInterestCalcualtion": fullTemps['allowPartialPeriodInterestCalcualtion'],
+        // "allowPartialPeriodInterestCalcualtion": fullTemps!['allowPartialPeriodInterestCalcualtion'],
         // "inArrearsTolerance":  vOverrides['inArrearsTolerance'] == true ? 1 : 0,
         // "graceOnArrearsAgeing": vOverrides['graceOnArrearsAgeing'] == true ? 1 : 0,
         // "transactionProcessingStrategyId": vOverrides['transactionProcessingStrategyId'] == true ? 1 : 0,
 
-        "amortizationType": vOverrides2['amortizationType']['id'],
-        "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-        "interestType": vOverrides2['interestType']['id'],
+        "amortizationType": vOverrides2!['amortizationType']['id'],
+        "isEqualAmortization": fullTemps!['isEqualAmortization'] == true ? 1 : 0,
+        "interestType": vOverrides2!['interestType']['id'],
         "interestCalculationPeriodType":
-        vOverrides2['interestCalculationPeriodType']['id'],
+        vOverrides2!['interestCalculationPeriodType']['id'],
         "allowPartialPeriodInterestCalcualtion":
-        fullTemps['allowPartialPeriodInterestCalcualtion'],
-        "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-        "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+        fullTemps!['allowPartialPeriodInterestCalcualtion'],
+        "inArrearsTolerance": vOverrides!['inArrearsTolerance'] == true ? 1 : 0,
+        "graceOnArrearsAgeing": vOverrides2!['graceOnArrearsAgeing'],
         "transactionProcessingStrategyId":
-        vOverrides2['transactionProcessingStrategyId'],
+        vOverrides2!['transactionProcessingStrategyId'],
 
         // "graceOnPrincipalPayment": 1,
         // "graceOnInterestPayment": 1,
@@ -2140,9 +2195,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         !_isFederalOrState ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
-        "charges": chargesData.length == 0
+        "charges": chargesData!.length == 0
             ? []
-            : chargesData
+            : chargesData!
             .map((e) => {
           "chargeId":
           e['chargeId'] == null ? e['id'] : e['chargeId'],
@@ -2175,6 +2230,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "paymentMethodReference": customerID
       };
 
+      if ( FINANCIAL_INCLUSION.contains(productID)) {
+        personalData_2["unionFees"] = unionFees.text;
+        personalData_2["personalExpense"] = personalExpense.text;
+        personalData_2["spoilageAmount"] = spoilageAmount.text;
+      }
+
+
       print(
           'response from personal ${personalData_2['charges']} ${_isFederalOrState}');
 
@@ -2197,8 +2259,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
           });
 
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.red,
             title: 'Error',
             message: response['message'],
@@ -2251,8 +2313,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                     Clipboard.setData(ClipboardData(text: cp_text));
                     MyRouter.popPage(context);
                     Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+                      flushbarPosition: FlushbarPosition.BOTTOM,
+                      flushbarStyle: FlushbarStyle.GROUNDED,
                       backgroundColor: Colors.green,
                       title: 'Success',
                       message: 'Amount copied to clipboard',
@@ -2277,8 +2339,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             _isLoading = false;
           });
           Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+            flushbarPosition: FlushbarPosition.BOTTOM,
+            flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.green,
             title: "Success",
             message: 'Loan Originated',
@@ -2409,19 +2471,21 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             callAction2: () {
               //   submitLoanToCheckForDSR();
               if (netpay.text.length < 3 || netpay.text.isEmpty) {
-                return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+                // return
+                Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.redAccent,
                   title: 'Validation Error',
-                  message: 'Netpay is required ',
+                  message: '${FINANCIAL_INCLUSION.contains(productID) ? 'Daily Profit' : 'Netpay'} is required ',
                   duration: Duration(seconds: 3),
                 ).show(context);
               }
               if (!_isFederalOrState && repaymentDate.text.isEmpty == true) {
-                return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+                // return
+                Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.redAccent,
                   title: 'Validation Error',
                   message: 'First repayment date is required ',
@@ -2429,9 +2493,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 ).show(context);
               } else if (load_fedgoData == null &&
                   (productID == FEDG0_LOAN_ID || productID == DPL_LOAN)) {
-                return Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+                // return
+                Flushbar(
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.blue,
                   title: "Hold",
                   message: 'System is recalculating Interest rate',
@@ -2440,8 +2505,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               } else {
                 (_isFederalOrState == false && showPrivateInterest == true)
                     ? Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+                  flushbarPosition: FlushbarPosition.BOTTOM,
+                  flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.blue,
                   title: "Hold",
                   message: 'Calculating loan interest',
@@ -2599,10 +2664,23 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                child: EntryField(
-                    context, netpay, 'Net Pay *', '', TextInputType.number,
-                    onChanged: (value) {})),
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              child:
+              // EntryField(
+              //     context, netpay, 'Net Pay *', '', TextInputType.number,
+              //     // onChanged: (value) {})
+              //     ),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  child: EntryField(
+                    context, netpay,
+
+                    (FINANCIAL_INCLUSION.contains(productID))  ? 'Daily Profit' : 'Net Pay *'
+                    ,
+                    '', TextInputType.number,
+                    // onChanged: (value) {}
+                  )),
+            ),
             SizedBox(
               height: 6,
             ),
@@ -2624,13 +2702,21 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               height: 6,
             ),
 
+            fullTemps == null || fullTemps!['repaymentFrequencyType'] == null ?
+            Container(
+                height: 10,
+                width: 10,
+                child: CircularProgressIndicator()
+            )
+                :
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: EntryField(
                     context,
                     no_of_repayments,
                     'Loan Tenure ',
-                    'Loan Tenure (min: ${min_repayment} months, max: ${max_repayment} months)*',
+                    //  'Loan Tenure (min: ${min_repayment} months, max: ${max_repayment} months)*',
+                    'Loan Tenure (min: ${min_repayment} ${fullTemps!['repaymentFrequencyType']['value'] ?? 'Months'}, max: ${max_repayment} ${fullTemps!['repaymentFrequencyType']['value'] ?? 'Months'})',
                     TextInputType.number)),
 
             SizedBox(
@@ -2646,7 +2732,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
 
                       // set border width
                       borderRadius: BorderRadius.all(Radius.circular(
@@ -2686,8 +2772,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                               fontFamily: 'Nunito SansRegular',
                               color: Theme.of(context)
                                   .textTheme
-                                  .headline2
-                                  .color)),
+                                  .headlineMedium
+                                  ?.color)),
                       textInputAction: TextInputAction.done,
                     ),
                   ),
@@ -2787,6 +2873,59 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                     'Product Rate (min: ${min_interest} & max: ${max_interest}) *',
                     TextInputType.number,
                     isRead: true)),
+
+            if (  FINANCIAL_INCLUSION.contains(productID))
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Additional Fields for Financial Inclusion',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.blue[800],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: EntryField(
+                      context,
+                      unionFees,
+                      'Union Fees',
+                      '',
+                      TextInputType.number,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: EntryField(
+                      context,
+                      personalExpense,
+                      'Personal Expense',
+                      '',
+                      TextInputType.number,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: EntryField(
+                      context,
+                      spoilageAmount,
+                      'Spoilage Amount',
+                      '',
+                      TextInputType.number,
+                    ),
+                  ),
+                ],
+              ),
+
             SizedBox(
               height: 5,
             ),
@@ -2840,9 +2979,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                       this.isBuyOvertopup = false;
                       this.isBuyOver = false;
                     });
@@ -2924,9 +3063,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.isBuyOver,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.isBuyOver = value;
+                      this.isBuyOver = value!;
                       this.isBuyOvertopup = false;
                       this.value = false;
                     });
@@ -2940,7 +3079,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   'IS THIS A BUY-OVER LOAN?',
                   style: TextStyle(fontSize: 11),
                 ),
-                SizedBox(width: AppHelper().pageWidth(context) * 0.34,),
+                SizedBox(width: AppHelper().pageWidth(context)! * 0.34,),
                 isBuyOver == true ?  IconButton(
                   onPressed: (){
                     // _scrollDown();
@@ -2966,10 +3105,10 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.isBuyOvertopup,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     print('vals topup >> ${value}');
                     setState(() {
-                      this.isBuyOvertopup = value;
+                      this.isBuyOvertopup = value!;
 
                       this.value = false;
                       this.isBuyOver = false;
@@ -2996,7 +3135,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   DropDownComponent(
                       items: loanOptionArray,
                       onChange: (String?  item) {
-                        String?  newItem = item.substring(item.length - 10);
+                        String?  newItem = item?.substring(item.length - 10);
                         print('newitem ${newItem}');
                         setState(() {
                           List<dynamic> selectID = allLoanOption
@@ -3021,14 +3160,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 : Text(''),
 
             SizedBox(height: 5,),
-            if(lendersLists.length > 0)
-              AddedLender(),
+            lendersLists.length > 0 ?  AddedLender() : SizedBox.shrink(),
 
-            if(lenderIndex != 0 && showAddLender == true)
+            (lenderIndex != 0 && showAddLender == true) ? showAddLenderAccordion() : SizedBox.shrink(),
             // showUpdateLender = true;
             // showAddLender = false;
             // showUpdateLender == true ? showUpdateLenderAccordion() :
-              showAddLenderAccordion(),
+            //  showAddLenderAccordion(),
 
             // if(lenderIndex != 0 && (showUpdateLender == true && showAddLender == false) )
             // // showUpdateLender = true;
@@ -3110,7 +3248,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //       padding: const EdgeInsets.symmetric(horizontal: 0),
   //         //       child: Container(
   //         //         decoration: BoxDecoration(
-  //         //           color: Theme.of(context).backgroundColor,
+  //         //           color: Theme.of(context).scaffoldBackgroundColor,
   //         //
   //         //           // set border width
   //         //           borderRadius: BorderRadius.all(
@@ -3146,7 +3284,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   //         //               floatingLabelStyle: TextStyle(color:Color(0xff205072)),
   //         //               hintText: '10 May 2022',
   //         //               hintStyle: TextStyle(color: Colors.black,fontFamily: 'Nunito SansRegular'),
-  //         //               labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color)
+  //         //               labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color)
   //         //
   //         //           ),
   //         //           textInputAction: TextInputAction.done,
@@ -3501,13 +3639,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            title ?? "",
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            value,
+            value ?? "",
             style: TextStyle(
               fontWeight: FontWeight.w300, // Light text
             ),
@@ -3519,7 +3657,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   Widget buyOverWidget() {
     return Container(
-        height: AppHelper().pageHeight(context) * 0.32,
+        height: AppHelper().pageHeight(context)! * 0.32,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -3604,7 +3742,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
-                  width: AppHelper().pageWidth(context) * 0.41,
+                  width: AppHelper().pageWidth(context)! * 0.41,
                   child: RoundedButton(
                     onbuttonPressed: () {
                       //  doLogin();
@@ -3667,13 +3805,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   // setState(() {
                   //   lenderIndex --;
                   // });
-                  print('>> lender Index >> ${lenderIndex - 1} ${maxLenderCount}');
+                  print('>> lender Index >> ${lenderIndex! - 1} ${maxLenderCount}');
 
-                  if (lenderIndex -1  >= maxLenderCount) {
+                  if (lenderIndex! -1  >= maxLenderCount!) {
                     print('max count reached');
                     Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+                      flushbarPosition: FlushbarPosition.BOTTOM,
+                      flushbarStyle: FlushbarStyle.GROUNDED,
                       backgroundColor: Colors.red,
                       title: 'Error',
                       message: "max Lender count reached",
@@ -3692,7 +3830,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                 },
                 child: Text(
                   '+  Add Lender',
-                  style: TextStyle(color: lenderIndex -1  >= maxLenderCount ? ColorUtils.GREY_BG : ColorUtils.PRIMARY_COLOR),
+                  style: TextStyle(color: lenderIndex! -1  >= maxLenderCount! ? ColorUtils.GREY_BG : ColorUtils.PRIMARY_COLOR),
                 )),
           ],
         ));
@@ -4030,7 +4168,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
                                 lendersLists.removeAt(position);
                                 setState(() {
-                                  lenderIndex --;
+                                  lenderIndex = lenderIndex! - 1;
                                 });
                                 print('updated state >> ${lenderIndex}');
                               },
@@ -4224,7 +4362,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter modalSetState) {
             // Initialize Timer to periodically check for state changes
-            Timer timer;
+            Timer? timer;
             String?  previousAccountName = accountName;
 
             void startPeriodicCheck() {
@@ -4288,7 +4426,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                               });
                             },
                             label: "Lender's Name",
-                            selectedItem: singleLendersName,
+                            selectedItem: singleLendersName, validator: (v ) { },
                           ),
                         ),
                         SizedBox(height: 15),
@@ -4308,7 +4446,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                               });
                             },
                             label: "Bank * ",
-                            selectedItem: bankName,
+                            selectedItem: bankName, validator: (val ) {  },
                           ),
                         ),
                         Padding(
@@ -4329,7 +4467,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                             children: [
                               Text('Account Name: '),
                               Text(
-                                accountName,
+                                accountName ?? "",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
@@ -4475,7 +4613,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   alignment: Alignment.topRight,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    width: AppHelper().pageWidth(context) * 0.38,
+                    width: AppHelper().pageWidth(context)! * 0.38,
                     child: RoundedButton(
                       onbuttonPressed: () {
                         //  showUpdateLenderAccordion(context);
@@ -4516,7 +4654,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     if (accountNumber.text.isEmpty) {
       errorMessage = 'Account number is required.';
     }
-    else if (accountName.isEmpty) {
+    else if (accountName!.isEmpty) {
       errorMessage = 'Account name is required.';
     }
     else if (bankInt == null) {
@@ -4525,15 +4663,15 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
       errorMessage = 'Lender ID is required.';
     } else if (buy_over_settlement_balance.text.isEmpty) {
       errorMessage = 'Settlement balance is required.';
-    } else if (lendersLists.length >= maxLenderCount) {
+    } else if (lendersLists.length >= maxLenderCount!) {
       errorMessage = 'You cannot add more than $maxLenderCount lender (s).';
     }
 
     // Show validation error if any
     if (errorMessage != null) {
       Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+        flushbarPosition: FlushbarPosition.BOTTOM,
+        flushbarStyle: FlushbarStyle.GROUNDED,
         backgroundColor: Colors.red,
         title: 'Validation error',
         message: errorMessage,
@@ -4546,7 +4684,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     Map<String, dynamic> localLenders = {
       "lenderAccountNumber": accountNumber.text,
       "lenderAccountName": accountName,
-     //   "lenderAccountName": 'efre erre',
+      //   "lenderAccountName": 'efre erre',
       "lenderBankId": bankInt,
       "lenderBankName": bankName,
       "lenderId": singleLendersid,
@@ -4557,8 +4695,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     lendersLists.add(localLenders);
 
     Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+      flushbarPosition: FlushbarPosition.BOTTOM,
+      flushbarStyle: FlushbarStyle.GROUNDED,
       backgroundColor: Colors.green,
       title: 'Success',
       message: 'New lender added',
@@ -4567,7 +4705,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
 
     setState(() {
-      lenderIndex++;
+      lenderIndex = lenderIndex! + 1;
       showAddLender = false;
       accountNumber.text = '';
       accountName = '';
@@ -4604,7 +4742,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     if (accountNumber.text.isEmpty) {
       errorMessage = 'Account number is required.';
     }
-    else if (accountName.isEmpty) {
+    else if (accountName!.isEmpty) {
       errorMessage = 'Account name is required.';
     }
     else if (bankInt == null) {
@@ -4621,8 +4759,8 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     // Show validation error if any
     if (errorMessage != null) {
       Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+        flushbarPosition: FlushbarPosition.BOTTOM,
+        flushbarStyle: FlushbarStyle.GROUNDED,
         backgroundColor: Colors.red,
         title: 'Validation error',
         message: errorMessage,
@@ -4644,14 +4782,14 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     };
 
     setState(() {
-      lendersLists[dataPosition] = {...lendersLists[dataPosition], ...localLenders};
+      lendersLists[dataPosition!] = {...lendersLists[dataPosition], ...localLenders};
 
     });
 //   lendersLists.add(localLenders);
 
     Flushbar(
-                flushbarPosition: FlushbarPosition.BOTTOM,
-                flushbarStyle: FlushbarStyle.GROUNDED,
+      flushbarPosition: FlushbarPosition.BOTTOM,
+      flushbarStyle: FlushbarStyle.GROUNDED,
       backgroundColor: Colors.green,
       title: 'Success',
       message: 'Lender Updated Successfully',
@@ -4699,7 +4837,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                           String?  retDate =
                           retsNx360dates(CupertinoSelectedDate);
                           print('ret Date ${retDate}');
-                          repaymentDate.text = retDate;
+                          repaymentDate.text = retDate!;
                         });
                     },
                     initialDateTime:
@@ -4718,7 +4856,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                   onPressed: () {
                     String?  retDate = retsNx360dates(CupertinoSelectedDate);
                     print('ret Date ${retDate}');
-                    repaymentDate.text = retDate;
+                    repaymentDate.text = retDate!;
                     Navigator.of(context).pop();
                   },
                 )
@@ -4756,7 +4894,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   Widget EntryField(BuildContext context, var editController, String?  labelText,
       String?  hintText, var keyBoard,
       {bool isPassword = false,
-        VoidCallback onChanged,
+        VoidCallback? onChanged,
         bool isRead = false,
         var maxLenghtAllow}) {
     var MediaSize = MediaQuery.of(context).size;
@@ -4822,14 +4960,14 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                         color: Colors.black, fontFamily: 'Nunito SansRegular'),
                     labelStyle: TextStyle(
                         fontFamily: 'Nunito SansRegular',
-                        color: Theme.of(context).textTheme.headline2.color)),
+                        color: Theme.of(context).textTheme.headlineMedium?.color)),
                 textInputAction: TextInputAction.done,
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                hintText,
+                hintText ?? "",
                 style: TextStyle(color: Colors.black, fontSize: 9),
               )
             ],
@@ -4848,7 +4986,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            //   color: Theme.of(context).backgroundColor,
+            //   color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -4860,13 +4998,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             keyboardType: keyBoard,
 
             onChanged: (String?  value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 setState(() {
                   isBankLoading = false;
                 });
                 // //print('isLoading is ${isBVNLoading}');
 
-              } else if (value.length != 10) {
+              } else if (value!.length != 10) {
                 setState(() {
                   isBankLoading = true;
                 });
@@ -4883,7 +5021,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
             controller: editController,
 
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Field cannot be empty';
               }
             },
@@ -4911,7 +5049,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.done,
           ),
@@ -4948,9 +5086,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                     });
                   },
                 ),
@@ -4968,7 +5106,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate!.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -5042,7 +5180,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
@@ -5051,7 +5189,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
   getDateForNextRepayment(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate!.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -5125,7 +5263,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 

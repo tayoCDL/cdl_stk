@@ -10,7 +10,7 @@ import 'package:alert_dialog/alert_dialog.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_document_picker/flutter_document_picker.dart';
@@ -89,7 +89,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   String?  otherIDFileName, otherIDFileSize, otherIDFiletype, otherIDFileLocation;
   String?  lafFilePath;
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -97,12 +97,12 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   String?  _extension;
   String?  signatureBase64;
   bool _hasValidMime = false;
-  FileType _pickingType;
+  // FileType? _pickingType;
   DateTime selectedDate = DateTime.now();
   TextEditingController _controller = new TextEditingController();
-  Map<String, dynamic> laf_download_document;
+  Map<String, dynamic>? laf_download_document;
   bool show_download_laf = false;
-  File chosenImage;
+  XFile? chosenImage;
 
   List<String> residenceArray = [];
   List<String> collectResidence = [];
@@ -126,13 +126,13 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   bool _isOTPSent = true;
   String?  lafArr = '';
   String?  documentType = '';
-  Timer _timerForInter;
+  Timer? _timerForInter;
   AddLoanProvider addLoanProvider = AddLoanProvider();
   Map<String, dynamic> loanDetail = {};
   bool isLafSigned = false;
 
   bool loading = false;
-  List pdfList;
+  List? pdfList;
 
   String?  progress = "0";
   final Dio dio = Dio();
@@ -156,9 +156,9 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
   final interval = const Duration(seconds: 1);
 
-  final int?  timerMaxSeconds = 120;
+  final int  timerMaxSeconds = 120;
 
-  int?  currentSeconds = 0;
+  int  currentSeconds = 0;
   bool showTimer = false;
 
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -236,7 +236,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //     allEmployment = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectEmployment.add(newEmp[i]['name']);
     //   }
@@ -256,10 +256,10 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfEmployment'));
+            jsonDecode(prefs.getString('prefsProofOfEmployment')!);
 
         //
-        if (prefs.getString('prefsProofOfEmployment').isEmpty) {
+        if (prefs.getString('prefsProofOfEmployment')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -275,7 +275,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             allLAF = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectLAF.add(mtBool[i]['name']);
           }
@@ -304,7 +304,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           allLAF = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectLAF.add(newEmp[i]['name']);
         }
@@ -329,7 +329,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //     allIdentity = newEmp;
     //   });
     //
-    //   for(int?  i = 0; i < newEmp.length;i++){
+    //   for(int  i = 0; i < newEmp.length;i++){
     //     print(newEmp[i]['name']);
     //     collectIdentity.add(newEmp[i]['name']);
     //   }
@@ -349,10 +349,10 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfIdentity'));
+            jsonDecode(prefs.getString('prefsProofOfIdentity')!);
 
         //
-        if (prefs.getString('prefsProofOfIdentity').isEmpty) {
+        if (prefs.getString('prefsProofOfIdentity')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -368,7 +368,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             allIdentity = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -399,7 +399,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           allIdentity = newEmp;
         });
 
-        for (int?  i = 0; i < 2; i++) {
+        for (int  i = 0; i < 2; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }
@@ -429,10 +429,10 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     int?  loanID = prefs.getInt('loanCreatedId');
     print('this is ir ${isLafSigned}');
 
-    http.Response responsevv = await get(
+    http.Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           loanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -469,10 +469,10 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsLoanDocument'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsLoanDocument')!);
 
         //
-        if (prefs.getString('prefsLoanDocument').isEmpty) {
+        if (prefs.getString('prefsLoanDocument')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -488,7 +488,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             allLAF = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectLAF.add(mtBool[i]['name']);
           }
@@ -528,7 +528,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         });
 
         print('employmemrr ${newEmp}');
-        for (int?  i = 0; i < 1; i++) {
+        for (int  i = 0; i < 1; i++) {
           print('employmemrr ${newEmp}');
           print(newEmp[i]['name']);
           collectLAF.add(newEmp[i]['name']);
@@ -588,7 +588,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       );
 
       result = await FlutterDocumentPicker.openDocument(params: params);
-      final file = File(result);
+      final file = File(result!);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         setState(() {
@@ -643,29 +643,29 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         ).show(context);
       }
 
-      print('file extension ${_path.split('.').last}');
+      print('file extension ${_path!.split('.').last}');
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         bankFileLocation = img64;
         bankFileSize = filesizeAsString;
-        bankFiletype = _path.split('.').last;
+        bankFiletype = _path!.split('.').last;
       });
 
       setState(() {
-        _fileName = _path != null ? _path.split('/').last : '...';
-        bankStatement.text = _fileName;
+        _fileName = _path != null ? _path!.split('/').last : '...';
+        bankStatement.text = _fileName!;
         bankFileName = _fileName;
       });
 
@@ -714,15 +714,15 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
   void takePhotoForDocument(ImageSource source) async {
     MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
     //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    XFile imagefile = choosedimage!; //convert Path to File
 
     print('image File ${imagefile}');
     Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
+    String?  base64String  =
         base64.encode(imagebytes); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
+    print('base64String?  ${base64String}');
 
     String?  _finalPath = choosedimage.toString();
     // final bytes = Io.File(_finalPath).readAsBytesSync();
@@ -737,10 +737,10 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       _fileName = getPath != null ? getPath.split('/').last : '...';
       // _openFileExplorer(getPath);
 
-      File file = choosedimage;
+      XFile file = choosedimage;
       _fileName = file.path.split('/').last;
       print('filename ${_fileName}');
-      bankStatement.text = _fileName;
+      bankStatement.text = _fileName!;
       // isPassportAdded = true;
     });
 
@@ -752,9 +752,9 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     //  print('image base64 ${img64}');
 
     setState(() {
-      bankFileLocation = base64string;
+      bankFileLocation = base64String;
       //  passportFileSize = '';
-      bankFiletype = _fileName.split('.').last;
+      bankFiletype = _fileName?.split('.').last;
     });
 
     // print('passport file location ${passportFiletype} ');
@@ -781,7 +781,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
     setState(() {
       // _fileName = _path != null ? _path.split('/').last : '...';
-      bankStatement.text = _fileName;
+      bankStatement.text = _fileName!;
       //  documentFileName = _fileName;
     });
 
@@ -802,7 +802,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     });
   }
 
-  int?  random(min, max) {
+  int  random(min, max) {
     return min + Random.secure().nextInt(max - min);
   }
 
@@ -969,7 +969,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
 
     /// Added to test late loading starts
     await Future.delayed(Duration(milliseconds: 3000));
-    for (int?  i = 0; i <= 100; i++) {
+    for (int  i = 0; i <= 100; i++) {
       /// You can indicate here that the download has started.
       pd.update(value: i, msg: 'File Downloading...');
       i++;
@@ -998,7 +998,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       // Completed(completedMsg: "Downloading Done !", completedImage: AssetImage("assets/completed.png"), closedDelay: 2500,),
       progressBgColor: Colors.transparent,
     );
-    for (int?  i = 0; i <= 100; i++) {
+    for (int  i = 0; i <= 100; i++) {
       pd.update(value: i);
       i++;
       await Future.delayed(Duration(milliseconds: 100));
@@ -1029,7 +1029,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   // }
 
   // download directory
-  Future<Directory> getDonwloadDirectory() async {
+  Future<Directory?> getDonwloadDirectory() async {
     if (Platform.isAndroid) {
       return await DownloadsPathProvider.downloadsDirectory;
     }
@@ -1054,7 +1054,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     };
 
     try {
-      var response = await dio.download(urlPath, savePath,
+      var response = await dio.download(urlPath!, savePath,
           onReceiveProgress: _onReceiveProgress,
           options: Options(
             headers: {
@@ -1081,7 +1081,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     }
   }
 
-  _onReceiveProgress(int?  receive, int?  total) {
+  _onReceiveProgress(int  receive, int  total) {
     if (total != -1) {
       setState(() {
         progress = (receive / total * 100).toStringAsFixed(0) + "%";
@@ -1107,7 +1107,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   // }
 
   Future _onselectedNotification(String?  json) async {
-    final obj = jsonDecode(json);
+    final obj = jsonDecode(json!);
     if (obj['isSuccess']) {
       OpenFile.open(obj['filePath']);
     } else {
@@ -1194,7 +1194,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         ).show(context);
       } else {
         int?  tempLoanID = prefs.getInt('loanCreatedId');
-        bool sendForManual = prefs.getBool('sendForManualReview');
+        bool sendForManual = prefs.getBool('sendForManualReview')!;
 
         //print('passed document  ${isAutoDisbursed}');
 
@@ -1256,24 +1256,24 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       'Authorization': 'Basic ${token}',
       'Fineract-Platform-TFA-Token': '${tfaToken}',
     };
-    http.Response responsevv = await get(
+    http.Response responsevv = await get(Uri.parse(
         AppUrl.getLoanDetails +
             passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+            '?associations=all&exclude=guarantors,futureSchedule'),
         headers: bHeader);
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
     var newClientData = responseData2;
 
     try {
-      http.Response responsevvPersonal = await get(
-          AppUrl.getSingleClient + newClientData['clientId'].toString(),
+      http.Response responsevvPersonal = await get(Uri.parse(
+          AppUrl.getSingleClient + newClientData['clientId'].toString()),
           headers: bHeader);
       final Map<String, dynamic> responseData2Personal =
           json.decode(responsevvPersonal.body);
       String?  phonenumber = responseData2Personal['mobileNo'];
       setState(() {
-        clientPhoneNumber.text = phonenumber;
+        clientPhoneNumber.text = phonenumber!;
       });
     } catch (e) {}
   }
@@ -1297,17 +1297,17 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     // come back to this..
 
     // Pass or fail..don't return any toast
-    bool checkBankStatement = prefs.getBool('isBankStatement');
+    bool checkBankStatement = prefs.getBool('isBankStatement')!;
 
     if (checkBankStatement) {
       MyRouter.popPage(context);
     }
     //
 
-    http.Response responsevv = await get(
+    http.Response responsevv = await get(Uri.parse(
         AppUrl.getLoanDetails +
             passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+            '?associations=all&exclude=guarantors,futureSchedule'),
         headers: bHeader);
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
@@ -1323,8 +1323,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
     print('loan details ${loanDetail.toString()}');
     // return loanDetail;
 
-    http.Response responsevvBank = await get(
-      AppUrl.getSingleClient + newClientData['clientId'].toString() + '/banks',
+    http.Response responsevvBank = await get(Uri.parse(
+      AppUrl.getSingleClient + newClientData['clientId'].toString() + '/banks'),
       headers: bHeader,
     );
     print(responsevv.body);
@@ -1346,7 +1346,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       AppUrl.getMBSBank,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': APP_TOKEN,
+        'Authorization': APP_TOKEN!,
       },
     );
     if (responsevv.statusCode == 200) {
@@ -1363,8 +1363,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       int?  mbsSortCode = selectSortCode[0]['id'];
 
       // get mobile number
-      http.Response responsevvPersonal = await get(
-          AppUrl.getSingleClient + newClientData['clientId'].toString(),
+      http.Response responsevvPersonal = await get(Uri.parse(
+          AppUrl.getSingleClient + newClientData['clientId'].toString()),
           headers: bHeader);
       final Map<String, dynamic> responseData2Personal =
           json.decode(responsevvPersonal.body);
@@ -1378,7 +1378,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         "externalBankId": mbsSortCode
       };
 
-      bool checkBankStatement = prefs.getBool('isBankStatement');
+      bool checkBankStatement = prefs.getBool('isBankStatement')!;
 
       Map<String, dynamic> bankAnalyser = {
         "externalBankId": mbsSortCode,
@@ -1408,9 +1408,9 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       // start
       /////
 
-      http.Response Analysisresponse = await post(
+      http.Response Analysisresponse = await post(Uri.parse(
           // AppUrl.getLoanDetails + loanId.toString() + '/analyse/bankstatement/6',
-          AppUrl.getLoanDetails + clientId.toString() + '/decide',
+          AppUrl.getLoanDetails + clientId.toString() + '/decide'),
           body: json
               .encode(checkBankStatement ? bankAnalyser : bankAnalyserForBS),
           headers: bHeader);
@@ -1437,7 +1437,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                 comingFrom: 'loanBankStatement',
                 clientID: clientID));
         setState(() {
-          _timerForInter.cancel();
+          _timerForInter?.cancel();
         });
         if (responseData['status'] != 'fail') {
           //       Flushbar(
@@ -1471,7 +1471,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                 comingFrom: 'loanBankStatement',
                 clientID: clientID));
         setState(() {
-          _timerForInter.cancel();
+          _timerForInter?.cancel();
         });
         //       Flushbar(
         //              flushbarPosition: FlushbarPosition.TOP,
@@ -1519,13 +1519,14 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
             result = {"status": true, "message": response['data']['reason']};
           }
           int?  tempLoanID = prefs.getInt('loanCreatedId');
-          bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
+          bool isAutoDisbursed = prefs.getBool('isAutoDisburse')!;
         }
       });
 
       // end
       // return loandData;
-    } else {}
+    }
+    throw Exception('Failed to load bank');
   }
 
   Widget build(BuildContext context) {
@@ -1611,7 +1612,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
           note.text = '';
           MyRouter.popPage(context);
           prefs.remove('sendForManualReview');
-          bool checkBankStatement = prefs.getBool('isBankStatement');
+          bool checkBankStatement = prefs.getBool('isBankStatement')!;
 
           if (moreDocument == null) {
             checkBankStatement ? sendForAnalysis() : completeBankAnalyser();
@@ -1635,7 +1636,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                   clientID: clientID,
                 ));
             setState(() {
-              _timerForInter.cancel();
+              _timerForInter?.cancel();
             });
           }
 
@@ -1754,16 +1755,16 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                         ),
                         Center(
                           child: show_download_laf == true &&
-                                  laf_download_document['isSuccess']
+                                  laf_download_document?['isSuccess']
                               ? lafDownloadStatus(onTap: () {
                                   print(
                                       'laf download ${laf_download_document}');
                                   // final obj = jsonDecode(json);
                                   OpenFile.open(
-                                      laf_download_document['filePath']);
+                                      laf_download_document?['filePath']);
                                 })
                               : show_download_laf == true &&
-                                      laf_download_document['isSuccess'] ==
+                                      laf_download_document?['isSuccess'] ==
                                           false
                                   ? lafDownloadFailed()
                                   : SizedBox(),
@@ -1799,8 +1800,8 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                 await SharedPreferences.getInstance();
 
             int?  tempLoanID = prefs.getInt('loanCreatedId');
-            bool sendForManual = prefs.getBool('sendForManualReview');
-            bool checkBankStatement = prefs.getBool('isBankStatement');
+            bool? sendForManual = prefs.getBool('sendForManualReview');
+            bool? checkBankStatement = prefs.getBool('isBankStatement')!;
 
             print(
                 'passed document ${moreDocument} ${sendForManual} client ID ${clientID}');
@@ -1835,7 +1836,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                       clientID: clientID,
                     ));
                 setState(() {
-                  _timerForInter.cancel();
+                  _timerForInter?.cancel();
                 });
               }
             }
@@ -2087,10 +2088,17 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                 },
                 label: "Document * ",
                 selectedItem: lafArr,
-                popUpDisabled: (String?  s) {
-                  if (lafStatus) {
-                    return s.startsWith('L');
-                  } else {}
+                // popUpDisabled: (String?  s) {
+                //   if (lafStatus) {
+                //     return s!.startsWith('L');
+                //   }
+                //
+                // },
+                popUpDisabled: (String? s) {
+                if (lafStatus && s != null) {
+                return s.startsWith('L');
+                }
+                return false;
                 },
                 validator: (String?  item) {})),
         SizedBox(
@@ -2229,7 +2237,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                   //             child: Container(
                   //               height: 71,
                   //               decoration: BoxDecoration(
-                  //                 color: Theme.of(context).backgroundColor,
+                  //                 color: Theme.of(context).scaffoldBackgroundColor,
                   //                 borderRadius: BorderRadius.circular(5),
                   //               ),
                   //
@@ -2297,7 +2305,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                   height: 30,
                   decoration: BoxDecoration(
                     color: Color(0xffCDE5F1),
-                    borderRadius: BorderRadius.circular(1),
+                    // borderRadius: BorderRadius.circular(1),
                     //   border: Border.all(width: 1, color: Colors.blue
                     //  )
                   ),
@@ -2519,7 +2527,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -2573,6 +2581,9 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.grey, width: 0.6),
                 ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 0.6),
+                ),
                 border: OutlineInputBorder(),
                 labelText: labelText,
                 floatingLabelStyle: TextStyle(color: Color(0xff205072)),
@@ -2581,7 +2592,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),
@@ -2603,7 +2614,7 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
       ),
       child: Center(
           child: Text(
-        status,
+        status!,
         style: TextStyle(color: Colors.white, fontSize: 12),
       )),
     );

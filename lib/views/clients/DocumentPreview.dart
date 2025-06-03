@@ -44,9 +44,9 @@ class _DocumentPreviewState extends State<DocumentPreview> {
 
 
   retRealFile(String?  img){
-    var Velo =  img.split(',').first;
+    var Velo =  img!.split(',').first;
     int?  chopOut = Velo.length + 1;
-    String?  realfile =  img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
+    String?  realfile =  img!.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
   }
 
@@ -56,9 +56,9 @@ class _DocumentPreviewState extends State<DocumentPreview> {
     //
     //  var bytes = base64Decode(widget.base64String.replaceAll('\n', ''));
     String?  pdf = passedDocument;
-    var Velo =  pdf.split(',').first;
+    var Velo =  pdf!.split(',').first;
     int?  chopOut = Velo.length + 1;
-    var bytes =  base64Decode(pdf.substring(chopOut).replaceAll("\n", "").replaceAll("\r", ""));
+    var bytes =  base64Decode(pdf!.substring(chopOut).replaceAll("\n", "").replaceAll("\r", ""));
     final output = await getTemporaryDirectory();
     final file = File("${output.path}/${passedFileName}.pdf");
     await file.writeAsBytes(bytes.buffer.asUint8List());

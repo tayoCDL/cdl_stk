@@ -65,7 +65,7 @@ class AddLoanProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> addLoan(var passedLoanData,
       String?  isDeciderPassed,
       {String?  comingFrom,bool buyOverOpt = false}) async {
-    var result;
+    var result = {'status': false, 'message': 'An error occurred'};
      // return result;
 
     print('decide status ${isDeciderPassed}');
@@ -202,11 +202,19 @@ class AddLoanProvider extends ChangeNotifier {
     };
 
 
+    if (FINANCIAL_INCLUSION.contains(dsrData['productId'])) {
+      dsrData.addAll({
+        "unionFees": passedLoanData['unionFees'],
+        "personalExpense": passedLoanData['personalExpense'],
+        "spoilageAmount": passedLoanData['spoilageAmount']
+      });
+    }
+
 
 
     try{
       Response responsevv = await post(
-        AppUrl.checkDsr,
+       Uri.parse(AppUrl.checkDsr),
         body: json.encode(dsrData),
         headers: bHeader
       );
@@ -273,6 +281,14 @@ class AddLoanProvider extends ChangeNotifier {
 
           print('Passed<< onLoanEdit ${passedLoanData['charges']}');
 
+          if (  FINANCIAL_INCLUSION.contains(loanData['productId'])) {
+            loanData.addAll({
+              "unionFees": passedLoanData['unionFees'],
+              "personalExpense": passedLoanData['personalExpense'],
+              "spoilageAmount": passedLoanData['spoilageAmount'],
+            });
+          }
+
           final Map<String, dynamic> EditloanData = {
 
             "allowPartialPeriodInterestCalcualtion": passedLoanData['allowPartialPeriodInterestCalcualtion'],
@@ -311,6 +327,16 @@ class AddLoanProvider extends ChangeNotifier {
            // "submittedOnDate": passedLoanData['methodType'] == 'post' ? passedLoanData['submittedOnDate'] : null,
             "transactionProcessingStrategyId": passedLoanData['transactionProcessingStrategyId'],
           };
+
+          if (  FINANCIAL_INCLUSION.contains(EditloanData['productId'])) {
+            EditloanData.addAll({
+              "unionFees": passedLoanData['unionFees'],
+              "personalExpense": passedLoanData['personalExpense'],
+              "spoilageAmount": passedLoanData['spoilageAmount']
+            });
+          }
+
+
 
           final Map<String, dynamic> RemittaloanData = {
 
@@ -416,6 +442,7 @@ class AddLoanProvider extends ChangeNotifier {
                   // Closing client here throwns an error
                   // client.close(); // Connection closed before full header was received
                   result = {'status': false, 'message': 'Connection timed out',};
+                  throw "Connection timed out";
                   //
                 },);;
             }
@@ -430,6 +457,7 @@ class AddLoanProvider extends ChangeNotifier {
                 onTimeout: () {
                   result = {'status': false, 'message': 'Connection timed out',};
                   //
+                  throw "Connection timed out";
                 },
 
                 );
@@ -483,11 +511,11 @@ class AddLoanProvider extends ChangeNotifier {
 
       if (e.toString().contains('SocketException') ||
           e.toString().contains('HandshakeException')) {
-        return result = {'status': false, 'message': 'Network error','data':'No Internet connection'};
+         result = {'status': false, 'message': 'Network error','data':'No Internet connection'};
 
       } else {
         // result = {'status': false, 'message': 'Successful','data':responseData2};
-
+        result = {'status': false, 'message': 'An unexpected error occurred: ${e.toString()}'};
       }
     }
 

@@ -11,6 +11,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
@@ -74,7 +75,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
       newFileLocation;
   String?  appendBase64 = '';
 
-  File uploadimage;
+  File? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -84,10 +85,9 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
   String?  _path = '...';
   String?  baseimage = '';
   String?  _extension;
-  bool _hasValidMime = false;
-  FileType _pickingType;
+
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name, agent_email = '';
   int?  agentId = 0;
   String?  agentCode = "";
@@ -119,8 +119,8 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
     //   CategoryType();
     getStaffID();
     // getSubCategory(10);
-    email.text = ClientEmail;
-    name.text = clientName;
+    email.text = ClientEmail ?? '';
+    name.text = clientName ?? '';
     sequestClientID.text = ClientID.toString();
     super.initState();
   }
@@ -159,7 +159,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         _isLoading = false;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -183,7 +183,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -216,7 +216,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         collectTicketType = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -254,7 +254,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
   //       allCategory = newEmp;
   //     });
   //
-  //     for(int?  i = 0; i < newEmp.length;i++){
+  //     for(int  i = 0; i < newEmp.length;i++){
   //       //  print(newEmp[i].affectedTypeName);
   //       collectCategory.add(newEmp[i]['categoryName']);
   //     }
@@ -289,7 +289,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         allCategory = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['categoryName']);
 
         collectCategory.add(newEmp[i]['categoryName']);
@@ -326,7 +326,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         collectSubCategory = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -424,7 +424,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
             MyRouter.pushPageReplacement(
                 context,
                 ItHelpDeskLists(
-                  loanOfficerId: int.tryParse(localLoanOfficerId),
+                  loanOfficerId: int.tryParse(localLoanOfficerId!),
                 ));
             //  MyRouter.popPage(context);
             Flushbar(
@@ -521,8 +521,11 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
                             fontFamily: 'Nunito SansRegular'),
                         labelStyle: TextStyle(
                             fontFamily: 'Nunito SansRegular',
-                            color: Theme.of(context).textTheme.headline2.color),
+                            color: Theme.of(context).textTheme.headlineMedium?.color),
                         counter: SizedBox.shrink()),
+                    onEditingComplete: () {
+                      FocusScope.of(context).unfocus(); // Hides the keyboard
+                    },
                   ),
 
                   //   SizedBox(height: 20,),
@@ -850,136 +853,371 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
   //   });
   // }
 
+  // void takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   var choosedimage = await ImagePicker.pickImage(source: source);
+  //   //  print('this ${choosedimage.toString()}');
+  //   File imagefile = choosedimage; //convert Path to File
+  //
+  //   var result = await FlutterImageCompress.compressWithFile(
+  //     imagefile.absolute.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 100,
+  //     // rotate: 90,
+  //   );
+  //
+  //   print('this is file sixe');
+  //   print(imagefile.lengthSync());
+  //   print(result);
+  //   //return result;
+  //
+  //   // image compressor
+  //
+  //   print('image File ${imagefile}');
+  //   Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
+  //   String?  base64String?  =
+  //       base64.encode(result); //convert bytes to base64 string
+  //   print('base64String?  ${base64string}');
+  //
+  //   String?  _finalPath = choosedimage.toString();
+  //   // final bytes = Io.File(_finalPath).readAsBytesSync();
+  //   //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
+  //   // String?  img64 = base64Encode(bytes);
+  //
+  //   // print(img64);
+  //
+  //   setState(() {
+  //     uploadimage = choosedimage;
+  //     String?  getPath = choosedimage.toString();
+  //     _fileName = getPath != null ? getPath.split('/').last : '...';
+  //     // _openFileExplorer(getPath);
+  //
+  //     File file = choosedimage;
+  //     _fileName = file.path.split('/').last;
+  //     print('filename ${_fileName}');
+  //     passport.text = _fileName;
+  //     //  selectedFile = _fileName;
+  //   });
+  //
+  //   // final kb = byeInLength / 1024;
+  //   // final mb = kb / 1024;
+  //   // print('this is the MB ${mb}');
+  //   // String?  filesizeAsString?   = mb.toString();
+  //   // print('this is file sizelenght ${filesizeAsString}');
+  //   //  print('image base64 ${img64}');
+  //
+  //   setState(() {
+  //     passportFileLocation = base64string;
+  //     passportFileSize = '';
+  //     passportFiletype = _fileName.split('.').last;
+  //   });
+  //
+  //   print('passport file location ${passportFiletype} ');
+  //
+  //   setState(() {
+  //     if (passportFiletype == 'png') {
+  //       appendBase64 = 'data:image/png;base64,';
+  //     } else if (passportFiletype == 'jpg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     } else if (passportFiletype == 'jpeg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     }
+  //   });
+  //
+  //   newFileLocation = appendBase64 + passportFileLocation;
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     // _fileName = _path != null ? _path.split('/').last : '...';
+  //     //   selectedFile = _fileName;
+  //     passportFileName = _fileName;
+  //   });
+  // }
+
+
   void takePhoto(ImageSource source) async {
-    MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
-    //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    try {
+      MyRouter.popPage(context);
 
-    var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
-      minWidth: 330,
-      minHeight: 250,
-      quality: 100,
-      // rotate: 90,
-    );
-
-    print('this is file sixe');
-    print(imagefile.lengthSync());
-    print(result);
-    //return result;
-
-    // image compressor
-
-    print('image File ${imagefile}');
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
-
-    String?  _finalPath = choosedimage.toString();
-    // final bytes = Io.File(_finalPath).readAsBytesSync();
-    //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String?  img64 = base64Encode(bytes);
-
-    // print(img64);
-
-    setState(() {
-      uploadimage = choosedimage;
-      String?  getPath = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      // _openFileExplorer(getPath);
-
-      File file = choosedimage;
-      _fileName = file.path.split('/').last;
-      print('filename ${_fileName}');
-      passport.text = _fileName;
-      //  selectedFile = _fileName;
-    });
-
-    // final kb = byeInLength / 1024;
-    // final mb = kb / 1024;
-    // print('this is the MB ${mb}');
-    // String?  filesizeAsString?   = mb.toString();
-    // print('this is file sizelenght ${filesizeAsString}');
-    //  print('image base64 ${img64}');
-
-    setState(() {
-      passportFileLocation = base64string;
-      passportFileSize = '';
-      passportFiletype = _fileName.split('.').last;
-    });
-
-    print('passport file location ${passportFiletype} ');
-
-    setState(() {
-      if (passportFiletype == 'png') {
-        appendBase64 = 'data:image/png;base64,';
-      } else if (passportFiletype == 'jpg') {
-        appendBase64 = 'data:image/jpeg;base64,';
-      } else if (passportFiletype == 'jpeg') {
-        appendBase64 = 'data:image/jpeg;base64,';
+      // Optional: Request camera permission if needed
+      if (Platform.isAndroid || Platform.isIOS) {
+        final status = await Permission.camera.request();
+        if (!status.isGranted) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Camera permission denied.')),
+            );
+          }
+          return;
+        }
       }
-    });
 
-    newFileLocation = appendBase64 + passportFileLocation;
+      final choosedimage = await ImagePicker().pickImage(source: source);
+      if (choosedimage == null) return;
 
-    if (!mounted) return;
+      File imagefile = File(choosedimage.path);
 
-    setState(() {
-      // _fileName = _path != null ? _path.split('/').last : '...';
-      //   selectedFile = _fileName;
-      passportFileName = _fileName;
-    });
+      final result = await FlutterImageCompress.compressWithFile(
+        imagefile.absolute.path,
+        minWidth: 330,
+        minHeight: 250,
+        quality: 100,
+      );
+
+      print('This is file size: ${imagefile.lengthSync()}');
+      print('Compressed result: $result');
+
+      if (result == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Image compression failed.')),
+          );
+        }
+        return;
+      }
+
+      final base64string = base64Encode(result);
+      final fileName = imagefile.path.split('/').last;
+      final fileType = fileName.split('.').last;
+
+      if (!mounted) return;
+
+      setState(() {
+        uploadimage = imagefile;
+        _fileName = fileName;
+        passport.text = fileName;
+        passportFileLocation = base64string;
+        passportFileSize = ''; // You can compute this if needed
+        passportFiletype = fileType;
+      });
+
+      // Handle MIME type prefix
+      String? mimePrefix;
+      if (fileType == 'png') {
+        mimePrefix = 'data:image/png;base64,';
+      } else if (fileType == 'jpg' || fileType == 'jpeg') {
+        mimePrefix = 'data:image/jpeg;base64,';
+      }
+
+      if (mimePrefix != null) {
+        newFileLocation = "$mimePrefix$base64string";
+      }
+
+      if (!mounted) return;
+
+      setState(() {
+        passportFileName = fileName;
+      });
+    } catch (e) {
+      print('[takePhoto] Error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Something went wrong while processing the image.')),
+        );
+      }
+    }
   }
+
+
+  // void _openFileExplorer() async {
+  //   MyRouter.popPage(context);
+  //
+  //   String?  result;
+  //   try {
+  //     setState(() {
+  //       _path = '-';
+  //       _pickFileInProgress = true;
+  //     });
+  //
+  //     FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
+  //       allowedFileExtensions: _checkByCustomExtension
+  //           ? _extensionController.text
+  //               .split(' ')
+  //               .where((x) => x.isNotEmpty)
+  //               .toList()
+  //           : null,
+  //       allowedUtiTypes: _iosPublicDataUTI
+  //           ? null
+  //           : _utiController.text
+  //               .split(' ')
+  //               .where((x) => x.isNotEmpty)
+  //               .toList(),
+  //       allowedMimeTypes: ["image/png", "image/jpeg", "image/jpg"],
+  //     );
+  //
+  //     result = await FlutterDocumentPicker.openDocument(params: params);
+  //
+  //     final file = File(result!);
+  //     final fileSize = await file.length();
+  //     if (fileSize > 5 * 1024 * 1024) {
+  //       setState(() {
+  //         passport.text = '';
+  //         passportFileLocation = '';
+  //         _path = '-';
+  //         // isPassportAdded = false;
+  //       });
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             title: Text('File Size Exceeded'),
+  //             content: Text('Please select a file with a maximum size of 2MB.'),
+  //             actions: [
+  //               TextButton(
+  //                 onPressed: () => Navigator.pop(context),
+  //                 child: Text('OK'),
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //       return;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     result = 'Error: $e';
+  //   } finally {
+  //     // setState(() {
+  //     //   _pickFileInProgress = false;
+  //     // });
+  //   }
+  //
+  //   setState(() {
+  //     _path = result;
+  //   });
+  //
+  //   try {
+  //     //  var newPath  = await FilePicker.getFile(type: _pickingType,fileExtension: _extension);
+  //     //  print('this is new Path ${newPath}');
+  //     // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+  //
+  //     // print('this is Path ${_path}');
+  //
+  //     print('file extension ${_path.split('.').last}');
+  //
+  //     String?  filePath = _path.split('.').last;
+  //
+  //     var result;
+  //
+  //     bool extensionChecker =
+  //         filePath == 'png' || filePath == 'jpg' || filePath == 'jpeg'
+  //             ? true
+  //             : false;
+  //
+  //     if (extensionChecker) {
+  //       result = await FlutterImageCompress.compressWithFile(
+  //         _path,
+  //         minWidth: 330,
+  //         minHeight: 250,
+  //         quality: 90,
+  //         //  rotate: 180,
+  //       );
+  //       //    print('this is file sixe');
+  //
+  //     }
+  //
+  //     final bytes = Io.File(_path).readAsBytesSync();
+  //     final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+  //     String?  img64 = base64Encode(extensionChecker ? result : bytes);
+  //
+  //     // get file size
+  //     final kb = byeInLength / 1024;
+  //     final mb = kb / 1024;
+  //     print('this is the MB ${mb}');
+  //     String?  filesizeAsString?  = mb.toString();
+  //     print('this is file sizelenght ${filesizeAsString}');
+  //     print('image base64 ${img64}');
+  //
+  //     setState(() {
+  //       passportFileLocation = img64;
+  //       passportFileSize = filesizeAsString;
+  //       passportFiletype = _path.split('.').last;
+  //     });
+  //
+  //     print('passport file location ${passportFiletype} ');
+  //
+  //     setState(() {
+  //       if (passportFiletype == 'png') {
+  //         appendBase64 = 'data:image/png;base64,';
+  //       } else if (passportFiletype == 'jpg') {
+  //         appendBase64 = 'data:image/jpeg;base64,';
+  //       } else if (passportFiletype == 'jpeg') {
+  //         appendBase64 = 'data:image/jpeg;base64,';
+  //       }
+  //     });
+  //
+  //     newFileLocation = appendBase64 + passportFileLocation;
+  //
+  //     print('newfileLocation ${newFileLocation}');
+  //   } on PlatformException catch (e) {
+  //     print("Unsupported operation" + e.toString());
+  //   }
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     _fileName = _path != null ? _path.split('/').last : '...';
+  //     //  selectedFile = _fileName;
+  //     passportFileName = _fileName;
+  //     passport.text = _fileName;
+  //     //  isPassportAdded = true;
+  //   });
+  //
+  //   // }
+  // }
 
   void _openFileExplorer() async {
     MyRouter.popPage(context);
 
-    String?  result;
+    String? resultPath;
     try {
       setState(() {
         _path = '-';
         _pickFileInProgress = true;
       });
 
-      FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
+      final params = FlutterDocumentPickerParams(
         allowedFileExtensions: _checkByCustomExtension
             ? _extensionController.text
-                .split(' ')
-                .where((x) => x.isNotEmpty)
-                .toList()
+            .split(' ')
+            .where((x) => x.isNotEmpty)
+            .toList()
             : null,
         allowedUtiTypes: _iosPublicDataUTI
             ? null
             : _utiController.text
-                .split(' ')
-                .where((x) => x.isNotEmpty)
-                .toList(),
+            .split(' ')
+            .where((x) => x.isNotEmpty)
+            .toList(),
         allowedMimeTypes: ["image/png", "image/jpeg", "image/jpg"],
       );
 
-      result = await FlutterDocumentPicker.openDocument(params: params);
+      resultPath = await FlutterDocumentPicker.openDocument(params: params);
+      if (resultPath == null) return;
 
-      final file = File(result);
-      final fileSize = await file.length();
-      if (fileSize > 5 * 1024 * 1024) {
+      final file = File(resultPath);
+      final fileSizeBytes = await file.length();
+
+      // Check size limit (2MB)
+      if (fileSizeBytes > 2 * 1024 * 1024) {
         setState(() {
           passport.text = '';
           passportFileLocation = '';
           _path = '-';
-          // isPassportAdded = false;
         });
+
         showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('File Size Exceeded'),
-              content: Text('Please select a file with a maximum size of 2MB.'),
+              title: const Text('File Size Exceeded'),
+              content: const Text('Please select a file with a maximum size of 2MB.'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             );
@@ -988,97 +1226,69 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         return;
       }
     } catch (e) {
-      print(e);
-      result = 'Error: $e';
+      print('Error picking file: $e');
+      resultPath = 'Error: $e';
     } finally {
-      // setState(() {
-      //   _pickFileInProgress = false;
-      // });
+      setState(() {
+        _pickFileInProgress = false;
+        _path = resultPath ?? '-';
+      });
     }
 
-    setState(() {
-      _path = result;
-    });
+    if (resultPath == null || resultPath.startsWith('Error')) return;
 
     try {
-      //  var newPath  = await FilePicker.getFile(type: _pickingType,fileExtension: _extension);
-      //  print('this is new Path ${newPath}');
-      // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+      final fileExtension = resultPath.split('.').last.toLowerCase();
+      bool isImageFile = ['png', 'jpg', 'jpeg'].contains(fileExtension);
 
-      // print('this is Path ${_path}');
-
-      print('file extension ${_path.split('.').last}');
-
-      String?  filePath = _path.split('.').last;
-
-      var result;
-
-      bool extensionChecker =
-          filePath == 'png' || filePath == 'jpg' || filePath == 'jpeg'
-              ? true
-              : false;
-
-      if (extensionChecker) {
-        result = await FlutterImageCompress.compressWithFile(
-          _path,
+      List<int> fileBytes;
+      if (isImageFile) {
+        final compressed = await FlutterImageCompress.compressWithFile(
+          resultPath,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
-          //  rotate: 180,
         );
-        //    print('this is file sixe');
-
+        if (compressed == null) throw Exception('Image compression failed.');
+        fileBytes = compressed;
+      } else {
+        fileBytes = await File(resultPath).readAsBytes();
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
-      String?  img64 = base64Encode(extensionChecker ? result : bytes);
-
-      // get file size
-      final kb = byeInLength / 1024;
-      final mb = kb / 1024;
-      print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
-      print('this is file sizelenght ${filesizeAsString}');
-      print('image base64 ${img64}');
+      final base64String = base64Encode(fileBytes);
+      final fileSizeMB = (fileBytes.length / (1024 * 1024)).toStringAsFixed(2);
 
       setState(() {
-        passportFileLocation = img64;
-        passportFileSize = filesizeAsString;
-        passportFiletype = _path.split('.').last;
-      });
+        passportFileLocation = base64String;
+        passportFileSize = fileSizeMB;
+        passportFiletype = fileExtension;
 
-      print('passport file location ${passportFiletype} ');
-
-      setState(() {
-        if (passportFiletype == 'png') {
+        if (fileExtension == 'png') {
           appendBase64 = 'data:image/png;base64,';
-        } else if (passportFiletype == 'jpg') {
-          appendBase64 = 'data:image/jpeg;base64,';
-        } else if (passportFiletype == 'jpeg') {
+        } else if (fileExtension == 'jpg' || fileExtension == 'jpeg') {
           appendBase64 = 'data:image/jpeg;base64,';
         }
+
+        newFileLocation = appendBase64! + passportFileLocation!;
       });
 
-      newFileLocation = appendBase64 + passportFileLocation;
+      if (!mounted) return;
 
-      print('newfileLocation ${newFileLocation}');
+      setState(() {
+        _fileName = resultPath!.split('/').last;
+        passportFileName = _fileName;
+        passport.text = _fileName!;
+      });
+
+      print('Base64 length: ${passportFileLocation!.length}');
+      print('New File Location: $newFileLocation');
     } on PlatformException catch (e) {
-      print("Unsupported operation" + e.toString());
+      print("Unsupported operation: ${e.message}");
+    } catch (e) {
+      print("Unexpected error: $e");
     }
-
-    if (!mounted) return;
-
-    setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      //  selectedFile = _fileName;
-      passportFileName = _fileName;
-      passport.text = _fileName;
-      //  isPassportAdded = true;
-    });
-
-    // }
   }
+
 
   Widget EntryField(
     BuildContext context,
@@ -1097,7 +1307,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1112,7 +1322,7 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
             controller: editController,
 
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Field cannot be empty';
               }
             },
@@ -1139,9 +1349,12 @@ class _ItHelpDeskState extends State<ItHelpDesk> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
+            onEditingComplete: () {
+              FocusScope.of(context).unfocus(); // Hides the keyboard
+            },
           ),
         ),
       ),

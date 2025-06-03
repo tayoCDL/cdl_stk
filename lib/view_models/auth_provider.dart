@@ -93,11 +93,11 @@ class AuthProvider extends ChangeNotifier {
 
 //hnrfxksazeekn
 
-    final Map<String, String> sequestLoginData = {
-      "username": "MobileUser",
-      "email": "mobuser@fcmb.com",
-      "password": seQuestPassword!
-    };
+    // final Map<String, String> sequestLoginData = {
+    //   "username": "MobileUser",
+    //   "email": "mobuser@fcmb.com",
+    //   "password": seQuestPassword!
+    // };
 
     //
     // Response Sequestresponse = await post(
@@ -119,11 +119,11 @@ class AuthProvider extends ChangeNotifier {
     //     //
     //   },);
 
-    String? url = username!.contains('salestoolkit@qa.team') || isAgent == true
-        ? AppUrl.login
-        : AppUrl.loginLdap;
+    // String? url = username!.contains('salestoolkit@qa.team') || isAgent == true
+    //     ? AppUrl.login
+    //     : AppUrl.loginLdap;
     //   print('login_url ${url}');
-//   String?  url = AppUrl.login;
+     String?  url = AppUrl.login;
     try {
       Response response = await post(
         Uri.parse(url),
@@ -201,7 +201,7 @@ class AuthProvider extends ChangeNotifier {
 
         var userData = responseData;
         User authUser = User.fromJson(userData);
-        //  UserPreferences().saveUser(authUser);
+          UserPreferences().saveUser(authUser);
         _loggedInStatus = Status.LoggedIn;
         notifyListeners();
 

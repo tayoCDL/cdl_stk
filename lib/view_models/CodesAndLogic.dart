@@ -76,7 +76,7 @@ class RetCodes {
     };
 
     Response responsevv =
-        await get(AppUrl.getStaffCredential + '${staffId ?? 0}', headers: bHeader);
+        await get(Uri.parse(AppUrl.getStaffCredential + '${staffId ?? 0}'), headers: bHeader);
   print('responsestaff code ${responsevv.statusCode}');
     if(responsevv.statusCode == 401){
       // result = {
@@ -193,11 +193,11 @@ class RetCodes {
 
 
     if (responsevv.statusCode == 200) {
-      final List<dynamic> responseData = json.decode(responsevv.body);
+      final Map<String,dynamic> responseData = json.decode(responsevv.body);
       result = {
         'status': true,
         'message': 'account lists generated',
-        'data': responseData
+        'data': responseData['clientAccounts']
       };
 
        } else {
@@ -475,7 +475,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.singleLoanDocumentConfig + '${codeID}/codes',
+        Uri.parse(AppUrl.singleLoanDocumentConfig + '${codeID}/codes'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -539,7 +539,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-       Uri.parse( AppUrl.allEmployers + '&employerType=${sector}&name=${name})',
+       Uri.parse( AppUrl.allEmployers + '&employerType=${sector}&name=${name}'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -884,7 +884,7 @@ class RetCodes {
     //  print(AppUrl.allEmployers + '&name=${employerName}');
     try {
       Response responsevv = await get(
-        AppUrl.thirdparty_employerProduct + '${employerId}',
+       Uri.parse( AppUrl.thirdpartyEmployerProduct + '${employerId}'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1020,7 +1020,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.getSingleClient + '${clientID}' + '/accounts/summary',
+        Uri.parse(AppUrl.getSingleClient + '${clientID}' + '/accounts/summary'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1083,7 +1083,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.getSingleClient + '${accountNumber}' + '/tracking',
+       Uri.parse( AppUrl.getSingleClient + '${accountNumber}' + '/tracking'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1147,7 +1147,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.loanCollection + '/' + '${collectionID}',
+        Uri.parse(AppUrl.loanCollection + '/' + '${collectionID}'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1215,8 +1215,8 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.loanGet +
-            'loanStatusId=${loanStatus}&loanOfficerId=${loanOfficerId}&orderBy=id&sortOrder=desc&locale=en&dateFormat=yyyy-MM-dd',
+       Uri.parse( AppUrl.loanGet +
+            'loanStatusId=${loanStatus}&loanOfficerId=${loanOfficerId}&orderBy=id&sortOrder=desc&locale=en&dateFormat=yyyy-MM-dd'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1277,7 +1277,7 @@ class RetCodes {
     try {
       Response responsevv = await get(
      //   AppUrl.getSingleClient + '${clientID}' + '/accounts',
-        AppUrl.loanLists + '${clientID}'+ '&sortOrder=desc&orderBy=loan_status_id',
+       Uri.parse( AppUrl.loanLists + '${clientID}'+ '&sortOrder=desc&orderBy=loan_status_id'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1338,7 +1338,7 @@ class RetCodes {
     try {
       Response responsevv = await get(
         //   AppUrl.getSingleClient + '${clientID}' + '/accounts',
-        AppUrl.loanLists + '${clientID}' + '&loanStatusId=${loanStatusId}&sortOrder=desc',
+        Uri.parse(AppUrl.loanLists + '${clientID}' + '&loanStatusId=${loanStatusId}&sortOrder=desc'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1451,7 +1451,7 @@ class RetCodes {
       var sequesttoken = prefs.getString('sequestToken');
       print('sequest Token ${sequesttoken}');
       Response responsevv = await get(
-        AppUrl.getAvailableStatusByTicket + ticketId,
+        Uri.parse(AppUrl.getAvailableStatusByTicket + ticketId!),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${sequesttoken}',
@@ -1516,7 +1516,7 @@ class RetCodes {
     print(sequesttoken);
 
     Response responsevv = await get(
-      AppUrl.deparmentUnit + '?enabledforstk=${isenabledforstk}',
+     Uri.parse( AppUrl.deparmentUnit + '?enabledforstk=${isenabledforstk}'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -1631,7 +1631,7 @@ class RetCodes {
     print(sequesttoken);
     //   print('this api ${AppUrl.getCategoryByUnitId + '${unitId}'}');
     Response responsevv = await get(
-      AppUrl.getCategoryByUnitId + '${unitId}',
+      Uri.parse(AppUrl.getCategoryByUnitId + '${unitId}'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -1743,7 +1743,7 @@ class RetCodes {
     print(sequesttoken);
 
     Response responsevv = await get(
-      AppUrl.categoryApiForOpportunity + '${ticketInt}',
+     Uri.parse(AppUrl.categoryApiForOpportunity + '${ticketInt}'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -1853,7 +1853,7 @@ class RetCodes {
     print(sequesttoken);
 
     Response responsevv = await get(
-      AppUrl.getSubcategoryApi + '${categoryID}',
+     Uri.parse( AppUrl.getSubcategoryApi + '${categoryID}'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -2030,6 +2030,7 @@ class RetCodes {
         return result = {'status': false, 'message': 'Unable to retrieve data'};
       }
     }
+    throw Exception('Failed to load data');
   }
 
   Future<Map<String, dynamic>> fundingOptions(
@@ -2259,8 +2260,7 @@ class RetCodes {
 
     Response responsevv = await get(
       Uri.parse(AppUrl.productEngine +
-          '${clientId}' +
-          '&productId=${productId}' +
+          '${clientId}' + '&productId=${productId}' +
           '&staffInSelectedOfficeOnly=false&templateType=individual'),
       headers: {
         'Content-Type': 'application/json',
@@ -2301,6 +2301,7 @@ class RetCodes {
             'status': false,
             'message': 'Connection timed out',
           };
+          throw "Connection timed out";
         },
       );
 
@@ -2429,7 +2430,7 @@ class RetCodes {
     print(AppUrl.checkAvailability + '${kycData['bvn']}/checkavailability' );
 
     try {
-      Response responsevv = await get(AppUrl.checkAvailability + '${kycData['bvn']}/checkavailability',
+      Response responsevv = await get(Uri.parse(AppUrl.checkAvailability + '${kycData['bvn']}/checkavailability'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': APP_TOKEN!,
@@ -2441,6 +2442,7 @@ class RetCodes {
             'status': false,
             'message': 'Connection timed out',
           };
+           throw TimeoutException('Connection timed out');
         },
       );
       print('response BBBB ${responsevv.statusCode}');
@@ -2510,6 +2512,7 @@ class RetCodes {
             'status': false,
             'message': 'Connection timed out',
           };
+          throw "Connection timed out";
         },
       );
 
@@ -2581,7 +2584,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
 
     Response responsevv = await get(
-      AppUrl.getSingleClientForLoanReview + clientID,
+      Uri.parse(AppUrl.getSingleClientForLoanReview + clientID!),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -2638,6 +2641,7 @@ class RetCodes {
             'message': 'Connection timed out',
           };
           //
+          throw TimeoutException('Connection timed out');
         },
       );
 
@@ -2808,7 +2812,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.verifyClientOTP + '${phone}/${otp}',
+       Uri.parse(AppUrl.verifyClientOTP + '${phone}/${otp}'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': APP_TOKEN!,
@@ -2981,7 +2985,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
 
     Response responsevv = await get(
-      AppUrl.getLendersLists,
+      Uri.parse(AppUrl.getLendersLists),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -3024,7 +3028,7 @@ class RetCodes {
         // AppUrl.getLoanPaymentLinkMethod +
         //     '${loanID}' +
         //     '?command=tokenization&mode=both',
-        AppUrl.newSendLafOtp + '${loanID}' + '?channelId=77',
+        Uri.parse(AppUrl.newSendLafOtp + '${loanID}' + '?channelId=77'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -3343,6 +3347,7 @@ class RetCodes {
             'status': false,
             'message': 'Connection timed out',
           };
+          throw "Connection timed out";
           //
         },
       );
@@ -3366,6 +3371,7 @@ class RetCodes {
             'message': 'Connection timed out',
           };
           //
+          throw TimeoutException('Connection timed out');
         },
       );
     }
@@ -3543,7 +3549,7 @@ class RetCodes {
     var tfaToken = prefs.getString('tfa-token');
 
     final Map<String, String> validationData = {
-      "token": tokenReceived,
+      "token": tokenReceived!,
     };
     Response responsevv = await post(
      Uri.parse( AppUrl.getSingleClient +
@@ -3643,7 +3649,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.allEmployersBranch + '${firstValue}',
+        Uri.parse(AppUrl.allEmployersBranch + '${firstValue}'),
         // AppUrl.allEmployersBranch + '2645',
         headers: {
           'Content-Type': 'application/json',
@@ -3673,6 +3679,7 @@ class RetCodes {
           'message': 'Network error',
           'data': 'No Internet connection'
         };
+
       } else {
         // result = {'status': false, 'message': 'Successful','data':responseData2};
 
@@ -3896,7 +3903,7 @@ class RetCodes {
     String?  request_url = appUrl.getOrPostEmailValidationStatus(clientId,false);
     try {
       Response responsevv = await put(
-        request_url,
+        Uri.parse(request_url),
         body: json.encode(emailData),
         headers: {
           'Content-Type': 'application/json',
@@ -3948,7 +3955,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.loanCollection,
+        Uri.parse(AppUrl.loanCollection),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -4002,7 +4009,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-        AppUrl.loanCollection,
+        Uri.parse(AppUrl.loanCollection),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -4044,10 +4051,69 @@ class RetCodes {
     return result;
   }
 
+  // Future<Map<String, dynamic>> calculateRepayment(
+  //     var calculateReschedule) async {
+  //   print('repaymnent ${calculateReschedule}');
+  //   var result;
+  //
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //
+  //   var token = prefs.getString('base64EncodedAuthenticationKey');
+  //   var tfaToken = prefs.getString('tfa-token');
+  //   print(tfaToken);
+  //   print(token);
+  //
+  //   print(
+  //       'calculate reschedule ${calculateReschedule} ${AppUrl.loanRepaymentCalculator}');
+  //
+  //   try {
+  //     Response responsevv = await post(
+  //       AppUrl.loanSchedule,
+  //       body: json.encode(calculateReschedule),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+  //         'Authorization': 'Basic ${token}',
+  //         'Fineract-Platform-TFA-Token': '${tfaToken}',
+  //       },
+  //     );
+  //
+  //     print(responsevv.body);
+  //
+  //     if (responsevv.statusCode == 200) {
+  //       final Map<String, dynamic> responseData = json.decode(responsevv.body);
+  //       print('from auth provider');
+  //       var sendDataToFrontEnd = responseData;
+  //       result = {
+  //         'status': true,
+  //         'message': 'Successful',
+  //         'data': sendDataToFrontEnd
+  //       };
+  //     } else {
+  //       result = {'status': false, 'message': json.decode(responsevv.body)};
+  //     }
+  //   } catch (e) {
+  //     if (e.toString().contains('SocketException') ||
+  //         e.toString().contains('HandshakeException')) {
+  //        result = {
+  //         'status': false,
+  //         'message': 'Network error',
+  //         'data': 'No Internet connection'
+  //       };
+  //     } else {
+  //       // result = {'status': false, 'message': 'Successful','data':responseData2};
+  //
+  //     }
+  //   }
+  //
+  //   return result;
+  // }
+
+
   Future<Map<String, dynamic>> calculateRepayment(
       var calculateReschedule) async {
-    print('repaymnent ${calculateReschedule}');
-    var result;
+    print('repaymnent $calculateReschedule');
+    Map<String, dynamic> result = {}; // Ensure type
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -4057,7 +4123,7 @@ class RetCodes {
     print(token);
 
     print(
-        'calculate reschedule ${calculateReschedule} ${AppUrl.loanRepaymentCalculator}');
+        'calculate reschedule $calculateReschedule ${AppUrl.loanRepaymentCalculator}');
 
     try {
       Response responsevv = await post(
@@ -4066,8 +4132,8 @@ class RetCodes {
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
-          'Authorization': 'Basic ${token}',
-          'Fineract-Platform-TFA-Token': '${tfaToken}',
+          'Authorization': 'Basic $token',
+          'Fineract-Platform-TFA-Token': '$tfaToken',
         },
       );
 
@@ -4076,31 +4142,37 @@ class RetCodes {
       if (responsevv.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(responsevv.body);
         print('from auth provider');
-        var sendDataToFrontEnd = responseData;
         result = {
           'status': true,
           'message': 'Successful',
-          'data': sendDataToFrontEnd
+          'data': responseData,
         };
       } else {
-        result = {'status': false, 'message': json.decode(responsevv.body)};
+        result = {
+          'status': false,
+          'message': json.decode(responsevv.body)
+        };
       }
     } catch (e) {
       if (e.toString().contains('SocketException') ||
           e.toString().contains('HandshakeException')) {
-        return result = {
+        result = {
           'status': false,
           'message': 'Network error',
           'data': 'No Internet connection'
         };
       } else {
-        // result = {'status': false, 'message': 'Successful','data':responseData2};
-
+        result = {
+          'status': false,
+          'message': 'An unexpected error occurred',
+          'data': e.toString(),
+        };
       }
     }
 
     return result;
   }
+
 
   Future<Map<String, dynamic>> loanRepaymentCalculator(
       var calculateReschedule) async {

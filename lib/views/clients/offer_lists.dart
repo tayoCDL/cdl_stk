@@ -87,7 +87,8 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
             RefreshIndicator(
               onRefresh: () => getClientOffersLists(),
               child:  LoadingOverlay(
-                isLoading: appIsLoading,
+               isLoading: appIsLoading,
+              //  isLoading: false,
                 progressIndicator: Container(
                   height: 120,
                   width: 120,
@@ -96,9 +97,11 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
                 child:
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: offers_lists.isEmpty
+                  child:
+                  offers_lists.isEmpty
                       ? noOffersView()
-                      : SingleChildScrollView(
+                      :
+                  SingleChildScrollView(
                     child: Column(
                       children: [
                         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -189,7 +192,8 @@ class _OfferScreenSubMenuState extends State<OfferScreenSubMenu> {
 
 Good news! You're eligible for a loan offer with Credit Direct! Follow the prompts below to redeem your offer:
 1. Dial *5120*${staffId}#
-2. Chat with 09070309430 on WhatsApp, or 3. Visit https://ussd.creditdirect.ng
+2. http://wa.me/2349070309430?text=Apply+for+loan+with+${staffId}
+3. Visit https://ussd.creditdirect.ng
 
 Please feel free to reach out to me for any further clarifications.
   """;
@@ -197,11 +201,11 @@ Please feel free to reach out to me for any further clarifications.
     return ElevatedButton.icon(
       onPressed: () => shareOffer(redeemInstructionsDetails),
       icon: const Icon(Icons.share, color: Colors.white),
-      label: const Text("Share Redeem Instructions"),
+      label: const Text("Share Redeem Instructions",style: TextStyle(color: Colors.white)),
       style: ElevatedButton.styleFrom(
-        primary: Colors.blue,
+        backgroundColor: Colors.blue,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
@@ -218,7 +222,7 @@ Please feel free to reach out to me for any further clarifications.
         ),
         SizedBox(height: 6),
         Text(
-          "2. Chat with our BOT on WhatsApp via the below number : 08060798415.",
+          "2. 2. http://wa.me/2349070309430?text=Apply+for+loan+with+refId",
           style: TextStyle(fontSize: 14, color: Colors.black87),
         ),
         SizedBox(height: 6),

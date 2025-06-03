@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sales_toolkit/app_theme.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/router.dart';
@@ -44,7 +45,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   var discussData = [];
   var fullRequestData = {};
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -52,7 +53,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   String?  fileSize = '';
   String?  baseimage = '';
   int?  replyStatus = 0;
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name, agent_email = '';
   int?  agentId = 0;
   String?  selectedStatus = '';
@@ -93,9 +94,9 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
   double? _aspectRatio = 1.5;
 
-  retRealFile(String?  img) {
+  retRealFile(String  img) {
     var Velo = img.split(',').first;
-    int?  chopOut = Velo.length + 1;
+    int  chopOut = Velo.length + 1;
     String?  realfile =
         img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
@@ -187,8 +188,8 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var sequesttoken = prefs.getString('sequestToken');
     print('sequest Token ${sequesttoken}');
-    Response responsevv = await get(
-      AppUrl.getFullDiscussWithTicketID + ticketID,
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getFullDiscussWithTicketID.path + ticketID!),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${sequesttoken}',
@@ -418,7 +419,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     );
   }
 
-  retsNx360dates(String?  chatDate) {
+  retsNx360dates(String  chatDate) {
     print('2022-03-11T10:03:18.7029365');
 
     // String?  newdate = selectedDate.toString().substring(0,10);
@@ -597,87 +598,184 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
   //   });
   // }
 
+  // void takePhoto(ImageSource source) async {
+  //   MyRouter.popPage(context);
+  //   var choosedimage = await ImagePicker().pickImage(source: source);
+  //
+  //   if (choosedimage == null) {
+  //     return;
+  //   }
+  //   //  print('this ${choosedimage.toString()}');
+  //   XFile imagefile = choosedimage; //convert Path to File
+  //
+  //   var result = await FlutterImageCompress.compressWithFile(
+  //     imagefile.path,
+  //     minWidth: 330,
+  //     minHeight: 250,
+  //     quality: 100,
+  //     // rotate: 90,
+  //   );
+  //
+  //   print('this is file sixe');
+  //   print(imagefile.length());
+  //   print(result);
+  //   //return result;
+  //
+  //   // image compressor
+  //
+  //   print('image File ${imagefile}');
+  //   Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
+  //   String?  base64String  =
+  //       base64.encode(result!); //convert bytes to base64 string
+  //   print('base64String?  ${base64String}');
+  //
+  //   String?  _finalPath = choosedimage.toString();
+  //   // final bytes = Io.File(_finalPath).readAsBytesSync();
+  //   //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
+  //   // String?  img64 = base64Encode(bytes);
+  //
+  //   // print(img64);
+  //
+  //   setState(() {
+  //     uploadimage = choosedimage;
+  //     String?  getPath = choosedimage.toString();
+  //     _fileName = getPath != null ? getPath.split('/').last : '...';
+  //     // _openFileExplorer(getPath);
+  //
+  //     XFile file = choosedimage;
+  //     _fileName = file.path.split('/').last;
+  //     print('filename ${_fileName}');
+  //     selectedFile = _fileName;
+  //   });
+  //
+  //   // final kb = byeInLength / 1024;
+  //   // final mb = kb / 1024;
+  //   // print('this is the MB ${mb}');
+  //   // String?  filesizeAsString?   = mb.toString();
+  //   // print('this is file sizelenght ${filesizeAsString}');
+  //   //  print('image base64 ${img64}');
+  //
+  //   setState(() {
+  //     passportFileLocation = base64String;
+  //     passportFileSize = '';
+  //     passportFiletype = _fileName?.split('.').last;
+  //   });
+  //
+  //   print('passport file location ${passportFiletype} ');
+  //
+  //   setState(() {
+  //     if (passportFiletype == 'png') {
+  //       appendBase64 = 'data:image/png;base64,';
+  //     } else if (passportFiletype == 'jpg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     } else if (passportFiletype == 'jpeg') {
+  //       appendBase64 = 'data:image/jpeg;base64,';
+  //     }
+  //   });
+  //
+  //   newFileLocation = "$appendBase64$passportFileLocation";
+  //
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     // _fileName = _path != null ? _path.split('/').last : '...';
+  //     selectedFile = _fileName;
+  //     passportFileName = _fileName;
+  //   });
+  // }
+
   void takePhoto(ImageSource source) async {
-    MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
-    //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    try {
+      MyRouter.popPage(context);
 
-    var result = await FlutterImageCompress.compressWithFile(
-      imagefile.absolute.path,
-      minWidth: 330,
-      minHeight: 250,
-      quality: 100,
-      // rotate: 90,
-    );
-
-    print('this is file sixe');
-    print(imagefile.lengthSync());
-    print(result);
-    //return result;
-
-    // image compressor
-
-    print('image File ${imagefile}');
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(result); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
-
-    String?  _finalPath = choosedimage.toString();
-    // final bytes = Io.File(_finalPath).readAsBytesSync();
-    //   final byeInLength = Io.File(_finalPath).readAsBytesSync().lengthInBytes;
-    // String?  img64 = base64Encode(bytes);
-
-    // print(img64);
-
-    setState(() {
-      uploadimage = choosedimage;
-      String?  getPath = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      // _openFileExplorer(getPath);
-
-      File file = choosedimage;
-      _fileName = file.path.split('/').last;
-      print('filename ${_fileName}');
-      selectedFile = _fileName;
-    });
-
-    // final kb = byeInLength / 1024;
-    // final mb = kb / 1024;
-    // print('this is the MB ${mb}');
-    // String?  filesizeAsString?   = mb.toString();
-    // print('this is file sizelenght ${filesizeAsString}');
-    //  print('image base64 ${img64}');
-
-    setState(() {
-      passportFileLocation = base64string;
-      passportFileSize = '';
-      passportFiletype = _fileName.split('.').last;
-    });
-
-    print('passport file location ${passportFiletype} ');
-
-    setState(() {
-      if (passportFiletype == 'png') {
-        appendBase64 = 'data:image/png;base64,';
-      } else if (passportFiletype == 'jpg') {
-        appendBase64 = 'data:image/jpeg;base64,';
-      } else if (passportFiletype == 'jpeg') {
-        appendBase64 = 'data:image/jpeg;base64,';
+      // 🔒 Check camera access permission for Android/iOS
+      if (Platform.isAndroid || Platform.isIOS) {
+        final status = await Permission.camera.request();
+        if (!status.isGranted) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Camera permission denied.')),
+            );
+          }
+          return;
+        }
       }
-    });
 
-    newFileLocation = appendBase64 + passportFileLocation;
+      var choosedimage = await ImagePicker().pickImage(source: source);
 
-    if (!mounted) return;
+      if (choosedimage == null) {
+        print('[takePhoto] No image selected.');
+        return;
+      }
 
-    setState(() {
-      // _fileName = _path != null ? _path.split('/').last : '...';
-      selectedFile = _fileName;
-      passportFileName = _fileName;
-    });
+      XFile imagefile = choosedimage;
+
+      var result = await FlutterImageCompress.compressWithFile(
+        imagefile.path,
+        minWidth: 330,
+        minHeight: 250,
+        quality: 100,
+      );
+
+      if (result == null || result.isEmpty) {
+        print('[takePhoto] Compression failed or returned empty.');
+        return;
+      }
+
+      print('this is file size');
+      print(await imagefile.length());
+      print(result);
+
+      Uint8List imagebytes = await imagefile.readAsBytes();
+      String base64String = base64.encode(result);
+      print('base64String?  $base64String');
+
+      if (!mounted) return;
+
+      setState(() {
+        uploadimage = choosedimage;
+        String getPath = choosedimage.path;
+        _fileName = getPath.split('/').last;
+        selectedFile = _fileName;
+      });
+
+      if (!mounted) return;
+
+      setState(() {
+        passportFileLocation = base64String;
+        passportFileSize = '';
+        passportFiletype = _fileName?.split('.').last;
+      });
+
+      if (!mounted) return;
+
+      setState(() {
+        if (passportFiletype == 'png') {
+          appendBase64 = 'data:image/png;base64,';
+        } else if (passportFiletype == 'jpg' || passportFiletype == 'jpeg') {
+          appendBase64 = 'data:image/jpeg;base64,';
+        }
+      });
+
+      newFileLocation = "$appendBase64$passportFileLocation";
+
+      if (!mounted) return;
+
+      setState(() {
+        selectedFile = _fileName;
+        passportFileName = _fileName;
+      });
+
+    } catch (e) {
+      print('[takePhoto] Error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Something went wrong while taking the photo.')),
+        );
+      }
+    }
   }
+
 
   void _openFileExplorer() async {
     MyRouter.popPage(context);
@@ -706,6 +804,10 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
       );
 
       result = await FlutterDocumentPicker.openDocument(params: params);
+
+      if (result == null) {
+        return;
+      }
 
       final file = File(result);
       final fileSize = await file.length();
@@ -753,9 +855,9 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       // print('this is Path ${_path}');
 
-      print('file extension ${_path.split('.').last}');
+      print('file extension ${_path?.split('.').last}');
 
-      String?  filePath = _path.split('.').last;
+      String?  filePath = _path?.split('.').last;
 
       var result;
 
@@ -766,7 +868,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       if (extensionChecker) {
         result = await FlutterImageCompress.compressWithFile(
-          _path,
+          _path!,
           minWidth: 330,
           minHeight: 250,
           quality: 90,
@@ -776,22 +878,22 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
       }
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(extensionChecker ? result : bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         passportFileLocation = img64;
         passportFileSize = filesizeAsString;
-        passportFiletype = _path.split('.').last;
+        passportFiletype = _path?.split('.').last;
       });
 
       print('passport file location ${passportFiletype} ');
@@ -806,7 +908,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
         }
       });
 
-      newFileLocation = appendBase64 + passportFileLocation;
+      newFileLocation = "$appendBase64$passportFileLocation";
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     }
@@ -814,7 +916,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
+      _fileName = _path != null ? _path?.split('/').last : '...';
       selectedFile = _fileName;
       passportFileName = _fileName;
       //  isPassportAdded = true;
@@ -986,7 +1088,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
                   topRight: Radius.circular(0),
@@ -1002,7 +1104,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
                       itemCount: discussData == null || discussData.isEmpty
                           ? 0
                           : discussData.length,
-                      itemBuilder: (context, int?  index) {
+                      itemBuilder: (context, int  index) {
                         print(discussData);
 
                         final message = discussData[index];
@@ -1395,7 +1497,7 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
 
           print('single Image ${singleImageFile}');
 
-          final UriData data = Uri.parse(singleImageFile).data;
+          final UriData data = Uri.parse(singleImageFile).data!;
 
 // You can check if data is normal base64 - should return true
           print('isBase64');

@@ -128,10 +128,10 @@ class _BankDetailsState extends State<BankDetails> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBankAccount'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBankAccount')!);
 
         //
-        if (prefs.getString('prefsBankAccount').isEmpty) {
+        if (prefs.getString('prefsBankAccount')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -147,7 +147,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBankAccount = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankAcount.add(mtBool[i]['name']);
           }
@@ -176,7 +176,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBankAccount = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankAcount.add(newEmp[i]['name']);
         }
@@ -237,7 +237,7 @@ class _BankDetailsState extends State<BankDetails> {
   //
   //
   //       //
-  //       if(prefs.getString('prefsBanksList').isEmpty){
+  //       if(prefs.getString('prefsBanksList')!.isEmpty){
   //       Flushbar(
   //              flushbarPosition: FlushbarPosition.TOP,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
@@ -334,10 +334,10 @@ class _BankDetailsState extends State<BankDetails> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList')!);
 
         //
-        if (prefs.getString('prefsBanksList').isEmpty) {
+        if (prefs.getString('prefsBanksList')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -353,7 +353,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBanksList = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -382,7 +382,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBanksList = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -426,10 +426,10 @@ class _BankDetailsState extends State<BankDetails> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsBankClassification'));
+            jsonDecode(prefs.getString('prefsBankClassification')!);
 
         //
-        if (prefs.getString('prefsBankClassification').isEmpty) {
+        if (prefs.getString('prefsBankClassification')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -445,7 +445,7 @@ class _BankDetailsState extends State<BankDetails> {
             allBankClassification = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int?  i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBankClassification.add(mtBool[i]['name']);
           }
@@ -474,7 +474,7 @@ class _BankDetailsState extends State<BankDetails> {
           allBankClassification = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int?  i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBankClassification.add(newEmp[i]['name']);
         }
@@ -500,7 +500,7 @@ class _BankDetailsState extends State<BankDetails> {
     //print(token);
     print('${AppUrl.getSingleClient + localclientID.toString() + '/banks'}');
     Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString() + '/banks',
+     Uri.parse( AppUrl.getSingleClient + localclientID.toString() + '/banks'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -523,7 +523,7 @@ class _BankDetailsState extends State<BankDetails> {
       bankAccountTypeListInt = bankInfo[0]['bankAccountType'] == null
           ? 0
           : bankInfo[0]['bankAccountType']['id'] ?? 0;
-      accountTypeString?  = bankInfo[0]['bankAccountType'] == null
+      accountTypeString  = bankInfo[0]['bankAccountType'] == null
           ? ''
           : bankInfo[0]['bankAccountType']['name'] ?? '';
     });
@@ -657,8 +657,8 @@ class _BankDetailsState extends State<BankDetails> {
     var submitBank = () async {
       //return   MyRouter.pushPage(context, DocumentUpload());
 
-      final isValid = _form.currentState.validate();
-      if (!isValid) {
+      final isValid = _form.currentState?.validate();
+      if (!isValid!) {
         return;
       }
       setState(() {
@@ -680,7 +680,7 @@ class _BankDetailsState extends State<BankDetails> {
         'bankAccountTypeId': bankAccountTypeListInt
       };
 
-      if (accountName.length < 2) {
+      if (accountName!.length < 2) {
         setState(() {
           isRequestLoading = false;
         });
@@ -752,7 +752,7 @@ class _BankDetailsState extends State<BankDetails> {
 
             //print('account Name ${accountName.length}');
 
-            if (accountName.length < 2 &&
+            if (accountName!.length < 2 &&
                 response['message'] != 'Network_error') {
               return Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
@@ -933,7 +933,7 @@ class _BankDetailsState extends State<BankDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.outline,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -945,7 +945,7 @@ class _BankDetailsState extends State<BankDetails> {
             keyboardType: keyBoard,
 
             onChanged: (String?  value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 setState(() {
                   isBankLoading = false;
                 });
@@ -968,7 +968,7 @@ class _BankDetailsState extends State<BankDetails> {
             controller: editController,
 
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Field cannot be empty';
               }
             },
@@ -996,7 +996,7 @@ class _BankDetailsState extends State<BankDetails> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.displayMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.done,
           ),

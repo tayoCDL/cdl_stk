@@ -2,7 +2,41 @@ PODS:
   - connectivity (0.0.1):
     - Flutter
     - Reachability
+  - DKImagePickerController/Core (4.3.9):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.9)
+  - DKImagePickerController/PhotoGallery (4.3.9):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.9)
+  - DKPhotoGallery (0.0.19):
+    - DKPhotoGallery/Core (= 0.0.19)
+    - DKPhotoGallery/Model (= 0.0.19)
+    - DKPhotoGallery/Preview (= 0.0.19)
+    - DKPhotoGallery/Resource (= 0.0.19)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.19):
+    - SDWebImage
+    - SwiftyGif
   - downloads_path_provider_28 (0.0.1):
+    - Flutter
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
   - flutter_custom_tabs (0.0.1):
@@ -17,8 +51,6 @@ PODS:
   - flutter_jailbreak_detection (1.0.0):
     - Flutter
     - IOSSecuritySuite
-  - flutter_keyboard_visibility (0.0.1):
-    - Flutter
   - flutter_native_image (0.0.1):
     - Flutter
   - flutter_share (0.0.1):
@@ -62,6 +94,7 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - SwiftyGif (5.4.5)
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter (0.0.1):
@@ -70,12 +103,12 @@ PODS:
 DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - downloads_path_provider_28 (from `.symlinks/plugins/downloads_path_provider_28/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_custom_tabs (from `.symlinks/plugins/flutter_custom_tabs/ios`)
   - flutter_document_picker (from `.symlinks/plugins/flutter_document_picker/ios`)
   - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - flutter_jailbreak_detection (from `.symlinks/plugins/flutter_jailbreak_detection/ios`)
-  - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_native_image (from `.symlinks/plugins/flutter_native_image/ios`)
   - flutter_share (from `.symlinks/plugins/flutter_share/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -90,18 +123,23 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - DKImagePickerController
+    - DKPhotoGallery
     - IOSSecuritySuite
     - libwebp
     - Mantle
     - Reachability
     - SDWebImage
     - SDWebImageWebPCoder
+    - SwiftyGif
 
 EXTERNAL SOURCES:
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
   downloads_path_provider_28:
     :path: ".symlinks/plugins/downloads_path_provider_28/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
   flutter_custom_tabs:
@@ -112,8 +150,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_image_compress/ios"
   flutter_jailbreak_detection:
     :path: ".symlinks/plugins/flutter_jailbreak_detection/ios"
-  flutter_keyboard_visibility:
-    :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   flutter_native_image:
     :path: ".symlinks/plugins/flutter_native_image/ios"
   flutter_share:
@@ -139,13 +175,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   connectivity: e7d9fd79099f39025737062855c00248b7afcdf0
+  DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
+  DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
   downloads_path_provider_28: c6b2480f4450e3f1e814d0e8b46bc737bf06a04f
+  file_picker: f9640cc2e57edcf75f06f36fade7ab6ec171b05e
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_custom_tabs: 813e18b38afc7556cc7514da7b9dc9f0e5be4024
   flutter_document_picker: 072c0cb92c910c470057b73c42813e5c7cf0e139
   flutter_image_compress: 4b058288a81f76e5e80340af37c709abafff34c4
   flutter_jailbreak_detection: a74360daaf5cbc80639959463b4b1395873c90b5
-  flutter_keyboard_visibility: 4625131e43015dbbe759d9b20daaf77e0e3f6619
   flutter_native_image: c0f200e4bc5da392b15878df38654cc85a78b090
   flutter_share: 5a4282210b5f6fbc1d4185a4cc1f54644f32ff32
   image_picker_ios: 85f2b3c9fb98c09d63725c4d12ebd585b56ec35d
@@ -161,6 +199,7 @@ SPEC CHECKSUMS:
   SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
   SDWebImageWebPCoder: e38c0a70396191361d60c092933e22c20d5b1380
   shared_preferences_foundation: 0b09b969fb36da5551c0bc4a2dbd9d0ff9387478
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
   webview_flutter: a7c49e5ad37eb95610ef0b6d383b90d1143ea60e
 

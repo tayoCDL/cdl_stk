@@ -48,10 +48,10 @@ class _CustomerPreviewState extends State<CustomerPreview> {
   }
 
   retRealFile(String?  img) {
-    var Velo = img.split(',').first;
-    int?  chopOut = Velo.length + 1;
+    var Velo = img?.split(',').first;
+    int?  chopOut = Velo!.length + 1;
     String?  realfile =
-        img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
+        img?.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
     return realfile;
   }
 
@@ -68,7 +68,7 @@ class _CustomerPreviewState extends State<CustomerPreview> {
       _isLoading = true;
     });
     Response responsevv = await get(
-      AppUrl.getSingleClientForLoanReview + prefs.getInt('clientId').toString(),
+      Uri.parse(AppUrl.getSingleClientForLoanReview + prefs.getInt('clientId').toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -283,7 +283,7 @@ class _CustomerPreviewState extends State<CustomerPreview> {
         child: Lottie.asset('assets/images/newLoader.json'),
       ),
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
@@ -1494,7 +1494,7 @@ class _CustomerPreviewState extends State<CustomerPreview> {
 
   retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate!.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -1568,7 +1568,7 @@ class _CustomerPreviewState extends State<CustomerPreview> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 

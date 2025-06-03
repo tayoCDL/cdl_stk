@@ -20,7 +20,7 @@ import 'package:sales_toolkit/views/clients/DocumentUpload.dart';
 import 'package:sales_toolkit/views/clients/EmploymentInfo.dart';
 import 'package:sales_toolkit/views/clients/NextofKin.dart';
 import 'package:sales_toolkit/views/clients/ResidentialDetails.dart';
-import 'package:sales_toolkit/views/clients/TestFileSelector.dart';
+// import 'package:sales_toolkit/views/clients/TestFileSelector.dart';
 import 'package:sales_toolkit/views/clients/ViewClient.dart';
 import 'package:sales_toolkit/views/clients/add_client.dart';
 import 'package:sales_toolkit/views/main_screen.dart';
@@ -71,7 +71,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
   }
 
   retRealFile(String?  img) {
-    var Velo = img.split(',').first;
+    var Velo = img!.split(',').first;
     int?  chopOut = Velo.length + 1;
     String?  realfile =
         img.substring(chopOut).replaceAll("\n", "").replaceAll("\r", "");
@@ -100,7 +100,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
     print(tfaToken);
     print(token);
     Response responsevv = await get(
-      AppUrl.getSingleClientForLoanReview + clientID.toString(),
+     Uri.parse( AppUrl.getSingleClientForLoanReview + clientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -320,7 +320,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                   child: Lottie.asset('assets/images/newLoader.json'),
                 ),
                 child: Scaffold(
-                  backgroundColor: Theme.of(context).backgroundColor,
+                  backgroundColor: Theme.of(context).colorScheme.outline,
                   body: NestedScrollView(
                     headerSliverBuilder:
                         (BuildContext context, bool innerBoxIsScrolled) {
@@ -2099,13 +2099,13 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
                                                                     [
                                                                     'fileName'];
                                                             var Velo = pdf
-                                                                .split(',')
+                                                                !.split(',')
                                                                 .first;
                                                             int?  chopOut =
                                                                 Velo.length + 1;
                                                             var bytes =
                                                                 base64Decode(pdf
-                                                                    .substring(
+                                                                    !.substring(
                                                                         chopOut)
                                                                     .replaceAll(
                                                                         "\n",
@@ -2249,7 +2249,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
       ),
       child: Center(
           child: Text(
-        status,
+        status!,
         style: TextStyle(color: Colors.white),
       )),
     );
@@ -2257,7 +2257,7 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
 
   retDOBfromBVN(String?  getDate) {
     print('getDate ${getDate}');
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String?  removeComma = getDate!.replaceAll("-", " ");
     print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     print(wordList[1]);
@@ -2331,14 +2331,14 @@ class _SingleCustomerScreenState extends State<SingleCustomerScreen> {
 
     print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String?  concatss = newOO + " " + realMonth! + " " + o1;
 
     print("concatss new Date from edit ${concatss}");
 
     return concatss;
   }
 
-  Widget getClientStatusWidget(Map<String, dynamic> clientProfile) {
+  Widget getClientStatusWidget(Map<dynamic, dynamic> clientProfile) {
     if (clientProfile.isEmpty ||
         !clientProfile.containsKey('clients') ||
         clientProfile['clients'] == null ||

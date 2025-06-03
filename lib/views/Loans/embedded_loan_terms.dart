@@ -62,7 +62,8 @@ class EmbeddedLoanTerms extends StatefulWidget {
 
 class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
   int?  clientID, productId, loanId, employerId, sectorID, parentClientType;
-   Map<String,dynamic> thirdPartyLoanResponse,otherInfo;
+   Map<String,dynamic> otherInfo;
+   Map<String,dynamic> thirdPartyLoanResponse;
 
   TextEditingController staffId = TextEditingController(text: 'CDL00OP');
   TextEditingController principal = TextEditingController();
@@ -86,8 +87,8 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         this.employerId,
         this.sectorID,
         this.parentClientType,
-        this.thirdPartyLoanResponse,
-        this.otherInfo
+        this.thirdPartyLoanResponse = const {},
+        this.otherInfo = const {},
       });
 
   @override
@@ -121,9 +122,10 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
 
 
-  Map<String, dynamic> fullTemps;
-  Map<String, dynamic> vOverrides, vOverrides2;
-  List<dynamic> chargesData;
+  Map<String, dynamic> fullTemps = {};
+  Map<String, dynamic> vOverrides = {};
+  Map<String, dynamic> vOverrides2 = {};
+  List<dynamic>? chargesData;
   int?  ClientaccountLinkingOptions = 100;
   bool value = false;
   String?  min_repayment = '';
@@ -251,7 +253,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int?  i = 0; i < valLenght.length; i++) {
+          for (int  i = 0; i < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -276,7 +278,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
           allLoanOption = productOptions;
         });
 
-        for (int?  i = 0; i < productOptions.length; i++) {
+        for (int  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -330,7 +332,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
   calculateReschedule() async {
     print('repayment << ${
-        chargesData.map((e) =>
+        chargesData?.map((e) =>
         {
           "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
           "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -380,11 +382,11 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
       //     "amount": chargesData[0]['amount']
       //   }
       // ],
-      "charges": chargesData.length == 0
+      "charges": chargesData?.length == 0
           ? []
           :
 
-      chargesData.map((e) =>
+      chargesData?.map((e) =>
       {
         "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -466,7 +468,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername!;
     });
   }
 
@@ -480,8 +482,8 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -541,7 +543,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -586,7 +588,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i < filtered.length; i++) {
+      for (int  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -622,7 +624,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -644,8 +646,8 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -698,7 +700,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         "locale": "en",
         "submittedOnDate": disburseNow,
         "activationChannelId": 77,
-      "charges": chargesData.length == 0
+      "charges": chargesData?.length == 0
           ? []
           :
       // [
@@ -711,7 +713,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
       //             "id": loanID == null ? null : chargesData[0]['id']
       //           }
       //         ],
-      chargesData.map((e) =>
+      chargesData?.map((e) =>
       {
         "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -805,10 +807,10 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
     var tfaToken = prefs.getString('tfa-token');
     int?  passedLoanID = prefs.getInt('loanCreatedId');
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           passedLoanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -829,7 +831,8 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
           geSingleLoanConfig(docConfigData);
         }
       } else {
-        return Flushbar(
+        // return 
+        Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.red,
@@ -867,7 +870,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
 
       print('modifed emp ${modifiedEmp}');
 
-      for (int?  i = 0; i < modifiedEmp.length; i++) {
+      for (int  i = 0; i < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 
@@ -1472,7 +1475,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
   }
 
   _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
+    final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1930),
@@ -1484,7 +1487,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         print(selected);
         //  date = selected.toString();
         String?  vasCoddd = retsNx360dates(selected);
-        dateController.text = vasCoddd;
+        dateController.text = vasCoddd!;
       });
   }
 
@@ -1519,7 +1522,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
       String?  hintText,
       var keyBoard, {
         bool isPassword = false,
-        isRealOnly: false,
+        isRealOnly = false,
        var suffixWidget
       }) {
     var MediaSize = MediaQuery.of(context).size;
@@ -1529,7 +1532,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1542,7 +1545,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
             controller: editController,
             onChanged: (value) {
 
-              if (netpay.length != 0 &&
+              if (netpay?.length != 0 &&
                   principal.text.length != 0 &&
                   no_of_repayments.text.length != 0)
               {
@@ -1574,7 +1577,7 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -1610,9 +1613,9 @@ class _EmbeddedLoanTermsState extends State<EmbeddedLoanTerms> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value ?? false;
                     });
                   },
                 ),

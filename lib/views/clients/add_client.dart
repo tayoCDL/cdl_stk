@@ -4,12 +4,13 @@ import 'package:alert_dialog/alert_dialog.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sales_toolkit/util/app_url.dart';
+import 'package:sales_toolkit/util/helper_class.dart';
 
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
@@ -23,8 +24,8 @@ import 'package:sales_toolkit/widgets/rounded-button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddClient extends StatefulWidget {
-  final int?  ClientInt;
-  final String?  comingFrom, sector, Passedbvn;
+  final int? ClientInt;
+  final String? comingFrom, sector, Passedbvn;
   const AddClient(
       {Key? key, this.ClientInt, this.comingFrom, this.sector, this.Passedbvn})
       : super(key: key);
@@ -38,8 +39,8 @@ class AddClient extends StatefulWidget {
 }
 
 class _AddClientState extends State<AddClient> {
-  int?  ClientInt;
-  String?  comingFrom, sector, Passedbvn;
+  int? ClientInt;
+  String? comingFrom, sector, Passedbvn;
   _AddClientState(
       {this.ClientInt, this.comingFrom, this.sector, this.Passedbvn});
   @override
@@ -56,7 +57,7 @@ class _AddClientState extends State<AddClient> {
   bool isBVNLoading = false;
   bool isRequestLoading = false;
   bool isAllowedToProceed = false;
-  String?  tempEmail,
+  String? tempEmail,
       tempFirstName,
       tempMiddleName,
       tempLastName,
@@ -67,23 +68,23 @@ class _AddClientState extends State<AddClient> {
   List<String> banksListArray = [];
   List<String> collectBanksList = [];
   List<dynamic> allBanksList = [];
-  String?  act_bvn = '';
+  String? act_bvn = '';
   var bankInfo = [];
-  int?  catInt;
-  String?  employerSector = '';
-  String?  categorySector = '';
-  String?  accountName = '';
-  String?  realMonth = '';
-  String?  bankCode;
-  int?  bankInt, bankClassificationInt;
+  int? catInt;
+  String? employerSector = '';
+  String? categorySector = '';
+  String? accountName = '';
+  String? realMonth = '';
+  String? bankCode;
+  int? bankInt, bankClassificationInt;
   bool bvnFecthedSuccessfully = false;
   bool otpValidationStatus = false;
   DateTime CupertinoSelectedDate = DateTime.now();
 
-  String?  isTestState = 'test';
+  String? isTestState = 'test';
   void initState() {
     // TODO: implement initState
-    bvn.text = Passedbvn!;
+    bvn.text = Passedbvn ?? '';
     if (comingFrom != null) {
       getPersonalInformation();
     }
@@ -106,7 +107,7 @@ class _AddClientState extends State<AddClient> {
   getPersonalInformation() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int?  localclientID = ClientInt;
+    int? localclientID = ClientInt;
     //print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
@@ -115,7 +116,7 @@ class _AddClientState extends State<AddClient> {
     //print(token);
     ///clients/{clientId}/familymembers
     Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString(),
+      Uri.parse(AppUrl.getSingleClient + localclientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -135,7 +136,7 @@ class _AddClientState extends State<AddClient> {
       tempFirstName = newClientData['firstname'];
       tempMiddleName = newClientData['middlename'];
       tempLastName = newClientData['lastname'];
-       nin.text = newClientData['nin'];
+      nin.text = newClientData['nin'];
       tempPhone1 = newClientData['mobileNo'];
       tempEmail = newClientData['emailAddress'];
       catInt = newClientData['clientType']['id'];
@@ -181,7 +182,7 @@ class _AddClientState extends State<AddClient> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpSector'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmpSector')!);
 
         //
         if (prefs.getString('prefsEmpSector')!.isEmpty) {
@@ -200,7 +201,7 @@ class _AddClientState extends State<AddClient> {
             allEmp = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectData.add(mtBool[i]['name']);
           }
@@ -236,14 +237,14 @@ class _AddClientState extends State<AddClient> {
 
         prefs.setString('prefsEmpSector', jsonEncode(newEmp));
 
-        int?  leadToClient = prefs.getInt('leadToClientID');
+        int? leadToClient = prefs.getInt('leadToClientID');
         //print('lead To Client Id ${leadToClient}');
 
         setState(() {
           allEmp = newEmp;
         });
 
-        for (int?  i = 0; i! < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectData.add(newEmp[i]['name']);
         }
@@ -295,7 +296,7 @@ class _AddClientState extends State<AddClient> {
             allCategory = mtBool;
           });
 
-          for (int?  i = 0; i! < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectCategory.add(mtBool[i]['name']);
           }
@@ -339,7 +340,7 @@ class _AddClientState extends State<AddClient> {
           allCategory = newEmp;
         });
 
-        for (int?  i = 0; i! < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectCategory.add(newEmp[i]['name']);
         }
@@ -406,7 +407,7 @@ class _AddClientState extends State<AddClient> {
             allBanksList = mtBool;
           });
 
-          for (int?  i = 0; i! < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -435,7 +436,7 @@ class _AddClientState extends State<AddClient> {
           allBanksList = newEmp;
         });
 
-        for (int?  i = 0; i! < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -464,7 +465,7 @@ class _AddClientState extends State<AddClient> {
     //print('employer sector ${empInt.toString()} category sector ${catInt} ');
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String?  getBVN = prefs.getString('inputBvn');
+    String? getBVN = prefs.getString('inputBvn');
     //print('pre :: ${getBVN}');
 
     if (empInt == null || catInt == null) {
@@ -550,10 +551,10 @@ class _AddClientState extends State<AddClient> {
           TempdateOfBirth = response['data']['data']['dateOfBirth'];
           Tempgender = response['data']['data']['gender'];
 
-          String?  LastName = response['data']['data']['lastName'] == null
+          String? LastName = response['data']['data']['lastName'] == null
               ? ''
               : response['data']['data']['lastName'];
-          String?  FirstName = response['data']['data']['firstName'] == null
+          String? FirstName = response['data']['data']['firstName'] == null
               ? ''
               : response['data']['data']['firstName'];
 
@@ -640,9 +641,7 @@ class _AddClientState extends State<AddClient> {
         message: 'OTP length too short ',
         duration: Duration(seconds: 3),
       ).show(context);
-    }
-
-    else {
+    } else {
       MyRouter.popPage(context);
       setState(() {
         isRequestLoading = true;
@@ -665,45 +664,75 @@ class _AddClientState extends State<AddClient> {
             ClearCaches().clearMems();
           }
           if (nin.text.isEmpty) {
-        //    return  showValidationError(context, 'NIN Field is mandatory');
-            return  showValidationError(context, 'Kindly fill in NIN first,before verifying BVN');
-
+            //    return  showValidationError(context, 'NIN Field is mandatory');
+            return showValidationError(
+                context, 'Kindly fill in NIN first,before verifying BVN');
           }
           if (nin.text.length > 0 && nin.text.length != 11) {
-            return  showValidationError(context, 'NIN field should not be less than 11digits');
+            return showValidationError(
+                context, 'NIN field should not be less than 11 digits');
           }
-          else if (nin.text.isNotEmpty && !RegExp(r'^\d+$').hasMatch(nin.text)) {
-            return showValidationError(context, 'Only numbers are allowed in the NIN field');
+          else if (nin.text.isNotEmpty &&
+              !RegExp(r'^\d+$').hasMatch(nin.text)) {
+            return showValidationError(
+                context, 'Only numbers are allowed in the NIN field');
           }
 
           MyRouter.pushPage(
               context,
               PersonalInfo(
+                // ClientInt: comingFrom! == 'SingleCustomerScreen' ||
+                //         comingFrom! == 'viewClient' ||
+                //         comingFrom! == 'customerPreview'
+                //     ? ClientInt!
+                //     : null,
                 ClientInt: comingFrom == 'SingleCustomerScreen' ||
-                        comingFrom == 'viewClient' ||
-                        comingFrom == 'customerPreview'
-                    ? ClientInt
+                    comingFrom == 'viewClient' ||
+                    comingFrom == 'customerPreview'
+                    ? ClientInt!
                     : null,
+                // bvnEmail: tempEmail!,
+                // bvnFirstName: tempFirstName!,
+                // bvnLastName: tempLastName!,
+                // bvnMiddleName: tempMiddleName!,
+                // bvnPhone1: tempPhone1!,
+                // bvnPhone2: tempPhone2!,
+                // dateOfBirth: TempdateOfBirth!,
+                // Passedgender: Tempgender!,
+                // PassedAccountName: accountName!,
+                // PassedAccountNumber: accountNumber.text,
+                // PassedBankCode: bankInt.toString(),
+                // comingFrom: comingFrom == 'SingleCustomerScreen'
+                //     ? 'SingleCustomerScreen'
+                //     : comingFrom == 'customerPreview'
+                //         ? 'customerPreview'
+                //         : '',
+                // passedBVN: bvn.text.isEmpty ? act_bvn! : bvn.text,
+                // passedNin: nin.text,
+                // passedEmployerSector: empInt!,
+                // passedEmployerCategory: catInt!,
+
                 bvnEmail: tempEmail,
                 bvnFirstName: tempFirstName,
-                bvnLastName: tempLastName,
-                bvnMiddleName: tempMiddleName,
-                bvnPhone1: tempPhone1,
-                bvnPhone2: tempPhone2,
-                dateOfBirth: TempdateOfBirth,
-                Passedgender: Tempgender,
-                PassedAccountName: accountName,
-                PassedAccountNumber: accountNumber.text,
+                bvnLastName: tempLastName ?? '',
+                bvnMiddleName: tempMiddleName ?? '',
+                bvnPhone1: tempPhone1 ?? '',
+                bvnPhone2: tempPhone2 ?? '',
+                passedNin: nin.text ?? '',
+                dateOfBirth: TempdateOfBirth ?? '',
+                Passedgender: Tempgender ?? '',
+                PassedAccountName: accountName ?? '',
+                PassedAccountNumber: accountNumber.text ?? '',
                 PassedBankCode: bankInt.toString(),
                 comingFrom: comingFrom == 'SingleCustomerScreen'
                     ? 'SingleCustomerScreen'
                     : comingFrom == 'customerPreview'
-                        ? 'customerPreview'
-                        : '',
-                passedBVN: bvn.text.isEmpty ? act_bvn : bvn.text,
-                passedNin:nin.text,
-                passedEmployerSector: empInt,
-                passedEmployerCategory: catInt,
+                    ? 'customerPreview'
+                    : '',
+                passedBVN: bvn.text.isEmpty ? act_bvn! : bvn.text,
+                passedEmployerSector: empInt ?? null,
+                passedEmployerCategory: catInt ?? null,
+
               ));
 
           return Flushbar(
@@ -783,7 +812,7 @@ class _AddClientState extends State<AddClient> {
       barrierDismissible: false,
       context: context,
       builder: (dialogContext) {
-        String?  contentText = "Content of Dialog";
+        String? contentText = "Content of Dialog";
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -868,7 +897,7 @@ class _AddClientState extends State<AddClient> {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        String?  contentText = "Content of Dialog";
+        String? contentText = "Content of Dialog";
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -907,8 +936,8 @@ class _AddClientState extends State<AddClient> {
                                 //  confirmOTP();
                                 //print('new newtemp date ${retDOBfromBVN(TempdateOfBirth)} ${dobController.text}');
 
-                                String?  compA = retDOBfromBVN(TempdateOfBirth);
-                                String?  compB = dobController.text;
+                                String? compA = retDOBfromBVN(TempdateOfBirth);
+                                String? compB = dobController.text;
 
                                 if (compA?.compareTo(compB) == 0) {
                                   // //print('correct');
@@ -919,13 +948,18 @@ class _AddClientState extends State<AddClient> {
                                     ClearCaches().clearMems();
                                   }
                                   if (nin.text.isEmpty) {
-                                    return  showValidationError(context, 'Kindly fill in NIN first,before verifying BVN');
+                                    return showValidationError(context,
+                                        'Kindly fill in NIN first,before verifying BVN');
                                   }
-                                  if (nin.text.length > 0 && nin.text.length != 11) {
-                                    return  showValidationError(context, 'NIN field should not be less than 11digits');
+                                  if (nin.text.length > 0 &&
+                                      nin.text.length != 11) {
+                                    return showValidationError(context,
+                                        'NIN field should not be less than 11digits');
                                   }
-                                  else if (nin.text.isNotEmpty && !RegExp(r'^\d+$').hasMatch(nin.text)) {
-                                    return showValidationError(context, 'Only numbers are allowed in the NIN field');
+                                  else if (nin.text.isNotEmpty &&
+                                      !RegExp(r'^\d+$').hasMatch(nin.text)) {
+                                    return showValidationError(context,
+                                        'Only numbers are allowed in the NIN field');
                                   }
                                   MyRouter.pushPage(
                                       context,
@@ -934,31 +968,52 @@ class _AddClientState extends State<AddClient> {
                                                     'SingleCustomerScreen' ||
                                                 comingFrom == 'viewClient' ||
                                                 comingFrom == 'customerPreview'
-                                            ? ClientInt
+                                            ? ClientInt!
                                             : null,
+                                        // bvnEmail: tempEmail!,
+                                        // bvnFirstName: tempFirstName!,
+                                        // bvnLastName: tempLastName!,
+                                        // bvnMiddleName: tempMiddleName!,
+                                        // bvnPhone1: tempPhone1!,
+                                        // bvnPhone2: tempPhone2!,
+                                        // dateOfBirth: TempdateOfBirth!,
+                                        // Passedgender: Tempgender!,
+                                        // PassedAccountName: accountName!,
+                                        // PassedAccountNumber: accountNumber.text,
+                                        // PassedBankCode: bankInt.toString(),
+                                        // comingFrom: comingFrom ==
+                                        //         'SingleCustomerScreen'
+                                        //     ? 'SingleCustomerScreen'
+                                        //     : comingFrom == 'customerPreview'
+                                        //         ? 'customerPreview'
+                                        //         : '',
+                                        // passedBVN: bvn.text.isEmpty
+                                        //     ? act_bvn!
+                                        //     : bvn.text,
+                                        // passedNin: nin.text,
+                                        // passedEmployerSector: empInt!,
+                                        // passedEmployerCategory: catInt!,
+
                                         bvnEmail: tempEmail,
                                         bvnFirstName: tempFirstName,
-                                        bvnLastName: tempLastName,
-                                        bvnMiddleName: tempMiddleName,
-                                        bvnPhone1: tempPhone1,
-                                        bvnPhone2: tempPhone2,
-                                        dateOfBirth: TempdateOfBirth,
-                                        Passedgender: Tempgender,
-                                        PassedAccountName: accountName,
-                                        PassedAccountNumber: accountNumber.text,
+                                        bvnLastName: tempLastName ?? '',
+                                        bvnMiddleName: tempMiddleName ?? '',
+                                        bvnPhone1: tempPhone1 ?? '',
+                                        bvnPhone2: tempPhone2 ?? '',
+                                        passedNin: nin.text ?? '',
+                                        dateOfBirth: TempdateOfBirth ?? '',
+                                        Passedgender: Tempgender ?? '',
+                                        PassedAccountName: accountName ?? '',
+                                        PassedAccountNumber: accountNumber.text ?? '',
                                         PassedBankCode: bankInt.toString(),
-                                        comingFrom: comingFrom ==
-                                                'SingleCustomerScreen'
+                                        comingFrom: comingFrom == 'SingleCustomerScreen'
                                             ? 'SingleCustomerScreen'
                                             : comingFrom == 'customerPreview'
-                                                ? 'customerPreview'
-                                                : '',
-                                        passedBVN: bvn.text.isEmpty
-                                            ? act_bvn
-                                            : bvn.text,
-                                        passedNin:nin.text,
-                                        passedEmployerSector: empInt,
-                                        passedEmployerCategory: catInt,
+                                            ? 'customerPreview'
+                                            : '',
+                                        passedBVN: bvn.text.isEmpty ? act_bvn! : bvn.text,
+                                        passedEmployerSector: empInt ?? null,
+                                        passedEmployerCategory: catInt ?? null,
                                       ));
                                   Flushbar(
                                     flushbarPosition: FlushbarPosition.TOP,
@@ -1020,16 +1075,16 @@ class _AddClientState extends State<AddClient> {
 
   @override
   var _lights = true;
-  String?  employment_type = '';
-  int?  empInt;
+  String? employment_type = '';
+  int? empInt;
 
   TextEditingController bvn = TextEditingController();
-   TextEditingController nin = TextEditingController();
+  TextEditingController nin = TextEditingController();
   TextEditingController dobController = TextEditingController();
   TextEditingController accountNumber = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
-   showValidationError(BuildContext context, String?  message) {
+  showValidationError(BuildContext context, String? message) {
     Flushbar(
       flushbarPosition: FlushbarPosition.TOP,
       flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1059,15 +1114,16 @@ class _AddClientState extends State<AddClient> {
       }
 
       if (nin.text.isEmpty) {
-        return  showValidationError(context, 'NIN Field is mandatory');
+        return showValidationError(context, 'NIN Field is mandatory');
       }
       if (nin.text.length > 0 && nin.text.length != 11) {
-      return  showValidationError(context, 'NIN field should not be less than 11digits');
+        return showValidationError(
+            context, 'NIN field should not be less than 11digits');
       }
       else if (nin.text.isNotEmpty && !RegExp(r'^\d+$').hasMatch(nin.text)) {
-       return showValidationError(context, 'Only numbers are allowed in the NIN field');
+        return showValidationError(
+            context, 'Only numbers are allowed in the NIN field');
       }
-
 
       // if bvn is on and bvn lenght is not 11
       if (_lights && bvn.text.length != 11) {
@@ -1080,9 +1136,10 @@ class _AddClientState extends State<AddClient> {
           duration: Duration(seconds: 3),
         ).show(context);
       } else {
-        var bvnData = prefs.setString('inputBvn', _lights ? bvn.text : act_bvn);
-        var emplyment = prefs.setInt('employment_type', empInt);
-        var catEmp = prefs.setInt('emp_category', catInt);
+        var bvnData =
+            prefs.setString('inputBvn', _lights! ? bvn.text : act_bvn!);
+        var emplyment = prefs.setInt('employment_type', empInt!);
+        var catEmp = prefs.setInt('emp_category', catInt!);
 
         // if(accountName.length < 2  && response['message'] != 'Network_error'){
         //       Flushbar(
@@ -1108,24 +1165,24 @@ class _AddClientState extends State<AddClient> {
                   : null,
               bvnEmail: tempEmail,
               bvnFirstName: tempFirstName,
-              bvnLastName: tempLastName,
-              bvnMiddleName: tempMiddleName,
-              bvnPhone1: tempPhone1,
-              bvnPhone2: tempPhone2,
-               passedNin:nin.text,
-              dateOfBirth: TempdateOfBirth,
-              Passedgender: Tempgender,
-              PassedAccountName: accountName,
-              PassedAccountNumber: accountNumber.text,
+              bvnLastName: tempLastName ?? '',
+              bvnMiddleName: tempMiddleName ?? '',
+              bvnPhone1: tempPhone1 ?? '',
+              bvnPhone2: tempPhone2 ?? '',
+              passedNin: nin.text ?? '',
+              dateOfBirth: TempdateOfBirth ?? '',
+              Passedgender: Tempgender ?? '',
+              PassedAccountName: accountName ?? '',
+              PassedAccountNumber: accountNumber.text ?? '',
               PassedBankCode: bankInt.toString(),
               comingFrom: comingFrom == 'SingleCustomerScreen'
                   ? 'SingleCustomerScreen'
                   : comingFrom == 'customerPreview'
                       ? 'customerPreview'
                       : '',
-              passedBVN: bvn.text.isEmpty ? act_bvn : bvn.text,
-              passedEmployerSector: empInt,
-              passedEmployerCategory: catInt,
+              passedBVN: bvn.text.isEmpty ? act_bvn! : bvn.text,
+              passedEmployerSector: empInt ?? null,
+              passedEmployerCategory: catInt ?? null,
             ));
       }
     };
@@ -1164,7 +1221,7 @@ class _AddClientState extends State<AddClient> {
                       style: TextStyle(
                           fontSize: 27,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).textTheme.headline6.color,
+                          color: Theme.of(context).textTheme.titleLarge!.color!,
                           fontFamily: 'Nunito Bold')),
                   SizedBox(
                     height: 30,
@@ -1178,8 +1235,10 @@ class _AddClientState extends State<AddClient> {
                           Text(
                             'Client\'s Details ',
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).textTheme.headline6.color,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .color!,
                                 fontFamily: 'Nunito SansRegular',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600),
@@ -1209,7 +1268,7 @@ class _AddClientState extends State<AddClient> {
                                   });
                                   var setLight =
                                       prefs.setBool('isLight', _lights);
-                                  bool getLight = prefs.getBool('isLight');
+                                  bool? getLight = prefs.getBool('isLight');
                                   //print('mewLight ${getLight}');
                                 },
                               ),
@@ -1238,7 +1297,7 @@ class _AddClientState extends State<AddClient> {
                   ),
                   DropDownComponent(
                       items: empSector,
-                      onChange: (String?  item) {
+                      onChange: (String? item) {
                         setState(() {
                           List<dynamic> selectID = allEmp
                               .where((element) => element['name'] == item)
@@ -1256,22 +1315,22 @@ class _AddClientState extends State<AddClient> {
                       },
                       label: "Select Sector",
                       selectedItem: employerSector,
-                      validator: (String?  item) {}),
+                      validator: (String? item) {}),
                   SizedBox(
                     height: 20,
                   ),
                   DropDownComponent(
                       items: empCategory,
-                      popUpDisabled: (String?  s) {
+                      popUpDisabled: (String? s) {
                         if (empInt == 17) {
                           return s!.startsWith('Federal') ||
-                              s.startsWith('State') ||
-                              s.startsWith('NYSC');
+                              s!.startsWith('State') ||
+                              s!.startsWith('NYSC');
                         } else {
                           return s!.startsWith('Private');
                         }
                       },
-                      onChange: (String?  item) {
+                      onChange: (String? item) {
                         setState(() {
                           List<dynamic> selectID = allCategory
                               .where((element) => element['name'] == item)
@@ -1285,12 +1344,13 @@ class _AddClientState extends State<AddClient> {
                       },
                       label: "Select Category",
                       selectedItem: categorySector,
-                      validator: (String?  item) {}),
+                      validator: (String? item) {}),
 
                   SizedBox(
                     height: 20,
                   ),
-                  EntryFieldForNin(context, nin, 'NIN', 'Enter NIN',
+                  EntryFieldForNin(
+                    context, nin, 'NIN', 'Enter NIN',
                     maxLenghtAllow: 11,
                     // isRead: comingFrom == 'customerPreview' ||
                     //     comingFrom == 'SingleCustomerScreen'
@@ -1311,7 +1371,9 @@ class _AddClientState extends State<AddClient> {
                       : bankAccountValidation(),
                   //  TextInputWithFLoating(hint: '11111111111', label: 'BVN',username),
                   _smallInfo(),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   // EntryFieldForNin(context, nin, 'NIN', 'Enter NIN',
                   //     maxLenghtAllow: 11,
                   //     // isRead: comingFrom == 'customerPreview' ||
@@ -1364,8 +1426,8 @@ class _AddClientState extends State<AddClient> {
     );
   }
 
-  Widget EntryField(BuildContext context, var editController, String?  labelText,
-      String?  hintText,
+  Widget EntryField(BuildContext context, var editController, String? labelText,
+      String? hintText,
       {var maxLenghtAllow, bool isRead = false, bool isDateAllowed = false}) {
     var MediaSize = MediaQuery.of(context).size;
 
@@ -1386,13 +1448,12 @@ class _AddClientState extends State<AddClient> {
             style: TextStyle(fontFamily: 'Nunito SansRegular'),
             keyboardType: TextInputType.number,
             controller: editController,
-            onChanged: (String?  value) {
+            onChanged: (String? value) {
               if (value!.isEmpty) {
                 setState(() {
                   isBVNLoading = false;
                 });
                 // //print('isLoading is ${isBVNLoading}');
-
               }
 
               //  else if( value.length != 10 ){
@@ -1412,38 +1473,41 @@ class _AddClientState extends State<AddClient> {
                 //print('re isloading  ${isBVNLoading}');
               }
             },
-            validator: (String?  value) {},
+            validator: (String? value) {},
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.grey, width: 1),
                 ),
                 border: OutlineInputBorder(),
                 labelText: labelText,
                 hintText: hintText,
                 labelStyle: TextStyle(
-                    fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.displayMedium!.color),
                 counter: SizedBox.shrink(),
                 suffixIcon: isDateAllowed
                     ? IconButton(
                         onPressed: () {
-                          // showDatePicker();
-                          DatePicker.showDatePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime(1955, 3, 5),
-                              maxTime:
-                                  DateTime.now().subtract(Duration(days: 6575)),
-                              onChanged: (date) {
-                            print('change $date');
-                            setState(() {
-                              String?  retDate = retsNx360dates(date);
-                              dobController.text = retDate!;
-                            });
-                          }, onConfirm: (date) {
-                            print('confirm $date');
-                          },
-                              currentTime: DateTime.now(),
-                              locale: LocaleType.en);
+                           //   AppHelper().datePickerFlutterPlus(context);
+                           showDatePicker();
+                          // DatePicker.showDatePicker(context,
+                          //     showTitleActions: true,
+                          //     minTime: DateTime(1955, 3, 5),
+                          //     maxTime:
+                          //         DateTime.now().subtract(Duration(days: 6575)),
+                          //     onChanged: (date) {
+                          //   print('change $date');
+                          //   setState(() {
+                          //     String? retDate = retsNx360dates(date);
+                          //     dobController.text = retDate!;
+                          //   });
+                          // }, onConfirm: (date) {
+                          //   print('confirm $date');
+                          // },
+                          //     currentTime: DateTime.now(),
+                          //     locale: LocaleType.en);
                         },
                         icon: Icon(
                           Icons.date_range,
@@ -1458,9 +1522,8 @@ class _AddClientState extends State<AddClient> {
     );
   }
 
-
-  Widget EntryFieldForNin(BuildContext context, var editController, String?  labelText,
-      String?  hintText,
+  Widget EntryFieldForNin(BuildContext context, var editController,
+      String? labelText, String? hintText,
       {var maxLenghtAllow, bool isRead = false, bool isDateAllowed = false}) {
     var MediaSize = MediaQuery.of(context).size;
 
@@ -1469,46 +1532,46 @@ class _AddClientState extends State<AddClient> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-
-            color: Theme.of(context).primaryColor,
-
+            color:  Theme.of(context).colorScheme.outline,
+            border: Border.all(color:Theme.of(context).colorScheme.outline ),
             // set border width
             borderRadius: BorderRadius.all(
-                Radius.circular(5.0)), // set rounded corner radius
+                Radius.circular(5.0)),
+            // set rounded corner radius
           ),
-          child: TextFormField(
+          child:
+          TextFormField(
             readOnly: isRead,
             maxLength: maxLenghtAllow,
             autofocus: false,
             style: TextStyle(fontFamily: 'Nunito SansRegular'),
             keyboardType: TextInputType.number,
             controller: editController,
-            onChanged: (String?  value) {
-            },
-            validator: (String?  value) {},
+            onChanged: (String? value) {},
+            validator: (String? value) {},
             decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width: 1),
-                ),
-                border: OutlineInputBorder(),
-                labelText: labelText,
-                hintText: hintText,
-                labelStyle: TextStyle(
-                    fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.displayMedium?.color),
-                counter: SizedBox.shrink(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 1),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 1),
+              ),
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.grey, width: 1),
+              ),
+              labelText: labelText,
+              hintText: hintText,
+              labelStyle: TextStyle(
+                  fontFamily: 'Nunito SansRegular',
+                  color: Theme.of(context).textTheme.displayMedium?.color),
+              counter: SizedBox.shrink(),
             ),
             textInputAction: TextInputAction.done,
           ),
         ),
       ),
     );
-
   }
-
-
-
-
 
   Widget bankAccountValidation() {
     return Container(
@@ -1528,7 +1591,7 @@ class _AddClientState extends State<AddClient> {
             padding: EdgeInsets.symmetric(horizontal: 00, vertical: 10),
             child: DropDownComponent(
                 items: banksListArray,
-                onChange: (String?  item) {
+                onChange: (String? item) {
                   setState(() {
                     List<dynamic> selectID = allBanksList
                         .where((element) => element['name'] == item)
@@ -1541,7 +1604,7 @@ class _AddClientState extends State<AddClient> {
                 },
                 label: "Bank * ",
                 selectedItem: "---",
-                validator: (String?  item) {}),
+                validator: (String? item) {}),
           ),
           SizedBox(
             height: 10,
@@ -1592,7 +1655,7 @@ class _AddClientState extends State<AddClient> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           //print(CupertinoSelectedDate);
-                          String?  retDate =
+                          String? retDate =
                               retsNx360dates(CupertinoSelectedDate);
                           //print('ret Date ${retDate}');
 
@@ -1620,14 +1683,14 @@ class _AddClientState extends State<AddClient> {
 
   retsNx360dates(DateTime selected) {
     //print(selected);
-    String?  newdate = selected.toString().substring(0, 10);
+    String? newdate = selected.toString().substring(0, 10);
     //print(newdate);
 
-    String?  formattedDate = DateFormat.yMMMMd().format(selected);
+    String? formattedDate = DateFormat.yMMMMd().format(selected);
 
     //print(formattedDate);
 
-    String?  removeComma = formattedDate.replaceAll(",", "");
+    String? removeComma = formattedDate.replaceAll(",", "");
     //print('removeComma');
     //print(removeComma);
 
@@ -1635,15 +1698,15 @@ class _AddClientState extends State<AddClient> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String?  o1 = wordList[0];
-    String?  o2 = wordList[1];
-    String?  o3 = wordList[2];
+    String? o1 = wordList[0];
+    String? o2 = wordList[1];
+    String? o3 = wordList[2];
 
-    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String? newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     //print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + o1 + " " + o3;
+    String? concatss = newOO + " " + o1 + " " + o3;
 
     //print("concatss");
     //print(concatss);
@@ -1652,10 +1715,10 @@ class _AddClientState extends State<AddClient> {
     return concatss;
   }
 
-  retDOBfromBVN(String?  getDate) {
+  retDOBfromBVN(String? getDate) {
     //print('getDate ${getDate}');
-    String?  newGetDate = getDate?.substring(0, 10);
-    String?  removeComma = newGetDate?.replaceAll("-", " ");
+    String? newGetDate = getDate?.substring(0, 10);
+    String? removeComma = newGetDate?.replaceAll("-", " ");
     //print('new Rems ${removeComma}');
     List<String> wordList = removeComma!.split(" ");
     //print(wordList[1]);
@@ -1721,15 +1784,15 @@ class _AddClientState extends State<AddClient> {
       });
     }
 
-    String?  o1 = wordList[0];
-    String?  o2 = wordList[1];
-    String?  o3 = wordList[2];
+    String? o1 = wordList[0];
+    String? o2 = wordList[1];
+    String? o3 = wordList[2];
 
-    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String? newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     //print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth! + " " + o1;
+    String? concatss = newOO + " " + realMonth! + " " + o1;
 
     //print("concatss new Date from edit ${concatss}");
 

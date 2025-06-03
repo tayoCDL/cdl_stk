@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
@@ -71,7 +72,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
   List<String> collectSubCategory = [];
   List<dynamic> allSubCategory  = [];
 
-  File uploadimage;
+  XFile? uploadimage;
   final ImagePicker _picker = ImagePicker();
 
   String?  _fileName = '...';
@@ -82,9 +83,9 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
   String?  baseimage = '';
   String?  _extension;
   bool _hasValidMime = false;
-  FileType _pickingType;
+  FileType? _pickingType;
   TextEditingController _controller = new TextEditingController();
-  File chosenImage;
+  File? chosenImage;
   String?  agent_name,agent_email = '';
   int?  agentId = 0;
 
@@ -98,8 +99,8 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
      CategoryType();
     // getSubCategory(10);
 
-    email.text = ClientEmail;
-    name.text = clientName;
+    email.text = ClientEmail ?? "";
+    name.text = clientName ?? "";
     sequestClientID.text = ClientID.toString();
     getStaffID();
     super.initState();
@@ -144,7 +145,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         _isLoading = false;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectAffectedUser.add(newEmp[i]['affectedTypeName']);
       }
@@ -169,7 +170,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         allDepartmentUnit = newEmp;
       });
 //O(n)
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectDepartmentUnit.add(newEmp[i]['unitName']);
       }
@@ -203,7 +204,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         collectTicketType = [];
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectTicketType.add(newEmp[i]['requestTypeName']);
       }
@@ -242,7 +243,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         allCategory = newEmp;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectCategory.add(newEmp[i]['categoryName']);
       }
@@ -278,7 +279,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
         collectSubCategory = [];
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //  print(newEmp[i].affectedTypeName);
         collectSubCategory.add(newEmp[i]['subCategoryName']);
       }
@@ -344,7 +345,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
           "responsiblePersonId": agentId.toString()
         };
 
-        String?  url = AppUrl.createOpportunity;
+        String?  url = AppUrl.createOpportunity.path;
         final Future<Map<String,dynamic>> respose =  addInteractionProvider.addInteraction(interactionData,url);
 
         print('response from backend ${respose}');
@@ -478,7 +479,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                         fillColor: Colors.white,
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                        labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                        labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                         counter: SizedBox.shrink()
                     ),
                   ),
@@ -624,7 +625,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   //       child: Container(
                   //
                   //         decoration: BoxDecoration(
-                  //           color: Theme.of(context).backgroundColor,
+                  //           color: Theme.of(context).scaffoldBackgroundColor,
                   //           borderRadius: BorderRadius.circular(5),
                   //         ),
                   //
@@ -771,39 +772,99 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
     );
   }
 
+  // void takePhoto(ImageSource source) async {
+  //   // final pickedFile = await _picker.getImage(
+  //   //   source: source,
+  //   // );
+  //   // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+  //
+  //   var choosedimage = await ImagePicker().pickImage(source: source);
+  //   print(choosedimage);
+  //
+  //   if (choosedimage == null) {
+  //     return;
+  //   }
+  //
+  //   setState(() async {
+  //     uploadimage = choosedimage;
+  //
+  //     // final bytes = choosedimage.readAsBytesSync().lengthInBytes;
+  //     final bytes = (await choosedimage.readAsBytes()).length;
+  //
+  //     // get file size
+  //     final kb = bytes / 1024;
+  //     final mb = kb / 1024;
+  //     print('this is the MB ${mb}');
+  //     String?  filesizeAsString   = mb.toString();
+  //     fileSize = filesizeAsString;
+  //
+  //     // end get file size
+  //     //convert image to base64
+  //     List<int> imageBytes = await uploadimage!.readAsBytes();
+  //     baseimage = base64Encode(imageBytes);
+  //
+  //
+  //
+  //     String?  getPath  = choosedimage.toString();
+  //     _fileName = getPath != null ? getPath.split('/').last : '...';
+  //     passport.text = _fileName!;
+  //   });
+  // }
+
   void takePhoto(ImageSource source) async {
-    // final pickedFile = await _picker.getImage(
-    //   source: source,
-    // );
-    // _path = await FilePicker.getFilePath(type: _pickingType, fileExtension: _extension);
+    try {
+      // Check camera permission for Android/iOS
+      if (Platform.isAndroid || Platform.isIOS) {
+        final status = await Permission.camera.request();
+        if (!status.isGranted) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Camera permission denied.')),
+            );
+          }
+          return;
+        }
+      }
 
-    var choosedimage = await ImagePicker.pickImage(source: source);
-    print(choosedimage);
+      var choosedimage = await ImagePicker().pickImage(source: source);
+      print(choosedimage);
 
-    setState(() {
-      uploadimage = choosedimage;
+      if (choosedimage == null) {
+        return;
+      }
 
-      final bytes = choosedimage.readAsBytesSync().lengthInBytes;
-
-      // get file size
+      final bytes = (await choosedimage.readAsBytes()).length;
       final kb = bytes / 1024;
       final mb = kb / 1024;
-      print('this is the MB ${mb}');
-      String?  filesizeAsString?   = mb.toString();
-      fileSize = filesizeAsString;
+      print('this is the MB $mb');
+      String? filesizeAsString = mb.toString();
 
-      // end get file size
-      //convert image to base64
-      List<int> imageBytes = uploadimage.readAsBytesSync();
-      baseimage = base64Encode(imageBytes);
+      // Convert to base64
+      List<int> imageBytes = await choosedimage.readAsBytes();
+      String base64Str = base64Encode(imageBytes);
 
+      String? getPath = choosedimage.path;
+      String fileName = getPath.split('/').last;
 
+      if (!mounted) return;
 
-      String?  getPath  = choosedimage.toString();
-      _fileName = getPath != null ? getPath.split('/').last : '...';
-      passport.text = _fileName;
-    });
+      setState(() {
+        uploadimage = choosedimage;
+        fileSize = filesizeAsString;
+        baseimage = base64Str;
+        _fileName = fileName;
+        passport.text = _fileName!;
+      });
+    } catch (e) {
+      print('[takePhoto] Error: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Something went wrong while selecting the photo.')),
+        );
+      }
+    }
   }
+
 
   Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false,var maxLenghtAllow,bool isRead = false}){
     var MediaSize = MediaQuery.of(context).size;
@@ -814,7 +875,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
 
               // set border width
               borderRadius: BorderRadius.all(
@@ -832,7 +893,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
 
               validator: (value) {
 
-                if(value.isEmpty){
+                if(value == null || value.isEmpty){
                   return 'Field cannot be empty';
 
                 }
@@ -860,7 +921,7 @@ class _AddOpportunityFromOverviewState extends State<AddOpportunityFromOverview>
                   fillColor: Colors.white,
                   filled: true,
                   hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
+                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headlineMedium?.color),
                   counter: SizedBox.shrink()
               ),
               textInputAction: TextInputAction.next,

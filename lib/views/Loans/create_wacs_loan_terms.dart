@@ -125,9 +125,10 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
 
 
-  Map<String, dynamic> fullTemps;
-  Map<String, dynamic> vOverrides, vOverrides2;
-  List<dynamic> chargesData;
+  Map<String, dynamic> fullTemps = {};
+  Map<String, dynamic>? vOverrides;
+  Map<String, dynamic>? vOverrides2;
+  List<dynamic>? chargesData;
   int?  ClientaccountLinkingOptions = 100;
   bool value = false;
   String?  min_repayment = '';
@@ -264,7 +265,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
           var valLenght = fullTemps['product']['repaymentMethod'];
           print('valLengh ${valLenght}');
-          for (int?  i = 0; i! < valLenght.length; i++) {
+          for (int  i = 0; i! < valLenght.length; i++) {
             print(
                 'test data ${fullTemps['product']['repaymentMethod'][i]['description']}');
             //var nTemps =  fullTemps['product']['repaymentMethod']['name'];
@@ -289,7 +290,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           allLoanOption = productOptions;
         });
 
-        for (int?  i = 0; i < productOptions.length; i++) {
+        for (int  i = 0; i < productOptions.length; i++) {
           //  print(newEmp[i].affectedTypeName);
           collectLoanOption.add(productOptions[i]['productName'] +
               "-" +
@@ -343,7 +344,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
   calculateReschedule() async {
     print('repayment << ${
-        chargesData.map((e) =>
+        chargesData?.map((e) =>
         {
           "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
           "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -375,17 +376,17 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           ? fullTemps['product']['interestRatePerPeriod'].toString()
           : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
           .toString(),
-      "amortizationType": vOverrides2['amortizationType']['id'],
+      "amortizationType": vOverrides2?['amortizationType']['id'],
       "isEqualAmortization": fullTemps['isEqualAmortization'] == true ? 1 : 0,
-      "interestType": vOverrides2['interestType']['id'],
+      "interestType": vOverrides2?['interestType']['id'],
       "interestCalculationPeriodType":
-      vOverrides2['interestCalculationPeriodType']['id'],
+      vOverrides2?['interestCalculationPeriodType']['id'],
       "allowPartialPeriodInterestCalcualtion":
       fullTemps['allowPartialPeriodInterestCalcualtion'],
-      "inArrearsTolerance": vOverrides['inArrearsTolerance'] == true ? 1 : 0,
-      "graceOnArrearsAgeing": vOverrides2['graceOnArrearsAgeing'],
+      "inArrearsTolerance": vOverrides?['inArrearsTolerance'] == true ? 1 : 0,
+      "graceOnArrearsAgeing": vOverrides2?['graceOnArrearsAgeing'],
       "transactionProcessingStrategyId":
-      vOverrides2['transactionProcessingStrategyId'],
+      vOverrides2?['transactionProcessingStrategyId'],
       "rates": [],
       // "charges":  [
       //   {
@@ -393,11 +394,11 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       //     "amount": chargesData[0]['amount']
       //   }
       // ],
-      "charges": chargesData.length == 0
+      "charges": chargesData?.length == 0
           ? []
           :
 
-      chargesData.map((e) =>
+      chargesData?.map((e) =>
       {
         "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -554,7 +555,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -599,7 +600,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i! < filtered.length; i++) {
+      for (int  i = 0; i! < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -635,7 +636,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i! < newEmp.length; i++) {
+      for (int  i = 0; i! < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -657,8 +658,8 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -711,7 +712,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       "locale": "en",
       "submittedOnDate": disburseNow,
       "activationChannelId": 77,
-      "charges": chargesData.length == 0
+      "charges": chargesData?.length == 0
           ? []
           :
       // [
@@ -724,7 +725,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
       //             "id": loanID == null ? null : chargesData[0]['id']
       //           }
       //         ],
-      chargesData.map((e) =>
+      chargesData?.map((e) =>
       {
         "chargeId":e['chargeId'] == null ? e['id'] : e['chargeId'],
         "amount": loanId == null ? e['amount'] : (e['amountOrPercentage'] == null ? e['amount'] : e['amountOrPercentage']),
@@ -751,10 +752,10 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           : fullTemps['employerLoanProductDataOptions'][0]['interestRate']
           .toString(),
       "netpay": netpay.text,
-      "amortizationType": vOverrides2['amortizationType']['id'],
-      "interestType": vOverrides2['interestType']['id'],
-      "interestCalculationPeriodType":   vOverrides2['interestCalculationPeriodType']['id'],
-      "transactionProcessingStrategyId":  vOverrides2['transactionProcessingStrategyId'],
+      "amortizationType": vOverrides2?['amortizationType']['id'],
+      "interestType": vOverrides2?['interestType']['id'],
+      "interestCalculationPeriodType":   vOverrides2?['interestCalculationPeriodType']['id'],
+      "transactionProcessingStrategyId":  vOverrides2?['transactionProcessingStrategyId'],
       "commitment": 0,
       "employerId": employerID,
       "paymentMethodId": 5
@@ -833,10 +834,10 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
     var tfaToken = prefs.getString('tfa-token');
     int?  passedLoanID = prefs.getInt('loanCreatedId');
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           passedLoanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -857,7 +858,8 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
           geSingleLoanConfig(docConfigData);
         }
       } else {
-        return Flushbar(
+        // return 
+        Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.red,
@@ -895,7 +897,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
       print('modifed emp ${modifiedEmp}');
 
-      for (int?  i = 0; i! < modifiedEmp.length; i++) {
+      for (int  i = 0; i! < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 
@@ -1199,7 +1201,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
             //   builder: ((builder) => confirmBooking()),
             // );
 
-            print('principal tet >> ${principal.text} ${double.tryParse(comp_max_principal)} ${double.tryParse(netpay.text.toString())}');
+            print('principal tet >> ${principal.text} ${double.tryParse(comp_max_principal!)} ${double.tryParse(netpay.text.toString())}');
             if(netpay.text.isEmpty){
               Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
@@ -1212,7 +1214,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
             }
 
-           else if((double.tryParse(netpay.text.toString()) > 10000000.00 ) || (double.tryParse(netpay.text.toString()) < 100.00 )){
+           else if((double.tryParse(netpay.text.toString())! > 10000000.00 ) || (double.tryParse(netpay.text.toString())! < 100.00 )){
               Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1225,7 +1227,7 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
             }
 
 
-            else if(double.tryParse(principal.text.toString()) > double.tryParse(comp_max_principal) ){
+            else if(double.tryParse(principal.text.toString())! > double.tryParse(comp_max_principal!)! ){
               Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1239,7 +1241,8 @@ class _CreateWacsLoanTermsState extends State<CreateWacsLoanTerms> {
 
 
 else if (no_of_repayments.text.isEmpty) {
-               Flushbar(
+              // return 
+              Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                 backgroundColor: Colors.redAccent,
@@ -1248,8 +1251,9 @@ else if (no_of_repayments.text.isEmpty) {
                 duration: Duration(seconds: 3),
               ).show(context);
             }
-else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
-             Flushbar(
+else if (int.tryParse(no_of_repayments.text)! > int.tryParse(max_repayment!)!) {
+            // return 
+            Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
             backgroundColor: Colors.redAccent,
@@ -1601,7 +1605,7 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
   }
 
   _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
+    final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1930),
@@ -1613,7 +1617,7 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
         print(selected);
         //  date = selected.toString();
         String?  vasCoddd = retsNx360dates(selected);
-        dateController.text = vasCoddd;
+        dateController.text = vasCoddd!;
       });
   }
 
@@ -1648,7 +1652,7 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
       String?  hintText,
       var keyBoard, {
         bool isPassword = false,
-        isRealOnly: false,
+        isRealOnly = false,
         var suffixWidget
       }) {
     var MediaSize = MediaQuery.of(context).size;
@@ -1658,7 +1662,7 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1703,7 +1707,7 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -1739,9 +1743,9 @@ else if (int.tryParse(no_of_repayments.text) > int.tryParse(max_repayment)) {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                     });
                   },
                 ),

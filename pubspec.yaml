@@ -42,14 +42,14 @@ dependencies:
   http:
   another_flushbar:
   percent_indicator:
-  flutter_typeahead:
+#  flutter_typeahead: ^5.2.0
 #  file_picker:
   shimmer:
   loading_overlay:
   lottie:
   intl:
   jiffy:
-  image_picker:
+  image_picker: ^1.1.2
   localstorage:
 #  image_utils_class:
   email_validator:
@@ -63,6 +63,8 @@ dependencies:
   pdf:
   get_it:
   pretty_dio_logger:
+  file_picker:
+#  flutter_image_compress: ^2.1.0
   #  share_plus: 1.1.1
   downloads_path_provider_28:
   #  open_file:
@@ -74,6 +76,8 @@ dependencies:
 #  flutter_share:
   flutter_image_compress:
   flutter_native_image:
+#  camera_camera:
+#  image:
   #in_app_update: ^1.1.15
   avatar_glow:
   flutter_clean_calendar:
@@ -82,7 +86,8 @@ dependencies:
 #  geolocator: ^6.2.1
   flutter_custom_tabs:
   flutter_document_picker:
-  flutter_datetime_picker:
+#  flutter_datetime_picker:
+  flutter_datetime_picker_plus:
   flutter_share:
   # detect if has internet
 #  app_version_checker: ^1.0.2
@@ -105,7 +110,8 @@ dependencies:
   webview_flutter:
 #  mixpanel_flutter:
   one_context:
-  timelines:
+#  timelines:
+  timelines_plus:
   url_launcher: ^6.1.12
 #  app_version_update:
 #  sentry_flutter: ^4.0.2
@@ -118,14 +124,17 @@ dev_dependencies:
     sdk: flutter
 #  change_app_package_name: ^0.1.3
   build_runner:
-
+#dependency_overrides:
+#  file_picker:
+#    git:
+#      url: https://github.com/miguelpruivo/flutter_file_picker.git
+#      ref: main
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
   uses-material-design: true
-
   assets:
 #    - .env
 #    - .env.development

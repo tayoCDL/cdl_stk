@@ -6,7 +6,7 @@ import 'dart:typed_data';
 
 import 'package:alert_dialog/alert_dialog.dart';
 import 'package:another_flushbar/flushbar.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,7 +64,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
   List<String> LAFArray = [];
   List<String> collectLAF = [];
   List<dynamic> allLAF = [];
-  Timer _timerForInter;
+  Timer? _timerForInter;
 
   String?  documentFileName,
       residenceFileSize,
@@ -139,24 +139,24 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
       'Authorization': 'Basic ${token}',
       'Fineract-Platform-TFA-Token': '${tfaToken}',
     };
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
         AppUrl.getLoanDetails +
             passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+            '?associations=all&exclude=guarantors,futureSchedule'),
         headers: bHeader);
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
     var newClientData = responseData2;
 
     try {
-      Response responsevvPersonal = await get(
-          AppUrl.getSingleClient + newClientData['clientId'].toString(),
+      Response responsevvPersonal = await get(Uri.parse(
+          AppUrl.getSingleClient + newClientData['clientId'].toString()),
           headers: bHeader);
       final Map<String, dynamic> responseData2Personal =
           json.decode(responsevvPersonal.body);
       String?  phonenumber = responseData2Personal['mobileNo'];
       setState(() {
-        clientPhoneNumber.text = phonenumber;
+        clientPhoneNumber.text = phonenumber!;
         clientID = newClientData['clientId'];
       });
     } catch (e) {}
@@ -190,7 +190,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
   getIsBankStatementAvailable() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      canGoToStatementScreen = prefs.getBool('isBankStatement');
+      canGoToStatementScreen = prefs.getBool('isBankStatement') ?? false;
     });
 
     print('can use for statement ${canGoToStatementScreen}');
@@ -221,8 +221,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
   bool _hasValidMime = false;
   String?  appendBase64 = '';
   bool value = false;
-  FileType _pickingType;
-  File uploadimage;
+  // FileType? _pickingType;
+  XFile? uploadimage;
   bool canGoToStatementScreen = false;
   bool showFetchBankStatement = true;
   int?  random(min, max) {
@@ -325,10 +325,10 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
     print(
         'this is ir ${AppUrl.getLoanDetails + loanID.toString() + '?associations=all&exclude=guarantors,futureSchedule'}');
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
       AppUrl.getLoanDetails +
           loanID.toString() +
-          '?associations=all&exclude=guarantors,futureSchedule',
+          '?associations=all&exclude=guarantors,futureSchedule'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -382,7 +382,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           newEmp.where((element) => element['systemDefined']).toList();
 
       print('modifed emp ${modifiedEmp}');
-      for (int?  i = 0; i < modifiedEmp.length; i++) {
+      for (int  i = 0; i < modifiedEmp.length; i++) {
         collectDocumentType.add(modifiedEmp[i]['name']);
       }
 
@@ -424,7 +424,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           allLAF = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectLAF.add(newEmp[i]['name']);
         }
@@ -448,10 +448,10 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsProofOfIdentity'));
+            jsonDecode(prefs.getString('prefsProofOfIdentity')!);
 
         //
-        if (prefs.getString('prefsProofOfIdentity').isEmpty) {
+        if (prefs.getString('prefsProofOfIdentity')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -467,7 +467,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
             allIdentity = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int  i = 0; i < mtBool.length; i++) {
             print(mtBool[i]['name']);
             collectIdentity.add(mtBool[i]['name']);
           }
@@ -498,7 +498,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           allIdentity = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int  i = 0; i < newEmp.length; i++) {
           print(newEmp[i]['name']);
           collectIdentity.add(newEmp[i]['name']);
         }
@@ -552,7 +552,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
 
       result = await FlutterDocumentPicker.openDocument(params: params);
 
-      final file = File(result);
+      final file = File(result!);
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         setState(() {
@@ -603,22 +603,22 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
 
       //  print('file extension ${_path.split('.').last}');
 
-      final bytes = Io.File(_path).readAsBytesSync();
-      final byeInLength = Io.File(_path).readAsBytesSync().lengthInBytes;
+      final bytes = Io.File(_path!).readAsBytesSync();
+      final byeInLength = Io.File(_path!).readAsBytesSync().lengthInBytes;
       String?  img64 = base64Encode(bytes);
 
       // get file size
       final kb = byeInLength / 1024;
       final mb = kb / 1024;
       print('this is the MB ${mb}');
-      String?  filesizeAsString?  = mb.toString();
+      String?  filesizeAsString  = mb.toString();
       print('this is file sizelenght ${filesizeAsString}');
       print('image base64 ${img64}');
 
       setState(() {
         documentFileLocation = img64;
         residenceFileSize = filesizeAsString;
-        documentFiletype = _path.split('.').last;
+        documentFiletype = _path?.split('.').last;
       });
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
@@ -627,8 +627,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
     if (!mounted) return;
 
     setState(() {
-      _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
+      _fileName = _path != null ? _path?.split('/').last : '...';
+      proof_of_residence.text = _fileName!;
       //documentFileName = _fileName;
       value = true;
     });
@@ -677,34 +677,34 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
 
   void takePhotoForDocument(ImageSource source) async {
     MyRouter.popPage(context);
-    var choosedimage = await ImagePicker.pickImage(source: source);
+    var choosedimage = await ImagePicker().pickImage(source: source);
     //  print('this ${choosedimage.toString()}');
-    File imagefile = choosedimage; //convert Path to File
+    XFile? imagefile = choosedimage; //convert Path to File
 
     print('image File ${imagefile}');
-    Uint8List imagebytes = await imagefile.readAsBytes(); //convert to bytes
-    String?  base64String?  =
-        base64.encode(imagebytes); //convert bytes to base64 string
-    print('base64String?  ${base64string}');
+    Uint8List? imagebytes = await imagefile?.readAsBytes(); //convert to bytes
+    String base64String  =
+        base64.encode(imagebytes!); //convert bytes to base64 string
+    print('base64String  ${base64String}');
 
     String?  _finalPath = choosedimage.toString();
 
     setState(() {
-      uploadimage = choosedimage;
+      uploadimage = choosedimage!;
       String?  getPath = choosedimage.toString();
       _fileName = getPath != null ? getPath.split('/').last : '...';
 
-      File file = choosedimage;
+      XFile file = choosedimage;
       _fileName = file.path.split('/').last;
       print('filename ${_fileName}');
-      proof_of_residence.text = _fileName;
+      proof_of_residence.text = _fileName!;
       // isPassportAdded = true;
     });
 
     setState(() {
-      documentFileLocation = base64string;
+      documentFileLocation = base64String;
       //  passportFileSize = '';
-      documentFiletype = _fileName.split('.').last;
+      documentFiletype = _fileName?.split('.').last;
     });
 
     // print('passport file location ${passportFiletype} ');
@@ -731,7 +731,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
 
     setState(() {
       // _fileName = _path != null ? _path.split('/').last : '...';
-      proof_of_residence.text = _fileName;
+      proof_of_residence.text = _fileName!;
       //  documentFileName = _fileName;
     });
 
@@ -916,16 +916,16 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
       _isLoading = true;
     });
 
-    bool checkBankStatement = prefs.getBool('isBankStatement');
+    bool checkBankStatement = prefs.getBool('isBankStatement')!;
 
     if (checkBankStatement) {
       MyRouter.popPage(context);
     }
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
         AppUrl.getLoanDetails +
             passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+            '?associations=all&exclude=guarantors,futureSchedule'),
         headers: bHeader);
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
@@ -941,8 +941,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
     // //print('loan details ${loanDetail.toString()}');
     // return loanDetail;
 
-    Response responsevvBank = await get(
-      AppUrl.getSingleClient + newClientData['clientId'].toString() + '/banks',
+    Response responsevvBank = await get(Uri.parse(
+      AppUrl.getSingleClient + newClientData['clientId'].toString() + '/banks'),
       headers: bHeader,
     );
     //print(responsevv.body);
@@ -965,7 +965,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
         AppUrl.getMBSBank,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': APP_TOKEN,
+          'Authorization': APP_TOKEN!,
         },
       );
       if (responsevv.statusCode == 200) {
@@ -985,8 +985,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           int?  mbsSortCode = selectSortCode[0]['id'];
 
           // get mobile number
-          Response responsevvPersonal = await get(
-              AppUrl.getSingleClient + newClientData['clientId'].toString(),
+          Response responsevvPersonal = await get(Uri.parse(
+              AppUrl.getSingleClient + newClientData['clientId'].toString()),
               headers: bHeader);
           final Map<String, dynamic> responseData2Personal =
               json.decode(responsevvPersonal.body);
@@ -1000,7 +1000,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
             "externalBankId": mbsSortCode
           };
 
-          bool checkBankStatement = prefs.getBool('isBankStatement');
+          bool checkBankStatement = prefs.getBool('isBankStatement')!;
 
           Map<String, dynamic> bankAnalyser = {
             "externalBankId": mbsSortCode,
@@ -1030,9 +1030,9 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           // start
           /////
 
-          Response Analysisresponse = await post(
+          Response Analysisresponse = await post(Uri.parse(
               // AppUrl.getLoanDetails + loanId.toString() + '/analyse/bankstatement/6',
-              AppUrl.getLoanDetails + clientId.toString() + '/decide',
+              AppUrl.getLoanDetails + clientId.toString() + '/decide'),
               body: json.encode(
                   checkBankStatement ? bankAnalyser : bankAnalyserForBS),
               headers: bHeader);
@@ -1155,7 +1155,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                 };
               }
               int?  tempLoanID = prefs.getInt('loanCreatedId');
-              bool isAutoDisbursed = prefs.getBool('isAutoDisburse');
+              bool isAutoDisbursed = prefs.getBool('isAutoDisburse')!;
             }
           });
         } catch (e) {
@@ -1176,6 +1176,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
     } catch (e) {
       print(e);
     }
+    throw Exception('Failed to load loan');
   }
 
   Future<Map<String, dynamic>> fetchBankstatement() async {
@@ -1188,8 +1189,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
 
     Map<String, DateTime> dateRange = calculateStartAndEndDates();
 
-    DateTime startDate = dateRange['startDate'];
-    DateTime endDate = dateRange['endDate'];
+    DateTime startDate = dateRange['startDate']!;
+    DateTime endDate = dateRange['endDate']!;
 
     final formattedStartDate = formatDateForDisplay(startDate);
     final formattedEndDate = formatDateForDisplay(endDate);
@@ -1207,10 +1208,10 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
       _isLoading = true;
     });
 
-    Response responsevv = await get(
+    Response responsevv = await get(Uri.parse(
         AppUrl.getLoanDetails +
             passedLoanID.toString() +
-            '?associations=all&exclude=guarantors,futureSchedule',
+            '?associations=all&exclude=guarantors,futureSchedule'),
         headers: bHeader);
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
@@ -1226,8 +1227,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
     // //print('loan details ${loanDetail.toString()}');
     // return loanDetail;
 
-    Response responsevvBank = await get(
-      AppUrl.getSingleClient + newClientData['clientId'].toString() + '/banks',
+    Response responsevvBank = await get(Uri.parse(
+      AppUrl.getSingleClient + newClientData['clientId'].toString() + '/banks'),
       headers: bHeader,
     );
     //print(responsevv.body);
@@ -1251,7 +1252,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
         AppUrl.getMBSBank,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': APP_TOKEN,
+          'Authorization': APP_TOKEN!,
         },
       );
       if (responsevv.statusCode == 200) {
@@ -1273,8 +1274,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           int?  mbsSortCode = selectSortCode[0]['id'];
 
           // get mobile number
-          Response responsevvPersonal = await get(
-              AppUrl.getSingleClient + newClientData['clientId'].toString(),
+          Response responsevvPersonal = await get(Uri.parse(
+              AppUrl.getSingleClient + newClientData['clientId'].toString()),
               headers: bHeader);
           final Map<String, dynamic> responseData2Personal =
               json.decode(responsevvPersonal.body);
@@ -1307,7 +1308,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                 body: json.encode(fetchBankStatementRequest),
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': APP_TOKEN,
+                  'Authorization': APP_TOKEN!,
                 }).timeout(
               Duration(seconds: 90),
               onTimeout: () {
@@ -1323,8 +1324,10 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                   message: 'Bank Statement Extraction failed',
                   duration: Duration(seconds: 4),
                 ).show(context);
-                return;
+               // return;
+                throw "Failed to fetch bank statement";
               },
+
             );
 
             setState(() {
@@ -1346,7 +1349,8 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                   isAttachSuccessful = false;
                 });
 
-                return Flushbar(
+                // return 
+                Flushbar(
                   flushbarPosition: FlushbarPosition.TOP,
                   flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.blue,
@@ -1376,7 +1380,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                     body: json.encode(retryBankStatementrequest),
                     headers: {
                       'Content-Type': 'application/json',
-                      'Authorization': APP_TOKEN,
+                      'Authorization': APP_TOKEN!,
                     });
 
                 setState(() {
@@ -1476,6 +1480,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
         duration: Duration(seconds: 4),
       ).show(context);
     }
+    throw Exception('Failed to load loan');
   }
 
   @override
@@ -1613,7 +1618,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
             final SharedPreferences prefs =
                 await SharedPreferences.getInstance();
 
-            bool checkBankStatement = prefs.getBool('isBankStatement');
+            bool checkBankStatement = prefs.getBool('isBankStatement')!;
 
             print('checkbankStatement ${checkBankStatement}');
             //   checkBankStatement ? sendForAnalysis() : completeBankAnalyser();
@@ -1697,7 +1702,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
         itemCount: documentsArray.length,
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
-        itemBuilder: (context, int?  index) {
+        itemBuilder: (context, int  index) {
           return ListTile(
             title: Text(
               '${documentsArray[index]['fileName']}',
@@ -1787,18 +1792,18 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
       {bool isValidateEmployer = false,
       bool isSendOTP = true,
       var maxLenghtAllow,
-      VoidCallback onBtnPressed,
+      VoidCallback? onBtnPressed,
       bool isSuffix = false,
       String?  extension,
       bool needsValidation = true,
-      VoidCallback changeValidator}) {
+      String? Function(String?)? changeValidator}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1824,7 +1829,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),
@@ -1901,7 +1906,7 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
           DropDownComponent(
               items: DocumentTypeArray,
               popUpDisabled: (String?  s) {
-                return s.startsWith('Loan Agreement Form') ||
+                return s!.startsWith('Loan Agreement Form') ||
                     s.startsWith('Statement');
               },
               onChange: (String?  item) {
@@ -1970,8 +1975,9 @@ class _DocumentExtraScreenState extends State<DocumentExtraScreen> {
                       },
                       popUpDisabled: (String?  s) {
                         if (isAttachSuccessful == true) {
-                          return s.startsWith('Fetch Bank');
+                          return s!.startsWith('Fetch Bank');
                         }
+                        return false;
                       },
                       label: "Bank Statement * ",
                       selectedItem: 'Select an Option',

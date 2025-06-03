@@ -2,13 +2,16 @@ import 'dart:convert';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+as picker;
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sales_toolkit/util/app_url.dart';
 import 'package:sales_toolkit/util/enum/color_utils.dart';
+import 'package:sales_toolkit/util/helper_class.dart';
 import 'package:sales_toolkit/util/router.dart';
 import 'package:sales_toolkit/view_models/CodesAndLogic.dart';
 import 'package:sales_toolkit/views/Loans/secondNewLoan.dart';
@@ -163,7 +166,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         allBanksList = newEmp;
       });
 
-      for(int?  i = 0; i < newEmp.length;i++){
+      for(int  i = 0; i < newEmp.length;i++){
         //print(newEmp[i]['name']);
         collectBanksList.add(newEmp[i]['name']);
       }
@@ -184,11 +187,11 @@ class _RemittaBioDataState extends State<RemittaBioData> {
       if(response['status'] == false){
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsBanksList')!);
 
 
         //
-        if(prefs.getString('prefsBanksList').isEmpty){
+        if(prefs.getString('prefsBanksList')?.isEmpty ?? false){
           Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
@@ -206,7 +209,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
             allBanksList = mtBool;
           });
 
-          for(int?  i = 0; i < mtBool.length;i++){
+          for(int  i = 0; i < mtBool.length;i++){
             //print(mtBool[i]['name']);
             collectBanksList.add(mtBool[i]['name']);
           }
@@ -238,7 +241,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
           allBanksList = newEmp;
         });
 
-        for(int?  i = 0; i < newEmp.length;i++){
+        for(int  i = 0; i < newEmp.length;i++){
           //print(newEmp[i]['name']);
           collectBanksList.add(newEmp[i]['name']);
         }
@@ -263,7 +266,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername ?? "";
     });
   }
 
@@ -277,8 +280,8 @@ class _RemittaBioDataState extends State<RemittaBioData> {
     setState(() {
       _isLoading = true;
     });
-    Response responsevv = await get(
-      AppUrl.getSingleClient + clientID.toString() + '/employers',
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getSingleClient + clientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -424,7 +427,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -467,7 +470,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i < filtered.length; i++) {
+      for (int  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -503,7 +506,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -528,7 +531,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         allPurpose = newEmp;
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectPurpose.add(newEmp[i]['name']);
       }
@@ -548,8 +551,8 @@ class _RemittaBioDataState extends State<RemittaBioData> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1133,7 +1136,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                                       label: "Product Name *",
                                       selectedItem: productName,
                                       validator: (String?  item) {
-                                        if (item.length == 0) {
+                                        if (item?.length == 0) {
                                           return "Loan product is mandatory";
                                         }
                                       }),
@@ -1162,12 +1165,13 @@ class _RemittaBioDataState extends State<RemittaBioData> {
           text2: 'Next',
           callAction2: () {
             //    MyRouter.pushPage(context, DocumentForLoan());
-            if(_form.currentState.validate()){
+            if(_form.currentState?.validate() ?? false){
               print('purpose Int ${purposeInt}');
 
 
               if (productInt == null) {
-                return Flushbar(
+                // return 
+                Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.red,
@@ -1177,7 +1181,8 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 ).show(context);
               }
               if(employerID == null){
-                return   Flushbar(
+                // return   
+                Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.blueAccent,
@@ -1348,7 +1353,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 label: "Product Name *",
                 selectedItem: productName,
                 validator: (String?  item) {
-                  if (item.length == 0) {
+                  if (item?.length == 0) {
                     return "Loan product is mandatory";
                   }
                 }),
@@ -1382,7 +1387,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 label: "Loan Purpose   *",
                 selectedItem: PassloanPurpose,
                 validator: (String?  item) {
-                  if (item.length == 0) {
+                  if (item?.length == 0) {
                     return "Loan purpose is mandatory ";
                   }
                 }),
@@ -1400,7 +1405,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
   }
 
   _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
+    final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1930),
@@ -1412,7 +1417,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         print(selected);
         //  date = selected.toString();
         String?  vasCoddd = retsNx360dates(selected);
-        dateController.text = vasCoddd;
+        dateController.text = vasCoddd!;
       });
   }
 
@@ -1447,11 +1452,11 @@ class _RemittaBioDataState extends State<RemittaBioData> {
       String?  hintText,
       var keyBoard, {
         bool isPassword = false,
-        isRealOnly: false,
+        isRealOnly = false,
         var maxLenghtAllow,
         bool showHelpText = false,
         bool isDateAllowed = false,
-        String?  helpText,VoidCallback onChangeVal,
+        String?  helpText, Function(String)? onChangeVal,
       }) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -1460,7 +1465,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            //color: Theme.of(context).backgroundColor,
+            //color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1479,20 +1484,34 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 suffixIcon:
                 isDateAllowed == true ? IconButton(
                   onPressed: (){
-                    // showDatePicker();
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        minTime: DateTime(1955, 3, 5),
-                        maxTime: DateTime.now().subtract(Duration( days: 6575)),
-                        onChanged: (date) {
-                          print('change $date');
-                          setState(() {
-                            String?  retDate = retsNx360dates(date);
-                            dobController.text = retDate;
-                          });
-                        }, onConfirm: (date) {
-                          print('confirm $date');
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                //     showDatePicker();
+                    AppHelper().datePickerFlutterPlus(context: context,
+                          minTime: DateTime(1955, 3, 5),
+                          maxTime: DateTime.now().subtract(Duration( days: 6575)),
+                          onChanged: (date) {
+                            print('change $date');
+                            setState(() {
+                              String?  retDate = retsNx360dates(date);
+                              dobController.text = retDate!;
+                            });
+                          }, onConfirm: (date) {
+                            print('confirm $date');
+                          },
+                    );
+                    // picker.showDatePicker(context,
+                    //     showTitleActions: true,
+                    //     minTime: DateTime(1955, 3, 5),
+                    //     maxTime: DateTime.now().subtract(Duration( days: 6575)),
+                    //     onChanged: (date) {
+                    //       print('change $date');
+                    //       setState(() {
+                    //         String?  retDate = retsNx360dates(date);
+                    //         dobController.text = retDate!;
+                    //       });
+                    //     }, onConfirm: (date) {
+                    //       print('confirm $date');
+                    //     },
+                    //     currentTime: DateTime.now(), locale: picker.LocaleType.en);
 
                   },
                   icon: Icon(Icons.date_range,color: Colors.blue,),
@@ -1514,14 +1533,14 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color
+                    color: Theme.of(context).textTheme.headlineMedium?.color
                 )
 
             ),
             textInputAction: TextInputAction.done,
 
             onChanged: (String?  value){
-             onChangeVal(value);
+             onChangeVal?.call(value ?? "");
             },
 
 
@@ -1730,6 +1749,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                 label: "Link Savings",
                 selectedItem: "---",
                 validator: (String?  item) {
+                  item = item ?? "";
                   if(item.isEmpty || item.length < 2){
                     return "Field cannot be empty";
                   }
@@ -1742,9 +1762,9 @@ class _RemittaBioDataState extends State<RemittaBioData> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                     });
                   },
                 ),
@@ -1805,7 +1825,7 @@ class _RemittaBioDataState extends State<RemittaBioData> {
                           String?  compA = retDOBfromBVN(TempdateOfBirth);
                           String?  compB = dobController.text;
 
-                          if(compA.compareTo(compB) == 0){
+                          if(compA?.compareTo(compB) == 0){
 
                             // come here to pass screen
                         MyRouter.popPage(context);

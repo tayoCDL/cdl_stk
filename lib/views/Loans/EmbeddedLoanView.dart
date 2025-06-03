@@ -90,7 +90,9 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
   var employmentProfile = [];
   int?  employerID;
   int?  thirdparty_channelId;
-  Map<String,dynamic> thirdPartylenderResponse,wacs_result,wacs_thirdPartylenderResponse;
+  Map<String,dynamic>? thirdPartylenderResponse;
+  Map<String,dynamic>? wacs_result;
+  Map<String,dynamic>? wacs_thirdPartylenderResponse;
   String?  mob1 = '',mob2='';
   bool incompleteProfile = false;
   void initState() {
@@ -135,7 +137,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
     print('Vusername ${Vusername}');
     prefs.remove('loanCreatedId');
     setState(() {
-      loanOfficer.text = Vusername;
+      loanOfficer.text = Vusername ?? "";
     });
   }
 
@@ -267,7 +269,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Incomplete Profile'),
-          content: Text(message),
+          content: Text(message ?? ""),
           actions: <Widget>[
             TextButton(
               child: Text('Dismiss'),
@@ -415,14 +417,14 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
       //     }
       // );
       setState(() {
-        wacs_result['first_name'] = first_name.text;
-        wacs_result['last_name'] = last_name.text;
-        wacs_result['email'] = email_address.text;
+        wacs_result?['first_name'] = first_name.text;
+        wacs_result?['last_name'] = last_name.text;
+        wacs_result?['email'] = email_address.text;
       });
 
       print('new wacs >> ${wacs_result}');
     //  final Future<Map<String, dynamic>> wacs_response = RetCodes().fetch_wacs_profile(wacs_result, staffId: int.tryParse(staff_id));
-      final Future<Map<String, dynamic>> wacs_response = RetCodes().fetch_wacs_profile(wacs_result, staffId: staff_id);
+      final Future<Map<String, dynamic>> wacs_response = RetCodes().fetch_wacs_profile(wacs_result ?? {}, staffId: staff_id);
       final responseData = await wacs_response;
 
       setState(() {
@@ -432,7 +434,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
           print('wacs response >> ${wacs_thirdPartylenderResponse}');
           Map<String,dynamic> updated_wac_thirdparty_response = {
             "is_federal_wacs": thirdparty_channelId == 2 ? true : false,
-            ...wacs_thirdPartylenderResponse
+            ...?wacs_thirdPartylenderResponse
           };
           MyRouter.pushPage(
             context,
@@ -512,7 +514,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
 
       print('all Products ${newEmp}');
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int  i = 0; i < newEmp.length; i++) {
         print(newEmp[i]['name']);
         collectProduct.add(newEmp[i]['name']);
       }
@@ -557,7 +559,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
 // SANDBOX
       //   var filtered = newEmp.where((element) => element['id'] == 49 || element['id'] == 40).toList();
 
-      for (int?  i = 0; i < filtered.length; i++) {
+      for (int  i = 0; i < filtered.length; i++) {
         print(filtered[i]['name']);
         collectProds.add(filtered[i]['name']);
         collectProduct.add(filtered[i]['name']);
@@ -582,8 +584,8 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
 
     print('this is ir ');
 
-    Response responsevv = await get(
-      AppUrl.getLoanDetails + loanId.toString(),
+    Response responsevv = await get(Uri.parse(
+      AppUrl.getLoanDetails + loanId.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -762,7 +764,8 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
             // }
 
             if(thirdparty_channelId == null){
-              return   Flushbar(
+              // return   
+              Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                 backgroundColor: Colors.red,
@@ -781,7 +784,8 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
 
             }
             if(thirdPartylenderResponse == null){
-                return   Flushbar(
+                // return   
+                Flushbar(
                 flushbarPosition: FlushbarPosition.TOP,
                 flushbarStyle: FlushbarStyle.GROUNDED,
                   backgroundColor: Colors.red,
@@ -970,7 +974,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
                   label: "Select   *",
                   selectedItem: '',
                   validator: (String?  item) {
-                    if (item.length == 0) {
+                    if (item?.length == 0) {
                       return "Embedded Partner is mandatory ";
                     }
                   }),
@@ -983,19 +987,19 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
             if(thirdparty_channelId != null && (
                ( thirdparty_channelId == 2 ||
                 thirdparty_channelId == 3)
-              && (mob2 != null &&  mob2.length > 4)
+              && (mob2 != null &&  mob2!.length > 4)
             ))
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: DropDownComponent(
-                      items: [mob1,mob2],
+                      items: [mob1!,mob2!],
                       onChange: (String?  item) async {
                         load_wacs_employerProduct(numberChanged: item);
                       },
                       label: "Select Mobile Number   *",
                       selectedItem: '',
                       validator: (String?  item) {
-                        if (item.length == 0) {
+                        if (item?.length == 0) {
                           return "Mobile Number ";
                         }
                       }),
@@ -1066,7 +1070,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
   }
 
   _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
+    final DateTime? selected = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1930),
@@ -1078,7 +1082,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
         print(selected);
         //  date = selected.toString();
         String?  vasCoddd = retsNx360dates(selected);
-        dateController.text = vasCoddd;
+        dateController.text = vasCoddd!;
       });
   }
 
@@ -1113,7 +1117,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
       String?  hintText,
       var keyBoard, {
         bool isPassword = false,
-        isRealOnly: false,
+        isRealOnly = false,
       }) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
@@ -1122,7 +1126,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-          //  color: Theme.of(context).backgroundColor,
+          //  color: Theme.of(context).scaffoldBackgroundColor,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -1157,7 +1161,7 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
                     color: Colors.black, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color)),
+                    color: Theme.of(context).textTheme.headlineMedium?.color)),
             textInputAction: TextInputAction.done,
           ),
         ),
@@ -1193,9 +1197,9 @@ class _EmbeddedNewLoanState extends State<EmbeddedNewLoan> {
               children: [
                 Checkbox(
                   value: this.value,
-                  onChanged: (bool value) {
+                  onChanged: (bool? value) {
                     setState(() {
-                      this.value = value;
+                      this.value = value!;
                     });
                   },
                 ),

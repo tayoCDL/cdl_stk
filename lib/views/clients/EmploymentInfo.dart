@@ -7,7 +7,13 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+as picker;
+
+// import 'package:flutter_typeahead/flutter_typeahead.dart';
+// import 'package:flutter_typeahead/flutter_typeahead.dart';
 //import 'package:flutter_typeahead/flutter_typeahead.dart';
 // import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart';
@@ -32,14 +38,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textfield_search/textfield_search.dart';
 import 'package:sales_toolkit/widgets/LocalTypeAhead.dart';
 
+import '../../components/local_type_autocomplete.dart';
+
 class EmploymentInfo extends StatefulWidget {
   // const EmploymentInfo({Key? key}) : super(key: key);
   //
   // @override
   // _EmploymentInfoState createState() => _EmploymentInfoState();
 
-  final int?  ClientInt, employerSector;
-  final String?  Employmentaddress,
+  final int? ClientInt, employerSector;
+  final String? Employmentaddress,
       EmploymentNeareastLandmark,
       EmploymentStaffId,
       EmploymentJobRole,
@@ -78,8 +86,8 @@ class EmploymentInfo extends StatefulWidget {
 }
 
 class _EmploymentInfoState extends State<EmploymentInfo> {
-  int?  ClientInt, employerSector;
-  String?  Employmentaddress,
+  int? ClientInt, employerSector;
+  String? Employmentaddress,
       EmploymentNeareastLandmark,
       EmploymentStaffId,
       EmploymentJobRole,
@@ -129,26 +137,26 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   List<String> BranchEmployerArray = [];
   List<String> collectBranchEmployer = [];
   List<dynamic> allBranchEmployer = [];
-  String?  realMonth = '';
+  String? realMonth = '';
 
-  String?  branchEmployer = '';
-  String?  employerState = '';
-  String?  employerLga = '';
-  String?  errorText = '';
-  int?  empSector = null;
-  String?  parentEmployer = '';
-  String?  isPersonalEmailVerified = '';
-  Map<String,dynamic> emailGetter;
+  String? branchEmployer = '';
+  String? employerState = '';
+  String? employerLga = '';
+  String? errorText = '';
+  int? empSector = null;
+  String? parentEmployer = '';
+  String? isPersonalEmailVerified = '';
+  Map<String, dynamic>? emailGetter;
   bool _isWorkOTPSent = false;
   bool _isPersonalOTPSent = false;
-  int?  sectorId = 17;
+  int? sectorId = 17;
   bool isNewWorkEmailVerified = false;
-  int?  stateInt, salaryInt, lgaInt, employerInt, clientTypeInt;
-  int?  branchEmployerInt = 0;
-  String?  employerDomain = '';
-  bool _isWorEmailVerified = false;
-  bool showLoading = false;
-  Timer _debounce;
+  int? stateInt, salaryInt, lgaInt, employerInt, clientTypeInt;
+  int? branchEmployerInt = 0;
+  String? employerDomain = '';
+  bool? _isWorEmailVerified = false;
+  bool? showLoading = false;
+  Timer? _debounce;
 
   TextEditingController myController2 = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -164,14 +172,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     getEmailValStatus();
     getClientType();
     getPersonalInformationJustForEmailAddress();
-    address.text = Employmentaddress;
-    nearest_landmark.text = EmploymentNeareastLandmark;
-    staffId.text = EmploymentStaffId;
-    job_role.text = EmploymentJobRole;
-    work_email.text = EmploymentWorkEmail;
-    salary_payday = EmploymentSalaryPayday;
-    salary_range = EmploymentSalaryRange;
-    employer_phone_number.text = EmploymentPhoneNumber;
+    address.text = Employmentaddress ?? '';
+    nearest_landmark.text = EmploymentNeareastLandmark ?? '';
+    staffId.text = EmploymentStaffId ?? '';
+    job_role.text = EmploymentJobRole ?? '';
+    work_email.text = EmploymentWorkEmail ?? '';
+    salary_payday = EmploymentSalaryPayday ?? '';
+    salary_range = EmploymentSalaryRange ?? '';
+    employer_phone_number.text = EmploymentPhoneNumber ?? '';
 
     myController2.addListener(_printLatestValue);
 
@@ -195,14 +203,16 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   getEmailValStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int?  tempClientID =
-    prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
+    int? tempClientID =
+        prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
 
     setState(() {
       _isLoading = true;
     });
     final Future<Map<String, dynamic>> respose =
-    RetCodes().getEmailValidationStatus(tempClientID,);
+        RetCodes().getEmailValidationStatus(
+      tempClientID,
+    );
 
     setState(() {
       _isLoading = false;
@@ -212,43 +222,36 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       print(response);
       if (response['status'] == true) {
         setState(() {
-          if(response['data'] == null){
-            isPersonalEmailVerified =  'false' ;
+          if (response['data'] == null) {
+            isPersonalEmailVerified = 'false';
             emailGetter = null;
-          }
-           else {
-            isPersonalEmailVerified =  response['data']['is_email_validated'] ;
+          } else {
+            isPersonalEmailVerified = response['data']['is_email_validated'];
             emailGetter = response['data'];
           }
-
         });
-
-      } else {
-
-      }
+      } else {}
     });
   }
 
   postEmailValStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int?  tempClientID =
-    prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
+    int? tempClientID =
+        prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
 
     // setState(() {
     //   _isLoading = true;
     // });
-    Map<String,dynamic> emailValRequest = {
+    Map<String, dynamic> emailValRequest = {
       "is_email_validated": "true",
       "locale": "en",
       "dateFormat": "dd MMMM yyyy"
     };
 
-
-    final Future<Map<String, dynamic>> respose =
-    emailGetter == null ?
-    RetCodes().postEmailValidationStatus(tempClientID,emailValRequest):
-    RetCodes().putEmailValidationStatus(tempClientID,emailValRequest);
+    final Future<Map<String, dynamic>> respose = emailGetter == null
+        ? RetCodes().postEmailValidationStatus(tempClientID, emailValRequest)
+        : RetCodes().putEmailValidationStatus(tempClientID, emailValRequest);
 
     setState(() {
       _isLoading = false;
@@ -258,7 +261,6 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       print(response);
       if (response['status'] == true) {
         getEmailValStatus();
-
       } else {
         // setState(() {
         //   _isOTPSent = false;
@@ -276,7 +278,6 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   }
 
   // end personal email impl
-
 
   //  Future<List> getSuggestions(String?  query) async{
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -319,13 +320,12 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //
   // }
 
-  Future<List> getSuggestions(String?  query) async {
-    if (query.length > 3) {
+  Future<List<dynamic>> getSuggestions(String? query) async {
+    if (query!.length > 3) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       final Future<Map<String, dynamic>> result_response =
           RetCodes().employers(clientTypeInt, query);
-
 
       //
       result_response.then((response) async {
@@ -336,7 +336,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           collectEmployer = [];
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -347,19 +347,20 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         //   employerArray = collectEmployer;
         //   List<dynamic> selectID =   allEmployer.where((element) => element['name'] == branchEmployer).toList();
         //   //print('select value ${selectID}');
-        //   //  branchEmployerInt = selectID[0]['id'];
+        //   //  branchEmpuloyerInt = selectID[0]['id'];
         // });
       });
-      //print('employer Array ${allEmployer}');
+    //  print('employer Array ${allEmployer}');
       return allEmployer;
     }
+    throw Exception('Error fetching suggestions');
   }
 
   Future<List> fetchSimpleData() async {
     await Future.delayed(Duration(milliseconds: 1000));
     List _list = <dynamic>[];
 
-    String?  query = _typeAheadController.text;
+    String? query = _typeAheadController.text;
     final Future<Map<String, dynamic>> respose =
         RetCodes().employers(clientTypeInt, query);
 
@@ -376,7 +377,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         // allBranchEmployer = [];
       });
 
-      for (int?  i = 0; i < newEmp.length; i++) {
+      for (int? i = 0; i! < newEmp.length; i++) {
         //print(newEmp[i]['name']);
         collectEmployer.add(newEmp[i]['name']);
         collectEmployerID.add(newEmp[i]['id']);
@@ -405,7 +406,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //   {'label': 'Text' + ' Item 3', 'value': 32},
     // ];
 
-    for (int?  i = 0; i < collectEmployer.length; i++) {
+    for (int? i = 0; i! < collectEmployer.length; i++) {
       _list.add(new TestItem.fromJson(
           {'label': collectEmployer[i], 'value': collectEmployerID[i]}));
     }
@@ -453,10 +454,10 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsState'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsState')!);
 
         //
-        if (prefs.getString('prefsState').isEmpty) {
+        if (prefs.getString('prefsState')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -472,7 +473,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allStates = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectState.add(mtBool[i]['name']);
           }
@@ -503,7 +504,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           _isLoading = false;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectState.add(newEmp[i]['name']);
         }
@@ -551,9 +552,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsSalary'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsSalary')!);
 
-        if (prefs.getString('prefsMarital').isEmpty) {
+        if (prefs.getString('prefsMarital')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -569,7 +570,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectSalary.add(mtBool[i]['name']);
           }
@@ -598,7 +599,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           allSalary = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectSalary.add(newEmp[i]['name']);
         }
@@ -612,7 +613,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     });
   }
 
-  getEmployersList(int?  SearchemployerSector, String?  searchemployerName) async {
+  getEmployersList(
+      int? SearchemployerSector, String? searchemployerName) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //  int?  _sector = prefs.getInt('employment_type');
@@ -663,9 +665,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         setState(() {
           _isLoading = false;
         });
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmployer'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsEmployer')!);
 
-        if (prefs.getString('prefsEmployer').isEmpty) {
+        if (prefs.getString('prefsEmployer')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -682,7 +684,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allSalary = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectEmployer.add(mtBool[i]['name']);
           }
@@ -715,7 +717,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           collectEmployer = [];
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectEmployer.add(newEmp[i]['name']);
         }
@@ -734,7 +736,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     });
   }
 
-  getEmployersBranch(int?  parentID) {
+  getEmployersBranch(int? parentID) {
     //print('this is parent branch ${parentID}');
     final Future<Map<String, dynamic>> respose =
         RetCodes().getEmployersBranch(parentID);
@@ -772,9 +774,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
         List<dynamic> mtBool =
-            jsonDecode(prefs.getString('prefsBranchEmployer'));
+            jsonDecode(prefs.getString('prefsBranchEmployer')!);
 
-        if (prefs.getString('prefsBranchEmployer').isEmpty) {
+        if (prefs.getString('prefsBranchEmployer')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -791,7 +793,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allBranchEmployer = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             BranchEmployerArray.add(mtBool[i]['name']);
           }
@@ -829,7 +831,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
         //print('all Branch ${newEmp}');
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectBranchEmployer.add(newEmp[i]['name']);
         }
@@ -846,13 +848,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   getEmploymentProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int?  localclientID = ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int? localclientID =
+        ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
 
     Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString() + '/employers',
+      Uri.parse(
+          AppUrl.getSingleClient + localclientID.toString() + '/employers'),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -869,106 +873,119 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       employmentProfile = newClientData;
       print('responseData2 ${employmentProfile}');
 
-      prefs.setInt('tempEmployerInt', employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
+      prefs.setInt('tempEmployerInt',
+          employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
 
       branchEmployerInt = employmentProfile.isNotEmpty &&
-          employmentProfile[0]['employer'] != null &&
-          employmentProfile[0]['employer']['id'] != null
+              employmentProfile[0]['employer'] != null &&
+              employmentProfile[0]['employer']['id'] != null
           ? employmentProfile[0]['employer']['id']
           : 0;
 
       branchEmployer = employmentProfile.isNotEmpty &&
-          employmentProfile[0]['employer'] != null &&
-          employmentProfile[0]['employer']['name'] != null
+              employmentProfile[0]['employer'] != null &&
+              employmentProfile[0]['employer']['name'] != null
           ? employmentProfile[0]['employer']['name']
           : '';
 
-      salaryInt = employmentProfile.isNotEmpty && employmentProfile[0]['salaryRange'] != null
+      salaryInt = employmentProfile.isNotEmpty &&
+              employmentProfile[0]['salaryRange'] != null
           ? employmentProfile[0]['salaryRange']['id']
           : '';
 
-      employerState = employmentProfile.isNotEmpty && employmentProfile[0]['state'] != null &&
-          employmentProfile[0]['state']['name'] != null
+      employerState = employmentProfile.isNotEmpty &&
+              employmentProfile[0]['state'] != null &&
+              employmentProfile[0]['state']['name'] != null
           ? employmentProfile[0]['state']['name']
           : '';
 
-      employerLga = employmentProfile.isNotEmpty && employmentProfile[0]['lga'] != null &&
-          employmentProfile[0]['lga']['name'] != null
+      employerLga = employmentProfile.isNotEmpty &&
+              employmentProfile[0]['lga'] != null &&
+              employmentProfile[0]['lga']['name'] != null
           ? employmentProfile[0]['lga']['name']
           : '';
 
       employerDomain = employmentProfile.isNotEmpty &&
-          employmentProfile[0]['employer'] != null
+              employmentProfile[0]['employer'] != null
           ? employmentProfile[0]['employer']['emailExtension']
           : '';
 
-      salary_range = employmentProfile.isNotEmpty && employmentProfile[0]['salaryRange'] != null
+      salary_range = employmentProfile.isNotEmpty &&
+              employmentProfile[0]['salaryRange'] != null
           ? employmentProfile[0]['salaryRange']['name']
           : '';
 
       parentEmployer = employmentProfile.isNotEmpty &&
-          employmentProfile[0]['employer'] != null &&
-          employmentProfile[0]['employer']['parent'] != null
+              employmentProfile[0]['employer'] != null &&
+              employmentProfile[0]['employer']['parent'] != null
           ? employmentProfile[0]['employer']['parent']['name']
           : '';
 
-      lgaInt = employmentProfile.isNotEmpty && employmentProfile[0]['lga'] != null
-          ? employmentProfile[0]['lga']['id']
-          : '';
+      lgaInt =
+          employmentProfile.isNotEmpty && employmentProfile[0]['lga'] != null
+              ? employmentProfile[0]['lga']['id']
+              : '';
 
-      stateInt = employmentProfile.isNotEmpty && employmentProfile[0]['state'] != null
-          ? employmentProfile[0]['state']['id']
-          : '';
+      stateInt =
+          employmentProfile.isNotEmpty && employmentProfile[0]['state'] != null
+              ? employmentProfile[0]['state']['id']
+              : '';
 
       employerInt = employmentProfile.isNotEmpty &&
-          employmentProfile[0]['employer'] != null &&
-          employmentProfile[0]['employer']['parent'] != null &&
-          employmentProfile[0]['employer']['parent']['id'] != null
+              employmentProfile[0]['employer'] != null &&
+              employmentProfile[0]['employer']['parent'] != null &&
+              employmentProfile[0]['employer']['parent']['id'] != null
           ? employmentProfile[0]['employer']['parent']['id']
           : 0;
 
-      _isWorEmailVerified = employmentProfile.isNotEmpty && employmentProfile[0]['workEmailVerified'] != null
+      _isWorEmailVerified = employmentProfile.isNotEmpty &&
+              employmentProfile[0]['workEmailVerified'] != null
           ? employmentProfile[0]['workEmailVerified']
           : false;
     });
 
-    var subEmployer = employmentProfile.isNotEmpty ? employmentProfile[0] : null;
+    var subEmployer =
+        employmentProfile.isNotEmpty ? employmentProfile[0] : null;
 
-    address.text = subEmployer != null ? subEmployer['officeAddress'] ?? '' : '';
-    nearest_landmark.text = subEmployer != null ? subEmployer['nearestLandMark'] ?? '' : '';
+    address.text =
+        subEmployer != null ? subEmployer['officeAddress'] ?? '' : '';
+    nearest_landmark.text =
+        subEmployer != null ? subEmployer['nearestLandMark'] ?? '' : '';
     staffId.text = subEmployer != null ? subEmployer['staffId'] ?? '' : '';
-    work_email.text = subEmployer != null ? subEmployer['emailAddress'] ?? '' : '';
-    employer_phone_number.text = subEmployer != null ? subEmployer['mobileNo'] ?? '' : '';
+    work_email.text =
+        subEmployer != null ? subEmployer['emailAddress'] ?? '' : '';
+    employer_phone_number.text =
+        subEmployer != null ? subEmployer['mobileNo'] ?? '' : '';
     job_role.text = subEmployer != null ? subEmployer['jobGrade'] ?? '' : '';
 
-    _typeAheadController.text = subEmployer != null &&
-        subEmployer['employer'] != null &&
-        subEmployer['employer']['parent'] != null &&
-        subEmployer['employer']['parent']['name'] != null
+  //  clientTypeInt = subEmployer != null ? subEmployer['employer']['parent']['clientType']['id'] : 0;
+
+        _typeAheadController.text = subEmployer != null &&
+            subEmployer['employer'] != null &&
+            subEmployer['employer']['parent'] != null &&
+            subEmployer['employer']['parent']['name'] != null
         ? subEmployer['employer']['parent']['name']
         : '';
 
     dateOfEmployment.text = subEmployer != null
         ? retDOBfromBVN(
-        '${subEmployer['employmentDate'][0]}-${subEmployer['employmentDate'][1]}-${subEmployer['employmentDate'][2]}')
+            '${subEmployer['employmentDate'][0]}-${subEmployer['employmentDate'][1]}-${subEmployer['employmentDate'][2]}')
         : '';
 
     salaryPayDayController.text = subEmployer != null
         ? retDOBfromBVN(
-        '${subEmployer['nextMonthSalaryPaymentDate'][0]}-${subEmployer['nextMonthSalaryPaymentDate'][1]}-${subEmployer['nextMonthSalaryPaymentDate'][2]}')
+            '${subEmployer['nextMonthSalaryPaymentDate'][0]}-${subEmployer['nextMonthSalaryPaymentDate'][1]}-${subEmployer['nextMonthSalaryPaymentDate'][2]}')
         : '';
 
     var newEmpInt = prefs.getInt('tempEmployerInt');
     payrollDob.text = subEmployer != null
         ? retDOBfromBVN(
-        '${subEmployer['payrollDob'][0]}-${subEmployer['payrollDob'][1]}-${subEmployer['payrollDob'][2]}')
+            '${subEmployer['payrollDob'][0]}-${subEmployer['payrollDob'][1]}-${subEmployer['payrollDob'][2]}')
         : '';
 
     salary_payday = '';
+
   }
-
-
-
 
   // getEmploymentProfile() async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1124,9 +1141,6 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //   //salary_range = employmentProfile[0]['salaryRange']['id'];
   // }
 
-
-
-
   // getEmploymentProfile() async {
   //   try {
   //     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1202,64 +1216,63 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //   }
   // }
 
+  // come back here
 // Helper function for text field updates
-  void _updateTextField(TextEditingController controller, var subEmployer, String?  key) {
-    controller.text = subEmployer == null ? '' : subEmployer[key] ?? '';
-  }
-
-
-
-
-  T _getNestedValue<T>(List<dynamic> data, int?  index, String?  key, {String?  subKey, T defaultValue}) {
-    try {
-      // If the data is empty or the expected value doesn't exist, return the default value
-      if (data.isEmpty || data[index] == null) return defaultValue;
-
-      if (subKey != null && data[index][key] != null) {
-        return data[index][key][subKey] ?? defaultValue;
-      }
-
-      return data[index][key] ?? defaultValue;
-    } catch (e) {
-      // Return the default value in case of any error
-      return defaultValue;
-    }
-  }
-
-  List<T> _getNestedListValue<T>(List<dynamic> data, int?  index, String?  key, {String?  subKey, List<T> defaultValue}) {
-    try {
-      // If the data is empty or the expected value doesn't exist, return the default value
-      if (data.isEmpty || data[index] == null) return defaultValue ?? [];
-
-      if (subKey != null && data[index][key] != null) {
-        // Try to extract a list from the subkey
-        return List<T>.from(data[index][key][subKey] ?? defaultValue ?? []);
-      }
-
-      // Return the list if it's directly under the key
-      return List<T>.from(data[index][key] ?? defaultValue ?? []);
-    } catch (e) {
-      // Return the default value in case of any error
-      return defaultValue ?? [];
-    }
-  }
-
-
-
-// Helper method to safely format dates from the subEmployer data
-  String?  _formatDateFromSubEmployer(var subEmployer, String?  dateKey) {
-  if (subEmployer == null || subEmployer[dateKey] == null || subEmployer[dateKey].length < 3) {
-  return '';
-  }
-  return retDOBfromBVN('${subEmployer[dateKey][0]}-${subEmployer[dateKey][1]}-${subEmployer[dateKey][2]}');
-  }
-
-
-
+//   void _updateTextField(
+//       TextEditingController controller, var subEmployer, String? key) {
+//     controller.text = subEmployer == null ? '' : subEmployer[key] ?? '';
+//   }
+//
+//   T _getNestedValue<T>(List<dynamic> data, int? index, String? key,
+//       {String? subKey, T defaultValue}) {
+//     try {
+//       // If the data is empty or the expected value doesn't exist, return the default value
+//       if (data.isEmpty || data[index] == null) return defaultValue;
+//
+//       if (subKey != null && data[index][key] != null) {
+//         return data[index][key][subKey] ?? defaultValue;
+//       }
+//
+//       return data[index][key] ?? defaultValue;
+//     } catch (e) {
+//       // Return the default value in case of any error
+//       return defaultValue;
+//     }
+//   }
+//
+//   List<T> _getNestedListValue<T>(List<dynamic> data, int? index, String? key,
+//       {String? subKey, List<T> defaultValue}) {
+//     try {
+//       // If the data is empty or the expected value doesn't exist, return the default value
+//       if (data.isEmpty || data[index] == null) return defaultValue ?? [];
+//
+//       if (subKey != null && data[index][key] != null) {
+//         // Try to extract a list from the subkey
+//         return List<T>.from(data[index][key][subKey] ?? defaultValue ?? []);
+//       }
+//
+//       // Return the list if it's directly under the key
+//       return List<T>.from(data[index][key] ?? defaultValue ?? []);
+//     } catch (e) {
+//       // Return the default value in case of any error
+//       return defaultValue ?? [];
+//     }
+//   }
+//
+// // Helper method to safely format dates from the subEmployer data
+//   String? _formatDateFromSubEmployer(var subEmployer, String? dateKey) {
+//     if (subEmployer == null ||
+//         subEmployer[dateKey] == null ||
+//         subEmployer[dateKey].length < 3) {
+//       return '';
+//     }
+//     return retDOBfromBVN(
+//         '${subEmployer[dateKey][0]}-${subEmployer[dateKey][1]}-${subEmployer[dateKey][2]}');
+//   }
 
   getClientType() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int?  localclientID =
+    int? localclientID =
         ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     //print('localClient ${localclientID}');
 
@@ -1268,7 +1281,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //print(tfaToken);
     //print(token);
     Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString(),
+      Uri.parse(AppUrl.getSingleClient + localclientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1281,18 +1294,30 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
 
     var newClientData = responseData2;
+    // setState(() {
+    //   clientType = newClientData;
+    //   print('responseData2 client Type ${clientType['clientType']}');
+    //   clientTypeInt = (clientType.isEmpty  || clientTypeInt == null) ? 0 : clientType['clientType']['id'];
+    //   sectorId = clientType.isEmpty ? '' : clientType['employmentSector']['id'];
+    //   //print('sector ID ${sectorId}');
+    // });
+    //
+    // print('client Type ${clientTypeInt} ');
     setState(() {
       clientType = newClientData;
-      //print('responseData2 client Type ${clientType}');
-      clientTypeInt = clientType.isEmpty ? '' : clientType['clientType']['id'];
-      sectorId = clientType.isEmpty ? '' : clientType['employmentSector']['id'];
-      //print('sector ID ${sectorId}');
+      print('responseData2 client Type ${clientType['clientType']}');
+
+      clientTypeInt = (clientType['clientType'].isEmpty || clientType['clientType']['id'] == null) ? 0 : clientType['clientType']['id'];
+      sectorId = clientType.isEmpty || clientType['employmentSector'] == null
+          ? ''
+          : clientType['employmentSector']['id'];
     });
 
-    //print('client Type ${clientTypeInt} ${clientType}');
+    print('client Type $clientTypeInt');
+
   }
 
-  getSubAccount(int?  FirstValue, int?  SecondValue) {
+  getSubAccount(int? FirstValue, int? SecondValue) {
     setState(() {
       _isLoading = true;
     });
@@ -1334,9 +1359,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       if (response['status'] == false) {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsLga'));
+        List<dynamic> mtBool = jsonDecode(prefs.getString('prefsLga')!);
 
-        if (prefs.getString('prefsMarital').isEmpty) {
+        if (prefs.getString('prefsMarital')!.isEmpty) {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1355,7 +1380,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             allLga = mtBool;
           });
 
-          for (int?  i = 0; i < mtBool.length; i++) {
+          for (int? i = 0; i! < mtBool.length; i++) {
             //print(mtBool[i]['name']);
             collectLga.add(mtBool[i]['name']);
           }
@@ -1387,7 +1412,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           allLga = newEmp;
         });
 
-        for (int?  i = 0; i < newEmp.length; i++) {
+        for (int? i = 0; i! < newEmp.length; i++) {
           //print(newEmp[i]['name']);
           collectLga.add(newEmp[i]['name']);
         }
@@ -1401,20 +1426,21 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     });
   }
 
-  getPersonalInformationJustForEmailAddress() async{
-
+  getPersonalInformationJustForEmailAddress() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int?  localclientID =   ClientInt == null ? prefs.getInt('clientId') : ClientInt;
+    int? localclientID =
+        ClientInt == null ? prefs.getInt('clientId') : ClientInt;
     print('localInt ${localclientID}');
 
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
     print(tfaToken);
     print(token);
+
     ///clients/{clientId}/familymembers
     Response responsevv = await get(
-      AppUrl.getSingleClient + localclientID.toString(),
+      Uri.parse(AppUrl.getSingleClient + localclientID.toString()),
       headers: {
         'Content-Type': 'application/json',
         'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -1424,16 +1450,13 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     );
     print(responsevv.body);
 
-    final Map<String,dynamic> responseData2 = json.decode(responsevv.body);
+    final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
     print(responseData2);
     var newClientData = responseData2;
     setState(() {
       emailaddress.text = newClientData['emailAddress'];
     });
-
-
   }
-
 
   @override
   TextEditingController address = TextEditingController();
@@ -1455,11 +1478,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   List<Map<String, dynamic>> mergedOfflineClient = [];
 
-  String?  organization = "";
-  String?  state_ofposting = '';
-  String?  lga = '';
-  String?  salary_range = '';
-  String?  salary_payday = '';
+  String? organization = "";
+  String? state_ofposting = '';
+  String? lga = '';
+  String? salary_range = '';
+  String? salary_payday = '';
 
   bool _isLoading = false;
 
@@ -1470,14 +1493,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   AddClientProvider addClientProvider = AddClientProvider();
 
-  sendOTPForEmployer({bool isPersonalEmail}) async {
+  sendOTPForEmployer({bool? isPersonalEmail}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      setState(() {
-        otpController.text = '';
-      });
+    setState(() {
+      otpController.text = '';
+    });
 
-    int?  tempClientID =
+    int? tempClientID =
         prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     //print('this is tempLoan ID ${tempClientID}');
 
@@ -1491,20 +1514,21 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //     duration: Duration(seconds: 3),
     //   ).show(context);
     // }
- String?  passthisemail =   isPersonalEmail == true ? emailaddress.text : work_email.text;
+    String? passthisemail =
+        isPersonalEmail == true ? emailaddress.text : work_email.text;
     if (passthisemail.isEmpty || passthisemail.length < 5) {
       return Flushbar(
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.GROUNDED,
         backgroundColor: Colors.red,
         title: 'Error',
-        message: '${isPersonalEmail == true ? 'Personal' : 'Work'}  email too short',
+        message:
+            '${isPersonalEmail == true ? 'Personal' : 'Work'}  email too short',
         duration: Duration(seconds: 3),
       ).show(context);
     }
 
     if (!AppHelper().isValidAppEmail(passthisemail)) {
-
       return Flushbar(
         flushbarPosition: FlushbarPosition.TOP,
         flushbarStyle: FlushbarStyle.GROUNDED,
@@ -1513,49 +1537,44 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         message: 'Invalid email address',
         duration: Duration(seconds: 3),
       ).show(context);
-
     }
 
-    if(isPersonalEmail == false)
-      {
-        if (passthisemail.contains('@gmail') ||
-            passthisemail.contains('@yahoo') ||
-            passthisemail.contains('@ymail') ||
-            passthisemail.contains('@outlook') ||
-            passthisemail.contains('@qa.team')) {
-          return Flushbar(
-            flushbarPosition: FlushbarPosition.TOP,
-            flushbarStyle: FlushbarStyle.GROUNDED,
-            backgroundColor: Colors.red,
-            title: 'Error',
-            message: 'Kindly enter a valid work email',
-            duration: Duration(seconds: 3),
-          ).show(context);
-        }
-
+    if (isPersonalEmail == false) {
+      if (passthisemail.contains('@gmail') ||
+          passthisemail.contains('@yahoo') ||
+          passthisemail.contains('@ymail') ||
+          passthisemail.contains('@outlook') ||
+          passthisemail.contains('@qa.team')) {
+        return Flushbar(
+          flushbarPosition: FlushbarPosition.TOP,
+          flushbarStyle: FlushbarStyle.GROUNDED,
+          backgroundColor: Colors.red,
+          title: 'Error',
+          message: 'Kindly enter a valid work email',
+          duration: Duration(seconds: 3),
+        ).show(context);
       }
+    }
 
     //print('work email');
     //print(work_email.text.split('@').first);
     // String?  real_workEmail = work_email.text.split('@').first;
-    String?  real_workEmail = passthisemail;
+    String? real_workEmail = passthisemail;
 
     // final Future<Map<String,dynamic>> respose =   RetCodes().requestemployerValidation(tempClientID, real_workEmail + employerDomain);
     final Future<Map<String, dynamic>> respose =
         RetCodes().requestemployerValidation(tempClientID, real_workEmail);
 
     setState(() {
-      if(isPersonalEmail == true) {
+      if (isPersonalEmail == true) {
         _isPersonalOTPSent = true;
         _isWorkOTPSent = false;
-      }
-      else {
+      } else {
         _isWorkOTPSent = true;
         _isPersonalOTPSent = false;
       }
 
-     // isPersonalEmail ? _isPersonalOTPSent = true : _isWorkOTPSent = true;
-
+      // isPersonalEmail ? _isPersonalOTPSent = true : _isWorkOTPSent = true;
     });
     respose.then((response) {
       //print(response);
@@ -1570,9 +1589,10 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         ).show(context);
       } else {
         setState(() {
-         // _isWorkOTPSent = false;
-          isPersonalEmail ? _isPersonalOTPSent = false : _isWorkOTPSent = false;
-
+          // _isWorkOTPSent = false;
+          isPersonalEmail!
+              ? _isPersonalOTPSent = false
+              : _isWorkOTPSent = false;
         });
         Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
@@ -1586,7 +1606,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     });
   }
 
-  verifyOTPForEmployer({bool isPersonalEmail}) async {
+  verifyOTPForEmployer({bool? isPersonalEmail}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // validateOTP() async {
@@ -1603,7 +1623,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     // setState(() {
     //   _isLoading = true;
     // });
-    int?  tempClientID =
+    int? tempClientID =
         prefs.getInt('clientId') == null ? ClientInt : prefs.getInt('clientId');
     // //print('this is tempLoan ID ${tempClientID}');
     final Future<Map<String, dynamic>> respose =
@@ -1619,18 +1639,19 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       if (response['status'] == true) {
         otpController.text = '';
 
-
-          if(isPersonalEmail == false){
-            setState(() {
-              _isWorEmailVerified = true;
-              _isWorkOTPSent = false;
-              isNewWorkEmailVerified = true;
-            });
-          }
-          print('>> pers ${isPersonalEmail} >> personal email ${isPersonalEmailVerified} >> ${isPersonalEmail == true && isPersonalEmailVerified == 'false'}');
-        if( isPersonalEmail == true && (isPersonalEmailVerified == 'false' || isPersonalEmailVerified == '') ){
-
-     //    if(isPersonalEmail == true){
+        if (isPersonalEmail == false) {
+          setState(() {
+            _isWorEmailVerified = true;
+            _isWorkOTPSent = false;
+            isNewWorkEmailVerified = true;
+          });
+        }
+        print(
+            '>> pers ${isPersonalEmail} >> personal email ${isPersonalEmailVerified} >> ${isPersonalEmail == true && isPersonalEmailVerified == 'false'}');
+        if (isPersonalEmail == true &&
+            (isPersonalEmailVerified == 'false' ||
+                isPersonalEmailVerified == '')) {
+          //    if(isPersonalEmail == true){
           debugPrint('fired in');
           postEmailValStatus();
           _isPersonalOTPSent = false;
@@ -1674,7 +1695,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   Widget build(BuildContext context) {
     var submitEmploymentInfo = () async {
       //return   MyRouter.pushPage(context, ResidentialDetails());
-      final isValid = _form.currentState.validate();
+      final isValid = _form.currentState!.validate();
       if (!isValid) {
         return;
       }
@@ -1693,20 +1714,22 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         ).show(context);
       }
 
-    //  String?  fetchWorkMail =  employmentProfile.isEmpty || employmentProfile[0]['emailAddress'] == null ? '' : employmentProfile[0]['emailAddress'];
+      //  String?  fetchWorkMail =  employmentProfile.isEmpty || employmentProfile[0]['emailAddress'] == null ? '' : employmentProfile[0]['emailAddress'];
 
-      String?  fetchWorkMail = (employmentProfile.isNotEmpty && employmentProfile[0]['emailAddress'] is String)
+      String? fetchWorkMail = (employmentProfile.isNotEmpty &&
+              employmentProfile[0]['emailAddress'] is String)
           ? employmentProfile[0]['emailAddress']
           : '';
       print('fetch work mail >> ${fetchWorkMail}');
-      print('fetch mail > > ${isNewWorkEmailVerified == false && (work_email.text != fetchWorkMail)}> ${fetchWorkMail != work_email.text}  ${isNewWorkEmailVerified}');
-        // true && true
+      print(
+          'fetch mail > > ${isNewWorkEmailVerified == false && (work_email.text != fetchWorkMail)}> ${fetchWorkMail != work_email.text}  ${isNewWorkEmailVerified}');
+      // true && true
 
-      if(isNewWorkEmailVerified == false && ( fetchWorkMail != work_email.text)){
-
+      if (isNewWorkEmailVerified == false &&
+          (fetchWorkMail != work_email.text)) {
         // if is work email is verified and
 
-        return  Flushbar(
+        return Flushbar(
           flushbarPosition: FlushbarPosition.TOP,
           flushbarStyle: FlushbarStyle.GROUNDED,
           backgroundColor: Colors.red,
@@ -1714,24 +1737,23 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
           message: 'Verify your updated email to proceed.',
           duration: Duration(seconds: 3),
         ).show(context);
-
       }
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       //  prefs.setInt('tempEmployerInt',employmentProfile.isEmpty ? null : employmentProfile[0]['id']);
-      int?  getEmpInt = prefs.getInt('tempEmployerInt');
+      int? getEmpInt = prefs.getInt('tempEmployerInt');
       setState(() {
         _isLoading = true;
       });
 
       ////print(' salary payday ${salary_payday.isEmpty}');
-      int?  localclientID =
+      int? localclientID =
           ClientInt == null ? prefs.getInt('clientId') : ClientInt;
 
       PostAndPut postAndPut = new PostAndPut();
 
       postAndPut.isClientActive(localclientID).then((value) {
-        String?  client_status = value.toString();
+        String? client_status = value.toString();
         Map<String, dynamic> employmentData = {
           'clientId': ClientInt == null ? prefs.getInt('clientId') : ClientInt,
           'id': getEmpInt == null ? null : getEmpInt,
@@ -2113,127 +2135,152 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         //
                         // ),
 
-                        Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 0),
-                            child: TypeAheadField(
-                              debounceDuration: const Duration(seconds: 1),
-                              textFieldConfiguration: TextFieldConfiguration(
-                                  controller: this._typeAheadController,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: parentEmployer == ''
-                                          ? 'Search Employer '
-                                          : parentEmployer)),
+                        // old
+                        // Container(
+                        //     padding: EdgeInsets.symmetric(
+                        //         horizontal: 20, vertical: 0),
+                        //     child: TypeAheadField(
+                        //       debounceDuration: const Duration(seconds: 1),
+                        //       textFieldConfiguration: TextFieldConfiguration(
+                        //           controller: this._typeAheadController,
+                        //           decoration: InputDecoration(
+                        //               border: OutlineInputBorder(),
+                        //               hintText: parentEmployer == ''
+                        //                   ? 'Search Employer '
+                        //                   : parentEmployer)),
+                        //
+                        //       // suggestionsBoxController: parentEmployerController,
+                        //       transitionBuilder: (context, suggestionsBox,
+                        //               animationController) =>
+                        //           FadeTransition(
+                        //         child: suggestionsBox,
+                        //         opacity: CurvedAnimation(
+                        //             parent: animationController.duration,
+                        //             curve: Curves.fastOutSlowIn),
+                        //       ),
+                        //       suggestionsCallback: (pattern) async {
+                        //         return await getSuggestions(pattern);
+                        //         //getEmployersList(realEmployerSector,value);
+                        //       },
+                        //
+                        //       itemBuilder: (context, suggestion) {
+                        //         //  //print('user suggestion ${suggestion}');
+                        //         return ListTile(
+                        //           leading: Icon(Icons.work_outlined),
+                        //           title: Text(suggestion['name']),
+                        //           // subtitle: Text('${suggestion['mobileNo']}'),
+                        //         );
+                        //       },
+                        //       noItemsFoundBuilder: (context) => Container(
+                        //         height: 100,
+                        //         child: Center(
+                        //           child: Text('No Employer Found'),
+                        //         ),
+                        //       ),
+                        //       onSuggestionSelected: (suggestion) {
+                        //         //print('suggesttion ${suggestion}');
+                        //         this._typeAheadController.text =
+                        //             suggestion['name'];
+                        //         employerInt = suggestion['id'];
+                        //         employerDomain = suggestion['emailExtension'];
+                        //         getEmployersBranch(employerInt);
+                        //         branchEmployerInt = 0;
+                        //         setState(() {
+                        //           employerState = '';
+                        //           //    branchEmployer = '';
+                        //           employerLga = '';
+                        //           address.text = '';
+                        //           employer_phone_number.text = '';
+                        //           //  _isOTPSent = false;
+                        //           employerArray = [];
+                        //         });
+                        //
+                        //         // Navigator.of(context).push(MaterialPageRoute(
+                        //         //     builder: (context) => ProductPage(product: suggestion)
+                        //         // ));
+                        //       },
+                        //     )
+                        // //
+                        // //     // TextFieldSearch(
+                        // //     //   label: 'Parent Employer',
+                        // //     //   decoration: InputDecoration(
+                        // //     //     border: OutlineInputBorder(),
+                        // //     //     //  hintText: parentEmployer == '' ? 'Search Employer ' : parentEmployer
+                        // //     //   ),
+                        // //     //   controller: _typeAheadController,
+                        // //     //   future: () {
+                        // //     //     return fetchSimpleData();
+                        // //     //   },
+                        // //     //   scrollbarDecoration: ScrollbarDecoration(
+                        // //     //       controller: ScrollController(),
+                        // //     //       theme: ScrollbarThemeData(
+                        // //     //           radius: Radius.circular(30.0),
+                        // //     //           thickness: MaterialStateProperty.all(20.0),
+                        // //     //           isAlwaysShown: true,
+                        // //     //           trackColor: MaterialStateProperty.all(Colors.red))
+                        // //     //   ),
+                        // //     //   minStringLength: 5,
+                        // //     //   getSelectedValue: (item){
+                        // //     //     //print('item ${item.label} ${item.value}');
+                        // //     //     this._typeAheadController.text = item.label;
+                        // //     //     // //print('suggesttion ${suggestion}');
+                        // //     //     employerInt = item.value;
+                        // //     //
+                        // //     //     List<dynamic> selectID =   allEmployer.where((element) => element['id'] == item.value).toList();
+                        // //     //     employerDomain = selectID.isEmpty || selectID[0]['emailExtension'] == null ? '' : selectID[0]['emailExtension'];
+                        // //     //      //   //print('selectID ${selectID}' );
+                        // //     //
+                        // //     //     //employerDomain = suggestion['emailExtension'];
+                        // //     //
+                        // //     //     getEmployersBranch(employerInt);
+                        // //     //     branchEmployerInt = 0;
+                        // //     //     setState(() {
+                        // //     //       employerState = '';
+                        // //     //     //  branchEmployer = '';
+                        // //     //       employerLga = '';
+                        // //     //       address.text = '';
+                        // //     //       employer_phone_number.text = '';
+                        // //     //      // _isOTPSent = false;
+                        // //     //       employerArray = [];
+                        // //     //     });
+                        // //     //   },
+                        // //     // ),
+                        // //
+                        // //     ),
+                        //
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
+                        // end old
 
-                              // suggestionsBoxController: parentEmployerController,
-                              transitionBuilder: (context, suggestionsBox,
-                                      animationController) =>
-                                  FadeTransition(
-                                child: suggestionsBox,
-                                opacity: CurvedAnimation(
-                                    parent: animationController,
-                                    curve: Curves.fastOutSlowIn),
-                              ),
-                              suggestionsCallback: (pattern) async {
-                                return await getSuggestions(pattern);
-                                //getEmployersList(realEmployerSector,value);
-                              },
 
-                              itemBuilder: (context, suggestion) {
-                                //  //print('user suggestion ${suggestion}');
-                                return ListTile(
-                                  leading: Icon(Icons.work_outlined),
-                                  title: Text(suggestion['name']),
-                                  // subtitle: Text('${suggestion['mobileNo']}'),
-                                );
-                              },
-                              noItemsFoundBuilder: (context) => Container(
-                                height: 100,
-                                child: Center(
-                                  child: Text('No Employer Found'),
-                                ),
-                              ),
-                              onSuggestionSelected: (suggestion) {
-                                //print('suggesttion ${suggestion}');
-                                this._typeAheadController.text =
-                                    suggestion['name'];
-                                employerInt = suggestion['id'];
-                                employerDomain = suggestion['emailExtension'];
-                                getEmployersBranch(employerInt);
-                                branchEmployerInt = 0;
-                                setState(() {
-                                  employerState = '';
-                                  //    branchEmployer = '';
-                                  employerLga = '';
-                                  address.text = '';
-                                  employer_phone_number.text = '';
-                                  //  _isOTPSent = false;
-                                  employerArray = [];
-                                });
-
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (context) => ProductPage(product: suggestion)
-                                // ));
-                              },
-                            )
-
-                            // TextFieldSearch(
-                            //   label: 'Parent Employer',
-                            //   decoration: InputDecoration(
-                            //     border: OutlineInputBorder(),
-                            //     //  hintText: parentEmployer == '' ? 'Search Employer ' : parentEmployer
-                            //   ),
-                            //   controller: _typeAheadController,
-                            //   future: () {
-                            //     return fetchSimpleData();
-                            //   },
-                            //   scrollbarDecoration: ScrollbarDecoration(
-                            //       controller: ScrollController(),
-                            //       theme: ScrollbarThemeData(
-                            //           radius: Radius.circular(30.0),
-                            //           thickness: MaterialStateProperty.all(20.0),
-                            //           isAlwaysShown: true,
-                            //           trackColor: MaterialStateProperty.all(Colors.red))
-                            //   ),
-                            //   minStringLength: 5,
-                            //   getSelectedValue: (item){
-                            //     //print('item ${item.label} ${item.value}');
-                            //     this._typeAheadController.text = item.label;
-                            //     // //print('suggesttion ${suggestion}');
-                            //     employerInt = item.value;
-                            //
-                            //     List<dynamic> selectID =   allEmployer.where((element) => element['id'] == item.value).toList();
-                            //     employerDomain = selectID.isEmpty || selectID[0]['emailExtension'] == null ? '' : selectID[0]['emailExtension'];
-                            //      //   //print('selectID ${selectID}' );
-                            //
-                            //     //employerDomain = suggestion['emailExtension'];
-                            //
-                            //     getEmployersBranch(employerInt);
-                            //     branchEmployerInt = 0;
-                            //     setState(() {
-                            //       employerState = '';
-                            //     //  branchEmployer = '';
-                            //       employerLga = '';
-                            //       address.text = '';
-                            //       employer_phone_number.text = '';
-                            //      // _isOTPSent = false;
-                            //       employerArray = [];
-                            //     });
-                            //   },
-                            // ),
-
-                            ),
-
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: CustomAutocompleteField(
+                            hintText: parentEmployer ?? 'Search Employer',
+                            getSuggestions: getSuggestions,
+                            onSuggestionSelected: (suggestion) {
+                              // Handle what to do with the selected suggestion
+                              print('Selected: ${suggestion['name']}');
+                              this._typeAheadController.text = suggestion['name'];
+                              employerInt = suggestion['id'];
+                              employerDomain = suggestion['emailExtension'];
+                              getEmployersBranch(employerInt);
+                              branchEmployerInt = 0;
+                            },
+                          ),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
+
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: DropDownComponent(
                               items: BranchEmployerArray,
-                              onChange: (String?  item) {
+                              onChange: (String? item) {
                                 setState(() {
                                   List<dynamic> selectID = allBranchEmployer
                                       .where(
@@ -2251,7 +2298,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                               },
                               label: "Organization Branch * ",
                               selectedItem: branchEmployer,
-                              validator: (String?  item) {
+                              validator: (String? item) {
                                 if (branchEmployerInt == 0) {
                                   return 'Employer branch cannot be empty';
                                 }
@@ -2267,7 +2314,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         horizontal: 20, vertical: 10),
                                     child: DropDownComponent(
                                         items: stateArray,
-                                        onChange: (String?  item) {
+                                        onChange: (String? item) {
                                           setState(() {
                                             List<dynamic> selectID = allStates
                                                 .where((element) =>
@@ -2283,14 +2330,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         },
                                         label: "State Of Employment *",
                                         selectedItem: employerState,
-                                        validator: (String?  item) {}),
+                                        validator: (String? item) {}),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     child: DropDownComponent(
                                         items: lgaArray,
-                                        onChange: (String?  item) {
+                                        onChange: (String? item) {
                                           setState(() {
                                             List<dynamic> selectID = allLga
                                                 .where((element) =>
@@ -2305,7 +2352,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         },
                                         label: "LGA * ",
                                         selectedItem: employerLga,
-                                        validator: (String?  item) {
+                                        validator: (String? item) {
                                           if (lgaInt == 0 || lgaInt == null) {
                                             return 'LGA is required';
                                           }
@@ -2322,7 +2369,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                           TextInputType.name,
                                           isSendOTP: false,
                                           changeValidator: (value) {
-                                        if (value.length == 0) {
+                                        if (value!.length == 0) {
                                           return "Office Address cannot be empty";
                                         }
                                       })),
@@ -2364,7 +2411,6 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             fontSize: 17,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Nunito Bold'),
-
                                       ),
                                     ),
                                   ),
@@ -2375,30 +2421,33 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     child: EntryFieldForPersonalMail(
-                                        context,
-                                        emailaddress,
-                                        ' Email Address *',
-                                        'Enter email address',
-                                        TextInputType.text,
-                                        isValidateEmployer: false,
-                                        isSuffix: true,
-                                        extension: employerDomain,
-                                        needsValidation: false,
-                                        isSendOTP: true,
-                                        isRead: true,
-                                        onBtnPressed: () {
-                                          sendOTPForEmployer(isPersonalEmail: true);
-                                        }, changeValidator: (value) {
-                                      //print('real Value ${value}');
-                                      // if (!(EmailValidator.validate(
-                                      //     emailaddress.text))) {
-                                      //   //   print('work email >> ${work_email.text}');
-                                      //   return 'Invalid email address';
-                                      //   // setState(() {
-                                      //   // return   errorText = 'Invalid email address';
-                                      //   // });
+                                      context,
+                                      emailaddress,
+                                      ' Email Address *',
+                                      'Enter email address',
+                                      TextInputType.text,
+                                      isValidateEmployer: false,
+                                      isSuffix: true,
+                                      extension: employerDomain,
+                                      needsValidation: false,
+                                      isSendOTP: true,
+                                      isRead: true,
+                                      onBtnPressed: () {
+                                        sendOTPForEmployer(
+                                            isPersonalEmail: true);
+                                      },
+                                      //     changeValidator: (value) {
+                                      //   //print('real Value ${value}');
+                                      //   // if (!(EmailValidator.validate(
+                                      //   //     emailaddress.text))) {
+                                      //   //   //   print('work email >> ${work_email.text}');
+                                      //   //   return 'Invalid email address';
+                                      //   //   // setState(() {
+                                      //   //   // return   errorText = 'Invalid email address';
+                                      //   //   // });
+                                      //   // }
                                       // }
-                                    }),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -2406,18 +2455,19 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
                                   _isPersonalOTPSent
                                       ? Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      child: EntryField(
-                                          context,
-                                          otpController,
-                                          'OTP Verification',
-                                          'Enter OTP',
-                                          TextInputType.name,
-                                          isValidateEmployer: true,
-                                          isSendOTP: false,
-                                          onBtnPressed: () {
-                                            verifyOTPForEmployer(isPersonalEmail: true);
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 10),
+                                          child: EntryField(
+                                              context,
+                                              otpController,
+                                              'OTP Verification',
+                                              'Enter OTP',
+                                              TextInputType.name,
+                                              isValidateEmployer: true,
+                                              isSendOTP: false,
+                                              onBtnPressed: () {
+                                            verifyOTPForEmployer(
+                                                isPersonalEmail: true);
                                           }))
                                       : SizedBox(),
                                   // end personal email
@@ -2434,13 +2484,12 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             fontSize: 17,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Nunito Bold'),
-
                                       ),
                                     ),
                                   ),
 
                                   Text(
-                                    errorText,
+                                    errorText!,
                                     style: TextStyle(
                                         fontSize: 13, color: Colors.redAccent),
                                   ),
@@ -2450,40 +2499,39 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                   // sectorId == 17
                                   //     ?
                                   Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 10),
-                                          child: EntryField(
-                                              context,
-                                              work_email,
-                                              'Work Email *',
-                                              'Enter work email',
-                                              TextInputType.text,
-                                              isValidateEmployer: false,
-                                              isSuffix: true,
-                                              extension: employerDomain,
-                                              needsValidation: false,
-                                              isSendOTP: true,
-                                              onBtnPressed: () {
-                                            sendOTPForEmployer(isPersonalEmail: false);
-                                          }, changeValidator: (value) {
-                                            //print('real Value ${value}');
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: EntryField(
+                                        context,
+                                        work_email,
+                                        'Work Email *',
+                                        'Enter work email',
+                                        TextInputType.text,
+                                        isValidateEmployer: false,
+                                        isSuffix: true,
+                                        extension: employerDomain,
+                                        needsValidation: false,
+                                        isSendOTP: true, onBtnPressed: () {
+                                      sendOTPForEmployer(
+                                          isPersonalEmail: false);
+                                    }, changeValidator: (value) {
+                                      //print('real Value ${value}');
 
-                                            if (
-                                            !(EmailValidator.validate(
-                                                work_email.text)
-                                            )
-                                              &&
-                                            sectorId == 17
-                                            ) {
-                                              //   print('work email >> ${work_email.text}');
-                                              return 'Invalid email address';
-                                              // setState(() {
-                                              // return   errorText = 'Invalid email address';
-                                              // });
-                                            }
-                                          }),
-                                        )
-                                      // : SizedBox()
+                                      if (!(EmailValidator.validate(
+                                              work_email.text)) &&
+                                          sectorId == 17
+                                          &&
+                                          clientTypeInt != SELF_EMPLOYED
+                                      ) {
+                                        //   print('work email >> ${work_email.text}');
+                                        return 'Invalid email address';
+                                        // setState(() {
+                                        // return   errorText = 'Invalid email address';
+                                        // });
+                                      }
+                                    }),
+                                  )
+                                  // : SizedBox()
                                   ,
                                   SizedBox(
                                     height: 10,
@@ -2502,8 +2550,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                               isValidateEmployer: true,
                                               isSendOTP: false,
                                               onBtnPressed: () {
-                                            verifyOTPForEmployer(isPersonalEmail: false);
-
+                                            verifyOTPForEmployer(
+                                                isPersonalEmail: false);
                                           }))
                                       : SizedBox(),
                                   // SizedBox(height: 10,),
@@ -2519,7 +2567,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                           TextInputType.name,
                                           isSendOTP: false,
                                           changeValidator: (value) {
-                                        if (value.length == 0) {
+                                        if (value!.length == 0) {
                                           return "Staff ID cannot be empty";
                                         }
                                       })),
@@ -2538,7 +2586,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                           TextInputType.name,
                                           isSendOTP: false,
                                           changeValidator: (value) {
-                                        if (value.length == 0) {
+                                        if (value!.length == 0) {
                                           return "Job Grade cannot be empty";
                                         }
                                       })),
@@ -2549,14 +2597,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.095,
+                                              0.065,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 0),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
-                                                .backgroundColor,
+                                                .colorScheme
+                                                .outline,
 
                                             // set border width
                                             borderRadius: BorderRadius.all(
@@ -2573,33 +2622,53 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             decoration: InputDecoration(
                                                 suffixIcon: IconButton(
                                                   onPressed: () {
+                                                   AppHelper().datePickerFlutterPlus(context: context,
+                                                        minTime: DateTime(1955, 3, 5),
+                                                       maxTime: DateTime.now()
+                                                             .add(Duration(
+                                                                 days: 0,
+                                                                 hours: 2)),
+                                                     onChanged: (date) {
+                                                         setState(() {
+                                                           String? retDate =
+                                                               retsNx360dates(
+                                                                   date);
+                                                           dateOfEmployment.text =
+                                                               retDate!;
+                                                         });
+                                                     },
+                                                        onConfirm: (date) {
+                                                       print('confirm $date');
+                                                     },
+                                                       // currentTime:
+                                                   );
                                                     // _selectDate(context);
                                                     // showDatePicker();
 
-                                                    DatePicker.showDatePicker(
-                                                        context,
-                                                        showTitleActions: true,
-                                                        minTime: DateTime(
-                                                            1955, 3, 5),
-                                                        maxTime: DateTime.now()
-                                                            .add(Duration(
-                                                                days: 0,
-                                                                hours: 2)),
-                                                        onChanged: (date) {
-                                                      print('change $date');
-                                                      setState(() {
-                                                        String?  retDate =
-                                                            retsNx360dates(
-                                                                date);
-                                                        dateOfEmployment.text =
-                                                            retDate;
-                                                      });
-                                                    }, onConfirm: (date) {
-                                                      print('confirm $date');
-                                                    },
-                                                        currentTime:
-                                                            DateTime.now(),
-                                                        locale: LocaleType.en);
+                                                    // DatePicker.showDatePicker(
+                                                    //     context,
+                                                    //     showTitleActions: true,
+                                                    //     minTime: DateTime(
+                                                    //         1955, 3, 5),
+                                                    //     maxTime: DateTime.now()
+                                                    //         .add(Duration(
+                                                    //             days: 0,
+                                                    //             hours: 2)),
+                                                    //     onChanged: (date) {
+                                                    //   print('change $date');
+                                                    //   setState(() {
+                                                    //     String? retDate =
+                                                    //         retsNx360dates(
+                                                    //             date);
+                                                    //     dateOfEmployment.text =
+                                                    //         retDate!;
+                                                    //   });
+                                                    // }, onConfirm: (date) {
+                                                    //   print('confirm $date');
+                                                    // },
+                                                    //     currentTime:
+                                                    //         DateTime.now(),
+                                                    //     locale: LocaleType.en);
                                                   },
                                                   icon: Icon(
                                                     Icons.date_range,
@@ -2612,9 +2681,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                       color: Colors.grey,
                                                       width: 0.6),
                                                 ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color: Colors.grey,
+                                                      width: 1),
+                                                ),
                                                 border: OutlineInputBorder(),
-                                                labelText:
-                                                    'Date Of Employmennt',
+                                                labelText: 'Date Of Employment',
                                                 //      floatingLabelStyle: TextStyle(color:Color(0xff205072)),
                                                 hintText: 'Date Of Employment',
                                                 hintStyle: TextStyle(
@@ -2626,8 +2700,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                         'Nunito SansRegular',
                                                     color: Theme.of(context)
                                                         .textTheme
-                                                        .headline2
-                                                        .color)),
+                                                        .displayMedium
+                                                        ?.color)),
                                             textInputAction:
                                                 TextInputAction.done,
                                           ),
@@ -2642,14 +2716,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.095,
+                                              0.065,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 0),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
-                                                .backgroundColor,
+                                                .colorScheme
+                                                .outline,
 
                                             // set border width
                                             borderRadius: BorderRadius.all(
@@ -2666,32 +2741,52 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             decoration: InputDecoration(
                                                 suffixIcon: IconButton(
                                                   onPressed: () {
+
+                                                    AppHelper().datePickerFlutterPlus(context: context,
+                                                          minTime: DateTime(
+                                                              1955, 3, 5),
+                                                          maxTime: DateTime.now()
+                                                              .subtract(Duration(
+                                                                  days: 6575)),
+                                                          onChanged: (date) {
+                                                        print('change $date');
+                                                        setState(() {
+                                                          String? retDate =
+                                                              retsNx360dates(
+                                                                  date);
+                                                          payrollDob.text =
+                                                              retDate!;
+                                                        });
+                                                      }, onConfirm: (date) {
+                                                        print('confirm $date');
+                                                      },
+                                                    );
                                                     // _selectDate(context);
                                                     // showDatePicker();
 
-                                                    DatePicker.showDatePicker(
-                                                        context,
-                                                        showTitleActions: true,
-                                                        minTime: DateTime(
-                                                            1955, 3, 5),
-                                                        maxTime: DateTime.now()
-                                                            .subtract(Duration(
-                                                                days: 6575)),
-                                                        onChanged: (date) {
-                                                      print('change $date');
-                                                      setState(() {
-                                                        String?  retDate =
-                                                            retsNx360dates(
-                                                                date);
-                                                        payrollDob.text =
-                                                            retDate;
-                                                      });
-                                                    }, onConfirm: (date) {
-                                                      print('confirm $date');
-                                                    },
-                                                        currentTime:
-                                                            DateTime.now(),
-                                                        locale: LocaleType.en);
+                                                    // DatePicker.showDatePicker(
+                                                    //     context,
+                                                    //     showTitleActions: true,
+                                                    //     minTime: DateTime(
+                                                    //         1955, 3, 5),
+                                                    //     maxTime: DateTime.now()
+                                                    //         .subtract(Duration(
+                                                    //             days: 6575)),
+                                                    //     onChanged: (date) {
+                                                    //   print('change $date');
+                                                    //   setState(() {
+                                                    //     String? retDate =
+                                                    //         retsNx360dates(
+                                                    //             date);
+                                                    //     payrollDob.text =
+                                                    //         retDate!;
+                                                    //   });
+                                                    // }, onConfirm: (date) {
+                                                    //   print('confirm $date');
+                                                    // },
+                                                    //     currentTime:
+                                                    //         DateTime.now(),
+                                                    //     locale: LocaleType.en);
                                                   },
                                                   icon: Icon(
                                                     Icons.date_range,
@@ -2703,6 +2798,12 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                   borderSide: const BorderSide(
                                                       color: Colors.grey,
                                                       width: 0.6),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color: Colors.grey,
+                                                      width: 1),
                                                 ),
                                                 border: OutlineInputBorder(),
                                                 labelText:
@@ -2719,8 +2820,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                         'Nunito SansRegular',
                                                     color: Theme.of(context)
                                                         .textTheme
-                                                        .headline2
-                                                        .color)),
+                                                        .displayMedium
+                                                        ?.color)),
                                             textInputAction:
                                                 TextInputAction.done,
                                           ),
@@ -2734,7 +2835,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         horizontal: 20, vertical: 10),
                                     child: DropDownComponent(
                                         items: salaryArray,
-                                        onChange: (String?  item) {
+                                        onChange: (String? item) {
                                           setState(() {
                                             List<dynamic> selectID = allSalary
                                                 .where((element) =>
@@ -2749,7 +2850,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                         },
                                         label: "Salary Range * ",
                                         selectedItem: salary_range,
-                                        validator: (String?  item) {
+                                        validator: (String? item) {
                                           if (item == null || item.isEmpty) {
                                             return 'Enter salary range';
                                           }
@@ -2762,14 +2863,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.095,
+                                              0.065,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 0),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
-                                                .backgroundColor,
+                                                .colorScheme
+                                                .outline,
 
                                             // set border width
                                             borderRadius: BorderRadius.all(
@@ -2786,40 +2888,70 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                             decoration: InputDecoration(
                                                 suffixIcon: IconButton(
                                                   onPressed: () {
+
+                                                    AppHelper().datePickerFlutterPlus(context: context,
+                                                          minTime: DateTime.now()
+                                                              .add(Duration(
+                                                                  days: 0,
+                                                                  hours: 1)),
+                                                          maxTime: DateTime.now()
+                                                              .add(Duration(days: 30, hours: 0)),
+                                                          onChanged: (date) {
+                                                        print('change $date');
+                                                        setState(() {
+                                                          String? retDate =
+                                                              retsNx360dates(
+                                                                  date);
+                                                          salaryPayDayController
+                                                              .text = retDate!;
+                                                        });
+                                                      }, onConfirm: (date) {
+                                                        print('confirm $date');
+                                                      },
+                                                    );
                                                     // _selectDate(context);
                                                     // showPayDayPicker();
-                                                    DatePicker.showDatePicker(
-                                                        context,
-                                                        showTitleActions: true,
-                                                        minTime: DateTime.now()
-                                                            .add(Duration(
-                                                                days: 0,
-                                                                hours: 1)),
-                                                        maxTime: DateTime.now()
-                                                            .add(Duration(days: 30, hours: 0)),
-                                                        onChanged: (date) {
-                                                      print('change $date');
-                                                      setState(() {
-                                                        String?  retDate =
-                                                            retsNx360dates(
-                                                                date);
-                                                        salaryPayDayController
-                                                            .text = retDate;
-                                                      });
-                                                    }, onConfirm: (date) {
-                                                      print('confirm $date');
-                                                    },
-                                                        currentTime:
-                                                            DateTime.now().add(
-                                                                Duration(
-                                                                    days: 0,
-                                                                    hours: 2)),
-                                                        locale: LocaleType.en);
+
+                                                    // DatePicker.showDatePicker(
+                                                    //     context,
+                                                    //     showTitleActions: true,
+                                                    //     minTime: DateTime.now()
+                                                    //         .add(Duration(
+                                                    //             days: 0,
+                                                    //             hours: 1)),
+                                                    //     maxTime: DateTime.now()
+                                                    //         .add(Duration(days: 30, hours: 0)),
+                                                    //     onChanged: (date) {
+                                                    //   print('change $date');
+                                                    //   setState(() {
+                                                    //     String? retDate =
+                                                    //         retsNx360dates(
+                                                    //             date);
+                                                    //     salaryPayDayController
+                                                    //         .text = retDate!;
+                                                    //   });
+                                                    // }, onConfirm: (date) {
+                                                    //   print('confirm $date');
+                                                    // },
+                                                    //     currentTime:
+                                                    //         DateTime.now().add(
+                                                    //             Duration(
+                                                    //                 days: 0,
+                                                    //                 hours: 2)),
+                                                    //     locale: LocaleType.en);
+
+
                                                   },
                                                   icon: Icon(
                                                     Icons.date_range,
                                                     color: Colors.blue,
                                                   ),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color: Colors.grey,
+                                                      width: 1),
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
@@ -2840,8 +2972,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                                                         'Nunito SansRegular',
                                                     color: Theme.of(context)
                                                         .textTheme
-                                                        .headline2
-                                                        .color)),
+                                                        .displayMedium
+                                                        ?.color)),
                                             textInputAction:
                                                 TextInputAction.done,
                                           ),
@@ -2875,6 +3007,28 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         ),
       ),
     );
+  }
+
+  datePickerFlutterPlus(){
+   return picker.DatePicker.showDatePicker(context,
+        showTitleActions: true,
+        minTime: DateTime(2018, 3, 5),
+        maxTime: DateTime(2019, 6, 7),
+        theme: picker.DatePickerTheme(
+            headerColor: Colors.orange,
+            backgroundColor: Colors.blue,
+            itemStyle: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
+            doneStyle:
+            TextStyle(color: Colors.white, fontSize: 16)),
+        onChanged: (date) {
+          print('change $date in time zone ' +
+              date.timeZoneOffset.inHours.toString());
+        }, onConfirm: (date) {
+          print('confirm $date');
+        }, currentTime: DateTime.now(), locale: picker.LocaleType.en);
   }
 
   // Widget EntryField(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{bool isPassword = false}){
@@ -2929,24 +3083,23 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   //
   // }
 
-  Widget EntryField(BuildContext context, var editController, String?  labelText,
-      String?  hintText, var keyBoard,
+  Widget EntryField(BuildContext context, var editController, String? labelText,
+      String? hintText, var keyBoard,
       {bool isValidateEmployer = false,
       bool isSendOTP = true,
       var maxLenghtAllow,
-      VoidCallback onBtnPressed,
+      VoidCallback? onBtnPressed,
       bool isSuffix = false,
-      String?  extension,
+      String? extension,
       bool needsValidation = true,
-      VoidCallback changeValidator}
-      ) {
+      FormFieldValidator<String>? changeValidator}) {
     var MediaSize = MediaQuery.of(context).size;
     return Container(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.outline,
 
             // set border width
             borderRadius: BorderRadius.all(
@@ -2959,9 +3112,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             controller: editController,
             validator: changeValidator,
             decoration: InputDecoration(
-                prefixIcon:
-                  isSendOTP == true
-                ?
+                prefixIcon: isSendOTP == true
+                    ?
                     // _isWorEmailVerified == true
                     //     ? SizedBox()
                     // :
@@ -3002,14 +3154,17 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         // child: isSuffix
                         //     ? Text(extension == null ? '' : extension)
                         //     : Text(''),
-                  child: isSuffix
-                      ?
-                  // Text(extension == null ? '' : extension)
-                  verificationStatus()
-                      : Text(''),
+                        child: isSuffix
+                            ?
+                            // Text(extension == null ? '' : extension)
+                            verificationStatus()
+                            : Text(''),
                       ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.grey, width: 0.6),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 1),
                 ),
                 border: OutlineInputBorder(),
                 labelText: labelText,
@@ -3020,7 +3175,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                     color: Colors.grey, fontFamily: 'Nunito SansRegular'),
                 labelStyle: TextStyle(
                     fontFamily: 'Nunito SansRegular',
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.displayMedium?.color),
                 counter: SizedBox.shrink()),
             textInputAction: TextInputAction.next,
           ),
@@ -3029,139 +3184,127 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     );
   }
 
-  Widget EntryFieldForPersonalMail(BuildContext context,var editController,String?  labelText,String?  hintText ,var keyBoard,{
-    bool isPassword = false,
-    var maxLenghtAllow,
-    bool isRead = false,
-    bool needsValidation = true,
-    // new
-    bool isValidateEmployer = false,
-    bool isSendOTP = false,
-
-    VoidCallback onBtnPressed,
-    bool isSuffix = false,
-    String?  extension,
-
-    VoidCallback changeValidator
-
-  }){
+  Widget EntryFieldForPersonalMail(BuildContext context, var editController,
+      String? labelText, String? hintText, var keyBoard,
+      {bool isPassword = false,
+      var maxLenghtAllow,
+      bool isRead = false,
+      bool needsValidation = true,
+      // new
+      bool isValidateEmployer = false,
+      bool isSendOTP = false,
+      VoidCallback? onBtnPressed,
+      bool isSuffix = false,
+      String? extension,
+      VoidCallback? changeValidator}) {
     var MediaSize = MediaQuery.of(context).size;
-    return
-      Container(
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.outline,
 
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
+            // set border width
+            borderRadius: BorderRadius.all(
+                Radius.circular(5.0)), // set rounded corner radius
+          ),
+          child: TextFormField(
+            readOnly: isRead,
+            maxLength: maxLenghtAllow,
+            textCapitalization: TextCapitalization.words,
+            style: TextStyle(fontFamily: 'Nunito SansRegular'),
+            keyboardType: keyBoard,
+            onChanged: (value) {
+              editController.value = TextEditingValue(
+                  text: toBeginningOfSentenceCase(value)!,
+                  selection: editController.selection);
+            },
+            controller: editController,
 
-              // set border width
-              borderRadius: BorderRadius.all(
-                  Radius.circular(5.0)), // set rounded corner radius
-            ),
-            child:
-            TextFormField(
-              readOnly: isRead,
-              maxLength: maxLenghtAllow,
-              textCapitalization: TextCapitalization.words,
-              style: TextStyle(fontFamily: 'Nunito SansRegular'),
-              keyboardType: keyBoard,
-              onChanged: (value) {
-                editController.value =
-                    TextEditingValue(
-                        text: toBeginningOfSentenceCase(value),
-                        selection: editController.selection);
-              },
-              controller: editController,
-
-              validator: (value) {
-
-                if(needsValidation){
-
-                  if(value.isEmpty){
-                    return 'Field cannot be empty';
-                  }
-
-                  // else if(!EmailValidator.validate(emailaddress.text)){
-                  //   return 'Invalid email address';
-                  // }
-
-                }
-                else {
-                  // no need for validation
+            validator: (value) {
+              if (needsValidation) {
+                if (value!.isEmpty) {
+                  return 'Field cannot be empty';
                 }
 
-              },
+                // else if(!EmailValidator.validate(emailaddress.text)){
+                //   return 'Invalid email address';
+                // }
+              } else {
+                // no need for validation
+              }
+            },
 
+            // onSaved: (value) => vals = value,
 
-              // onSaved: (value) => vals = value,
-
-              decoration: InputDecoration(
-                  prefixIcon: isSendOTP == true
-                      ?
-                  // isPersonalEmailVerified == 'true'
-                  //     ? SizedBox()
-                  //     :
-                  TextButton(
-                    // disabledColor: Colors.blueGrey,
-                    onPressed: onBtnPressed,
-                    child: Container(
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff077DBB),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          'Send Otp',
-                          style:
-                          TextStyle(fontSize: 10, color: Colors.white),
-                        )),
-                  )
-
-                      : null,
-
-                  suffixIcon: isValidateEmployer == true
-                      ? TextButton(
-                    // disabledColor: Colors.blueGrey,
-                    onPressed: onBtnPressed,
-                    child: Container(
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff077DBB),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          'Verify OTP',
-                          style:
-                          TextStyle(fontSize: 15, color: Colors.white),
-                        )),
-                  )
-                      : Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 5),
-                    child: isSuffix
-                        ?
-                    // Text(extension == null ? '' : extension)
-               verificationStatusForPersonal()
-                        : Text(''),
-                  ),
-                  focusedBorder:OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey, width: 0.6),
-                  ),
-                  border: OutlineInputBorder(
-
-                  ),
-                  labelText: labelText,
-                  //  floatingLabelStyle: TextStyle(color:Color(0xff205072)),
-                  hintText: hintText,
-                  hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Nunito SansRegular'),
-                  labelStyle: TextStyle(fontFamily: 'Nunito SansRegular',color: Theme.of(context).textTheme.headline2.color),
-                  counter: SizedBox.shrink()
-              ),
-              textInputAction: TextInputAction.next,
-            ),
+            decoration: InputDecoration(
+                prefixIcon: isSendOTP == true
+                    ?
+                    // isPersonalEmailVerified == 'true'
+                    //     ? SizedBox()
+                    //     :
+                    TextButton(
+                        // disabledColor: Colors.blueGrey,
+                        onPressed: onBtnPressed,
+                        child: Container(
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Color(0xff077DBB),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'Send Otp',
+                              style:
+                                  TextStyle(fontSize: 10, color: Colors.white),
+                            )),
+                      )
+                    : null,
+                suffixIcon: isValidateEmployer == true
+                    ? TextButton(
+                        // disabledColor: Colors.blueGrey,
+                        onPressed: onBtnPressed,
+                        child: Container(
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Color(0xff077DBB),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'Verify OTP',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white),
+                            )),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 10, right: 5),
+                        child: isSuffix
+                            ?
+                            // Text(extension == null ? '' : extension)
+                            verificationStatusForPersonal()
+                            : Text(''),
+                      ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 0.6),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey, width: 1),
+                ),
+                border: OutlineInputBorder(),
+                labelText: labelText,
+                //  floatingLabelStyle: TextStyle(color:Color(0xff205072)),
+                hintText: hintText,
+                hintStyle: TextStyle(
+                    color: Colors.grey, fontFamily: 'Nunito SansRegular'),
+                labelStyle: TextStyle(
+                    fontFamily: 'Nunito SansRegular',
+                    color: Theme.of(context).textTheme.displayMedium?.color),
+                counter: SizedBox.shrink()),
+            textInputAction: TextInputAction.next,
           ),
         ),
-      );
+      ),
+    );
   }
 
   // _selectDate(BuildContext context) async {
@@ -3209,14 +3352,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 
   retsNx360dates(DateTime selected) {
     //print(selected);
-    String?  newdate = selectedDate.toString().substring(0, 10);
+    String? newdate = selectedDate.toString().substring(0, 10);
     //print(newdate);
 
-    String?  formattedDate = DateFormat.yMMMMd().format(selected);
+    String? formattedDate = DateFormat.yMMMMd().format(selected);
 
     //print(formattedDate);
 
-    String?  removeComma = formattedDate.replaceAll(",", "");
+    String? removeComma = formattedDate.replaceAll(",", "");
     //print('removeComma');
     //print(removeComma);
 
@@ -3224,15 +3367,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
     //14 December 2011
 
     //[January, 18, 1991]
-    String?  o1 = wordList[0];
-    String?  o2 = wordList[1];
-    String?  o3 = wordList[2];
+    String? o1 = wordList[0];
+    String? o2 = wordList[1];
+    String? o3 = wordList[2];
 
-    String?  newOO = o2.length == 1 ? '0' + '' + o2 : o2;
+    String? newOO = o2.length == 1 ? '0' + '' + o2 : o2;
 
     //print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + o1 + " " + o3;
+    String? concatss = newOO + " " + o1 + " " + o3;
 
     //print("concatss");
     //print(concatss);
@@ -3259,10 +3402,10 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         setState(() {
                           CupertinoSelectedDate = value;
                           //print(CupertinoSelectedDate);
-                          String?  retDate =
+                          String? retDate =
                               retsNx360dates(CupertinoSelectedDate);
                           //print('ret Date ${retDate}');
-                          dateOfEmployment.text = retDate;
+                          dateOfEmployment.text = retDate!;
                         });
                     },
                     initialDateTime:
@@ -3275,9 +3418,9 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String?  retDate = retsNx360dates(CupertinoSelectedDate);
+                    String? retDate = retsNx360dates(CupertinoSelectedDate);
                     //print('ret Date ${retDate}');
-                    dateOfEmployment.text = retDate;
+                    dateOfEmployment.text = retDate!;
                     Navigator.of(context).pop();
                   },
                 )
@@ -3288,12 +3431,12 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   }
 
   Widget verificationStatus() {
-    final bool isWorkEmailVerStatus =  _isWorEmailVerified;
+    final bool? isWorkEmailVerStatus = _isWorEmailVerified;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: isWorkEmailVerStatus ? Color(0xffECFDF3) : Color(0xffe5a9b5),
+        color: isWorkEmailVerStatus! ? Color(0xffECFDF3) : Color(0xffe5a9b5),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -3310,7 +3453,8 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: isWorkEmailVerStatus ? Color(0xff079455) : Color(0xffd93b59),
+              color:
+                  isWorkEmailVerStatus ? Color(0xff079455) : Color(0xffd93b59),
             ),
           ),
         ],
@@ -3319,7 +3463,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
   }
 
   Widget verificationStatusForPersonal() {
-    final bool isPersonalEmailVered =  isPersonalEmailVerified == 'true';
+    final bool isPersonalEmailVered = isPersonalEmailVerified == 'true';
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -3341,15 +3485,14 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: isPersonalEmailVered ? Color(0xff079455) : Color(0xffd93b59),
+              color:
+                  isPersonalEmailVered ? Color(0xff079455) : Color(0xffd93b59),
             ),
           ),
         ],
       ),
     );
   }
-
-
 
   showPayDayPicker() {
     showCupertinoModalPopup(
@@ -3369,12 +3512,12 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         setState(() {
                           PayDayCupertinoSelectedDate = value;
                           print(PayDayCupertinoSelectedDate);
-                          String?  retDate =
+                          String? retDate =
                               retsNx360dates(PayDayCupertinoSelectedDate);
                           //print('ret Date ${retDate}');
 
-                          String?  newSalary;
-                          salaryPayDayController.text = retDate;
+                          String? newSalary;
+                          salaryPayDayController.text = retDate!;
                         });
                     },
                     // initialDateTime: DateTime.now(),
@@ -3394,10 +3537,10 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                 CupertinoButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    String?  retDate =
+                    String? retDate =
                         retsNx360dates(PayDayCupertinoSelectedDate);
                     print('ret Date ${retDate}');
-                    salaryPayDayController.text = retDate;
+                    salaryPayDayController.text = retDate!;
                     Navigator.of(context).pop();
                   },
                 )
@@ -3407,11 +3550,11 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
         });
   }
 
-  retDOBfromBVN(String?  getDate) {
+  retDOBfromBVN(String? getDate) {
     //print('getDate ${getDate}');
 
     // 2/18/2001
-    String?  removeComma = getDate.replaceAll("-", " ");
+    String? removeComma = getDate!.replaceAll("-", " ");
     //print('new Rems ${removeComma}');
     List<String> wordList = removeComma.split(" ");
     //print(wordList[1]);
@@ -3477,15 +3620,15 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       });
     }
 
-    String?  o1 = wordList[0];
-    String?  o2 = wordList[1];
-    String?  o3 = wordList[2];
+    String? o1 = wordList[0];
+    String? o2 = wordList[1];
+    String? o3 = wordList[2];
 
-    String?  newOO = o3.length == 1 ? '0' + '' + o3 : o3;
+    String? newOO = o3.length == 1 ? '0' + '' + o3 : o3;
 
     //print('newOO ${newOO}');
 
-    String?  concatss = newOO + " " + realMonth + " " + o1;
+    String? concatss = newOO + " " + realMonth! + " " + o1;
 
     //print("concatss new Date from edit ${concatss}");
 
@@ -3548,7 +3691,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
 }
 
 class TestItem {
-  final String?  label;
+  final String? label;
   dynamic value;
 
   TestItem({required this.label, this.value});

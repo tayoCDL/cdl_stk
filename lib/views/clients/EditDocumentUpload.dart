@@ -202,7 +202,7 @@
 //
 //
 //         //
-//         if(prefs.getString('prefsProofOfResidence').isEmpty){
+//         if(prefs.getString('prefsProofOfResidence')!.isEmpty){
  //       Flushbar(
   //              flushbarPosition: FlushbarPosition.TOP,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
@@ -288,7 +288,7 @@
 //
 //
 //         //
-//         if(prefs.getString('prefsProofOfEmployment').isEmpty){
+//         if(prefs.getString('prefsProofOfEmployment')!.isEmpty){
  //       Flushbar(
   //              flushbarPosition: FlushbarPosition.TOP,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
@@ -376,7 +376,7 @@
 //
 //
 //         //
-//         if(prefs.getString('prefsProofOfEmployment').isEmpty){
+//         if(prefs.getString('prefsProofOfEmployment')!.isEmpty){
  //       Flushbar(
   //              flushbarPosition: FlushbarPosition.TOP,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
@@ -488,7 +488,7 @@
 //
 //
 //         //
-//         if(prefs.getString('prefsProofOfIdentity').isEmpty){
+//         if(prefs.getString('prefsProofOfIdentity')!.isEmpty){
  //       Flushbar(
   //              flushbarPosition: FlushbarPosition.TOP,
   //              flushbarStyle: FlushbarStyle.GROUNDED,
