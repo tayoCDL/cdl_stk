@@ -23,6 +23,7 @@ import 'package:sales_toolkit/views/clients/PersonalInfo.dart';
 import 'package:sales_toolkit/views/clients/SingleCustomerScreen.dart';
 import 'package:sales_toolkit/views/clients/add_client.dart';
 import 'package:sales_toolkit/views/main_screen.dart';
+import 'package:sales_toolkit/views/savings/savingsLists.dart';
 import 'package:sales_toolkit/views/trops/trops_issues_lists.dart';
 import 'package:sales_toolkit/widgets/ProfileShimmer.dart';
 import 'package:sales_toolkit/widgets/client_status.dart';
@@ -358,6 +359,14 @@ class _ViewClientState extends State<ViewClient> {
         MyRouter.pushPage(context, OfferScreenSubMenu(clientID: clientID,));
         //  TropIssuesLists(clientID: clientID,);
       }
+      else if(value == 'savings'){
+        //  MyRouter.pushPage(context,NewLoan(clientID: clientID,employerId: employerID,sectorID:sectorId,parentClientType:parentClient ,));
+
+        MyRouter.pushPage(context, SavingsLists(clientID: clientID,));
+        //  TropIssuesLists(clientID: clientID,);
+      }
+
+
 
 
       else {
@@ -482,6 +491,11 @@ class _ViewClientState extends State<ViewClient> {
                       PopupMenuItem(
                         value: 'offers',
                         child: Text('Offers'),
+                      ),
+
+                      PopupMenuItem(
+                        value: 'savings',
+                        child: Text('Savings'),
                       ),
 
 

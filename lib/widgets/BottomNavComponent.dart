@@ -16,9 +16,9 @@ class BottomNavComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 return    Container(
-  height: 70,
+  height: 120,
   //color: Theme.of(context).primaryColor,
-  padding: EdgeInsets.only(right: 20),
+  padding: EdgeInsets.only(right: 20, bottom:  50),
   width: MediaQuery.of(context).size.width,
   child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,6 +27,7 @@ return    Container(
       Container(
         width: MediaQuery.of(context).size.width * 0.38,
         height: 50,
+      //  padding: EdgeInsets.only(bottom:  MediaQuery.of(context).size.width * 0.58,),
         decoration: BoxDecoration(
           color: Color(0xff077DBB),
           borderRadius: BorderRadius.circular(1),

@@ -188,13 +188,25 @@ class _ClientInteractionChatState extends State<ClientInteractionChat> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var sequesttoken = prefs.getString('sequestToken');
     print('sequest Token ${sequesttoken}');
-    Response responsevv = await get(Uri.parse(
-      AppUrl.getFullDiscussWithTicketID.path + ticketID!),
+    // Response responsevv = await get(
+    //   Uri.parse(
+    //     AppUrl.getFullDiscussWithTicketID + ticketID!
+    // ),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer ${sequesttoken}',
+    //   },
+    // );
+    final url = Uri.parse(AppUrl.getFullDiscussWithTicketID + ticketID!);
+
+    Response responsevv = await get(
+      url,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${sequesttoken}',
+        'Authorization': 'Bearer $sequesttoken',
       },
     );
+
     print('this is ir ${responsevv.body}');
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);

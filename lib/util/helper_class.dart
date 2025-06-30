@@ -2,15 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 // import 'dart:html';
 
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file_safe/open_file_safe.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sales_toolkit/widgets/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
 as picker;
+
 class AppHelper{
 
   Future<void> processPdfDocument(Map<String, dynamic> singleDoc) async {
@@ -271,5 +274,58 @@ class AppHelper{
   }
 
 
+Future<List<int>> getAllowedEmployeeIds() async {
+  final remoteConfig = FirebaseRemoteConfig.instance;
+
+  await remoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: const Duration(seconds: 10),
+    minimumFetchInterval: const Duration(hours: 1),
+  ));
+
+  await remoteConfig.fetchAndActivate();
+  String allowedLoanInts =   isTestEnv == true ? 'allowedEmployee' : 'allowedId' ;
+  print('allowed Ints >> ${allowedLoanInts}');
+  final idsJson =  remoteConfig.getString(allowedLoanInts);
+  final List<dynamic> idList = jsonDecode(idsJson);
+  return idList.cast<int>();
+}
+
+
+  String extractMeaningfulError(String responseBody) {
+    try {
+      final decoded = json.decode(responseBody);
+
+      // Try to access the first error object if errors exist
+      if (decoded['errors'] is List && decoded['errors'].isNotEmpty) {
+        final error = decoded['errors'][0];
+
+        final defaultUserMessage = error['defaultUserMessage'] ?? '';
+        final globalMessage = error['userMessageGlobalisationCode'] ?? '';
+
+        // Ignore if defaultUserMessage contains noisy text like "io.netty"
+        final isNoisy = defaultUserMessage.toLowerCase().contains('io.netty');
+
+        if (!isNoisy && defaultUserMessage.isNotEmpty) {
+          return defaultUserMessage;
+        }
+
+        // Use userMessageGlobalisationCode if it's not empty
+        if (globalMessage.toString().isNotEmpty) {
+          return globalMessage.toString();
+        }
+      }
+
+      // Fallback to top-level defaultUserMessage
+      final fallbackMessage = decoded['defaultUserMessage'] ?? '';
+      if (fallbackMessage.isNotEmpty) {
+        return fallbackMessage;
+      }
+    } catch (e) {
+      // Handle JSON parse errors or missing fields
+      print('Error parsing response: $e');
+    }
+
+    return 'An unexpected error occurred';
+  }
 
 }

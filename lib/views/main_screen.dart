@@ -29,16 +29,18 @@ import '../widgets/rounded-button.dart';
 
 class MainScreen extends StatefulWidget {
   final int?  passedLoanOfficerId;
-  const MainScreen({Key? key, this.passedLoanOfficerId}) : super(key: key);
+  final bool? shouldReloadHomeScreen;
+  const MainScreen({Key? key, this.passedLoanOfficerId,this.shouldReloadHomeScreen}) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState(passedLoanOfficerId: this.passedLoanOfficerId);
+  _MainScreenState createState() => _MainScreenState(passedLoanOfficerId: this.passedLoanOfficerId,shouldReloadHomeScreen: this.shouldReloadHomeScreen);
 }
 
 class _MainScreenState extends State<MainScreen> {
   int?  passedLoanOfficerId;
+  bool? shouldReloadHomeScreen;
 
-  _MainScreenState({this.passedLoanOfficerId});
+  _MainScreenState({this.passedLoanOfficerId,this.shouldReloadHomeScreen});
 
   PageController? _pageController;
   // AppUpdateInfo _updateInfo;
@@ -218,7 +220,7 @@ var bottomItemB =   <BottomNavigationBarItem>[
 
 var routeWidgetsA = <Widget>[
 
-  HomeContent(passLoanOfficer: passedLoanOfficerId,),
+  HomeContent(passLoanOfficer: passedLoanOfficerId,shouldReloadHomeScreen: shouldReloadHomeScreen ?? true),
 
 
  // LeadList(),
@@ -426,7 +428,7 @@ Widget noLoginType(){
             borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
 
           ),
-          height: MediaQuery.of(context).size.height * 0.10,
+          height: MediaQuery.of(context).size.height * 0.13,
           child: ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),

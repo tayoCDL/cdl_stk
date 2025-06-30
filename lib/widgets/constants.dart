@@ -1,5 +1,6 @@
 String  FINERACT_PLATFORM_TENANT_ID = "default";
 //SANDBOX_KEY
+bool isTestEnv = true;
 String?  APP_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGllbnRJZCI6IjIwMDMzIiwiZXhwIjoxODIzNzkyMzc5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwOS8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwOS8ifQ.5BTl8ljxPhVmVyLr-AwDezbIvFMbhkfB1RD-mbn-Wew';
 String?  PRODUCT_INFO_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYWxlc3Rvb2xraXQiLCJleHAiOjEzMTg0NjgzOTg5LCJpYXQiOjE2NzQwNDM5ODksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJVU0VSIn1dfQ.JxQWulfn0EZ3xktGPMX-Os6wvwMF6fwREZ8OYT6UXMw';
 String?  APP_ENVIRONMENT = 'Sandbox';
@@ -14,6 +15,7 @@ String?  payload = '2cRuDzs2javu4ltVaa2Wwsx/PQS/MLGYrtP4kc1rY7fx65Ekld2zwm+qcCaJ
 String?  USSD_BEARER = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGllbnRJZCI6IjE0IiwiZXhwIjoxODA2NTgzOTM1LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwOS8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMwOS8ifQ.QDxfrOif83iI0APz_Erx3brYT7Tu0lX4io_S0zTsxkE';
 
 // PRODUCTION_KEY
+// bool isTestEnv = false;
 // String?  APP_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGllbnRJZCI6IjM1IiwiZXhwIjoxODI0OTk3NTc3LCJpc3MiOiJodHRwczovL254d3JhcHBlci5jcmVkaXRkaXJlY3QubmcvYXBpLyIsImF1ZCI6Imh0dHBzOi8vbnh3cmFwcGVyLmNyZWRpdGRpcmVjdC5uZy9hcGkvIn0.Un8t82-vGmsdcZl_QoAO_8or4A46ALBRUIkOIDv0edw';
 // String?  PRODUCT_INFO_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0YXlvIiwiZXhwIjoxMzE4NTMwMDAzNCwiaWF0IjoxNjc0NjYwMDM0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XX0.--NTO8R5CGLatz-WdUH-WXxpRRTZVTQFu9jxSMvWbPI';
 // String?  APP_ENVIRONMENT = 'Production';

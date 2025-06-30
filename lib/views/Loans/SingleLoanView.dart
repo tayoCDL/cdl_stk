@@ -2755,6 +2755,28 @@ class _SingleLoanViewState extends State<SingleLoanView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text('Insurance Allowed: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontFamily: 'Nunito SansRegular',
+                              fontSize: 16)),
+                      Text(
+                        loanDetail == null || loanDetail['isInsuranceEnabled'] == null
+                            ? '---'
+                            : ' ${loanDetail['isInsuranceEnabled']}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Nunito SansRegular',
+                            fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text('Interest Rate: ',
                           style: TextStyle(
                               fontWeight: FontWeight.w300,

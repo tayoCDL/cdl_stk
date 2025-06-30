@@ -5,6 +5,7 @@ import 'package:sales_toolkit/domain/user.dart';
 
 import 'package:http/http.dart';
 import 'package:sales_toolkit/util/app_url.dart';
+import 'package:sales_toolkit/util/helper_class.dart';
 import 'package:sales_toolkit/util/shared_preference.dart';
 import 'package:sales_toolkit/widgets/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -241,7 +242,7 @@ class AddClientProvider extends ChangeNotifier {
         notifyListeners();
         result = {
           'status': false,
-          'message': json.decode(responsevv.body)['errors'][0]['defaultUserMessage']
+          'message': AppHelper().extractMeaningfulError(responsevv.body)
         };
       }
 
@@ -260,6 +261,7 @@ class AddClientProvider extends ChangeNotifier {
       }
     }
       prefs.remove('leadToClientID');
+    print('result >> ${result}');
     return result;
 
   }

@@ -1,12 +1,12 @@
 # This is a generated file; do not edit or check into version control.
-connectivity=/Users/bl/.pub-cache/hosted/pub.dev/connectivity-3.0.6/
-connectivity_for_web=/Users/bl/.pub-cache/hosted/pub.dev/connectivity_for_web-0.4.0+1/
-connectivity_macos=/Users/bl/.pub-cache/hosted/pub.dev/connectivity_macos-0.2.1+2/
-downloads_path_provider_28=/Users/bl/.pub-cache/hosted/pub.dev/downloads_path_provider_28-0.1.2/
 file_picker=/Users/bl/.pub-cache/hosted/pub.dev/file_picker-4.6.1/
 file_selector_linux=/Users/bl/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.2+1/
 file_selector_macos=/Users/bl/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.3+3/
 file_selector_windows=/Users/bl/.pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+1/
+firebase_core=/Users/bl/.pub-cache/hosted/pub.dev/firebase_core-2.32.0/
+firebase_core_web=/Users/bl/.pub-cache/hosted/pub.dev/firebase_core_web-2.23.0/
+firebase_remote_config=/Users/bl/.pub-cache/hosted/pub.dev/firebase_remote_config-4.4.7/
+firebase_remote_config_web=/Users/bl/.pub-cache/hosted/pub.dev/firebase_remote_config_web-1.6.7/
 flutter_custom_tabs=/Users/bl/.pub-cache/hosted/pub.dev/flutter_custom_tabs-0.7.0/
 flutter_document_picker=/Users/bl/.pub-cache/hosted/pub.dev/flutter_document_picker-5.2.3/
 flutter_image_compress=/Users/bl/.pub-cache/hosted/pub.dev/flutter_image_compress-1.1.3/

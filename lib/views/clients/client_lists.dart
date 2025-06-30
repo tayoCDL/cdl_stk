@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -118,15 +118,15 @@ class _ClientListsState extends State<ClientLists> {
   // }
 
 
-  void showConnectivitySnackBar(ConnectivityResult result) {
-    final hasInternet = result != ConnectivityResult.none;
-    final message = hasInternet
-        ? 'You are connected to ${result.toString()}'
-        : 'You have no internet';
-    final color = hasInternet ? Colors.green : Colors.red;
-
-    Utils.showTopSnackBar(context, message, color);
-  }
+  // void showConnectivitySnackBar(ConnectivityResult result) {
+  //   final hasInternet = result != ConnectivityResult.none;
+  //   final message = hasInternet
+  //       ? 'You are connected to ${result.toString()}'
+  //       : 'You have no internet';
+  //   final color = hasInternet ? Colors.green : Colors.red;
+  //
+  //   Utils.showTopSnackBar(context, message, color);
+  // }
 
 
   void initState() {
@@ -136,8 +136,8 @@ class _ClientListsState extends State<ClientLists> {
      getCLientsList();
    }
 
-    subscription =
-        Connectivity().onConnectivityChanged.listen(showConnectivitySnackBar);
+    // subscription =
+    //     Connectivity().onConnectivityChanged.listen(showConnectivitySnackBar);
   //  getSearchCLientsList();
   }
 

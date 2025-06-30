@@ -461,6 +461,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
     respose.then((response) {
       setState(() {
         _isLoading = false;
+        print('>> employerData >> ${response}');
         var employerData = response['data'][0];
         minPrincipal = employerData['minPrincipal'];
         maxPrincipal = employerData['maxPrincipal'];
@@ -627,6 +628,7 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                     buttonText: 'Copy Amount',
                     onbuttonPressed: () {
                       // sendNoteForLoan(methodType,noteId);
+
                       String?  cp_text = response['suggestedAmount'].toString();
                       Clipboard.setData(ClipboardData(text: cp_text));
                       MyRouter.popPage(context);
@@ -869,7 +871,11 @@ class _RepaymentCalculatorState extends State<RepaymentCalculator> {
                                 employerInt = suggestion['id'];
                                 employerDomain = suggestion['emailExtension'];
                                 getEmployersBranch(employerInt);
+                                getLoanProductForEmployer(employerInt);
                                 branchEmployerInt = 0;
+                                setState(() {
+
+                                });
                               },
                             ),
                           ),

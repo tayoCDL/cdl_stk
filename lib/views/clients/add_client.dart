@@ -127,7 +127,7 @@ class _AddClientState extends State<AddClient> {
     //print(responsevv.body);
 
     final Map<String, dynamic> responseData2 = json.decode(responsevv.body);
-    //print(responseData2);
+    print('responseData2 new clinet >> ${responseData2}');
     var newClientData = responseData2;
     setState(() {
       employerSector = newClientData['employmentSector']['name'];
@@ -146,7 +146,8 @@ class _AddClientState extends State<AddClient> {
       otpValidationStatus = true;
       //  maritalInt = newClientData['maritalStatus']['id'];
       //  educationInt = newClien tData['educationLevel']['id'];
-      // TempdateOfBirth = retDOBfromBVN('${newClientData['dateOfBirth'][0]}-${newClientData['dateOfBirth'][1]}-${newClientData['dateOfBirth'][2]}');
+    //  TempdateOfBirth
+     //  TempdateOfBirth = retDOBfromBVN('${newClientData['dateOfBirth'][0]}-${newClientData['dateOfBirth'][1]}-${newClientData['dateOfBirth'][2]}');
     });
 
     //  prefs.setInt('tempClientInt', personalInfo.isEmpty ? null :  personalInfo['id']);
@@ -934,7 +935,7 @@ class _AddClientState extends State<AddClient> {
                               onbuttonPressed: () async {
                                 //    //print('isRequestLoading ${isRequestLoading}');
                                 //  confirmOTP();
-                                //print('new newtemp date ${retDOBfromBVN(TempdateOfBirth)} ${dobController.text}');
+                                print('new newtemp date $TempdateOfBirth ${retDOBfromBVN(TempdateOfBirth)} ${dobController.text}');
 
                                 String? compA = retDOBfromBVN(TempdateOfBirth);
                                 String? compB = dobController.text;
@@ -1798,4 +1799,57 @@ class _AddClientState extends State<AddClient> {
 
     return concatss;
   }
+  // String? retDOBfromBVN(dynamic getDate) {
+  //   int? year;
+  //   int? month;
+  //   int? day;
+  //
+  //   // Check if getDate is a list (e.g. [1989, 6, 24])
+  //   if (getDate is List && getDate.length == 3) {
+  //     year = int.tryParse(getDate[0].toString());
+  //     month = int.tryParse(getDate[1].toString());
+  //     day = int.tryParse(getDate[2].toString());
+  //   }
+  //   // Check if getDate is a string (e.g. "1989-06-24")
+  //   else if (getDate is String && getDate.length >= 8) {
+  //     final parts = getDate.split(RegExp(r'[-/]'));
+  //     if (parts.length == 3) {
+  //       year = int.tryParse(parts[0]);
+  //       month = int.tryParse(parts[1]);
+  //       day = int.tryParse(parts[2]);
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  //
+  //   // Ensure valid date parts
+  //   if (year == null || month == null || day == null) return null;
+  //
+  //   const monthNames = {
+  //     1: 'January',
+  //     2: 'February',
+  //     3: 'March',
+  //     4: 'April',
+  //     5: 'May',
+  //     6: 'June',
+  //     7: 'July',
+  //     8: 'August',
+  //     9: 'September',
+  //     10: 'October',
+  //     11: 'November',
+  //     12: 'December',
+  //   };
+  //
+  //   final monthName = monthNames[month];
+  //   if (monthName == null) return null;
+  //
+  //   final dayStr = day.toString().padLeft(2, '0');
+  //
+  //   setState(() {
+  //     realMonth = monthName;
+  //   });
+  //
+  //   return '$dayStr $monthName $year';
+  // }
+
 }

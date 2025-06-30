@@ -205,8 +205,8 @@ static const String  USSD_BASE_URL = 'https://ussdstaging.creditdirect.ng/api/v1
     '${sequestbaseUrl}RequestLog/getOutgoingRequest/';
   static final Uri getOpportunityLoggedByMe =
       Uri.parse('${sequestbaseUrl}RequestLog/getOutgoingSequestType/8/');
-  static final Uri getFullDiscussWithTicketID =
-      Uri.parse('${sequestbaseUrl}RequestLog/getRequest/');
+  static final String getFullDiscussWithTicketID =
+      '${sequestbaseUrl}RequestLog/getRequest/';
   static final Uri replyTicket =
       Uri.parse('${sequestbaseUrl}RequestLog/replyticket');
   static final String getAvailableStatusByTicket =
@@ -304,5 +304,12 @@ static const String  USSD_BASE_URL = 'https://ussdstaging.creditdirect.ng/api/v1
   String getOrPostEmailValidationStatus(int? clientId, bool isGeneric) {
     return baseUrl! +
         'datatables/m_client_kyc_validation_status/${clientId}?genericResultSet=${isGeneric}';
+  }
+
+  String getSavingsAccount(int? clientId) {
+    return baseUrl! + 'clients/${clientId}/accounts?fields=savingsAccounts';
+  }
+ String getSavingsAccountDetails(int? savingsAccountId) {
+    return baseUrl! + 'savingsaccounts/${savingsAccountId}?associations=all';
   }
 }

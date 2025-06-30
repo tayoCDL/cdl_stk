@@ -526,7 +526,7 @@ class RetCodes {
     return result;
   }
 
-  Future<Map<String, dynamic>> employers(int?  sector, String?  name) async {
+  Future<Map<String, dynamic>> employers(int?  sector, String?  name,{int? stateId,int? lgaId}) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -539,7 +539,7 @@ class RetCodes {
 
     try {
       Response responsevv = await get(
-       Uri.parse( AppUrl.allEmployers + '&employerType=${sector}&name=${name}'),
+       Uri.parse( AppUrl.allEmployers + '&employerType=${sector}&name=${name}&stateId=${stateId}&lgaId=${lgaId}'),
         headers: {
           'Content-Type': 'application/json',
           'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
@@ -2353,6 +2353,7 @@ class RetCodes {
       "phone": subData['phone'],
       "accountNumber": subData['accountNumber'],
       "bankCode": subData['bankCode'],
+   //   "sendOtp": false
       "sendOtp": true
     };
 
@@ -3396,9 +3397,63 @@ class RetCodes {
     return result;
   }
 
+  // Future<Map<String, dynamic>> SendLoanForApproval(
+  //     var note, int?  loanID, String?  approvalType) async {
+  //   ///external/loan/{loanId}/decide
+  //   var result;
+  //
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //
+  //   var token = prefs.getString('base64EncodedAuthenticationKey');
+  //   var tfaToken = prefs.getString('tfa-token');
+  //
+  //   //base URL/loan
+  //
+  //   // loans/3636?command=draftapprove
+  //   // String?  url  = approvalType == 'auto_review' ? AppUrl.externalApprove + '${loanID}' + '/decide' : AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
+  //  // String?  url = AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
+  //   String?  url = AppUrl.newSendLoanForApproval + '${loanID}';
+  //
+  //   print('url ${url}');
+  //   Response responsevv = await post(
+  //     Uri.parse(url),
+  //     body: json.encode(note),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+  //       'Authorization': 'Basic ${token}',
+  //       'Fineract-Platform-TFA-Token': '${tfaToken}',
+  //     },
+  //   );
+  //
+  //   print('did response get here ');
+  //   print(responsevv.body);
+  //   if (responsevv.statusCode == 200) {
+  //     print(responsevv);
+  //     final Map<String, dynamic> responseData = json.decode(responsevv.body);
+  //     var fetchDoe = responseData;
+  //
+  //     result = {
+  //       'status': true,
+  //       'message': 'Successful',
+  //       'data': fetchDoe,
+  //     };
+  //   } else {
+  //     result = {
+  //       'status': false,
+  //       'message': json.decode(responsevv.body)['errors'][0]['developerMessage']
+  //     };
+  //   }
+  //
+  //   return result;
+  // }
+
+
   Future<Map<String, dynamic>> SendLoanForApproval(
-      var note, int?  loanID, String?  approvalType) async {
-    ///external/loan/{loanId}/decide
+      var note,
+      int? loanID,
+      String? approvalType,
+      ) async {
     var result;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -3406,41 +3461,55 @@ class RetCodes {
     var token = prefs.getString('base64EncodedAuthenticationKey');
     var tfaToken = prefs.getString('tfa-token');
 
-    //base URL/loan
+    String? url = AppUrl.newSendLoanForApproval + '${loanID}';
 
-    // loans/3636?command=draftapprove
-    // String?  url  = approvalType == 'auto_review' ? AppUrl.externalApprove + '${loanID}' + '/decide' : AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
-   // String?  url = AppUrl.getLoanDetails + '${loanID}?command=draftapprove';
-    String?  url = AppUrl.newSendLoanForApproval + '${loanID}';
+    print('url $url');
 
-    print('url ${url}');
-    Response responsevv = await post(
-      Uri.parse(url),
-      body: json.encode(note),
-      headers: {
-        'Content-Type': 'application/json',
-        'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
-        'Authorization': 'Basic ${token}',
-        'Fineract-Platform-TFA-Token': '${tfaToken}',
-      },
-    );
+    try {
+      Response response = await post(
+        Uri.parse(url),
+        body: json.encode(note),
+        headers: {
+          'Content-Type': 'application/json',
+          'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+          'Authorization': 'Basic $token',
+          'Fineract-Platform-TFA-Token': '$tfaToken',
+        },
+      );
 
-    print('did response get here ');
-    print(responsevv.body);
-    if (responsevv.statusCode == 200) {
-      print(responsevv);
-      final Map<String, dynamic> responseData = json.decode(responsevv.body);
-      var fetchDoe = responseData;
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
-      result = {
-        'status': true,
-        'message': 'Successful',
-        'data': fetchDoe,
-      };
-    } else {
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        result = {
+          'status': true,
+          'message': 'Successful',
+          'data': responseData,
+        };
+      } else if (response.statusCode == 400 || response.statusCode == 401) {
+        final errorResponse = json.decode(response.body);
+        result = {
+          'status': false,
+          'message': errorResponse['defaultUserMessage'] ??
+              errorResponse['errors']?[0]?['developerMessage'] ??
+              'Authentication or request error',
+        };
+      } else if (response.statusCode >= 500) {
+        result = {
+          'status': false,
+          'message': 'Server error occurred. Please try again later.',
+        };
+      } else {
+        result = {
+          'status': false,
+          'message': 'Unexpected error occurred. Code: ${response.statusCode}',
+        };
+      }
+    } catch (e) {
       result = {
         'status': false,
-        'message': json.decode(responsevv.body)['errors'][0]['developerMessage']
+        'message': 'An error occurred: ${e.toString()}',
       };
     }
 
@@ -3784,6 +3853,107 @@ class RetCodes {
 
     return result;
   }
+
+
+  Future<Map<String, dynamic>> getSavingsListsForAClient(int?  clientId) async {
+    var result;
+
+    //2645
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var token = prefs.getString('base64EncodedAuthenticationKey');
+    var tfaToken = prefs.getString('tfa-token');
+    AppUrl appUrl = AppUrl();
+    String?  request_url = appUrl.getSavingsAccount(clientId);
+    try {
+      Response responsevv = await get(
+        Uri.parse(request_url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+          'Authorization': 'Basic ${token}',
+          'Fineract-Platform-TFA-Token': '${tfaToken}',
+        },
+      );
+
+      print(responsevv.body);
+
+      if (responsevv.statusCode == 200) {
+        final Map<String,dynamic> responseData = json.decode(responsevv.body);
+        //       print('from auth provider');
+        var fetchDoe = responseData;
+        print('offers lists>> ${responseData}');
+        result = {'status': true, 'message': 'Successful', 'data': fetchDoe};
+      } else {
+        result = {'status': false, 'message': json.decode(responsevv.body)};
+      }
+    } catch (e) {
+      if (e.toString().contains('SocketException') ||
+          e.toString().contains('HandshakeException')) {
+        return result = {
+          'status': false,
+          'message': 'Network error',
+          'data': 'No Internet connection'
+        };
+      } else {
+        result = {'status': false, 'message': 'Internal server error',};
+
+      }
+    }
+
+    return result;
+  }
+
+
+  Future<Map<String, dynamic>> getSingleSavingsAccount(int?  accountId) async {
+    var result;
+
+    //2645
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var token = prefs.getString('base64EncodedAuthenticationKey');
+    var tfaToken = prefs.getString('tfa-token');
+    AppUrl appUrl = AppUrl();
+    String?  request_url = appUrl.getSavingsAccountDetails(accountId);
+    try {
+      Response responsevv = await get(
+        Uri.parse(request_url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Fineract-Platform-TenantId': FINERACT_PLATFORM_TENANT_ID,
+          'Authorization': 'Basic ${token}',
+          'Fineract-Platform-TFA-Token': '${tfaToken}',
+        },
+      );
+
+      print(responsevv.body);
+
+      if (responsevv.statusCode == 200) {
+        final Map<String,dynamic> responseData = json.decode(responsevv.body);
+        //       print('from auth provider');
+        var fetchDoe = responseData;
+        print('offers lists>> ${responseData}');
+        result = {'status': true, 'message': 'Successful', 'data': fetchDoe};
+      } else {
+        result = {'status': false, 'message': json.decode(responsevv.body)};
+      }
+    } catch (e) {
+      if (e.toString().contains('SocketException') ||
+          e.toString().contains('HandshakeException')) {
+        return result = {
+          'status': false,
+          'message': 'Network error',
+          'data': 'No Internet connection'
+        };
+      } else {
+        result = {'status': false, 'message': 'Internal server error',};
+
+      }
+    }
+
+    return result;
+  }
+
 
 
   Future<Map<String, dynamic>> getEmailValidationStatus(int?  clientId) async {

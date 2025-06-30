@@ -21,6 +21,8 @@ import 'package:sales_toolkit/widgets/client_status.dart';
 import 'package:sales_toolkit/widgets/shared/sequestCredential.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Interactions/ClientInteractionChat.dart';
+
 // import '../Interactions/t_client_chat.dart';
 
 class TropIssuesLists extends StatefulWidget {
@@ -212,7 +214,7 @@ class _TropIssuesListsState extends State<TropIssuesLists> {
                   // );
 
                   return recentInteractions(interactionData[position]['ticketId'],interactionData[position]['title'],interactionData[position]['status'],(){
-                 //   MyRouter.pushPage(context, ClientInteractionChat(ticketID: interactionData[position]['ticketId'],));
+                    MyRouter.pushPage(context, ClientInteractionChat(ticketID: interactionData[position]['ticketId'],));
 
                   },interactionData[position]['dueDate']
                   );

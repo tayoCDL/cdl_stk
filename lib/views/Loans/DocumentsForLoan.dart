@@ -9,7 +9,7 @@ import 'dart:typed_data';
 import 'package:alert_dialog/alert_dialog.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:dio/dio.dart';
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -1029,13 +1029,13 @@ class _DocumentForLoanState extends State<DocumentForLoan> {
   // }
 
   // download directory
-  Future<Directory?> getDonwloadDirectory() async {
-    if (Platform.isAndroid) {
-      return await DownloadsPathProvider.downloadsDirectory;
-    }
-    print('application document directory ${getApplicationDocumentsDirectory}');
-    return getApplicationDocumentsDirectory();
-  }
+  // Future<Directory?> getDonwloadDirectory() async {
+  //   if (Platform.isAndroid) {
+  //     return await DownloadsPathProvider.downloadsDirectory;
+  //   }
+  //   print('application document directory ${getApplicationDocumentsDirectory}');
+  //   return getApplicationDocumentsDirectory();
+  // }
 
 //
   Future startDownload(String?  savePath, String?  urlPath) async {

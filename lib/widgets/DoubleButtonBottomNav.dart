@@ -19,9 +19,9 @@ class DoubleBottomNavComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return    Container(
-      height: 70,
+      height: 110,
       color: Theme.of(context).primaryColor,
-      padding: EdgeInsets.only(right: 20,left: 20),
+      padding: EdgeInsets.only(right: 20,left: 20, bottom:  40),
       width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

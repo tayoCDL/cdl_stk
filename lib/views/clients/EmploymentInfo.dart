@@ -325,7 +325,7 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       final Future<Map<String, dynamic>> result_response =
-          RetCodes().employers(clientTypeInt, query);
+          RetCodes().employers(clientTypeInt, query,stateId: stateInt, lgaId: lgaInt);
 
       //
       result_response.then((response) async {
@@ -2253,7 +2253,65 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                         // ),
                         // end old
 
-
+                        clientTypeInt != SELF_EMPLOYED ?
+                        SizedBox()
+                        :
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: DropDownComponent(
+                                      items: stateArray,
+                                      onChange: (String? item) {
+                                        setState(() {
+                                          List<dynamic> selectID = allStates
+                                              .where((element) =>
+                                          element['name'] == item)
+                                              .toList();
+                                          stateInt = selectID[0]['id'];
+                                          employerState = selectID[0]['name'];
+                                          getSubAccount(27, stateInt);
+                                          lgaInt = 0;
+                                          //print(stateInt);
+                                          employerLga = '';
+                                        });
+                                      },
+                                      label: "State Of Employment *",
+                                      selectedItem: employerState,
+                                      validator: (String? item) {}),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: DropDownComponent(
+                                      items: lgaArray,
+                                      onChange: (String? item) {
+                                        setState(() {
+                                          List<dynamic> selectID = allLga
+                                              .where((element) =>
+                                          element['name'] == item)
+                                              .toList();
+                                          //print('this is select ID');
+                                          //print(selectID[0]['id']);
+                                          lgaInt = selectID[0]['id'];
+                                          employerLga = selectID[0]['name'];
+                                          //print('end this is select ID');
+                                        });
+                                      },
+                                      label: "LGA * ",
+                                      selectedItem: employerLga,
+                                      validator: (String? item) {
+                                        if (lgaInt == 0 || lgaInt == null) {
+                                          return 'LGA is required';
+                                        }
+                                      }),
+                                ),
+                              ],
+                            ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
@@ -2309,55 +2367,64 @@ class _EmploymentInfoState extends State<EmploymentInfo> {
                             ? Container()
                             : Column(
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    child: DropDownComponent(
-                                        items: stateArray,
-                                        onChange: (String? item) {
-                                          setState(() {
-                                            List<dynamic> selectID = allStates
-                                                .where((element) =>
+
+                                  clientTypeInt == SELF_EMPLOYED ?
+                                      SizedBox()
+                                  :
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
+                                            child: DropDownComponent(
+                                                items: stateArray,
+                                                onChange: (String? item) {
+                                                  setState(() {
+                                                    List<dynamic> selectID = allStates
+                                                        .where((element) =>
                                                     element['name'] == item)
-                                                .toList();
-                                            stateInt = selectID[0]['id'];
-                                            employerState = selectID[0]['name'];
-                                            getSubAccount(27, stateInt);
-                                            lgaInt = 0;
-                                            //print(stateInt);
-                                            employerLga = '';
-                                          });
-                                        },
-                                        label: "State Of Employment *",
-                                        selectedItem: employerState,
-                                        validator: (String? item) {}),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    child: DropDownComponent(
-                                        items: lgaArray,
-                                        onChange: (String? item) {
-                                          setState(() {
-                                            List<dynamic> selectID = allLga
-                                                .where((element) =>
+                                                        .toList();
+                                                    stateInt = selectID[0]['id'];
+                                                    employerState = selectID[0]['name'];
+                                                    getSubAccount(27, stateInt);
+                                                    lgaInt = 0;
+                                                    //print(stateInt);
+                                                    employerLga = '';
+                                                  });
+                                                },
+                                                label: "State Of Employment *",
+                                                selectedItem: employerState,
+                                                validator: (String? item) {}),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
+                                            child: DropDownComponent(
+                                                items: lgaArray,
+                                                onChange: (String? item) {
+                                                  setState(() {
+                                                    List<dynamic> selectID = allLga
+                                                        .where((element) =>
                                                     element['name'] == item)
-                                                .toList();
-                                            //print('this is select ID');
-                                            //print(selectID[0]['id']);
-                                            lgaInt = selectID[0]['id'];
-                                            employerLga = selectID[0]['name'];
-                                            //print('end this is select ID');
-                                          });
-                                        },
-                                        label: "LGA * ",
-                                        selectedItem: employerLga,
-                                        validator: (String? item) {
-                                          if (lgaInt == 0 || lgaInt == null) {
-                                            return 'LGA is required';
-                                          }
-                                        }),
-                                  ),
+                                                        .toList();
+                                                    //print('this is select ID');
+                                                    //print(selectID[0]['id']);
+                                                    lgaInt = selectID[0]['id'];
+                                                    employerLga = selectID[0]['name'];
+                                                    //print('end this is select ID');
+                                                  });
+                                                },
+                                                label: "LGA * ",
+                                                selectedItem: employerLga,
+                                                validator: (String? item) {
+                                                  if (lgaInt == 0 || lgaInt == null) {
+                                                    return 'LGA is required';
+                                                  }
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+
                                   Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 10),

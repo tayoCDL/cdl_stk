@@ -129,6 +129,7 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
   String?  submitOnLoan = '';
 
   bool isBankLoading = false;
+  bool isCalculatingSchedule = false;
 
   TextEditingController accountNumber = TextEditingController();
 
@@ -1368,11 +1369,17 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
     }
 
 
+    setState(() {
+      isCalculatingSchedule = true;
+    });
     final Future<Map<String, dynamic>> respose =
     RetCodes().calculateRepayment(repaymentSchedule);
 
     respose.then((response) {
       print('repayment schedule ${response['data']}');
+      setState(() {
+        isCalculatingSchedule = false;
+      });
       if (response['status'] == false || response['status'] == null) {
         setState(() {
           repaymentAmount = 0.0;
@@ -1726,7 +1733,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         "transactionProcessingStrategyId":
         vOverrides2!['transactionProcessingStrategyId'],
         "NextRepaymentDate":
-        !_isFederalOrState ? repaymentDate.text : alternateRepayment,
+        // !_isFederalOrState
+        ( !_isFederalOrState
+            ||
+            fullTemps!['repaymentFrequencyType']['value'] != 'Months' )
+            ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
         "charges": chargesData!.length == 0
@@ -1992,7 +2003,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         // "graceOnPrincipalPayment": 1,
         // "graceOnInterestPayment": 1,
         "NextRepaymentDate":
-        !_isFederalOrState ? repaymentDate.text : alternateRepayment,
+      //  !_isFederalOrState
+        ( !_isFederalOrState
+            ||
+            fullTemps!['repaymentFrequencyType']['value'] != 'Months' )
+            ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
         "charges": chargesData!.length == 0
@@ -2099,7 +2114,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         // "graceOnPrincipalPayment": 1,
         // "graceOnInterestPayment": 1,
         "NextRepaymentDate":
-        !_isFederalOrState ? repaymentDate.text : alternateRepayment,
+       // !_isFederalOrState
+        ( !_isFederalOrState
+            ||
+            fullTemps!['repaymentFrequencyType']['value'] != 'Months' )
+            ? repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
         "charges": chargesData!.length == 0
@@ -2192,7 +2211,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
         // "graceOnPrincipalPayment": 1,
         // "graceOnInterestPayment": 1,
         "NextRepaymentDate":
-        !_isFederalOrState ? repaymentDate.text : alternateRepayment,
+       // !_isFederalOrState ?
+        ( !_isFederalOrState
+            ||
+            fullTemps!['repaymentFrequencyType']['value'] != 'Months' ) ?
+        repaymentDate.text : alternateRepayment,
         // "graceOnInterestCharged": 1,
         "rates": [],
         "charges": chargesData!.length == 0
@@ -2415,8 +2438,31 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
-                                          'Repayment Amount NGN: ${formatCurrency.format(repaymentAmount)}'),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              'Repayment Amount : '
+                                          ),
+                                          Container(
+                                              height: 35,
+                                              child:
+                                              isCalculatingSchedule == true ?
+                                              Container(
+                                                  height: 22,
+                                                  width: 32,
+                                                  child: CircularProgressIndicator())
+                                              :
+                                              TextButton(onPressed: (){calculateReschedule();}, child: Text('Calculate >',style: TextStyle(color: ColorUtils.PRIMARY_COLOR),))),
+
+                                        ],
+                                      ),
+                                      Text('NGN ${formatCurrency.format(repaymentAmount)}',style: TextStyle( fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontFamily:
+                                          'Nunito SansRegular'),),
+
                                       SizedBox(
                                         height: 20,
                                       ),
@@ -2723,7 +2769,9 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
               height: 6,
             ),
 
-            !_isFederalOrState
+           ( !_isFederalOrState
+                ||
+                fullTemps!['repaymentFrequencyType']['value'] != 'Months' )
                 ? Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Container(
@@ -4841,13 +4889,13 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                         });
                     },
                     initialDateTime:
-                    DateTime.now().add(Duration(days: 15, hours: 0)),
+                    DateTime.now().add(Duration(days: fullTemps!['repaymentFrequencyType']['value'] == 'Months' ? 15 : 1, hours: 0)),
                     // minimumYear: 2022,
                     // maximumYear: 2022,
                     maximumDate:
-                    DateTime.now().add(Duration(days: 45, hours: 0)),
+                    DateTime.now().add(Duration(days: fullTemps!['repaymentFrequencyType']['value'] == 'Months' ? 45 : 7, hours: 0)),
                     minimumDate:
-                    DateTime.now().add(Duration(days: 14, hours: 0)),
+                    DateTime.now().add(Duration(days: fullTemps!['repaymentFrequencyType']['value'] == 'Months' ? 15 : 0, hours: 0)),
                   ),
                 ),
                 CupertinoButton(
@@ -4923,10 +4971,11 @@ class _SecondNewLoanState extends State<SecondNewLoan> {
                       (productID == FEDG0_LOAN_ID || productID == DPL_LOAN)) {
                     getRiskDetailsWithBvn();
                   }
-                  if (netpay.text.length != 0 &&
+                  if (
+                  netpay.text.length != 0 &&
                       principal.text.length != 0 &&
                       no_of_repayments.text.length != 0) {
-                    calculateReschedule();
+                 //   calculateReschedule();
 
                     print('fed or state ${_isFederalOrState}');
                     //   _isFederalOrState == false ? changeInterestRateForPrivate() : null;

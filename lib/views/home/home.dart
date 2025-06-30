@@ -89,16 +89,18 @@ class Home extends StatelessWidget {
 
 class HomeContent extends StatefulWidget {
   final int?  passLoanOfficer;
-  const HomeContent({Key? key,this.passLoanOfficer}) : super(key: key);
+  final bool? shouldReloadHomeScreen;
+  const HomeContent({Key? key,this.passLoanOfficer,this.shouldReloadHomeScreen}) : super(key: key);
 
   @override
-  _HomeContentState createState() => _HomeContentState(passLoanOfficer: this.passLoanOfficer);
+  _HomeContentState createState() => _HomeContentState(passLoanOfficer: this.passLoanOfficer, shouldReloadHomeScreen: this.shouldReloadHomeScreen);
 }
 
 class _HomeContentState extends State<HomeContent> {
 
   int?  passLoanOfficer;
-  _HomeContentState({this.passLoanOfficer});
+  bool? shouldReloadHomeScreen;
+  _HomeContentState({this.passLoanOfficer,this.shouldReloadHomeScreen});
 
 
   // checkTour() async{
@@ -118,6 +120,8 @@ class _HomeContentState extends State<HomeContent> {
   @override
 
 
+  static bool _alreadyInitialized = false;
+
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
   final GlobalKey _three = GlobalKey();
@@ -127,6 +131,7 @@ class _HomeContentState extends State<HomeContent> {
   int?  totalCommision = 0;
   bool isCycleClicked = false;
   bool isLoading = false;
+  bool allFeaturesLoaded = false;
   final formatCurrency = NumberFormat.currency(locale: "en_US",
       symbol: "");
 
@@ -186,18 +191,42 @@ class _HomeContentState extends State<HomeContent> {
 
   void initState() {
     // TODO: implement initState
-   // checkTour();
-   getStaffID();
-  //  getCLientsList();
-    getSalesUsername();
-    calculateCommision();
-    getProductCycle();
-    // _verifyVersion();
-    // getCycleStatus();
-    getDateTime();
-  //  print('passgedd << ${passLoanOfficer}');
-    identifyUser_MixPanel();
-    super.initState();
+
+
+
+    _checkAndInitialize();
+      // _alreadyInitialized = true; // Mark as initialized
+      // getStaffID();
+      // //  getCLientsList();
+      // getSalesUsername();
+      // calculateCommision();
+      // getProductCycle();
+      //
+      // getDateTime();
+      // //  print('passgedd << ${passLoanOfficer}');
+      // identifyUser_MixPanel();
+      // super.initState();
+
+  }
+
+  Future<void> _checkAndInitialize({bool?  isRefresh = false}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool alreadyInitialized = prefs.getBool('alreadyInitialized001') ?? false;
+      print('alreadyInitialized >> ${!alreadyInitialized} isRefresh >> ${isRefresh}');
+    if (shouldReloadHomeScreen == true || isRefresh == true) {
+      // Run your one-time logic
+      print('got here>> reading');
+      getStaffID();
+      getSalesUsername();
+      calculateCommision();
+      getProductCycle();
+      getDateTime();
+      identifyUser_MixPanel();
+
+
+      // Save the flag so it doesn't run again
+      await prefs.setBool('alreadyInitialized001', true);
+    }
   }
 
   identifyUser_MixPanel() async{
@@ -676,153 +705,159 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildBodyList() {
-    return LoadingOverlay(
-      isLoading: isLoading,
-      progressIndicator: Container(
-        height: 120,
-        width: 120,
-        child:  Lottie.asset('assets/images/newLoader.json'),
-      ),
-      child: ListView(
-        children: <Widget>[
-          homeAppBar(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: cycleWidget(),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+    return RefreshIndicator(
 
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 20),
-          //   child: AppStats(),
-          // ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: SizedBox(
-              height: AppHelper().pageHeight(context)! * 0.21, // Adjust height as needed
-              child: PageView(
-                controller: PageController(viewportFraction: 0.94),
-                children: [
-                  AppStats(
-                    backgroundColor: const Color(0xff077DBB), // First background color
-                  ),
-                  SecondAppStats(
-                    backgroundColor: Colors.white, // Second background color
-                    textColor: Colors.black, // Change text color for white background
-                  ),
-                ],
+      onRefresh: () async{
+       return _checkAndInitialize(isRefresh: true);
+      },
+      child: LoadingOverlay(
+        isLoading: isLoading,
+        progressIndicator: Container(
+          height: 120,
+          width: 120,
+          child:  Lottie.asset('assets/images/newLoader.json'),
+        ),
+        child: ListView(
+          children: <Widget>[
+            homeAppBar(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: cycleWidget(),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 20),
+            //   child: AppStats(),
+            // ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: SizedBox(
+                height: AppHelper().pageHeight(context)! * 0.21, // Adjust height as needed
+                child: PageView(
+                  controller: PageController(viewportFraction: 0.94),
+                  children: [
+                    AppStats(
+                      backgroundColor: const Color(0xff077DBB), // First background color
+                    ),
+                    SecondAppStats(
+                      backgroundColor: Colors.white, // Second background color
+                      textColor: Colors.black, // Change text color for white background
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Row(
-                      children: [
-                        Text('Supervisor: '),
-                        Text('${supervisor}',style: TextStyle(color:Colors.black,fontWeight: FontWeight.w100,fontFamily: 'Nunito SansRegular'),)
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.white
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
                         children: [
-                          Text('Agent Code: '),
-                          Text('${agentCode}',style: TextStyle(color:Colors.black,fontWeight: FontWeight.w100))
+                          Text('Supervisor: '),
+                          Text('${supervisor}',style: TextStyle(color:Colors.black,fontWeight: FontWeight.w100,fontFamily: 'Nunito SansRegular'),)
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text('Referral Code: '),
-                          Text('${newStaffId}',style: TextStyle(color:Colors.black,fontWeight: FontWeight.w100,fontSize: 12))
-                        ],
-                      )
-                    ],
-                  )
-                ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Agent Code: '),
+                            Text('${agentCode}',style: TextStyle(color:Colors.black,fontWeight: FontWeight.w100))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text('Referral Code: '),
+                            Text('${newStaffId}',style: TextStyle(color:Colors.black,fontWeight: FontWeight.w100,fontSize: 12))
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
 
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                appCards('Group 239746.svg','Loans',totalLoanCount,totalLoanAmount,loancounts: 'Loan Count',amount: "Total Amount"),
-                SizedBox(width: 15,),
-                appCards('digitalLoanSvg.svg','Digital Loans',totalDigitalLoanCount ?? 0,totalDigitalLoanDisbursedAmount ?? 0.0,amount: "Total Disbursed"),
-              ],
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  appCards('Group 239746.svg','Loans',totalLoanCount,totalLoanAmount,loancounts: 'Loan Count',amount: "Total Amount"),
+                  SizedBox(width: 15,),
+                  appCards('digitalLoanSvg.svg','Digital Loans',totalDigitalLoanCount ?? 0,totalDigitalLoanDisbursedAmount ?? 0.0,amount: "Total Disbursed"),
+                ],
+              ),
+
             ),
 
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 20),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       appCards('Group 14.svg','Failed \nDisbursements',totalFailedDisbursedLoanCount,totalFailedDisbursedLoanAmount),
+            //       SizedBox(width: 15,),
+            //       appCards('Group 14 (1).svg','Disbursed Loans',totalDisbursedLoanCount,totalDisbursedLoanAmount),
+            //     ],
+            //   ),
+            //
+            // ),
+
+
+          AppSummaryCard(
+            sections: [
+              {
+                "title": "Disbursed",
+                "count": totalDisbursedLoanCount,
+                "amount": totalDisbursedLoanAmount,
+                "iconColor": Colors.green,
+              },
+              {
+                "title": "Undisbursed",
+                "count": totalUnDisbursedLoanCount,
+                "amount": totalUnDisbursedLoanAmount,
+                "iconColor": Colors.orange,
+              },
+              {
+                "title": "Failed",
+                "count": totalFailedDisbursedLoanCount,
+                "amount": totalFailedDisbursedLoanAmount,
+                "iconColor": Colors.red,
+              },
+            ],
           ),
 
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       appCards('Group 14.svg','Failed \nDisbursements',totalFailedDisbursedLoanCount,totalFailedDisbursedLoanAmount),
-          //       SizedBox(width: 15,),
-          //       appCards('Group 14 (1).svg','Disbursed Loans',totalDisbursedLoanCount,totalDisbursedLoanAmount),
-          //     ],
-          //   ),
-          //
-          // ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
 
 
-        AppSummaryCard(
-          sections: [
-            {
-              "title": "Disbursed",
-              "count": totalDisbursedLoanCount,
-              "amount": totalDisbursedLoanAmount,
-              "iconColor": Colors.green,
-            },
-            {
-              "title": "Undisbursed",
-              "count": totalUnDisbursedLoanCount,
-              "amount": totalUnDisbursedLoanAmount,
-              "iconColor": Colors.orange,
-            },
-            {
-              "title": "Failed",
-              "count": totalFailedDisbursedLoanCount,
-              "amount": totalFailedDisbursedLoanAmount,
-              "iconColor": Colors.red,
-            },
+
+
+
+
+
           ],
         ),
-
-        SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
-
-
-
-
-
-
-
-        ],
       ),
     );
   }

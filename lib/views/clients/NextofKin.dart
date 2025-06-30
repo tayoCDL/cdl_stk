@@ -574,23 +574,23 @@ class _NextOfKinDetailsState extends State<NextOfKinDetails> {
     if (newClientData != null) {
       setState(() {
         nextOfKin = newClientData;
-        relationshipInt = nextOfKin[0]['relationshipId'];
-        maritalInt = nextOfKin[0]['maritalStatusId'];
-        genderInt = nextOfKin[0]['genderId'];
-        titleInt = nextOfKin[0]['titleId'];
-        nextOfKinTitle = nextOfKin[0]['title'];
-        nextOfKinGender = nextOfKin[0]['gender'];
-        nextOfKinMaritalStatus = nextOfKin[0]['maritalStatus'];
-        nextOfKinrelationship = nextOfKin[0]['relationship'];
+        relationshipInt = nextOfKin[0]['relationshipId'] ?? '';
+        maritalInt = nextOfKin[0]['maritalStatusId'] ?? '';
+        genderInt = nextOfKin[0]['genderId'] ?? '';
+        titleInt = nextOfKin[0]['titleId'] ?? '';
+        nextOfKinTitle = nextOfKin[0]['title'] ?? '';
+        nextOfKinGender = nextOfKin[0]['gender'] ?? '';
+        nextOfKinMaritalStatus = nextOfKin[0]['maritalStatus'] ?? '';
+        nextOfKinrelationship = nextOfKin[0]['relationship'] ?? '';
       });
     }
 
-    firstname.text = nextOfKin[0]['firstName'];
-    middlename.text = nextOfKin[0]['middleName'];
-    lastname.text = nextOfKin[0]['lastName'];
-    phonenumber.text = nextOfKin[0]['mobileNumber'];
-    age.text = nextOfKin[0]['age'].toString();
-    bsc.text = nextOfKin[0]['qualification'];
+    firstname.text = nextOfKin[0]['firstName'] ?? '';
+    middlename.text = nextOfKin[0]['middleName'] ?? '';
+    lastname.text = nextOfKin[0]['lastName'] ?? '';
+    phonenumber.text = nextOfKin[0]['mobileNumber'] ?? '';
+    age.text = nextOfKin[0]['age'].toString() ?? '';
+    bsc.text = nextOfKin[0]['qualification'] ?? '';
 
     prefs.setInt(
         'tempNextOfKinInt', nextOfKin.isEmpty ? null : nextOfKin[0]['id']);

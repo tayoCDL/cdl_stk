@@ -18,6 +18,7 @@ import 'package:sales_toolkit/widgets/Stepper.dart';
 import 'package:sales_toolkit/widgets/constants.dart';
 import 'package:sales_toolkit/widgets/dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sales_toolkit/util/helper_class.dart';
 
 class NewLoan extends StatefulWidget {
   // const NewLoan({Key? key}) : super(key: key);
@@ -206,7 +207,7 @@ class _NewLoanState extends State<NewLoan> {
 
   var productData = [];
 
-  loadLoanTemplates() async {
+  Future<void> loadLoanTemplates() async {
     print('this is clientID ${clientID} ${employerId}');
     int?  empID = employerID == null ? employerId : employerID;
     print('empID ${empID}');
@@ -215,7 +216,7 @@ class _NewLoanState extends State<NewLoan> {
     });
     final Future<Map<String, dynamic>> respose =
         RetCodes().getLoanProducts(clientID, empID);
-    respose.then((response) {
+    respose.then((response) async {
       setState(() {
         _isLoading = false;
       });
@@ -239,15 +240,13 @@ class _NewLoanState extends State<NewLoan> {
       print('sector ID ${sectorID}');
 
 
-// real_sandbox
-      var filtered = newEmp
-          .where((element) =>
-      element['id'] == 40 || element['id'] == 43 || element['id'] == 36 || element['id'] == 28 || element['id'] == 30 || element['id'] == 52 || element['id'] == 94 || element['id'] == 95 || element['id'] == 96 || element['id'] == 49 || element['id'] == 111)
-          .toList();
-
+      // Get allowed loan IDs from Firebase Remote Config
+      final allowedIds = await AppHelper().getAllowedEmployeeIds();
+      print('Allowed employee IDs: $allowedIds');
       
-      // NEW PRODUCTION
-      //  || element['id'] == 42
+      var filtered = newEmp
+          .where((element) => allowedIds.contains(element['id']))
+          .toList();
 
        // element['id'] == 100 || element['id'] == 101
        //   var filtered = newEmp

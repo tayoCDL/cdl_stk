@@ -8,7 +8,7 @@ goBack(BuildContext context,String?  value,{required VoidCallback newFn}){
   if(value == 'go_back'){
    MyRouter.popPage(context);
   }else if(value == 'go_home'){
-    MyRouter.pushPageReplacement(context, MainScreen());
+    MyRouter.pushPageReplacement(context, MainScreen(shouldReloadHomeScreen: false,));
   }
 }
 

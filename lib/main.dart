@@ -35,10 +35,8 @@ import 'package:provider/provider.dart';
 // import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
 // import 'package:sentry_flutter/sentry_flutter.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-// import 'package:firebase_analytics/firebase_analytics.dart';
-// import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:sales_toolkit/firebase_options.dart';
 
 const String? onesignalId = "fbfb56c1-16aa-466a-8f6b-85ce4fa4883e";
 
@@ -115,11 +113,10 @@ void main() async {
 
   //print('this is player Id ${playerId} ${playerIdEmail}');
   WidgetsFlutterBinding.ensureInitialized();
-
-  // await Firebase.initializeApp();
-  //
-  // // Pass all uncaught errors from the framework to Crashlytics.
-  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatefulWidget {

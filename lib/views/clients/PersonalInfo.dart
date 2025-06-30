@@ -189,7 +189,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   int? maritalInt;
   String? no_of_dependents;
   String? marital_status;
-  int? client_dependent_number;
+  int? client_dependent_number = 0;
   String? client_status;
 
   // new
@@ -207,17 +207,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
     getEducationLevelList();
     getEmailValStatus();
     print(' >> gender ${dateOfBirth}');
+    // every passed data
     //   print('ClientInt ${ClientInt} passedAccountnumber ${PassedAccountNumber} passedAccountName ${PassedAccountName}');
     firstname.text = bvnFirstName!;
     lastname.text = bvnLastName!;
     middlename.text = bvnMiddleName!;
-    emailaddress.text = bvnEmail!;
+    emailaddress.text = bvnEmail ?? '';
     phoneNumber.text = bvnPhone1!;
-    dateController.text = '';
-        // dateOfBirth == null
-          //  ? '' : retsNx360dates(DateTime.parse(dateOfBirth!));
-    titleInt = PassedtitleInt;
-    genderInt = PassedgenderInt;
+    // dateController.text =
+    //      dateOfBirth == null
+    //         ? '' : dateOfBirth!;
+    dateController.text = dateOfBirth == null ? '' : retsNx360dates(DateTime.parse(dateOfBirth!));
+    titleInt = PassedtitleInt ?? 0;
+   // genderInt = PassedgenderInt;
     educationInt = PassededucationInt;
     no_of_dependents = PassednoOfdepsInt.toString();
 
@@ -275,7 +277,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     setState(() {
       personalInfo = newClientData;
       titleInt = newClientData['title']['id'] ?? 0;
-      _title = newClientData['title']['name'] ?? 0;
+      _title = newClientData['title']['name'] ?? '';
       genderInt = newClientData['gender']['id'] ?? 0;
       marital_status = newClientData['maritalStatus']['name'] ?? '';
       educationInt = newClientData['educationLevel']['id'] ?? '';
@@ -382,7 +384,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
           titleArray = collectTitle;
           List<dynamic> selectID =
               allTitle.where((element) => element['name'] == _title).toList();
-          titleInt = selectID[0]['id'] == null ? null : selectID[0]['id'];
+            print('>> select Id >> ${selectID}');
+          titleInt = (selectID.isEmpty || selectID[0] == null || selectID[0]['id']== null || selectID.isEmpty ) ? null : selectID[0]['id'];
         });
       }
     });
@@ -475,10 +478,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
         setState(() {
           genderArray = collectGender;
           List<dynamic> selectID = allGender
-              .where((element) => element['name'] == bvnGender)
+              .where((element) => element['name'].toString().toLowerCase() == bvnGender?.toLowerCase())
               .toList();
-         // genderInt = selectID[0]['id'] == null ? null : selectID[0]['id'];
-         // print('gender In from Init ${genderInt}');
+         // print('>> all gender ${selectID}  ${allGender} ${bvnGender}');
+          genderInt = selectID[0]['id'] == null ? null : selectID[0]['id'];
+        //  print('gender In from Init ${genderInt}');
         });
       }
     });
@@ -1031,6 +1035,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         'alt_phoneNumber': alt_phoneNumber.text,
         'emailAddress': emailaddress.text,
         'dateController': dateController.text,
+      //  'dateController': '11 March 1990',
         'title': titleInt,
         'gender': genderInt,
         'no_of_dependents': int.tryParse(no_of_dependents!),
@@ -1042,6 +1047,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
         'educationLevel': educationInt,
         // 'employmentSectorId': prefs.getInt('employment_type')
       };
+
+
 
       final Future<Map<String, dynamic>> respose =
           addClientProvider.addPersonal(personalData, client_status);
@@ -1094,7 +1101,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             duration: Duration(seconds: 3),
           ).show(context);
         } else {
-          print('account numhweh ${PassedAccountName} ${PassedAccountNumber}');
+        //  print('account numhweh ${PassedAccountName} ${PassedAccountNumber}');
           if (PassedAccountName != null && PassedAccountNumber != '') {
             Map<String, dynamic> colBankData = {
               'id': null,

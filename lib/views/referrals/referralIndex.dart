@@ -33,21 +33,21 @@ class _ReferralIndexState extends State<ReferralIndex> {
   int?  countUncompleted = 0;
   List<dynamic> totalReferrals = [];
   getStaffID() async{
-    // final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData();
-    // respose.then(
-    //         (response) {
-    //
-    //        print('this is referal ${response}');
-    //       setState(() {
-    //         referalCount = response['referralCount'];
-    //         totalReferrals = response['totalReferral'];
-    //         uncompleted = totalReferrals.where((element) => element['status']['value'] == 'InComplete').toList();
-    //         countUncompleted = uncompleted.length;
-    //         staffRefId = response['data']['id'];
-    //       });
-    //
-    //     }
-    // );
+    final Future<Map<String,dynamic>> respose =   RetCodes().getReferalsAndStaffData();
+    respose.then(
+            (response) {
+
+           print('this is referal ${response}');
+          setState(() {
+            referalCount = response['referralCount'];
+            totalReferrals = response['totalReferral'];
+            uncompleted = totalReferrals.where((element) => element['status']['value'] == 'InComplete').toList();
+            countUncompleted = uncompleted.length;
+            staffRefId = response['data']['id'];
+          });
+
+        }
+    );
 
   }
 
@@ -87,7 +87,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
         break;
       case 'mobile' :
       //  MyRouter.popPage(context);
-        String?  shareLink = '*5120*2*${refId}#';
+        String?  shareLink = '*5120*2*${staffRefId}#';
         String?  useLink = 'Use this referral link from ${staffName} to register on our mobile App \n\n ${shareLink}';
       // Share.share(useLink,);
         share(useLink);
@@ -95,7 +95,7 @@ class _ReferralIndexState extends State<ReferralIndex> {
 
       case 'whatsapp' :
       //  MyRouter.popPage(context);
-        String?  shareLink = '${refId}';
+        String?  shareLink = '${staffRefId}';
         String?  useLink = 'Use this referral link from ${staffName} to book loan on whatsapp http://wa.me/2349070309430?text=Apply+for+loan+with+${shareLink}';
         // Share.share(useLink,);
         share(useLink);
